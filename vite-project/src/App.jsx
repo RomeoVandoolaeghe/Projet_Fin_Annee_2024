@@ -5,9 +5,7 @@ import Navbar from './components/navbar/navbar'; // Importez Navbar en utilisant
 
 function App() {
   return (
-    <div>
       <Navbar />
-    </div>
   );
 }
 

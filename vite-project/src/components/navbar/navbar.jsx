@@ -11,6 +11,7 @@ const Navbar = () => {
         <li><a href="/events">EVENEMENT</a></li>
         <li><a href="/group">GROUPE</a></li>
         <li><a href="/hall-of-fame">HALL OF FAME</a></li>
+        <li><a href="/profil">PROFIL</a></li>
       </ul>
     </nav>
   );
