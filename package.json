@@ -7,14 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node index.js",
-    "client": "cd vite-project && npm run dev"
+    "client": "cd vite && npm run dev"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
-    "mysql": "^2.18.1",
-    "sql": "^0.78.0"
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
