@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
         host: 'localhost',
         user: 'root',
         password: 'root',
-        database: 'node',
+        database: 'hangout',
     });
 
     //connexion à la base de données
@@ -37,8 +37,15 @@ app.get('/', (req, res) => {
     });
 
     //requete pour afficher les données de la table users
-    connection.query('SELECT id FROM users', (err, rows) => {
-        res.send(rows);
+    connection.query('SELECT * FROM utilisateur', (err, rows) => {
+        if (err) {
+            console.log("requete impossible");
+            return;
+        }
+        else{
+            res.send(rows);
+        }
+
     });
     //fermeture de la connexion
     connection.end();
@@ -48,6 +55,6 @@ app.get('/', (req, res) => {
 
 
 
-app.get('/', (req, res) => {
+app.get('/hello', (req, res) => {
     res.send('Hello World');    
 });
