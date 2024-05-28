@@ -7,14 +7,18 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node index.js",
-    "client": "cd vite-project && npm run dev"
+    "client": "cd vite && npm run dev"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@vitejs/plugin-react": "^4.3.0",
     "express": "^4.19.2",
     "mysql": "^2.18.1",
-    "sql": "^0.78.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.23.1",
+    "vite": "^5.2.11"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
