@@ -15,14 +15,10 @@
     "@vitejs/plugin-react": "^4.3.0",
     "express": "^4.19.2",
     "mysql": "^2.18.1",
-<<<<<<< Updated upstream
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.1",
-    "vite": "^5.2.11"
-=======
     "vite": "^5.2.12"
->>>>>>> Stashed changes
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
