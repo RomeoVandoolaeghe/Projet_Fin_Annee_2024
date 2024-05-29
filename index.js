@@ -4,6 +4,8 @@
 const express = require('express');
 const port = process.env.PORT || 3000;
 const mysql = require('mysql');
+const bcrypt = require('bcrypt');
+
 
 //creation de l'application express
 const app = express();
@@ -17,7 +19,7 @@ app.listen(port, () => {
 
 
 //requete get pour afficher les données de la table users
-app.get('/', (req, res) => {
+app.post('/connexion', (req, res) => {
 
     //creation de la connexion
     const connection = mysql.createConnection({
@@ -37,12 +39,13 @@ app.get('/', (req, res) => {
     });
 
     //requete pour afficher les données de la table users
-    connection.query('SELECT * FROM utilisateur', (err, rows) => {
+    connection.query('INSERT INTO utilisateur (`ID_Utilisateur`, `PSEUDO`, `PASSWORD_USER`, `DESCRIPTION_USER`, `IMAGE_USER`, `HISTORIQUE_SORTIES`, `WISHLIST`) VALUES (NULL, "hugo", "test", "salut", "img", "lille", "lille centre")', (err, rows) => {
         if (err) {
             console.log("requete impossible");
             return;
-        }
+        } 
         else{
+            console.log("requete reussie");
             res.send(rows);
         }
 
@@ -56,5 +59,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/hello', (req, res) => {
-    res.send('Hello World');    
+    res.send('Hello World');  
+
+    
 });

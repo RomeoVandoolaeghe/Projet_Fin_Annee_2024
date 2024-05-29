@@ -55,6 +55,7 @@ CREATE TABLE DISPONIBILITE(
     ID_Utilisateur INT,
     Date_Dispo_debut DATETIME,
     Date_Dispo_fin DATETIME,
+    Statut_Dispo VARCHAR(50),
     PRIMARY KEY (ID_Utilisateur, Date_Dispo_debut, Date_Dispo_fin),
     FOREIGN KEY (ID_Utilisateur) REFERENCES Utilisateur(ID_Utilisateur)
 );
