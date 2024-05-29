@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@syncfusion/ej2-react-schedule": "^25.2.6",
     "@vitejs/plugin-react": "^4.3.0",
     "express": "^4.19.2",
     "mysql": "^2.18.1",
