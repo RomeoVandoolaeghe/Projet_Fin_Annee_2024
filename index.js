@@ -88,6 +88,10 @@ app.post('/connexion', async (req, res) => {
     }
 });
 
+app.get('/connexion', async (req, res) => {
+
+});
+
 // API pour ajouter une disponibilité
 app.post('/disponibilites', async (req, res) => {
     const {datetimedebut,datetimefin} = req.body;

@@ -7,7 +7,9 @@ import Disponibilites from './disponibilites.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Disponibilites/>
+    <Connexion/>
+    <Inscription/>
+    <Deconnexion/>
   </React.StrictMode>,
 )
 

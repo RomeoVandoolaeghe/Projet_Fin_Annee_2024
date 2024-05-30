@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
+// Composant pour gérer les disponibilités
 function Disponibilites() {
+
+    // Utiliser le hook useState pour initialiser les disponibilités
     const [formData, setFormData] = useState({
         datetimedebut: '',
         datetimefin: ''
     });
 
+    // Utiliser le hook useState pour initialiser les disponibilités
     const [disponibilites, setDisponibilites] = useState([]);
 
+    // Fonction pour gérer les changements dans le formulaire
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -17,6 +23,7 @@ function Disponibilites() {
         });
     };
 
+    // Fonction pour réinitialiser le formulaire
     const resetForm = () => {
         setFormData({
             datetimedebut: '',
@@ -24,12 +31,14 @@ function Disponibilites() {
         });
     };
 
+    // Fonction pour soumettre le formulaire
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('DateTime submitted: ', formData);
+        console.log('DateTime submitted: ', formData); // Afficher les données du formulaire
         
-        const url = 'http://localhost:3000/disponibilites';
+        const url = 'http://localhost:3000/disponibilites'; // L'URL de l'API à laquelle vous envoyez la requête POST
 
+        // Envoi de la requête POST à l'API
         axios.post(url, formData)
             .then(response => {
                 console.log('Réponse du serveur:', "Disponibilites enregistrées avec succès");
@@ -43,11 +52,12 @@ function Disponibilites() {
     };
 
 
-    // Fonction pour récupérer les disponibilités
+    // Fonction pour récupérer les disponibilités depuis l'API
     const fetchDisponibilites = () => {
         axios.get('http://localhost:3000/disponibilites')
             .then(response => {
                 setDisponibilites(response.data);
+                console.log('Disponibilités récupérées avec succès:', response.data);
             })
             .catch(error => {
                 console.error('Erreur lors de la récupération des disponibilités :', error);
@@ -56,7 +66,7 @@ function Disponibilites() {
 
     // Utiliser useEffect pour récupérer les disponibilités au montage du composant
     useEffect(() => {
-        fetchDisponibilites();
+        fetchDisponibilites(); 
     }, []);
 
     return (
@@ -91,6 +101,7 @@ function Disponibilites() {
                     </li>
                 ))}
             </ul>
+            
         </div>
     );
 }

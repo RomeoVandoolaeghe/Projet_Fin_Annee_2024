@@ -24,6 +24,8 @@ function Connexion() {
     });
   };
 
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form Data:', formData);
@@ -42,7 +44,8 @@ function Connexion() {
       });
 
     resetForm(); // Clear le formulaire
-  };
+    };
+
 
 
   return (
