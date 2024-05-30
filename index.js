@@ -88,6 +88,31 @@ app.post('/connexion', async (req, res) => {
     }
 });
 
+// API pour ajouter une disponibilité
+app.post('/disponibilites', async (req, res) => {
+    const {datetimedebut,datetimefin} = req.body;
+    db.query('INSERT INTO disponibilite (`ID_Utilisateur`, `Date_Dispo_debut`, `Date_Dispo_fin`) VALUES (?, ?, ?);', ['5',datetimedebut,datetimefin], (err, result) => {
+        if (err) {
+            console.error("Erreur lors de l'insertion dans la base de données : ", err);
+        }
+    });
+
+
+});
+
+app.get('/disponibilites', async (req, res) => {
+    try {
+        const [result] = await db.promise().query('SELECT * FROM disponibilite');
+        res.json(result);
+    } catch (err) {
+        console.error("Erreur lors de la récupération des disponibilités : ", err);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
+
+
+
 
 app.post('/logout', (req, res) => {
     res.clearCookie('Pseudo_Cookie'); 
