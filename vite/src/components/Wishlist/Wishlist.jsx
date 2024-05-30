@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Wishlist.css';
 
-const Wishlist = () => {
-  const activities = [
-    { activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
-    { activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
-    { activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
-    { activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
-    { activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
-  ];
+const initialActivities = [
+  { activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
+  { activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
+  { activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
+  { activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
+  { activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
+];
+
+const Wishlist = ({ isEditMode }) => {
+  const [activities, setActivities] = useState(initialActivities);
+
+  const handleInputChange = (index, field, value) => {
+    const newActivities = [...activities];
+    newActivities[index][field] = value;
+    setActivities(newActivities);
+  };
 
   return (
     <div className="wishlist-container">
@@ -24,9 +32,39 @@ const Wishlist = () => {
         <tbody>
           {activities.map((item, index) => (
             <tr key={index}>
-              <td>{item.activity}</td>
-              <td>{item.duration}</td>
-              <td>{item.location}</td>
+              <td>
+                {isEditMode ? (
+                  <input
+                    type="text"
+                    value={item.activity}
+                    onChange={(e) => handleInputChange(index, 'activity', e.target.value)}
+                  />
+                ) : (
+                  item.activity
+                )}
+              </td>
+              <td>
+                {isEditMode ? (
+                  <input
+                    type="text"
+                    value={item.duration}
+                    onChange={(e) => handleInputChange(index, 'duration', e.target.value)}
+                  />
+                ) : (
+                  item.duration
+                )}
+              </td>
+              <td>
+                {isEditMode ? (
+                  <input
+                    type="text"
+                    value={item.location}
+                    onChange={(e) => handleInputChange(index, 'location', e.target.value)}
+                  />
+                ) : (
+                  item.location
+                )}
+              </td>
             </tr>
           ))}
         </tbody>

@@ -13,3 +13,17 @@
     width: 84%; /* Prend toute la largeur disponible */
   }
   
+  .ProfileHeader input, .ProfileHeader textarea {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .availability textarea {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 14px;
+  }
+  
