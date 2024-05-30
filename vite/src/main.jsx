@@ -6,9 +6,7 @@ import Deconnexion from './deconnexion.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Connexion/>
-    <br/><br/>
-    <Deconnexion/>
+    <Inscription/>
   </React.StrictMode>,
 )
 

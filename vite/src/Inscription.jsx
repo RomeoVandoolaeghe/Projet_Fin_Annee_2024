@@ -69,6 +69,7 @@ function Inscription() {
             name="e_mail"
             value={formData.e_mail}
             onChange={handleChange}
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$" 
           />
         </div>
         <br></br>
@@ -80,6 +81,7 @@ function Inscription() {
             name="password"
             value={formData.password}
             onChange={handleChange}
+            pattern="^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#$%^&*_=+-]).{8,12}$"
             required
           />
         </div>
