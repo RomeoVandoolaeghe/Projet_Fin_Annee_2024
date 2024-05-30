@@ -1,9 +1,10 @@
 import React from 'react';
+import './ProfileHeader.css';
 
 const ProfileHeader = () => {
   return (
-    <div className="profile">
-      <div className="profile-picture"></div>
+    <div className="ProfileHeader">
+      <div className="profile-picture"><img src="profil.jpg" alt="profile-picture" /></div>
       <h2>JACQUES WEBSTER</h2>
       <div className="description">
         <h3>Description</h3>

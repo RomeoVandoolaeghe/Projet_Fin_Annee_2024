@@ -1,4 +1,5 @@
 import React from 'react';
+import './FriendsList.css';
 
 const friends = [
   { name: 'Ragnar Lodbrok', status: 'online' },
