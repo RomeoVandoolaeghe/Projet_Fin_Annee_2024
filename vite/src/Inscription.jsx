@@ -1,23 +1,26 @@
 import { useState } from 'react'
 import axios from 'axios';
 
+// Composant pour gérer l'inscription
 function Inscription() {
 
+  // Utiliser le hook useState pour initialiser les données du formulaire
   const [formData, setFormData] = useState({
     pseudo: '',
     e_mail: '',
     password: '',
   });
 
+  // Fonction pour gérer les changements dans le formulaire
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value 
     });
   };
 
-
+// Fonction pour réinitialiser le formulaire
   const resetForm = () => {
     setFormData({
       pseudo: '',
@@ -26,6 +29,7 @@ function Inscription() {
     });
   };
 
+  // Fonction pour soumettre le formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form Data:', formData);
@@ -36,7 +40,7 @@ function Inscription() {
     axios.post(url, formData)
       .then(response => {
         console.log('Réponse du serveur:', response.data);
-        //document.cookie = "Pseudo_Cookie=; path=/; max-age=0";
+
       })
       .catch(error => {
         console.error('Erreur lors de la requête POST:', error);
