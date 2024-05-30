@@ -33,15 +33,15 @@ function Inscription() {
     // L'URL de l'API à laquelle vous envoyez la requête POST
     const url = 'http://localhost:3000/inscription';
 
-  axios.post(url, formData)
-  .then(response => {
-    console.log('Réponse du serveur:', response.data);
-    document.cookie = "Pseudo_Cookie="+formData.pseudo+"; path=/; max-age=500000"; // max-age en secondes (ici, 1 heure)
-    //document.cookie = "Pseudo_Cookie=; path=/; max-age=0";
-  })
-  .catch(error => {
-    console.error('Erreur lors de la requête POST:', error);
-  });
+    axios.post(url, formData)
+      .then(response => {
+        console.log('Réponse du serveur:', response.data);
+        document.cookie = "Pseudo_Cookie=" + formData.pseudo + "; path=/; max-age=500000"; // max-age en secondes (ici, 1 heure)
+        //document.cookie = "Pseudo_Cookie=; path=/; max-age=0";
+      })
+      .catch(error => {
+        console.error('Erreur lors de la requête POST:', error);
+      });
 
     resetForm(); // Clear le formulaire
   };
@@ -76,16 +76,16 @@ function Inscription() {
         <div>
           <label htmlFor="password">Password: </label>
           <input
-            type="password" 
+            type="password"
             id="password"
             name="password"
             value={formData.password}
-            onChange={handleChange} 
+            onChange={handleChange}
             required
           />
         </div>
         <br></br>
-       
+
         <button type="submit">Envoyer </button>
       </form>
     </div>

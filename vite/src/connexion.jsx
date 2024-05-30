@@ -28,6 +28,17 @@ function Connexion() {
     e.preventDefault();
     console.log('Form Data:', formData);
 
+    // L'URL de l'API à laquelle vous envoyez la requête POST
+    const url = 'http://localhost:3000/connexion';
+
+    axios.post(url, formData)
+      .then(response => {
+        console.log('Réponse du serveur:', response.data);
+      })
+      .catch(error => {
+        console.error('Erreur lors de la requête POST:', error);
+      });
+
     resetForm(); // Clear le formulaire
   };
 
@@ -50,11 +61,11 @@ function Connexion() {
         <div>
           <label htmlFor="password">Password: </label>
           <input
-            type="password" 
+            type="password"
             id="password"
             name="password"
             value={formData.password}
-            onChange={handleChange} 
+            onChange={handleChange}
             required
           />
         </div>

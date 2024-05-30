@@ -32,14 +32,14 @@ db.connect((err) => {
 });
 
 
-
+//api pour l'inscription
 app.post('/inscription', async (req, res) => {
     const { pseudo, e_mail, password } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insérer l'utilisateur dans la base de données
-    const sql = 'INSERT INTO utilisateur2 (Pseudo, Mail, Password) VALUES (?, ?, ?)';
+    const sql = 'INSERT INTO utilisateur (Pseudo, Mail, Password) VALUES (?, ?, ?)';
 
     
     db.query(sql, [pseudo, e_mail, hashedPassword], (err, result) => {
@@ -54,6 +54,55 @@ app.post('/inscription', async (req, res) => {
 });
 
 
+
+//api pour la connexion
+app.post('/connexion', async (req, res) => {
+    const { pseudo, password } = req.body;
+
+
+    // Insérer l'utilisateur dans la base de données
+    //const sql = 'INSERT INTO utilisateur2 (Pseudo, Mail, Password) VALUES (?, ?, ?)';
+    const sql = 'SELECT * FROM utilisateur WHERE Pseudo = ?';
+    
+
+    db.query(sql, [pseudo], (err, result) => {
+        if (err) {
+            console.error("Erreur serveur:", err);
+            return res.status(500).send('Erreur serveur');
+        }
+        // Vérifier si l'utilisateur existe
+        if (result.length === 0) {
+            // Utilisateur non trouvé
+            return res.send('Utilisateur non trouvé');
+        }
+        
+
+        // Vérifier le mot de passe
+        const user = result[0];
+        bcrypt.compare(password, user.Password, (err, isMatch) => {
+            if (err) {
+                console.error("Erreur serveur:", err);
+                return res.status(500).send('Erreur serveur');
+            }
+            if (!isMatch) {
+                return res.send('Mot de passe incorrect');
+            }
+            res.send('Connexion réussie');
+        });
+
+
+
+
+
+
+    });
+
+
+
+});
+
+
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });
+

@@ -5,7 +5,7 @@ import Connexion from './connexion.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Inscription />
+    <Connexion />
   </React.StrictMode>,
 )
 
