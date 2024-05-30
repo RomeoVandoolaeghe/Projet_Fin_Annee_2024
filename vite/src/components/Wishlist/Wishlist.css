@@ -1,0 +1,30 @@
+.wishlist-container {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  h2 {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .wishlist-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .wishlist-table th, .wishlist-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .wishlist-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  

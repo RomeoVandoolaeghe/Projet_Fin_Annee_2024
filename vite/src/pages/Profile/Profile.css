@@ -1,0 +1,29 @@
+  .main-content {
+    display: grid;
+    grid-template-columns: repeat(3, 10fr); /* Trois colonnes de largeur égale */
+    gap: 2px; /* Espace entre les colonnes */
+    width: 100%; /* Prend toute la largeur disponible */
+    padding: 20px;
+  }
+  
+  .availability, .history, .friends-list {
+    background: white;
+    border-radius: 5px;
+    text-align: center;
+    width: 84%; /* Prend toute la largeur disponible */
+  }
+  
+  .ProfileHeader input, .ProfileHeader textarea {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .availability textarea {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 14px;
+  }
+  

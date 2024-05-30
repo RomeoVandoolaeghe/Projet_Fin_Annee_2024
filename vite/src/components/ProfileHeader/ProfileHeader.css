@@ -1,0 +1,30 @@
+.ProfileHeader {
+    display: flex;
+    flex-direction: column; /* Aligne les éléments en colonne */
+    align-items: center; /* Centre les éléments horizontalement */
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+.ProfileHeader p{
+    text-align: center;
+    margin-left: 170px;
+    margin-right: 170px;
+    font-size: 12px;
+}
+  .profile-info {
+    display: flex;
+    flex-direction: column; /* Aligne les éléments en colonne */
+    align-items: center;
+    margin-bottom: 20px; /* Espace sous la section info */
+  }
+  
+  .profile-picture img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px; /* Espace sous la photo de profil */
+  }
+  
+  
+  
