@@ -5,9 +5,9 @@ const ProfileHeader = () => {
   return (
     <div className="ProfileHeader">
       <div className="profile-picture"><img src="profil.jpg" alt="profile-picture" /></div>
-      <h2>JACQUES WEBSTER</h2>
+      <h3>JACQUES WEBSTER</h3>
       <div className="description">
-        <h3>Description</h3>
+        <h4>Description</h4>
         <p>Ouvert, communicatif, aime rencontrer de nouvelles personnes et élargir son réseau social. Trouve de l'énergie dans les interactions avec les autres et aime être au centre de l'activité sociale.</p>
       </div>
     </div>
