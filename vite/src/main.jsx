@@ -1,10 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import Inscription from './Inscription.jsx'
+import Connexion from './connexion.jsx'
+import Deconnexion from './deconnexion.jsx'
+import Disponibilites from './disponibilites.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <Connexion/>
+    <Inscription/>
+    <Deconnexion/>
   </React.StrictMode>,
 )
+
