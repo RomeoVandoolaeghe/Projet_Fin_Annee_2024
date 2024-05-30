@@ -36,7 +36,6 @@ function Inscription() {
     axios.post(url, formData)
       .then(response => {
         console.log('Réponse du serveur:', response.data);
-        document.cookie = "Pseudo_Cookie=" + formData.pseudo + "; path=/; max-age=500000"; // max-age en secondes (ici, 1 heure)
         //document.cookie = "Pseudo_Cookie=; path=/; max-age=0";
       })
       .catch(error => {

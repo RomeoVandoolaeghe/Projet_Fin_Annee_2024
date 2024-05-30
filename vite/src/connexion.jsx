@@ -34,6 +34,8 @@ function Connexion() {
     axios.post(url, formData)
       .then(response => {
         console.log('Réponse du serveur:', response.data);
+        document.cookie = "Pseudo_Cookie=" + formData.pseudo + "; path=/; max-age=500000"; // max-age en secondes (ici, 1 heure)
+
       })
       .catch(error => {
         console.error('Erreur lors de la requête POST:', error);
