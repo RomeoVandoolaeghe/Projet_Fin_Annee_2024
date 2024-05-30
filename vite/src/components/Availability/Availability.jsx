@@ -4,7 +4,7 @@ import './Availability.css';
 const Availability = () => {
   return (
     <div className="availability">
-      <h3>Disponibilités</h3>
+      <h4>Disponibilités</h4>
       {/* Ajoutez ici le contenu pour les disponibilités */}
     </div>
   );

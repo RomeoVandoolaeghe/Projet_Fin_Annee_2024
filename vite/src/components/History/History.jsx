@@ -4,7 +4,7 @@ import './History.css';
 const History = () => {
   return (
     <div className="history">
-      <h3>Historique des sorties</h3>
+      <h4>Historique des sorties</h4>
       {/* Ajoutez ici le contenu pour l'historique des sorties */}
     </div>
   );

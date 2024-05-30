@@ -15,7 +15,7 @@ const friends = [
 const FriendsList = () => {
   return (
     <div className="friends-list">
-      <h3>Liste d’amis</h3>
+      <h4>Liste d’amis</h4>
       <ul>
         {friends.map((friend, index) => (
           <li key={index} className={friend.status}>

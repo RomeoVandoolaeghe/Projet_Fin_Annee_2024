@@ -3,6 +3,7 @@ import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import Availability from '../../components/Availability/Availability';
 import History from '../../components/History/History';
 import FriendsList from '../../components/FriendsList/FriendsList';
+import Wishlist from '../../components/Wishlist/Wishlist';
 import './Profile.css';
 
 function ProfilePage() {
@@ -14,6 +15,7 @@ function ProfilePage() {
         <History />
         <FriendsList />
       </div>
+      <Wishlist />
     </div>
   );
 }

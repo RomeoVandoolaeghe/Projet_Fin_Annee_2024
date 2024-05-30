@@ -1,25 +1,15 @@
-.Profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-image: url('/path/to/your/background-image.jpg');
-    background-size: cover;
-    height: 100vh;
-    color: white;
-  }
-  
   .main-content {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 colonnes de largeur égale */
-    gap: 20px; /* espace entre les éléments de la grille */
-    width: 100%;
+    grid-template-columns: repeat(3, 10fr); /* Trois colonnes de largeur égale */
+    gap: 2px; /* Espace entre les colonnes */
+    width: 100%; /* Prend toute la largeur disponible */
     padding: 20px;
   }
   
   .availability, .history, .friends-list {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 10px;
+    background: white;
     border-radius: 5px;
     text-align: center;
+    width: 84%; /* Prend toute la largeur disponible */
   }
   
