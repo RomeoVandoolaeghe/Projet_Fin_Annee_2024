@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './ProfileHeader.css';
 
 const initialUser = {
-  Nom: ' Thorkell',
-  Prenom: 'Le Grand',
-  Description: 'Ouvert communicatif aime rencontrer de nouvelles personnes et élargir son réseau social. Trouve de lénergie dans les interactions avec les autres et aime être au centre de lactivité sociale.',
+  Nom: ' Yecir',
+  Prenom: 'Badir',
+  Description: 'Ouvert communicatif aime rencontrer de nouvelles personnes et élargir son réseau social.',
 };
 
 const ProfileHeader = ({ isEditMode }) => {

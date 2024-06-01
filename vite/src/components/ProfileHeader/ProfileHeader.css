@@ -6,6 +6,8 @@
     padding: 10px;
     width: 90%;
     color: black;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
   }
 
 .ProfileHeader p{

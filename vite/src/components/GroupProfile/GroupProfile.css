@@ -1,4 +1,5 @@
 .groups-list {
+    background: rgba(255, 255, 255, 0.8);
     padding: 10px; /* Augmenté le padding pour plus de confort */
     border-radius: 10px; /* Coins plus arrondis pour un style plus doux */
     text-align: center;

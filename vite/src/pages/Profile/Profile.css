@@ -4,6 +4,9 @@
   align-items: center;
   width: 100%;
   font-size: 14px;
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  width: 100vw;
+  margin-right: 10px;
 }
 
 .edit-icon-container {
@@ -32,6 +35,7 @@
 
 .column:nth-child(3) {
   width: 20%;
+  margin-right: 15px;
 }
 .friends-list {
   margin-bottom: 10px;
