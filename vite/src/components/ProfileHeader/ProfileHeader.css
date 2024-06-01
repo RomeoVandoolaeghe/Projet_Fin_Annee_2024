@@ -1,16 +1,19 @@
 .ProfileHeader {
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column; /* Aligne les éléments en colonne */
     align-items: center; /* Centre les éléments horizontalement */
-    margin-top: 20px;
     padding: 10px;
+    width: 90%;
+    color: black;
   }
-  
+
 .ProfileHeader p{
     text-align: center;
-    margin-left: 170px;
-    margin-right: 170px;
+    margin-left: 30px;
+    margin-right: 30px;
     font-size: 12px;
+
 }
   .profile-info {
     display: flex;
@@ -23,7 +26,6 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    margin-bottom: 10px; /* Espace sous la photo de profil */
   }
   
   

@@ -25,8 +25,10 @@ const Wishlist = ({ isEditMode }) => {
 
   return (
     <div className="wishlist-container">
-      <h2>Ma Wishlist</h2>
-      <button className="add-button" onClick={handleAddActivity}>Ajouter une activité</button>
+      <div className="header-container">
+        <h3>Ma Wishlist</h3>
+        <button className="add-button" onClick={handleAddActivity}>Ajouter une activité + </button>
+      </div>
       <table className="wishlist-table">
         <thead>
           <tr>
@@ -75,7 +77,8 @@ const Wishlist = ({ isEditMode }) => {
           ))}
         </tbody>
       </table>
-    </div>
+</div>
+
   );
 }
 

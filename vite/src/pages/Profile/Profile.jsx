@@ -6,6 +6,7 @@ import Availability from '../../components/Availability/Availability';
 import History from '../../components/History/History';
 import FriendsList from '../../components/FriendsList/FriendsList';
 import Wishlist from '../../components/Wishlist/Wishlist';
+import GroupProfile from '../../components/GroupProfile/GroupProfile';
 import './Profile.css';
 
 function ProfilePage() {
@@ -25,13 +26,20 @@ function ProfilePage() {
           title={isEditMode ? 'Sauvegarder les modifications' : 'Modifier le profil'}
         />
       </div>
-      <ProfileHeader isEditMode={isEditMode} />
       <div className="main-content">
-        <Availability isEditMode={isEditMode} />
-        <History isEditMode={isEditMode} />
-        <FriendsList isEditMode={isEditMode} />
+        <div className="column">
+          <ProfileHeader isEditMode={isEditMode} />
+          <Availability isEditMode={isEditMode} />
+        </div>
+        <div className="column">
+          <History isEditMode={isEditMode} />
+          <Wishlist isEditMode={isEditMode} />
+        </div>
+        <div className="column">
+          <FriendsList isEditMode={isEditMode} />
+          <GroupProfile isEditMode={isEditMode} />
+        </div>
       </div>
-      <Wishlist isEditMode={isEditMode} />
     </div>
   );
 }

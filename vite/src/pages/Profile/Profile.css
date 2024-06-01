@@ -1,63 +1,114 @@
-  .main-content {
-    display: grid;
-    grid-template-columns: 4fr 14fr 7fr; /* Trois colonnes de largeur égale */
-    gap: 2px; /* Espace entre les colonnes */
-    width: 100%; /* Prend toute la largeur disponible */
-    padding: 20px;
-  }
-  
-  .friends-list {
-    background: white;
-    border-radius: 5px;
-    text-align: center;
-    width: 84%; /* Prend toute la largeur disponible */
-  }
-  
-  .availability {
-    background: white;
-    border-radius: 5px;
-    text-align: center;
-    width: 90%; /* Prend toute la largeur disponible */
-  }
+.Profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-size: 14px;
+}
 
-  .history{
-    background: white;
-    border-radius: 5px;
-    text-align: center;
-    width: 96%; /* Prend toute la largeur disponible */
-  }
-  .ProfileHeader input, .ProfileHeader textarea {
-    width: 100%;
-    margin: 5px 0;
-    padding: 10px;
-    font-size: 14px;
-  }
-  
-  .availability textarea {
-    width: 100%;
-    margin: 5px 0;
-    padding: 10px;
-    font-size: 12px;
-  }
-  
-  .Profile {
-    position: relative; /* Assurez-vous que le conteneur principal est positionné relativement */
-  }
-  
-  .edit-icon-container {
-    position: absolute;
-    top: 10px; /* Ajustez selon votre besoin */
-    left: 10px; /* Ajustez selon votre besoin */
-  }
-  
-  .edit-icon {
-    cursor: pointer;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .edit-icon:hover {
-    color: #007BFF;
-  }
-  
-  
+.edit-icon-container {
+  align-self: flex-end;
+  margin: 10px;
+}
+
+.main-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column {
+  padding: 20px;
+  color: black;
+  text-align: center;
+}
+
+.column:nth-child(1) {
+  width: 20%;
+}
+
+.column:nth-child(2) {
+  width: 70%;
+}
+
+.column:nth-child(3) {
+  width: 20%;
+}
+.friends-list {
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+} 
+.ProfileHeader {
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+} 
+.availability {
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+} 
+/*
+.main-content {
+  display: flex;
+  gap: 20px; 
+  width: 100%;
+  padding: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+}
+
+.wishlist, .friends-list, .GroupProfile {
+  background: blue;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+} 
+.history {
+  background: blue;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+*/
+
+.ProfileHeader input, .ProfileHeader textarea {
+  width: 100%;
+  margin: 5px 0;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.availability textarea {
+  width: 100%;
+  margin: 5px 0;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.Profile {
+  position: relative; /* Assurez-vous que le conteneur principal est positionné relativement */
+}
+
+.edit-icon-container {
+  position: absolute;
+  top: 12px; /* Ajustez selon votre besoin */
+  left: 12px; /* Ajustez selon votre besoin */
+}
+
+.edit-icon {
+  cursor: pointer;
+  font-size: 15px;
+  color: #333;
+}
+
+.edit-icon:hover {
+  color: #007BFF;
+}
