@@ -18,9 +18,15 @@ const Wishlist = ({ isEditMode }) => {
     setActivities(newActivities);
   };
 
+  const handleAddActivity = () => {
+    const newActivity = { activity: "", duration: "", location: "" };
+    setActivities([...activities, newActivity]);
+  };
+
   return (
     <div className="wishlist-container">
       <h2>Ma Wishlist</h2>
+      <button className="add-button" onClick={handleAddActivity}>Ajouter une activité</button>
       <table className="wishlist-table">
         <thead>
           <tr>
