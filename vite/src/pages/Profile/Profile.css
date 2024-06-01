@@ -1,18 +1,31 @@
   .main-content {
     display: grid;
-    grid-template-columns: repeat(3, 10fr); /* Trois colonnes de largeur égale */
+    grid-template-columns: 4fr 14fr 7fr; /* Trois colonnes de largeur égale */
     gap: 2px; /* Espace entre les colonnes */
     width: 100%; /* Prend toute la largeur disponible */
     padding: 20px;
   }
   
-  .availability, .history, .friends-list {
+  .friends-list {
     background: white;
     border-radius: 5px;
     text-align: center;
     width: 84%; /* Prend toute la largeur disponible */
   }
   
+  .availability {
+    background: white;
+    border-radius: 5px;
+    text-align: center;
+    width: 90%; /* Prend toute la largeur disponible */
+  }
+
+  .history{
+    background: white;
+    border-radius: 5px;
+    text-align: center;
+    width: 96%; /* Prend toute la largeur disponible */
+  }
   .ProfileHeader input, .ProfileHeader textarea {
     width: 100%;
     margin: 5px 0;
@@ -24,6 +37,27 @@
     width: 100%;
     margin: 5px 0;
     padding: 10px;
-    font-size: 14px;
+    font-size: 12px;
   }
+  
+  .Profile {
+    position: relative; /* Assurez-vous que le conteneur principal est positionné relativement */
+  }
+  
+  .edit-icon-container {
+    position: absolute;
+    top: 10px; /* Ajustez selon votre besoin */
+    left: 10px; /* Ajustez selon votre besoin */
+  }
+  
+  .edit-icon {
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .edit-icon:hover {
+    color: #007BFF;
+  }
+  
   
