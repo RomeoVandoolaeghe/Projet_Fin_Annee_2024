@@ -22,7 +22,7 @@ const Navbar = () => {
           {dropdownVisible && (
             <ul className="dropdown">
               <li><Link to="/Profile">Voir le profil</Link></li>
-              <li><Link to="/Settings">Paramètres du compte</Link></li>
+              <li><Link to="/Parametres">Paramètres du compte</Link></li>
               <li><Link to="/Logout">Déconnexion</Link></li>
             </ul>
           )}
