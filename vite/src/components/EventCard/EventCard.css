@@ -1,0 +1,31 @@
+.event-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .event-title-location {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .event-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .event-location {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .event-time {
+    font-size: 16px;
+  }
+  
