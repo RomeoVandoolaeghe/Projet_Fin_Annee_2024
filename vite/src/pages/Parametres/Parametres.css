@@ -3,7 +3,7 @@
 .parametres {
   font-family: Arial, sans-serif;
   width: 80%;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 20px;
   background: white;
   border-radius: 10px;
@@ -22,6 +22,8 @@
 
 .parametres section {
   margin-bottom: 20px;
+  border-bottom: 1px solid black;
+  padding-bottom: 15px;
 }
 
 .parametres section h2 {

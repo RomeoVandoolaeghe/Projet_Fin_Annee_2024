@@ -1,6 +1,15 @@
 // Parametres.jsx
 import React, { useState } from 'react';
 import './Parametres.css';
+import Availability from '../../components/Availability/Availability';
+
+const initialAvailability = [
+  { day: 'Lundi', start: '09:00', end: '18:00' },
+  { day: 'Mardi', start: '09:00', end: '18:00' },
+  { day: 'Mercredi', start: '09:00', end: '18:00' },
+  { day: 'Jeudi', start: '09:00', end: '18:00' },
+  { day: 'Vendredi', start: '09:00', end: '18:00' },
+];
 
 const Parametres = () => {
   // States for each section
@@ -15,6 +24,7 @@ const Parametres = () => {
   const [language, setLanguage] = useState('fr');
   const [theme, setTheme] = useState('light');
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
@@ -109,11 +119,28 @@ const Parametres = () => {
           <h2>Disponibilités</h2>
           <div>
             <label>Modifier les disponibilités :</label>
-            <input
-              type="date"
-              value={availability}
-              onChange={(e) => setAvailability(e.target.value)}
-            />
+            <table className="availability-table">
+        <thead>
+          <tr>
+            <th>Jour</th>
+            <th>Début</th>
+            <th>Fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          {initialAvailability.map((item, index) => (
+            <tr key={index}>
+              <td>{item.day}</td>
+              <td>
+                <span>{item.start}</span>
+              </td>
+              <td>
+                <span>{item.end}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
           </div>
         </section>
 

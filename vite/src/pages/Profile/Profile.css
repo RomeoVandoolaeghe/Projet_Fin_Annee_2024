@@ -8,11 +8,6 @@
   margin-right: 10px;
 }
 
-.edit-icon-container {
-  align-self: flex-end;
-  margin: 10px;
-}
-
 .main-content {
   display: flex;
   justify-content: space-between;
@@ -98,20 +93,4 @@
 
 .Profile {
   position: relative; /* Assurez-vous que le conteneur principal est positionné relativement */
-}
-
-.edit-icon-container {
-  position: absolute;
-  top: 12px; /* Ajustez selon votre besoin */
-  left: 12px; /* Ajustez selon votre besoin */
-}
-
-.edit-icon {
-  cursor: pointer;
-  font-size: 15px;
-  color: #333;
-}
-
-.edit-icon:hover {
-  color: #007BFF;
 }
