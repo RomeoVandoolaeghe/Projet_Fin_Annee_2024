@@ -5,7 +5,7 @@ import Home from './pages/Accueil/Accueil';
 import ProfilePage from './pages/Profile/Profile';
 import Parametres from './pages/Parametres/Parametres';
 import HallofFame from './pages/HallofFame/HallofFame';
-
+import AddFriend from './pages/AddFriend/AddFriend';
 function App() {
   return (
     <Router>
@@ -15,6 +15,7 @@ function App() {
         <Route path="/Profile" element={<ProfilePage />} />
         <Route path="/Parametres" element={<Parametres />} />
         <Route path="/HallofFame" element={<HallofFame />} />
+        <Route path="/AddFriend" element={<AddFriend />} />
       </Routes>
     </Router>
   );

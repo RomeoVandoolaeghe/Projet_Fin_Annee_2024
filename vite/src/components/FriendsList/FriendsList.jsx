@@ -1,5 +1,7 @@
 import React from 'react';
 import './FriendsList.css';
+import { Link } from 'react-router-dom';
+
 
 const friends = [
   { name: 'Ragnar Lodbrok', status: 'online' },
@@ -24,7 +26,6 @@ const FriendsList = () => {
           </li>
         ))}
       </ul>
-      <button>Ajouter un ami</button>
     </div>
   );
 }

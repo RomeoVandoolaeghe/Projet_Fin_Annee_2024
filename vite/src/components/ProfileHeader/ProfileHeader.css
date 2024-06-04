@@ -1,34 +1,44 @@
 .ProfileHeader {
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column; /* Aligne les éléments en colonne */
-    align-items: center; /* Centre les éléments horizontalement */
-    padding: 10px;
-    width: 90%;
-    color: black;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-  }
-
-.ProfileHeader p{
-    text-align: center;
-    margin-left: 30px;
-    margin-right: 30px;
-    font-size: 12px;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  width: 90%;
+  color: black;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
 }
-  .profile-info {
-    display: flex;
-    flex-direction: column; /* Aligne les éléments en colonne */
-    align-items: center;
-    margin-bottom: 20px; /* Espace sous la section info */
-  }
-  
-  .profile-picture img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-  }
-  
-  
-  
+
+.ProfileHeader p {
+  text-align: center;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-size: 12px;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-picture img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.profile-info input, .profile-info textarea {
+  width: 80%;
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.profile-info input[type="email"], .profile-info input[type="tel"] {
+  width: 80%;
+}

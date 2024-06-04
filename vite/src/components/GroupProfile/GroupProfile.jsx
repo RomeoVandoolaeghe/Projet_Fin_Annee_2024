@@ -2,14 +2,14 @@ import React from 'react';
 import './GroupProfile.css';
 
 const groups = [
-  { name: 'Ragnar Lodbrok', status: 'online' },
-  { name: 'Harald Hardrada', status: 'offline' },
-  { name: 'Thorfinn Karlsefni', status: 'online' },
-  { name: 'Thors Karlsefni', status: 'online' },
-  { name: 'Leif Erikson', status: 'online' },
-  { name: 'Thorkell Le Grand', status: 'online' },
-  { name: 'Knut Le Grand', status: 'offline' },
-  { name: 'Kjetill Eriksson', status: 'online' },
+  { name: 'Ragnar Lodbrok'},
+  { name: 'Harald Hardrada'},
+  { name: 'Thorfinn Karlsefni'},
+  { name: 'Thors Karlsefni'},
+  { name: 'Leif Erikson'},
+  { name: 'Thorkell Le Grand'},
+  { name: 'Knut Le Grand'},
+  { name: 'Kjetill Eriksson'},
 ];
 
 const GroupProfile = ({ isEditMode }) => {
@@ -18,13 +18,11 @@ const GroupProfile = ({ isEditMode }) => {
       <h4>Mes groupes</h4>
       <ul>
         {groups.map((group, index) => (
-          <li key={index} className={group.status}>
+          <li key={index}>
             {group.name}
-            <span className={`status ${group.status === 'online' ? 'green' : 'red'}`}></span>
           </li>
         ))}
       </ul>
-      {isEditMode && <button>Ajouter un ami</button>}
     </div>
   );
 }

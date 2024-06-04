@@ -20,6 +20,7 @@ function Home () {
       <HeaderHome name="Pascal" />
       <UpComingEvents events={events} />
     </div>
+
   );
 }
 
