@@ -63,9 +63,9 @@ const ProfileHeader = ({ isEditMode }) => {
             <h3>
               {user.Nom} {user.Prenom}
             </h3>
-            <p>Email: {user.Email}</p>
-            <p>Téléphone: {user.Telephone}</p>
-            <p>{user.Description}</p>
+            <p><strong>Email :</strong> {user.Email}</p>
+            <p><strong>Téléphone :</strong> {user.Telephone}</p>
+            <p><strong>Description : </strong>{user.Description}</p>
           </>
         )}
       </div>
