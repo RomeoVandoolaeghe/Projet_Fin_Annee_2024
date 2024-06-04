@@ -5,6 +5,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const app = express();
 
+
+
 // Utilisation du middleware CORS pour autoriser toutes les origines
 app.use(cors({}));
 app.use(cookieParser());
@@ -35,6 +37,8 @@ function errorHandler(err, req, res, next) {
 }
 app.use(errorHandler);
 
+
+
 // API pour l'inscription
 app.post('/inscription', async (req, res) => {
     const { pseudo, e_mail, password } = req.body;
@@ -63,6 +67,8 @@ app.post('/inscription', async (req, res) => {
     }
 });
 
+
+
 // API pour la connexion
 app.post('/connexion', async (req, res) => {
     const { pseudo, password } = req.body;
@@ -88,26 +94,36 @@ app.post('/connexion', async (req, res) => {
     }
 });
 
-app.get('/connexion', async (req, res) => {
-
-});
 
 // API pour ajouter une disponibilité
 app.post('/disponibilites', async (req, res) => {
-    const {datetimedebut,datetimefin} = req.body;
-    db.query('INSERT INTO disponibilite (`ID_Utilisateur`, `Date_Dispo_debut`, `Date_Dispo_fin`) VALUES (?, ?, ?);', ['5',datetimedebut,datetimefin], (err, result) => {
-        if (err) {
-            console.error("Erreur lors de l'insertion dans la base de données : ", err);
-        }
-    });
-
-
+    const { cookie_pseudo, datetimedebut, datetimefin } = req.body;
+    try {
+        const [rows] = await db.promise().query('SELECT ID_Utilisateur FROM utilisateur WHERE Pseudo = ?', [cookie_pseudo]);
+        const ID_user = rows[0].ID_Utilisateur.toString();
+        await db.promise().query('INSERT INTO disponibilite (`ID_Utilisateur`, `Date_Dispo_debut`, `Date_Dispo_fin`) VALUES (?, ?, ?);', [ID_user, datetimedebut, datetimefin], (err, result) => {
+            if (err) {
+                console.error("Erreur lors de l'insertion dans la base de données : ", err);
+            }
+        });
+        res.send('Disponibilité enregistrée avec succès');
+    } catch (err) {
+        console.error("Erreur lors de l'insertion dans la base de données : ", err);
+        res.status(500).send('Erreur serveur');
+    }
 });
 
+
+
+// API pour récupérer les disponibilités
 app.get('/disponibilites', async (req, res) => {
+    const cookie_pseudo = req.cookies.Pseudo_Cookie;
     try {
-        const [result] = await db.promise().query('SELECT * FROM disponibilite');
-        res.json(result);
+        const [result] = await db.promise().query('SELECT ID_Utilisateur FROM utilisateur WHERE Pseudo = ?', [cookie_pseudo]);
+        const ID_user = result[0].ID_Utilisateur.toString();
+        const [availabilityRows] = await db.promise().query('SELECT * FROM disponibilite WHERE ID_Utilisateur = ?', [ID_user]);
+        res.json(availabilityRows);
+
     } catch (err) {
         console.error("Erreur lors de la récupération des disponibilités : ", err);
         res.status(500).send('Erreur serveur');
@@ -117,12 +133,15 @@ app.get('/disponibilites', async (req, res) => {
 
 
 
-
+// API pour supprimer une disponibilité
 app.post('/logout', (req, res) => {
-    res.clearCookie('Pseudo_Cookie'); 
+    res.clearCookie('Pseudo_Cookie');
     res.send('Le cookie a été supprimé');
 });
 
+
+
+// Démarrer le serveur
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });

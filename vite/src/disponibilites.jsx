@@ -7,12 +7,13 @@ function Disponibilites() {
 
     // Utiliser le hook useState pour initialiser les disponibilités
     const [formData, setFormData] = useState({
+        cookie_pseudo: '',
         datetimedebut: '',
         datetimefin: ''
     });
 
-    // Utiliser le hook useState pour initialiser les disponibilités
-    const [disponibilites, setDisponibilites] = useState([]);
+
+
 
     // Fonction pour gérer les changements dans le formulaire
     const handleChange = (e) => {
@@ -26,23 +27,29 @@ function Disponibilites() {
     // Fonction pour réinitialiser le formulaire
     const resetForm = () => {
         setFormData({
+            cookie_pseudo: '',
             datetimedebut: '',
             datetimefin: ''
         });
     };
 
+    const cookie_pseudo = document.cookie.split('=')[1];
+    cookie_pseudo ? formData.cookie_pseudo = cookie_pseudo : formData.cookie_pseudo = '';
+
+
+
+
     // Fonction pour soumettre le formulaire
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('DateTime submitted: ', formData); // Afficher les données du formulaire
-        
+        console.log('formulaire: ', formData); // Afficher les données du formulaire
+
         const url = 'http://localhost:3000/disponibilites'; // L'URL de l'API à laquelle vous envoyez la requête POST
 
         // Envoi de la requête POST à l'API
         axios.post(url, formData)
             .then(response => {
-                console.log('Réponse du serveur:', "Disponibilites enregistrées avec succès");
-                fetchDisponibilites(); // Mettre à jour la liste des disponibilités après l'ajout
+                console.log('Réponse du serveur:', "Disponibilité enregistrée avec succès");
             })
             .catch(error => {
                 console.error('Erreur lors de la requête POST:', error);
@@ -52,22 +59,12 @@ function Disponibilites() {
     };
 
 
-    // Fonction pour récupérer les disponibilités depuis l'API
-    const fetchDisponibilites = () => {
-        axios.get('http://localhost:3000/disponibilites')
-            .then(response => {
-                setDisponibilites(response.data);
-                console.log('Disponibilités récupérées avec succès:', response.data);
-            })
-            .catch(error => {
-                console.error('Erreur lors de la récupération des disponibilités :', error);
-            });
-    };
 
-    // Utiliser useEffect pour récupérer les disponibilités au montage du composant
-    useEffect(() => {
-        fetchDisponibilites(); 
-    }, []);
+
+
+
+
+
 
     return (
         <div>
@@ -94,14 +91,8 @@ function Disponibilites() {
             </form>
 
             <h2>Liste des disponibilités</h2>
-            <ul>
-                {disponibilites.map((dispo, index) => (
-                    <li key={index}>
-                        Début: {dispo.Date_Dispo_debut}, Fin: {dispo.Date_Dispo_fin}
-                    </li>
-                ))}
-            </ul>
-            
+
+
         </div>
     );
 }
