@@ -12,7 +12,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'root', // Remplacez par votre mot de passe MySQL
-    database: 'Hanghout' // Remplacez par le nom de votre base de données
+    database: 'hanghout' // Remplacez par le nom de votre base de données
 });
 
 db.connect(err => {
