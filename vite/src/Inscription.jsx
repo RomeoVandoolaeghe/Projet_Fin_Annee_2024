@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 // Composant pour gérer l'inscription
 function Inscription() {

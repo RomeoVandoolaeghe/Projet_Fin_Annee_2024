@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 function Disponibilites() {
     const [disponibilites, setDisponibilites] = useState([]);
     const [error, setError] = useState(null);
@@ -10,7 +11,7 @@ function Disponibilites() {
         datetimefin: ''
     });
 
-    
+
     useEffect(() => {
         const fetchDisponibilites = async () => {
             try {
@@ -48,10 +49,10 @@ function Disponibilites() {
 
 
 
-    useEffect(() => {
-        const pseudoFromCookie = document.cookie.split('=')[1] || '';
-        setFormData({ ...formData, cookie_pseudo: pseudoFromCookie });
-    }, []);
+    // useEffect(() => {
+    //     const pseudoFromCookie = document.cookie.split('=')[1] || '';
+    //     setFormData({ ...formData, cookie_pseudo: pseudoFromCookie });
+    // }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -96,7 +97,7 @@ function Disponibilites() {
                 </div>
                 <button type="submit">Ajouter ma disponibilité</button>
             </form>
-            <h2>Liste des disponibilités</h2>
+            <h2>Mes disponibilités</h2>
             <ul>
                 {disponibilites.map((disponibilite, index) => (
                     <li key={index}>

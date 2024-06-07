@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 const session = require("express-session");
 require('dotenv').config();
 
+
+
 const app = express();
 
 app.use(cors({
@@ -21,10 +23,12 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     cookie: {
         maxAge: 3600000,
-        sameSite: 'strict',
-        secure: false
+        sameSite: 'strict', // Ensure this is set to 'strict' for better security
+        secure: false // Set to true if using https
     }
 }));
+
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -41,6 +45,8 @@ db.connect((err) => {
     }
     console.log('Connecté à la base de données');
 });
+
+
 
 function errorHandler(err, req, res, next) {
     console.error(err.stack);
@@ -80,26 +86,36 @@ app.post('/connexion', async (req, res) => {
         if (!isMatch) {
             return res.send('Mot de passe incorrect');
         }
+
+        // Vérifiez les données utilisateur obtenues de la base de données
+        console.log('User:', user);
+
+        // Définissez la session utilisateur
         req.session.user = {
-            id: user.ID_Utilisateur,
-            pseudo: user.Pseudo
+            id: user.ID_utilisateur,
         };
-        res.send('Connexion réussie');
+        res.send(req.session.user);
     } catch (err) {
         console.error("Erreur serveur:", err);
         res.status(500).send('Erreur serveur');
     }
 });
 
+
+
+
 app.post('/logout', (req, res) => {
-    req.session.destroy(err => {
+    req.session.destroy((err) => {
         if (err) {
-            return res.status(500).send('Erreur serveur');
+            console.error('Erreur lors de la déconnexion:', err);
         }
-        res.clearCookie(process.env.SESSION_NAME);
         res.send('Déconnexion réussie');
     });
 });
+
+
+
+
 
 function isAuthenticated(req, res, next) {
     if (req.session.user) {

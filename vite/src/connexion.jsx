@@ -3,6 +3,8 @@ import axios from 'axios'
 import './cssfolder/connexion.css';
 
 
+
+
 // Composant pour gérer la connexion
 function Connexion() {
 
@@ -39,10 +41,10 @@ function Connexion() {
     const url = 'http://localhost:3000/connexion';
 
     // Envoi de la requête POST à l'API
-    axios.post(url, formData)
+    axios.post(url, formData, { withCredentials: true })
       .then(response => {
         console.log('Réponse du serveur:', response.data);
-        document.cookie = "Pseudo_Cookie=" + formData.pseudo + "; path=/; max-age=500000;Secure"; // max-age en secondes (ici, 1 heure)
+        // document.cookie = "Pseudo_Cookie=" + formData.pseudo + "; path=/; max-age=500000;Secure"; // max-age en secondes (ici, 1 heure)
       })
       .catch(error => {
         console.error('Erreur lors de la requête POST:', error);
@@ -50,6 +52,10 @@ function Connexion() {
 
     resetForm(); // Clear le formulaire
     };
+
+
+
+
 
 
 
