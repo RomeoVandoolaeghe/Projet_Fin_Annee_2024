@@ -3,18 +3,31 @@ const bcrypt = require('bcrypt');
 const mysql = require('mysql2');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const session = require("express-session");
+require('dotenv').config();
+
 const app = express();
 
-
-
-// Utilisation du middleware CORS pour autoriser toutes les origines
-app.use(cors({}));
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 app.use(cookieParser());
-app.use(express.json()); // Pour analyser les requêtes JSON
+app.use(express.json());
+app.use(session({
+    name: process.env.SESSION_NAME,
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.SESSION_SECRET,
+    cookie: {
+        maxAge: 3600000,
+        sameSite: 'strict',
+        secure: false
+    }
+}));
 
 const PORT = process.env.PORT || 3000;
 
-// Configuration de la connexion à la base de données
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -22,7 +35,6 @@ const db = mysql.createConnection({
     database: 'hanghout'
 });
 
-// Connexion à la base de données
 db.connect((err) => {
     if (err) {
         throw err;
@@ -30,35 +42,24 @@ db.connect((err) => {
     console.log('Connecté à la base de données');
 });
 
-// Middleware pour gérer les erreurs
 function errorHandler(err, req, res, next) {
     console.error(err.stack);
     res.status(500).send('Erreur serveur');
 }
 app.use(errorHandler);
 
-
-
-// API pour l'inscription
 app.post('/inscription', async (req, res) => {
     const { pseudo, e_mail, password } = req.body;
-
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Vérification de l'existence du pseudo
         const [resultPseudo] = await db.promise().query('SELECT Pseudo FROM utilisateur WHERE Pseudo = ?', [pseudo]);
         if (resultPseudo.length > 0) {
             return res.send("Le pseudo existe déjà");
         }
-
-        // Vérification de l'existence de l'email
         const [resultEmail] = await db.promise().query('SELECT Mail FROM utilisateur WHERE Mail = ?', [e_mail]);
         if (resultEmail.length > 0) {
             return res.send("L'adresse mail existe déjà");
         }
-
-        // Insérer l'utilisateur dans la base de données
         await db.promise().query('INSERT INTO utilisateur (Pseudo, Mail, Password) VALUES (?, ?, ?)', [pseudo, e_mail, hashedPassword]);
         res.send('Utilisateur enregistré avec succès');
     } catch (err) {
@@ -67,26 +68,22 @@ app.post('/inscription', async (req, res) => {
     }
 });
 
-
-
-// API pour la connexion
 app.post('/connexion', async (req, res) => {
     const { pseudo, password } = req.body;
-
     try {
-        // Vérifier si l'utilisateur existe
         const [result] = await db.promise().query('SELECT * FROM utilisateur WHERE Pseudo = ?', [pseudo]);
         if (result.length === 0) {
             return res.send('Utilisateur non trouvé');
         }
-
-        // Vérifier le mot de passe
         const user = result[0];
         const isMatch = await bcrypt.compare(password, user.Password);
         if (!isMatch) {
             return res.send('Mot de passe incorrect');
         }
-
+        req.session.user = {
+            id: user.ID_Utilisateur,
+            pseudo: user.Pseudo
+        };
         res.send('Connexion réussie');
     } catch (err) {
         console.error("Erreur serveur:", err);
@@ -94,13 +91,27 @@ app.post('/connexion', async (req, res) => {
     }
 });
 
+app.post('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).send('Erreur serveur');
+        }
+        res.clearCookie(process.env.SESSION_NAME);
+        res.send('Déconnexion réussie');
+    });
+});
 
-// API pour ajouter une disponibilité
-app.post('/disponibilites', async (req, res) => {
-    const { cookie_pseudo, datetimedebut, datetimefin } = req.body;
+function isAuthenticated(req, res, next) {
+    if (req.session.user) {
+        return next();
+    }
+    res.status(401).send('Vous devez être connecté pour accéder à cette ressource');
+}
+
+app.post('/disponibilites', isAuthenticated, async (req, res) => {
+    const { datetimedebut, datetimefin } = req.body;
     try {
-        const [rows] = await db.promise().query('SELECT ID_Utilisateur FROM utilisateur WHERE Pseudo = ?', [cookie_pseudo]);
-        const ID_user = rows[0].ID_Utilisateur.toString();
+        const ID_user = req.session.user.id;
         await db.promise().query('INSERT INTO disponibilite (`ID_Utilisateur`, `Date_Dispo_debut`, `Date_Dispo_fin`) VALUES (?, ?, ?);', [ID_user, datetimedebut, datetimefin], (err, result) => {
             if (err) {
                 console.error("Erreur lors de l'insertion dans la base de données : ", err);
@@ -113,35 +124,17 @@ app.post('/disponibilites', async (req, res) => {
     }
 });
 
-
-
-// API pour récupérer les disponibilités
-app.get('/disponibilites', async (req, res) => {
-    const cookie_pseudo = req.cookies.Pseudo_Cookie;
+app.get('/disponibilites', isAuthenticated, async (req, res) => {
     try {
-        const [result] = await db.promise().query('SELECT ID_Utilisateur FROM utilisateur WHERE Pseudo = ?', [cookie_pseudo]);
-        const ID_user = result[0].ID_Utilisateur.toString();
-        const [availabilityRows] = await db.promise().query('SELECT * FROM disponibilite WHERE ID_Utilisateur = ?', [ID_user]);
-        res.json(availabilityRows);
-
+        const ID_user = req.session.user.id;
+        const [rows] = await db.promise().query('SELECT * FROM disponibilite WHERE ID_Utilisateur = ?', [ID_user]);
+        res.send(rows);
     } catch (err) {
         console.error("Erreur lors de la récupération des disponibilités : ", err);
         res.status(500).send('Erreur serveur');
     }
 });
 
-
-
-
-// API pour supprimer une disponibilité
-app.post('/logout', (req, res) => {
-    res.clearCookie('Pseudo_Cookie');
-    res.send('Le cookie a été supprimé');
-});
-
-
-
-// Démarrer le serveur
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });
