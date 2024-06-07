@@ -3,20 +3,21 @@ const bcrypt = require('bcrypt');
 const mysql = require('mysql2');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const session = require("express-session");
-require('dotenv').config();
+const session = require("express-session"); // Importe le module express-session
+require('dotenv').config(); // Charge les variables d'environnement à partir du fichier .env
 
 
 
-const app = express();
+const app = express(); // Crée une instance de l'application Express
 
+// Middleware pour gérer les requêtes CORS
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
 }));
-app.use(cookieParser());
-app.use(express.json());
-app.use(session({
+app.use(cookieParser()); // Middleware pour gérer les cookies
+app.use(express.json()); // Middleware pour gérer les données JSON
+app.use(session({ // Middleware pour gérer les sessions
     name: process.env.SESSION_NAME,
     resave: false,
     saveUninitialized: false,
@@ -30,15 +31,17 @@ app.use(session({
 
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // Port sur lequel le serveur écoute
 
-const db = mysql.createConnection({
+// Connexion à la base de données
+const db = mysql.createConnection({ 
     host: 'localhost',
     user: 'root',
     password: 'root',
     database: 'hanghout'
 });
 
+// Vérifiez la connexion à la base de données
 db.connect((err) => {
     if (err) {
         throw err;
@@ -47,13 +50,17 @@ db.connect((err) => {
 });
 
 
-
+// Middleware pour gérer les erreurs
 function errorHandler(err, req, res, next) {
     console.error(err.stack);
     res.status(500).send('Erreur serveur');
 }
 app.use(errorHandler);
 
+
+
+// Routes
+// Route pour l'inscription
 app.post('/inscription', async (req, res) => {
     const { pseudo, e_mail, password } = req.body;
     try {
@@ -74,6 +81,7 @@ app.post('/inscription', async (req, res) => {
     }
 });
 
+// Route pour la connexion
 app.post('/connexion', async (req, res) => {
     const { pseudo, password } = req.body;
     try {
@@ -103,7 +111,7 @@ app.post('/connexion', async (req, res) => {
 
 
 
-
+// Route pour la déconnexion
 app.post('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -116,7 +124,7 @@ app.post('/logout', (req, res) => {
 
 
 
-
+// Middleware pour vérifier si l'utilisateur est authentifié
 function isAuthenticated(req, res, next) {
     if (req.session.user) {
         return next();
@@ -124,6 +132,8 @@ function isAuthenticated(req, res, next) {
     res.status(401).send('Vous devez être connecté pour accéder à cette ressource');
 }
 
+
+// Route pour les disponibilités
 app.post('/disponibilites', isAuthenticated, async (req, res) => {
     const { datetimedebut, datetimefin } = req.body;
     try {
@@ -140,6 +150,8 @@ app.post('/disponibilites', isAuthenticated, async (req, res) => {
     }
 });
 
+
+// Route pour récupérer les disponibilités
 app.get('/disponibilites', isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
@@ -151,6 +163,8 @@ app.get('/disponibilites', isAuthenticated, async (req, res) => {
     }
 });
 
+
+// Route pour supprimer une disponibilité
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });

@@ -48,12 +48,6 @@ function Disponibilites() {
     };
 
 
-
-    // useEffect(() => {
-    //     const pseudoFromCookie = document.cookie.split('=')[1] || '';
-    //     setFormData({ ...formData, cookie_pseudo: pseudoFromCookie });
-    // }, []);
-
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Formulaire soumis :', formData);
