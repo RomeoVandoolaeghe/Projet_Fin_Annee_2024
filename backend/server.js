@@ -3,7 +3,7 @@ const mysql = require('mysql2');
 const cors = require('cors');
 
 const app = express();
-const port = 3001; // Utilisez un autre port
+const port = 3001; 
 
 app.use(cors());
 app.use(express.json());
@@ -12,7 +12,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'root', // Remplacez par votre mot de passe MySQL
-    database: 'hanghout' // Remplacez par le nom de votre base de données
+    database: 'ho' // Remplacez par le nom de votre base de données
 });
 
 db.connect(err => {

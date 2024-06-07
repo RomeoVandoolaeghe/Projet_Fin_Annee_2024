@@ -4,9 +4,13 @@ import './MostFrequentPlaces.css';
 const MostFrequentPlaces = ({ places }) => (
   <div className="stats-section">
     <h3>Lieux les Plus Fréquentés</h3>
-    <ul>
+    <ul className='MostFrequentPlaces'>
       {places.map((place, index) => (
-        <li key={index}>{place.name} - {place.times} visites</li>
+        <li key={index}> 
+          <img src={place.img} alt={place.name} />
+          <p> <strong> {place.name} </strong></p>
+          <p> Nombre de visite : {place.times}</p>
+        </li>
       ))}
     </ul>
   </div>

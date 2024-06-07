@@ -3,13 +3,7 @@ import './GroupProfile.css';
 
 const groups = [
   { name: 'Ragnar Lodbrok'},
-  { name: 'Harald Hardrada'},
-  { name: 'Thorfinn Karlsefni'},
-  { name: 'Thors Karlsefni'},
-  { name: 'Leif Erikson'},
-  { name: 'Thorkell Le Grand'},
-  { name: 'Knut Le Grand'},
-  { name: 'Kjetill Eriksson'},
+  
 ];
 
 const GroupProfile = ({ isEditMode }) => {
