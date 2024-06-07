@@ -1,9 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
-
 const app = express();
-const port = 3001; 
 
 app.use(cors());
 app.use(express.json());
@@ -11,11 +9,11 @@ app.use(express.json());
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root', // Remplacez par votre mot de passe MySQL
-    database: 'ho' // Remplacez par le nom de votre base de données
+    password: 'root',
+    database: 'ho'
 });
 
-db.connect(err => {
+db.connect((err) => {
     if (err) {
         console.error('Erreur de connexion à la base de données:', err);
         return;
@@ -23,17 +21,19 @@ db.connect(err => {
     console.log('Connecté à la base de données MySQL');
 });
 
-app.get('/api/data', (req, res) => {
-    const query = 'SELECT * FROM votre_table'; // Remplacez par votre requête SQL
-    db.query(query, (err, results) => {
+app.get('/groupes', (req, res) => {
+    const sql = 'SELECT Nom_groupe FROM Groupe';
+    db.query(sql, (err, result) => {
         if (err) {
-            res.status(500).send(err);
-        } else {
-            res.json(results);
+            console.error('Erreur lors de l\'exécution de la requête:', err);
+            res.status(500).send('Erreur du serveur');
+            return;
         }
+        res.json(result);
     });
 });
 
+const port = 3001;
 app.listen(port, () => {
-    console.log(`Serveur backend démarré sur le port ${port}`);
+    console.log(`Serveur en cours d'exécution sur le port ${port}`);
 });
