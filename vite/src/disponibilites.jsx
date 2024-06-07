@@ -6,7 +6,6 @@ function Disponibilites() {
     const [disponibilites, setDisponibilites] = useState([]);
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
-        cookie_pseudo: '',
         datetimedebut: '',
         datetimefin: ''
     });
@@ -41,7 +40,6 @@ function Disponibilites() {
 
     const resetForm = () => {
         setFormData({
-            cookie_pseudo: '',
             datetimedebut: '',
             datetimefin: ''
         });
