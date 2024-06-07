@@ -1,18 +1,8 @@
-// Parametres.jsx
 import React, { useState } from 'react';
+import axios from 'axios';
 import './Parametres.css';
-import Availability from '../../components/Availability/Availability';
-
-const initialAvailability = [
-  { day: 'Lundi', start: '09:00', end: '18:00' },
-  { day: 'Mardi', start: '09:00', end: '18:00' },
-  { day: 'Mercredi', start: '09:00', end: '18:00' },
-  { day: 'Jeudi', start: '09:00', end: '18:00' },
-  { day: 'Vendredi', start: '09:00', end: '18:00' },
-];
 
 const Parametres = () => {
-  // States for each section
   const [pseudo, setPseudo] = useState('');
   const [photo, setPhoto] = useState(null);
   const [description, setDescription] = useState('');
@@ -20,26 +10,29 @@ const Parametres = () => {
   const [twoFactorAuth, setTwoFactorAuth] = useState(false);
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [pushNotifications, setPushNotifications] = useState(false);
-  const [availability, setAvailability] = useState('');
   const [language, setLanguage] = useState('fr');
   const [theme, setTheme] = useState('light');
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log({
-      pseudo,
-      photo,
-      description,
-      password,
-      twoFactorAuth,
-      emailNotifications,
-      pushNotifications,
-      availability,
-      language,
-      theme
-    });
+    const formData = new FormData();
+    formData.append('pseudo', pseudo);
+    formData.append('photo', photo);
+    formData.append('description', description);
+    formData.append('password', password);
+    formData.append('twoFactorAuth', twoFactorAuth);
+    formData.append('emailNotifications', emailNotifications);
+    formData.append('pushNotifications', pushNotifications);
+    formData.append('language', language);
+    formData.append('theme', theme);
+
+    axios.post('http://localhost:3001/parametres', formData)
+      .then(response => {
+        console.log('Image mise à jour avec succès:', response.data);
+      })
+      .catch(error => {
+        console.error('Erreur lors de la mise à jour de l\'image:', error);
+      });
   };
 
   return (
@@ -119,28 +112,7 @@ const Parametres = () => {
           <h2>Disponibilités</h2>
           <div>
             <label>Modifier les disponibilités :</label>
-            <table className="availability-table">
-        <thead>
-          <tr>
-            <th>Jour</th>
-            <th>Début</th>
-            <th>Fin</th>
-          </tr>
-        </thead>
-        <tbody>
-          {initialAvailability.map((item, index) => (
-            <tr key={index}>
-              <td>{item.day}</td>
-              <td>
-                <span>{item.start}</span>
-              </td>
-              <td>
-                <span>{item.end}</span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            {/* Contenu de la table de disponibilités */}
           </div>
         </section>
 

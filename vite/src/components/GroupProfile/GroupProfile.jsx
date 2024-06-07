@@ -4,6 +4,7 @@ import './GroupProfile.css';
 
 const GroupProfile = () => {
   const [groups, setGroups] = useState([]);
+
   useEffect(() => {
     axios.get('http://localhost:3001/groupes')
       .then(response => {
