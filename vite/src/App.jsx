@@ -1,19 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
-import Accueil from './pages/Accueil';
+import Navbar from './components/Navbar/Navbar.jsx';
+import Events from './pages/Events/Events.jsx';
+import CreateOutput from './pages/CreateOutput/CreateOutput.jsx';
+import Calendar from './pages/Calendars/Calendars.jsx';
+import Login from './pages/Login/Login.jsx';
 
 function App() {
   return (
     <Router>
-      <Navbar />
+      {window.location.pathname !== '/' && <Navbar />}
       <Routes>
-        <Route path="/Accueil" element={<Accueil />} />
+        <Route path='/' element={<Login />} />
+        <Route path='/CreateOutput' element={<CreateOutput />} />
+        <Route path="/Events" element={<Events />} />
+        <Route path='/Calendar' element={<Calendar />} />
       </Routes>
     </Router>
   );
 }
-
-
 
 export default App;

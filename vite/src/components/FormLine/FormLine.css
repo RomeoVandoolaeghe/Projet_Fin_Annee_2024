@@ -1,0 +1,21 @@
+.input-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  gap: 10px; /* Espace entre le label et l'input */
+}
+
+.input-label {
+  margin: 0;
+  height: 2rem;
+  width: 50%;
+}
+
+.input-field {
+  padding: 5px; /* Ajoute un padding à l'input */
+  font-size: 14px; /* Ajuste la taille de la police */
+  border: 1px solid #ccc; /* Ajoute une bordure */
+  border-radius: 4px; /* Ajoute un rayon de bordure */
+  padding: 10px;
+}

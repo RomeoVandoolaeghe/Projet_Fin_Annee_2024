@@ -1,0 +1,13 @@
+* {
+  color: white;
+}
+.val {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid black;
+  margin: 2rem 7rem;
+  padding: 10px 20px;
+  background-color: rgba(70, 65, 65, 0.43);
+  border-radius: 10px;
+}
