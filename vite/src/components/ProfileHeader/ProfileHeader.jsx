@@ -77,9 +77,7 @@ const ProfileHeader = ({ isEditMode }) => {
             <p><strong>Description : </strong>{user.Description}</p>
           </>
         )}
-      </div>
-      <div className="availability">
-      <h4>Disponibilités</h4>
+        <h4>Disponibilités</h4>
       <table className="availability-table">
         <thead>
           <tr>
@@ -102,7 +100,8 @@ const ProfileHeader = ({ isEditMode }) => {
           ))}
         </tbody>
       </table>
-    </div>
+      </div>
+      
     </div>
   );
 };

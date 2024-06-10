@@ -7,6 +7,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   color: black;
+  margin-bottom: 20px;
 }
 
 .list-container h4 {
@@ -44,6 +45,26 @@
 
 .list-container .red {
   background-color: red;
+}
+
+
+/* Styles spécifiques aux invitations */
+.invitations-list .invitation-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 1.2em; /* Ajuste la taille des icônes selon vos préférences */
+}
+
+.icon.accept {
+  color: green;
+}
+
+.icon.reject {
+  color: red;
 }
 
 button {
