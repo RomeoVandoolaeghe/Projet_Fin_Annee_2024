@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { FaCheck, FaTimes, FaTrashAlt } from 'react-icons/fa';
 import './FriendsList.css';
 import { Link } from 'react-router-dom';
-import { FaCheck, FaTimes } from 'react-icons/fa';
 
 const friends = [
   { name: 'Ragnar Lodbrok', status: 'online' },
@@ -27,6 +27,11 @@ const group = [
 
 const FriendsList = () => {
   const [groups, setGroups] = useState(group);
+  const [showDeleteButtons, setShowDeleteButtons] = useState(false);
+
+  const toggleDeleteButtons = () => {
+    setShowDeleteButtons(!showDeleteButtons);
+  };
 
   return (
     <div>
@@ -45,12 +50,21 @@ const FriendsList = () => {
         </ul>
       </div>
       <div className="list-container friends-list">
-        <h4>Liste d’amis</h4>
+        <div className="friends-list-header">
+          <h4>Liste d’amis</h4>
+          <button className="toggle-delete" onClick={toggleDeleteButtons}>
+            {showDeleteButtons ? 'Annuler' : 'Gérer'}
+          </button>
+        </div>
         <ul>
           {friends.map((friend, index) => (
-            <li key={index} className={friend.status}>
+            <li key={index}>
               {friend.name}
-              <span className={`status ${friend.status === 'online' ? 'green' : 'red'}`}></span>
+              {showDeleteButtons ? (
+                <FaTrashAlt className="icon delete" />
+              ) : (
+                <span className={`status ${friend.status === 'online' ? 'green' : 'red'}`}></span>
+              )}
             </li>
           ))}
         </ul>

@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('path/to/background_image.jpg') no-repeat center center fixed; /* Ajoutez votre image de fond */
+    background-size: cover;
+}
+
+.form-container {
+    background: rgba(247, 247, 248, 0.8); /* Fond semi-transparent */
+    padding: 50px;
+    text-align: center;
+    width: 50%;
+    border-radius: 20px; /* Ajoutez des bords arrondis */
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: white;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between; /* Assure un bon espacement entre label et input */
+    align-items: center; /* Aligne verticalement le contenu */
+    width: 100%;
+    margin-bottom: 20px; /* Réduit l'espacement entre les groupes de formulaires */
+    color: white;
+}
+
+label {
+    width: 40%; /* Assurez une largeur fixe pour les labels */
+    text-align: left; /* Alignement à gauche des labels */
+}
+
+input[type="text"] {
+    width: 60%; /* Assurez une largeur fixe pour les champs de texte */
+    padding: 10px;
+    border-radius: 30px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+input[type="text"]::placeholder {
+    color: white;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Ajoutez un espace entre les boutons */
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+button[type="button"] {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+button[type="submit"] {
+    background-color: rgba(0, 123, 255, 0.8); /* Couleur bleue pour le bouton Créer */
+}
+
+button[type="submit"]:hover {
+    background-color: rgba(0, 123, 255, 1);
+}

@@ -47,7 +47,6 @@
   background-color: red;
 }
 
-
 /* Styles spécifiques aux invitations */
 .invitations-list .invitation-buttons {
   display: flex;
@@ -67,17 +66,39 @@
   color: red;
 }
 
+.icon.delete {
+  color: red;
+}
+
 button {
   margin-top: 10px;
   padding: 5px 10px;
   border: none;
-  background-color: #007BFF;
   color: white;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  text-decoration: none;
 }
 
 button:hover {
-  background-color: #0056b3;
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Styles pour le bouton de gestion */
+.friends-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-delete {
+  background-color: transparent;
+  color: #007BFF;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.toggle-delete:hover {
+  border: 0.5px solid blue;
 }
