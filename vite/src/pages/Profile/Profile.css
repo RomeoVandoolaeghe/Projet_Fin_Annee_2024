@@ -42,36 +42,6 @@
   width: 100%;
 } 
 
-/*
-.main-content {
-  display: flex;
-  gap: 20px; 
-  width: 100%;
-  padding: 20px;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  gap: 20px; 
-}
-
-.wishlist, .friends-list, .GroupProfile {
-  background: blue;
-  border-radius: 5px;
-  text-align: center;
-  padding: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-} 
-.history {
-  background: blue;
-  border-radius: 5px;
-  text-align: center;
-  padding: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-}
-*/
 
 .ProfileHeader input, .ProfileHeader textarea {
   width: 100%;

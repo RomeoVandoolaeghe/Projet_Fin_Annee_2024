@@ -1,46 +1,62 @@
-.friends-list {
+/* Styles communs */
+.list-container {
   background: rgba(255, 255, 255, 0.8);
-  padding: 10px; /* Augmenté le padding pour plus de confort */
-  border-radius: 10px; /* Coins plus arrondis pour un style plus doux */
+  padding: 10px;
+  border-radius: 10px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Légère ombre pour un effet de profondeur */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   color: black;
 }
 
-.friends-list ul {
-  list-style: none; /* Suppression des puces de la liste */
-  padding: 0; /* Suppression du padding par défaut */
+.list-container h4 {
+  text-align: left;
+  margin-bottom: 15px;
+  color: black;
 }
 
-.friends-list li {
-  display: flex; /* Affichage en flexbox pour aligner le nom et le statut */
-  justify-content: space-between; /* Espacement entre le nom et le statut */
-  align-items: center; /* Alignement vertical centré */
-  padding: 5px 0; /* Espacement vertical pour chaque élément de la liste */
-  border-bottom: 1px solid #ddd; /* Ligne de séparation entre les éléments */
+.list-container ul {
+  list-style: none;
+  padding: 0;
 }
 
-.friends-list li:last-child {
-  border-bottom: none; /* Suppression de la ligne de séparation pour le dernier élément */
+.list-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
 }
 
-.friends-list .status {
-  width: 10px; /* Largeur du cercle de statut */
-  height: 10px; /* Hauteur du cercle de statut */
-  border-radius: 50%; /* Forme circulaire */
+.list-container li:last-child {
+  border-bottom: none;
 }
 
-.friends-list .green {
-  background-color: green; /* Couleur verte pour le statut en ligne */
+.list-container .status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
-.friends-list .red {
-  background-color: red; /* Couleur rouge pour le statut hors ligne */
+.list-container .green {
+  background-color: green;
 }
 
-.friends-list h4 {
-  text-align: left; /* Alignement du titre à gauche */
-  margin-bottom: 15px; /* Espace sous le titre */
-  color: black; /* Couleur du texte du titre */
+.list-container .red {
+  background-color: red;
+}
+
+button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
 }
