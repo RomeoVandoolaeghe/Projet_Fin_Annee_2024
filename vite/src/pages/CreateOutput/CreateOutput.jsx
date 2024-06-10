@@ -25,27 +25,25 @@ function CreateOutput(){
 
   return (
     <>
-          <div className="container">
-              <div className='button-box'>
-                  <Button title="Retour" to="/Events" />
-              </div>
+      <div className="container">
+        <div className='button-box'>
+          <Button title="Retour" to="/Events" />
+        </div>
         <div className='start reveal'>
-                  <h1>Creer une sortie</h1>
-                  
-                <div className='space'>
-                      <Formline title="Titre de la sortie" />
-                  </div>
-                  <div className='space'>
-                      <TextArea title="Description"/>
-                  </div>
-                <div className='space'>
-                      <InputNumber title="Nombre de participant" />
-                </div>
-                <div className='linediv reveal'>
-                    <InputDate title="Date" />
-                    <InputHour title="Heure" />
-                  </div>
-                  
+          <h1>Creer une sortie</h1>
+          <div className='space'>
+            <Formline title="Titre de la sortie" />
+          </div>
+          <div>
+            <TextArea title="Description"/>
+          </div>
+          <div className='space'>
+            <InputNumber title="Nombre de participant" />
+          </div>
+          <div className='linediv reveal'>
+            <InputDate title="Date" />
+            <InputHour title="Heure" />
+          </div>
           <div className='linebutton reveal'>
             <Button title="Creer" />
             <Button title="Annuler"/>

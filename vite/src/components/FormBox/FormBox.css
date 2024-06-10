@@ -71,8 +71,8 @@ header {
 }
 .input-box span {
   position: absolute;
-  top: 8px; /* Ajuster la position verticale de l'icône */
-  left: 35px; /* Ajuster la position horizontale de l'icône */
+  top: 20px; /* Ajuster la position verticale de l'icône */
+  left: 30px; /* Ajuster la position horizontale de l'icône */
   color: #fff;
 }
 .submit {

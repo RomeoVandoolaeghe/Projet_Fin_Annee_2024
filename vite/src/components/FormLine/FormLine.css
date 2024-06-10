@@ -4,11 +4,11 @@
   align-items: center;
   text-align: center;
   gap: 10px; /* Espace entre le label et l'input */
+  margin-bottom: 15px; /* Réduire la marge */
 }
 
 .input-label {
-  margin: 0;
-  height: 2rem;
+  height: 1.8rem;
   width: 50%;
 }
 
@@ -18,4 +18,5 @@
   border: 1px solid #ccc; /* Ajoute une bordure */
   border-radius: 4px; /* Ajoute un rayon de bordure */
   padding: 10px;
+  background-color: white;
 }

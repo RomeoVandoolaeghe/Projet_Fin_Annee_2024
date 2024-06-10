@@ -7,7 +7,7 @@
 }
 
 body {
-  background: url(high-angle-shot-wooden-deck-seashore-leading-sea-sunset.jpg);
+  background: url("/Sortie.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -20,6 +20,7 @@ body {
   min-height: 110vh;
   background: rgba(0, 0, 0, 0.4);
 }
+
 @media only screen and (max-width: 540px) {
   .wrapper {
     min-height: 100vh;

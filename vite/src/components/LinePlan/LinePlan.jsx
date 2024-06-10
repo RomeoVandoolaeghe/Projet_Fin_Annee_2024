@@ -60,6 +60,27 @@ function LinePlan() {
       nb_participant: "50",
       lieu: "Paris",
     },
+    {
+      date: "30/01/1999",
+      heure: "15",
+      titre: "Visite de la tour Eiffel",
+      nb_participant: "50",
+      lieu: "Paris",
+    },
+    {
+      date: "30/01/1999",
+      heure: "15",
+      titre: "Visite de la tour Eiffel",
+      nb_participant: "50",
+      lieu: "Paris",
+    },
+    {
+      date: "30/01/1999",
+      heure: "15",
+      titre: "Visite de la tour Eiffel",
+      nb_participant: "50",
+      lieu: "Paris",
+    },
     // ...autres données...
   ];
 

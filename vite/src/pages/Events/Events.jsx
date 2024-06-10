@@ -23,7 +23,7 @@ function Events() {
 
   return (
     <>
-      <h1 className="reveal">Planning</h1>
+      <h1 className="reveal title">Planning</h1>
       <ul className='ul'>
         <div className='div'>
           <li className="reveal"><Link to="/Calendar" className='link'>Calendrier</Link></li>
@@ -31,8 +31,10 @@ function Events() {
         </div>
         <li className="reveal"><Link to="/CreateOutput" className='link'>Creer une sortie</Link></li>
       </ul>
-      <LineHead/>
+      <div className='box'>
+        <LineHead/>
       <LinePlan/>
+      </div>
     </>
   );
 }

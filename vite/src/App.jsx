@@ -5,6 +5,7 @@ import Events from './pages/Events/Events.jsx';
 import CreateOutput from './pages/CreateOutput/CreateOutput.jsx';
 import Calendar from './pages/Calendars/Calendars.jsx';
 import Login from './pages/Login/Login.jsx';
+import Chat from './pages/CHAT/CHAT.jsx';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/CreateOutput' element={<CreateOutput />} />
         <Route path="/Events" element={<Events />} />
         <Route path='/Calendar' element={<Calendar />} />
+        <Route path="/Chat" element={<Chat />} />
       </Routes>
     </Router>
   );
