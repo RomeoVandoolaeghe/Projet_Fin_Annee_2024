@@ -5,7 +5,7 @@ import Events from './pages/Events/Events.jsx';
 import CreateOutput from './pages/CreateOutput/CreateOutput.jsx';
 import Calendar from './pages/Calendars/Calendars.jsx';
 import Login from './pages/Login/Login.jsx';
-import Chat from './pages/CHAT/CHAT.jsx';
+import Chat from './pages/Chat/Chat.jsx';
 
 function App() {
   return (
