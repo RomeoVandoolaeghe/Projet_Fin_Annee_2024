@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './ProfileHeader.css';
 
+
 const initialUser = {
   Nom: 'Yecir',
   Prenom: 'Badir',
@@ -8,6 +9,14 @@ const initialUser = {
   Telephone: '123-456-7890',
   Description: 'Ouvert communicatif aime rencontrer de nouvelles personnes et élargir son réseau social.',
 };
+
+const initialAvailability = [
+  { day: 'Lundi', start: '09:00', end: '18:00' },
+  { day: 'Mardi', start: '09:00', end: '18:00' },
+  { day: 'Mercredi', start: '09:00', end: '18:00' },
+  { day: 'Jeudi', start: '09:00', end: '18:00' },
+  { day: 'Vendredi', start: '09:00', end: '18:00' },
+];
 
 const ProfileHeader = ({ isEditMode }) => {
   const [user, setUser] = useState(initialUser);
@@ -69,6 +78,31 @@ const ProfileHeader = ({ isEditMode }) => {
           </>
         )}
       </div>
+      <div className="availability">
+      <h4>Disponibilités</h4>
+      <table className="availability-table">
+        <thead>
+          <tr>
+            <th>Jour</th>
+            <th>Début</th>
+            <th>Fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          {initialAvailability.map((item, index) => (
+            <tr key={index}>
+              <td>{item.day}</td>
+              <td>
+                <span>{item.start}</span>
+              </td>
+              <td>
+                <span>{item.end}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
     </div>
   );
 };

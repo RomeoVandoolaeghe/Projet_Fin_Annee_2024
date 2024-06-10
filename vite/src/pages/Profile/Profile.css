@@ -41,11 +41,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
 } 
-.availability {
-  margin-bottom: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-} 
+
 /*
 .main-content {
   display: flex;
@@ -82,13 +78,6 @@
   margin: 5px 0;
   padding: 10px;
   font-size: 14px;
-}
-
-.availability textarea {
-  width: 100%;
-  margin: 5px 0;
-  padding: 10px;
-  font-size: 12px;
 }
 
 .Profile {
