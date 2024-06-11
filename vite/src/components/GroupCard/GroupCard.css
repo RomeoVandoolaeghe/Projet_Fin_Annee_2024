@@ -1,5 +1,5 @@
 .group-card {
-    background: rgba(255, 255, 255, 0.8);
+    background-color: #CAF0F8;
     border-radius: 10px;
     overflow: hidden;
     text-align: center;
@@ -8,11 +8,12 @@
   }
   
   .group-image {
+    background-color: #0077B6;
     padding: 20px;
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    margin: auto;
+    margin: 10 auto;
     text-align: center;
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
   }

@@ -71,7 +71,7 @@
 }
 
 button {
-  margin-top: 10px;
+  margin-top: 5px;
   padding: 5px 10px;
   border: none;
   color: white;
@@ -79,10 +79,6 @@ button {
   cursor: pointer;
   transition: background-color 0.3s;
   text-decoration: none;
-}
-
-button:hover {
-  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* Styles pour le bouton de gestion */
