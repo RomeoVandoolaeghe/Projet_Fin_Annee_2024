@@ -1,82 +1,76 @@
-.container {
+.CreateGroup{
+    height: 200vh;
+}
+.create-group-form-container {
+    font-family: Arial, sans-serif;
+    width: 60%;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
-    background: url('path/to/background_image.jpg') no-repeat center center fixed; /* Ajoutez votre image de fond */
-    background-size: cover;
-}
-
-.form-container {
-    background: rgba(247, 247, 248, 0.8); /* Fond semi-transparent */
-    padding: 50px;
-    text-align: center;
-    width: 50%;
-    border-radius: 20px; /* Ajoutez des bords arrondis */
-}
-
-h2 {
-    margin-bottom: 20px;
-    color: white;
-}
-
-.form-group {
-    display: flex;
-    justify-content: space-between; /* Assure un bon espacement entre label et input */
-    align-items: center; /* Aligne verticalement le contenu */
-    width: 100%;
-    margin-bottom: 20px; /* Réduit l'espacement entre les groupes de formulaires */
-    color: white;
-}
-
-label {
-    width: 40%; /* Assurez une largeur fixe pour les labels */
-    text-align: left; /* Alignement à gauche des labels */
-}
-
-input[type="text"] {
-    width: 60%; /* Assurez une largeur fixe pour les champs de texte */
-    padding: 10px;
-    border-radius: 30px;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.3);
-    color: white;
-}
-
-input[type="text"]::placeholder {
-    color: white;
-}
-
-.buttons {
-    display: flex;
     justify-content: center;
-    gap: 20px; /* Ajoutez un espace entre les boutons */
 }
 
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 30px;
-    background-color: rgba(255, 255, 255, 0.3);
+.create-group-form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.create-group-form-container form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.create-group-form-container .form-group {
+    margin-bottom: 20px;
+    border-bottom: 1px solid black;
+    padding-bottom: 15px;
+}
+
+.create-group-form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.create-group-form-container input[type="text"] {
+    width: 97%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.create-group-form-container button[type="submit"] {
+    padding: 10px 15px;
+    background-color: #007bff;
     color: white;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 1em;
+    margin-left : 20px;
 }
 
-button:hover {
-    background-color: rgba(255, 255, 255, 0.6);
+.create-group-form-container button[type="submit"]:hover {
+    background-color: #0056b3;
 }
 
-button[type="button"] {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+.create-group-form-container button[type="button"] {
+    padding: 10px 15px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
 }
 
-button[type="submit"] {
-    background-color: rgba(0, 123, 255, 0.8); /* Couleur bleue pour le bouton Créer */
-}
-
-button[type="submit"]:hover {
-    background-color: rgba(0, 123, 255, 1);
+.create-group-form-container button[type="button"]:hover {
+    background-color: #5a6268;
 }
