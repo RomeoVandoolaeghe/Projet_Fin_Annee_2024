@@ -1,0 +1,56 @@
+.Profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-size: 14px;
+  width: 100vw;
+  margin-right: 10px;
+}
+
+.main-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column {
+  padding: 20px;
+  color: black;
+  text-align: center;
+}
+
+.column:nth-child(1) {
+  width: 20%;
+}
+
+.column:nth-child(2) {
+  width: 70%;
+}
+
+.column:nth-child(3) {
+  width: 20%;
+  margin-right: 45px;
+}
+.friends-list {
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+} 
+.ProfileHeader {
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+} 
+
+
+.ProfileHeader input, .ProfileHeader textarea {
+  width: 100%;
+  margin: 5px 0;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.Profile {
+  position: relative; /* Assurez-vous que le conteneur principal est positionné relativement */
+}
+

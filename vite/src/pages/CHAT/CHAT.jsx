@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ScrollReveal from 'scrollreveal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPaperPlane, faCog, faUserPlus, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faPaperPlane, faCog, faUserPlus, faInfoCircle, faEdit } from '@fortawesome/free-solid-svg-icons';
 import './Chat.css';
 
 // Simuler une base de données fictive
@@ -35,6 +35,8 @@ function Chat() {
   const [searchResults, setSearchResults] = useState(users);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [isEditingDescription, setIsEditingDescription] = useState(false);
+  const [groupDescription, setGroupDescription] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.");
 
   useEffect(() => {
     // Configuration de base de ScrollReveal
@@ -77,6 +79,14 @@ function Chat() {
       setMessages([...messages, { id: messages.length + 1, text: newMessage }]);
       setNewMessage('');
     }
+  };
+
+  const handleEditDescription = () => {
+    setIsEditingDescription(true);
+  };
+
+  const handleSaveDescription = () => {
+    setIsEditingDescription(false);
   };
 
   return (
@@ -131,7 +141,20 @@ function Chat() {
           {showGroupDetails && (
             <div className="group-details">
               <h4>Détail du groupe</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>
+              {isEditingDescription ? (
+                <div>
+                  <textarea
+                    value={groupDescription}
+                    onChange={(e) => setGroupDescription(e.target.value)}
+                  />
+                  <button onClick={handleSaveDescription}>Save</button>
+                </div>
+              ) : (
+                <div>
+                  <p>{groupDescription}</p>
+                  <button onClick={handleEditDescription}>Edit</button>
+                </div>
+              )}
             </div>
           )}
         </div>

@@ -1,0 +1,36 @@
+
+
+.stats-section h3 {
+  color: #555;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+
+.stats-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.stats-section ul li {
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 1em;
+  color: #333;
+}
+
+.stats-section p {
+  font-size: 1.2em;
+  color: white;
+  margin: 10px 0;
+}
+
+.stats-section ul li:hover {
+  background-color: rgb(124, 183, 241);
+}
+
+.MostFrequentPlaces img{
+  border-radius: 0px ;
+}

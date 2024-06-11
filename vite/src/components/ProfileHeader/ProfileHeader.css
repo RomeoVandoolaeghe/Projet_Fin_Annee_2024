@@ -1,0 +1,83 @@
+.ProfileHeader {
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  width: 90%;
+  color: black;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.ProfileHeader p {
+  text-align: left;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-picture img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.profile-info input, .profile-info textarea {
+  width: 80%;
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.profile-info input[type="email"], .profile-info input[type="tel"] {
+  width: 80%;
+}
+
+/* Availability */
+.availability {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  width: 90%;
+  color: black;
+  background: rgba(255, 255, 255, 0.8);
+}
+h4{
+  text-align: left;
+}
+.availability-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.availability-table th,
+.availability-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.time-input {
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  width: 100%;
+}
+
+.time-input:focus {
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+

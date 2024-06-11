@@ -1,0 +1,36 @@
+.stats-section {
+  display: flex;
+  flex-direction: column;
+  align-items: start; /* Centrer les enfants horizontalement */
+}
+
+.stats-section ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Augmenter l'écart pour une meilleure lisibilité */
+  justify-content: center; /* Centrer les éléments dans la ligne */
+}
+
+.stats-section li {
+  padding: 10px;
+  list-style: none; /* Retirer les puces */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajouter une ombre pour un effet de carte */
+  width: 150px; /* Fixer une largeur constante pour les cartes */
+  text-align: center; /* Centrer le texte */
+}
+
+.stats-section li p {
+  font-size: 15px;
+  margin: 5px 0;
+  text-align: left;
+}
+
+.stats-section img {
+  width: 150px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 50%;
+}

@@ -1,48 +1,61 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faCog, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import './Sidebar.css';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import './SideBar.css';
 
-const Sidebar = ({ searchTerm, handleSearch, searchResults, toggleSettings, showSettings }) => (
-  <div className="sidebar">
-    <div className="sidebar-header">
-      <FontAwesomeIcon icon={faCog} className="settings-icon hover-icon" onClick={toggleSettings} />
-      <h3>Discussion</h3>
-      <FontAwesomeIcon icon={faUserPlus} className="add-user-icon hover-icon" />
-      {showSettings && (
-        <div className="settings-dropdown">
-          <ul>
-            <li>Profil</li>
-            <li>Paramètres</li>
-            <li>Déconnexion</li>
-          </ul>
-        </div>
-      )}
-    </div>
-    <div className="search">
-      <FontAwesomeIcon icon={faSearch} className="search-icon" />
-      <input
-        type="text"
-        placeholder="Rechercher un membre"
-        value={searchTerm}
-        onChange={handleSearch}
-      />
-    </div>
-    <div className="group-members">
-      <h3>Membres du groupe</h3>
-      <ul>
-        {searchResults.map(user => (
-          <li key={user.id}>
-            <img src={user.image} alt={user.name} className="member-avatar" />
-            <div className="member-info">
-              <span>{user.name}</span>
-              <span className="status">{user.status}</span>
-            </div>
+const SideBar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+      <div className="sidebar-toggle" onClick={toggleSidebar}>
+        <FaBars />
+      </div>
+      <nav className="sidebar-nav">
+        <ul>
+          <li>
+            <Link to="/Accueil">
+              <FaHome /> <span>ACCUEIL</span>
+            </Link>
           </li>
-        ))}
-      </ul>
+          <li>
+            <Link to="/Events">
+              <FaCalendarAlt /> <span>EVENEMENT</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/Group">
+              <FaUsers /> <span>GROUPE</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/HallOfFame">
+              <FaTrophy /> <span>HALL OF FAME</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/Profile">
+              <FaUser /> <span>Profil</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/Parametres">
+              <FaCog /> <span>Paramètres du compte</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/Logout">
+              <FaSignOutAlt /> <span>Déconnexion</span>
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </div>
-  </div>
-);
+  );
+};
 
-export default Sidebar;
+export default SideBar;

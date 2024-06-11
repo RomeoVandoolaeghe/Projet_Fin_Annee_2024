@@ -1,0 +1,27 @@
+.hall-of-fame {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 1000px;
+    margin: 50px auto;
+  }
+  
+  .hall-of-fame h2 {
+    text-align: center;
+    color: white;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .stats-section {
+    margin-bottom: 20px;
+  }
+  
+  .stats-section h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    border-bottom: 2px solid white;
+    padding-bottom: 5px;
+  }
+ 

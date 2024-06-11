@@ -1,0 +1,70 @@
+/* Parametres.css */
+
+.parametres {
+  font-family: Arial, sans-serif;
+  width: 80%;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.parametres h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.parametres form {
+  display: flex;
+  flex-direction: column;
+}
+
+.parametres section {
+  margin-bottom: 20px;
+  border-bottom: 1px solid black;
+  padding-bottom: 15px;
+}
+
+.parametres section h2 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.parametres label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.parametres input[type="text"],
+.parametres input[type="password"],
+.parametres input[type="date"],
+.parametres input[type="file"],
+.parametres textarea,
+.parametres select {
+  width: 97%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.parametres input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.parametres button[type="submit"] {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.parametres button[type="submit"]:hover {
+  background-color: #0056b3;
+}
