@@ -78,6 +78,37 @@ const Parametres = () => {
               placeholder="Nouveau mot de passe"
             />
           </div>
+<<<<<<< HEAD
+=======
+          <div>
+            <label>Authentification à deux facteurs :</label>
+            <input
+              type="checkbox"
+              checked={twoFactorAuth}
+              onChange={(e) => setTwoFactorAuth(e.target.checked)}
+            />
+          </div>
+        </section>
+
+        <section>
+          <h2>Préférences de Notifications</h2>
+          <div>
+            <label>Notifications par email :</label>
+            <input
+              type="checkbox"
+              checked={emailNotifications}
+              onChange={(e) => setEmailNotifications(e.target.checked)}
+            />
+          </div>
+          <div>
+            <label>Notifications push :</label>
+            <input
+              type="checkbox"
+              checked={pushNotifications}
+              onChange={(e) => setPushNotifications(e.target.checked)}
+            />
+          </div>
+>>>>>>> origin/test_lauric
         </section>
 
         <section>
@@ -88,6 +119,33 @@ const Parametres = () => {
           </div>
         </section>
 
+<<<<<<< HEAD
+=======
+        <section>
+          <h2>Préférences Générales</h2>
+          <div>
+            <label>Langue :</label>
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+            >
+              <option value="fr">Français</option>
+              <option value="en">Anglais</option>
+            </select>
+          </div>
+          <div>
+            <label>Thème :</label>
+            <select
+              value={theme}
+              onChange={(e) => setTheme(e.target.value)}
+            >
+              <option value="light">Clair</option>
+              <option value="dark">Sombre</option>
+            </select>
+          </div>
+        </section>
+
+>>>>>>> origin/test_lauric
         <button type="submit">Sauvegarder les modifications</button>
       </form>
     </div>

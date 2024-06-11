@@ -7,16 +7,25 @@
     margin: 50px auto;
   }
   
+<<<<<<< HEAD
   .hall-of-fame h3 {
     text-align: center;
     color: black;
+=======
+  .hall-of-fame h2 {
+    text-align: center;
+    color: white;
+>>>>>>> origin/test_lauric
     font-size: 2em;
     margin-bottom: 20px;
   }
   
+<<<<<<< HEAD
   .hall-of-fame h4{
     color: black;
   }
+=======
+>>>>>>> origin/test_lauric
   .stats-section {
     margin-bottom: 20px;
   }
@@ -24,7 +33,11 @@
   .stats-section h3 {
     font-size: 1.5em;
     margin-bottom: 10px;
+<<<<<<< HEAD
     border-bottom: 2px solid black;
+=======
+    border-bottom: 2px solid white;
+>>>>>>> origin/test_lauric
     padding-bottom: 5px;
   }
  

@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 .entete {
     justify-content: center;
     margin-bottom: 20px;
     padding: 20px;
     color: white;
+=======
+.header-home {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    color: black;
+>>>>>>> origin/test_lauric
     border-radius: 10px;
   }
   

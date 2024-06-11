@@ -1,0 +1,125 @@
+.form-box {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 512px;
+  height: 550px;
+  overflow: hidden;
+  z-index: 2;
+}
+.login-container {
+  position: absolute;
+  left: 4px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s ease-in-out;
+}
+.register-container {
+  position: absolute;
+  right: -520px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s ease-in-out;
+}
+.top span {
+  color: #fff;
+  font-size: small;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+}
+.top span a {
+  font-weight: 500;
+  color: #fff;
+  margin-left: 5px;
+}
+header {
+  color: #fff;
+  font-size: 30px;
+  padding: 10px 0 30px 0;
+  text-align: center;
+}
+.two-forms {
+  display: flex;
+  gap: 0px;
+}
+.input-field {
+  font-size: 15px;
+  color: #fff;
+  height: 50px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0 10px 0 45px;
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  transition: 0.2s ease;
+}
+.input-field:hover,
+.input-field:focus {
+  background: rgba(255, 255, 255, 0.25);
+}
+::-webkit-input-placeholder {
+  color: #fff;
+}
+.input-box {
+  position: relative;
+  margin-bottom: 5px; /* Réduisez cette valeur pour diminuer l'écart */
+}
+.input-box span {
+  position: absolute;
+  top: 20px; /* Ajuster la position verticale de l'icône */
+  left: 30px; /* Ajuster la position horizontale de l'icône */
+  color: #fff;
+}
+.submit {
+  font-size: 15px;
+  font-weight: 500;
+  color: black;
+  height: 45px;
+  width: 100%;
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.submit:hover {
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 1px 5px 7px 1px rgba(255, 255, 255, 0.2);
+}
+.two-call {
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  font-size: small;
+  margin-top: 10px;
+  gap: 10rem;
+}
+.two-call.one {
+  display: flex;
+  gap: 19px;
+}
+.two label a {
+  text-decoration: none;
+  color: #fff;
+}
+.two label a:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 540px) {
+  form-box {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .register-container,
+  .login-container {
+    flex-direction: column;
+    gap: 0;
+  }
+}

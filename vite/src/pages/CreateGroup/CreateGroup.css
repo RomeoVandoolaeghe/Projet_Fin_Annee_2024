@@ -6,14 +6,21 @@
     width: 60%;
     margin: 50px auto;
     padding: 20px;
+<<<<<<< HEAD
     background: rgba(255, 255, 255, 0.8);
+=======
+    background: white;
+>>>>>>> origin/test_lauric
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+<<<<<<< HEAD
     color: black;
+=======
+>>>>>>> origin/test_lauric
 }
 
 .create-group-form-container h2 {
@@ -29,6 +36,10 @@
 
 .create-group-form-container .form-group {
     margin-bottom: 20px;
+<<<<<<< HEAD
+=======
+    border-bottom: 1px solid black;
+>>>>>>> origin/test_lauric
     padding-bottom: 15px;
 }
 

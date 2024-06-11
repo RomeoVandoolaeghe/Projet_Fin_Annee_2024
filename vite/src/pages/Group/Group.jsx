@@ -1,6 +1,10 @@
 import React from 'react';
 import './Group.css';
 import GroupCard from '../../components/GroupCard/GroupCard';
+<<<<<<< HEAD
+=======
+import { Link } from 'react-router-dom';
+>>>>>>> origin/test_lauric
 
 const groups = [
   { name: 'ASTRO WORD', image: ' A ' },
@@ -21,6 +25,10 @@ const Group = () => {
         <h1>Groupe</h1>
         <div className="header-actions">
           <input type="text" placeholder="Rechercher" />
+<<<<<<< HEAD
+=======
+          <button><Link to="/CreateGroup">Créer un groupe</Link></button>
+>>>>>>> origin/test_lauric
         </div>
       </header>
       <div className="group-grid">

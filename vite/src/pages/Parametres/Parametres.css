@@ -5,7 +5,11 @@
   width: 80%;
   margin: 50px auto;
   padding: 20px;
+<<<<<<< HEAD
   background: rgba(255, 255, 255, 0.8);
+=======
+  background: white;
+>>>>>>> origin/test_lauric
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -13,7 +17,10 @@
 .parametres h1 {
   text-align: center;
   margin-bottom: 20px;
+<<<<<<< HEAD
   color: black;
+=======
+>>>>>>> origin/test_lauric
 }
 
 .parametres form {
@@ -25,7 +32,10 @@
   margin-bottom: 20px;
   border-bottom: 1px solid black;
   padding-bottom: 15px;
+<<<<<<< HEAD
   color: black;
+=======
+>>>>>>> origin/test_lauric
 }
 
 .parametres section h2 {

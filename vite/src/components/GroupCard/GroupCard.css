@@ -1,6 +1,7 @@
 .group-card {
     background-color: #CAF0F8;
     border-radius: 10px;
+<<<<<<< HEAD
     text-align: center;
     position: relative;
   }
@@ -11,6 +12,15 @@
   
   .group-image {
     margin: auto;
+=======
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .group-image {
+>>>>>>> origin/test_lauric
     background-color: #0077B6;
     padding: 20px;
     height: 20px;
@@ -18,6 +28,14 @@
     border-radius: 50%;
     margin: 10 auto;
     text-align: center;
+<<<<<<< HEAD
+=======
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .group-info {
+    padding-top: 2px;
+>>>>>>> origin/test_lauric
   }
   
   .group-info h3 {
@@ -43,14 +61,25 @@
   .dropdown {
     position: absolute; 
     top: 19px;
+<<<<<<< HEAD
     left: 50px; 
     border: 1px solid #ddd; 
     border-radius: 5px; 
+=======
+    right: 16px; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+>>>>>>> origin/test_lauric
     list-style: none; 
     padding: 1px; 
     z-index: 1000; 
     font-size: 12px;
 }
+<<<<<<< HEAD
+=======
+  
+>>>>>>> origin/test_lauric
   .dropdown li {
     margin: 1px; /* Espacement vertical entre les éléments de la liste */
   }

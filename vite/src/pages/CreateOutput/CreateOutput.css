@@ -1,0 +1,58 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden; /* Pour éviter un défilement horizontal */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.start {
+  background-color: transparent;
+  border-radius: 20px;
+  background-color: #ffffff84;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  padding: 15px 40px;
+  margin-top: 20px; /* Réduire l'écart avec le h1 */
+}
+
+.start h1 {
+  font-size: 2rem; /* Diminuer la taille du texte */
+}
+
+.space {
+  margin-top: 10px;
+}
+
+.linediv {
+  display: flex;
+  justify-content: center;
+  gap: 5px; /* Espace entre les éléments */
+  margin-top: 10px;
+}
+
+.linebutton {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+button:hover {
+  background-color: #38ce3f;
+  border: none;
+}
+
+.button-box {
+  position: relative;
+  top: -15rem;
+  left: -15rem;
+}

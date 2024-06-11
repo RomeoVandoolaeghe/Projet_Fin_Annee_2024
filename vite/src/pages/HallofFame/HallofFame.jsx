@@ -27,7 +27,11 @@ const userStats = {
 const HallOfFame = () => {
   return (
     <div className="hall-of-fame">
+<<<<<<< HEAD
       <h3>Hall of Fame</h3>
+=======
+      <h2>Hall of Fame</h2>
+>>>>>>> origin/test_lauric
       <MostFrequentFriends friends={userStats.mostFrequentFriends} />
       <MostFrequentPlaces places={userStats.mostFrequentPlaces} />
       <ParticipationStats 

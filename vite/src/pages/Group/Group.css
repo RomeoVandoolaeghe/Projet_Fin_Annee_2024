@@ -1,15 +1,28 @@
 
   header {
+<<<<<<< HEAD
+=======
+    display: flex;
+    justify-content: space-between;
+>>>>>>> origin/test_lauric
     align-items: center;
     padding-bottom: 20px;
     color: #ffffff;
   }
   
   header h1 {
+<<<<<<< HEAD
     text-align: center;
   }
   
   .header-actions {
+=======
+    margin-left: 60px;
+  }
+  
+  .header-actions {
+    display: flex;
+>>>>>>> origin/test_lauric
     align-items: center;
     margin-right: 60px;
     margin-left: 60px;
@@ -22,10 +35,18 @@
   
   .header-actions button {
     padding: 5px 10px;
+<<<<<<< HEAD
     border: none;
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
+=======
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+>>>>>>> origin/test_lauric
   }
   
   .header-actions button:hover {
@@ -34,10 +55,18 @@
   
   .group-grid {
     display: grid;
+<<<<<<< HEAD
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 20px;
     margin-left: 60px;
     margin-right: 60px;
     color: black;
+=======
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-left: 60px;
+    margin-right: 60px;
+    color: white;
+>>>>>>> origin/test_lauric
   }
   
