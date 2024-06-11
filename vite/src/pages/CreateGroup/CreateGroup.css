@@ -6,13 +6,14 @@
     width: 60%;
     margin: 50px auto;
     padding: 20px;
-    background: white;
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: black;
 }
 
 .create-group-form-container h2 {
@@ -28,7 +29,6 @@
 
 .create-group-form-container .form-group {
     margin-bottom: 20px;
-    border-bottom: 1px solid black;
     padding-bottom: 15px;
 }
 

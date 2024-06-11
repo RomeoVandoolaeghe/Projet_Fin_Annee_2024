@@ -3,7 +3,7 @@ import './HeaderHome.css';
 
 function HeaderHome({ name }) {
   return (
-    <header className="header-home">
+    <header className="entete">
       <h2>Hello {name} !!!</h2>
     </header>
   );

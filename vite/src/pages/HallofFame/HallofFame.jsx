@@ -27,7 +27,7 @@ const userStats = {
 const HallOfFame = () => {
   return (
     <div className="hall-of-fame">
-      <h2>Hall of Fame</h2>
+      <h3>Hall of Fame</h3>
       <MostFrequentFriends friends={userStats.mostFrequentFriends} />
       <MostFrequentPlaces places={userStats.mostFrequentPlaces} />
       <ParticipationStats 

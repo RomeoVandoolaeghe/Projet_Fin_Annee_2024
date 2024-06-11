@@ -5,7 +5,7 @@
   width: 80%;
   margin: 50px auto;
   padding: 20px;
-  background: white;
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -13,6 +13,7 @@
 .parametres h1 {
   text-align: center;
   margin-bottom: 20px;
+  color: black;
 }
 
 .parametres form {
@@ -24,6 +25,7 @@
   margin-bottom: 20px;
   border-bottom: 1px solid black;
   padding-bottom: 15px;
+  color: black;
 }
 
 .parametres section h2 {

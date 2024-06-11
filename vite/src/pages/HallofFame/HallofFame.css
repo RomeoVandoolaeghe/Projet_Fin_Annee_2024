@@ -7,13 +7,16 @@
     margin: 50px auto;
   }
   
-  .hall-of-fame h2 {
+  .hall-of-fame h3 {
     text-align: center;
-    color: white;
+    color: black;
     font-size: 2em;
     margin-bottom: 20px;
   }
   
+  .hall-of-fame h4{
+    color: black;
+  }
   .stats-section {
     margin-bottom: 20px;
   }
@@ -21,7 +24,7 @@
   .stats-section h3 {
     font-size: 1.5em;
     margin-bottom: 10px;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid black;
     padding-bottom: 5px;
   }
  

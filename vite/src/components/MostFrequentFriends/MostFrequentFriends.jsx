@@ -3,7 +3,7 @@ import './MostFrequentFriends.css';
 
 const MostFrequentFriends = ({ friends }) => (
   <div className="stats-section">
-    <h3>Amis les Plus Fréquentés</h3>
+    <h4>Amis les Plus Fréquentés</h4>
     <ul>
       {friends.map((friend, index) => (
         <li key={index}> 

@@ -33,6 +33,11 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
+            <Link to="/CreateGroup">
+              <FaUsers /> <span>Creer un groupe</span>
+            </Link>
+          </li>
+          <li>
             <Link to="/HallOfFame">
               <FaTrophy /> <span>HALL OF FAME</span>
             </Link>
