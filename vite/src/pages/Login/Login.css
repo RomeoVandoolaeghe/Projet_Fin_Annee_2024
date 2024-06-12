@@ -1,21 +1,26 @@
+/* Importation de la police Poppins depuis Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap");
+
+/* Styles globaux pour tous les éléments */
 * {
-  font-family: "Poppins", sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  font-family: "Poppins", sans-serif; /* Utilisation de la police Poppins pour tout le texte */
+  margin: 0; /* Suppression des marges par défaut */
+  padding: 0; /* Suppression des padding par défaut */
+  box-sizing: border-box; /* Utilisation du box-sizing border-box pour tous les éléments */
 }
 
+/* Style pour le conteneur principal */
 .wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 110vh;
-  background: rgba(0, 0, 0, 0.4);
+  display: flex; /* Affichage en flexbox */
+  justify-content: center; /* Centrer le contenu horizontalement */
+  align-items: center; /* Centrer le contenu verticalement */
+  min-height: 110vh; /* Hauteur minimale de 110% de la hauteur de la fenêtre */
+  background: rgba(0, 0, 0, 0.4); /* Fond semi-transparent noir */
 }
 
+/* Styles spécifiques pour les écrans de moins de 540px de large */
 @media only screen and (max-width: 540px) {
   .wrapper {
-    min-height: 100vh;
+    min-height: 100vh; /* Hauteur minimale de 100% de la hauteur de la fenêtre sur petits écrans */
   }
 }
