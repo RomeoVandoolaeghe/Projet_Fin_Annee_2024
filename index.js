@@ -1,8 +1,7 @@
 
-
 //requiert les modules necessaires
 const express = require('express');
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const mysql = require('mysql');
 
 //creation de l'application express
@@ -12,9 +11,6 @@ const app = express();
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-
-
-
 
 //requete get pour afficher les données de la table users
 app.get('/', (req, res) => {
