@@ -41,6 +41,10 @@
     margin-right: 60px;
     color: white;
   }
+  .chat-link {
+    text-decoration: none; 
+    color: white; /* Définit la couleur du texte à blanc */
+  }
 .nouveaugroupe{
   text-decoration: none; 
   color: white; /* Définit la couleur du texte à blanc */

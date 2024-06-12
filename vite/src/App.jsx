@@ -6,6 +6,7 @@ import Parametres from './pages/Parametres/Parametres';
 import HallofFame from './pages/HallofFame/HallofFame';
 import AddFriend from './pages/AddFriend/AddFriend';
 import Group from './pages/Group/Group';
+import Chat from './pages/Chat/Chat'
 import CreateGroup from './pages/CreateGroup/CreateGroup';
 import SideBar from './components/SideBar/SideBar';
 import Navbar from './components/Navbar/Navbar'
@@ -24,6 +25,7 @@ function App() {
         <Route path="/HallofFame" element={<HallofFame />} />
         <Route path="/AddFriend" element={<AddFriend />} />
         <Route path="/CreateGroup" element={<CreateGroup />} />
+        <Route path="/Chat" element={<Chat />} />
       </Routes>
     </Router>
   );

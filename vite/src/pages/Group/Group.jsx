@@ -3,17 +3,10 @@ import './Group.css';
 import { Link } from 'react-router-dom';
 import GroupCard from '../../components/GroupCard/GroupCard';
 import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import '../../pages/Chat/Chat';
 
 const groups = [
   { name: 'ASTRO WORD', image: ' A ' },
-  { name: 'JUNIA ISEN', image: 'I' },
-  { name: 'IA', image: 'IA' },
-  { name: 'Solo', image: 'S' },
-  { name: 'Skyclue', image: 'S' },
-  { name: 'Fairy', image: 'F' },
-  { name: 'LAFAME', image: 'L' },
-  { name: 'Sabertooth', image: 'S' },
-  { name: 'Mermaid', image: 'M' },
 ];
 
 
@@ -21,7 +14,7 @@ const Group = () => {
   return (
     <>
       <div className='header'>
-        <h2>Groupe</h2>
+        <h2>Groupe <FaUsers /></h2>
       </div>
       <div className="group-page">
           <div className="header-actions">
@@ -33,9 +26,11 @@ const Group = () => {
               <p><strong>Nouveau groupe</strong> <br /><FaUsers /></p>
             </Link>
           </div>
-          {groups.map((group, index) => (
-            <GroupCard key={index} name={group.name} image={group.image} />
-          ))}
+          <Link to="/Chat" className="chat-link">
+            {groups.map((group, index) => (
+              <GroupCard key={index} name={group.name} image={group.image} />
+            ))}
+          </Link>
         </div>
       </div>
     </>
