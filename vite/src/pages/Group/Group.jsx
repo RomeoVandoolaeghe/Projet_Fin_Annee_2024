@@ -3,7 +3,7 @@ import './Group.css';
 import { Link } from 'react-router-dom';
 import GroupCard from '../../components/GroupCard/GroupCard';
 import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSignOutAlt } from 'react-icons/fa';
-import '../../pages/Chat/Chat';
+import '../../pages/CHAT/CHAT';
 
 const groups = [
   { name: 'ASTRO WORD', image: ' A ' },
