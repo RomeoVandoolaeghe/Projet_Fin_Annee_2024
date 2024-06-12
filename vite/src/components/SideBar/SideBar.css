@@ -1,62 +1,61 @@
 /* Sidebar container */
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 250px;
-    background: rgba(255, 255, 255, 0.8);
-    color: black;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(-250px);
-    z-index: 1000;
-  }
-  
-  .sidebar.open {
-    transform: translateX(0);
-  }
-  
-  /* Sidebar toggle button */
-  .sidebar-toggle {
-    position: absolute;
-    top: 10px;
-    right: -40px;
-    color: black;
-    padding: 10px;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-  }
-  
-  .sidebar-toggle:hover {
-    background: rgba(255, 255, 255, 0.8);
-  }
-  
-  /* Sidebar navigation */
-  .sidebar-nav {
-    padding: 20px;
-  }
-  
-  .sidebar-nav ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar-nav ul li {
-    margin: 20px 0;
-  }
-  
-  .sidebar-nav ul li a {
-    color: black;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-  }
-  
-  .sidebar-nav ul li a span {
-    margin-left: 10px;
-  }
-  
-  .sidebar-nav ul li a:hover {
-    color: blue;
-  }
-  
+  position: fixed;
+  top: 0;
+  right: 0; /* Changer left à right pour positionner la sidebar à droite */
+  height: 100%;
+  width: 250px;
+  background: rgba(255, 255, 255, 0.8);
+  color: black;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(250px); /* Ajuster la transformation initiale pour qu'elle soit hors de la vue à droite */
+  z-index: 1000;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+/* Sidebar toggle button */
+.sidebar-toggle {
+  position: absolute;
+  top: 10px;
+  left: -40px; /* Positionner le bouton à gauche de la sidebar */
+  color: black;
+  padding: 10px;
+  border-radius: 5px 0 0 5px; /* Ajuster les coins pour correspondre au nouveau positionnement */
+  cursor: pointer;
+}
+
+.sidebar-toggle:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Sidebar navigation */
+.sidebar-nav {
+  padding: 20px;
+}
+
+.sidebar-nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar-nav ul li {
+  margin: 20px 0;
+}
+
+.sidebar-nav ul li a {
+  color: black;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-nav ul li a span {
+  margin-left: 10px;
+}
+
+.sidebar-nav ul li a:hover {
+  color: blue;
+}

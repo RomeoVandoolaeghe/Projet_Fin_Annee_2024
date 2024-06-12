@@ -1,9 +1,9 @@
 .event-card {
     background-color: rgba(255, 255, 255, 0.5);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 10px 50px 50px 10px;
     margin-bottom: 20px;
-    color: black;
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,10 +22,11 @@
   
   .event-location {
     font-size: 16px;
-    color: #666;
+    color: black;
   }
   
   .event-time {
     font-size: 16px;
+    color:rgb(38, 34, 34);
   }
   

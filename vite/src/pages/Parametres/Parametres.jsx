@@ -36,61 +36,65 @@ const Parametres = () => {
   };
 
   return (
-    <div className="parametres">
-      <h1>Paramètres du compte</h1>
-      <form onSubmit={handleSubmit}>
-        <section>
-          <h2>Informations Personnelles</h2>
-          <div>
-            <label>Pseudo :</label>
-            <input
-              type="text"
-              value={pseudo}
-              onChange={(e) => setPseudo(e.target.value)}
-              placeholder="Modifier le pseudo"
-            />
-          </div>
-          <div>
-            <label>Photo de profil :</label>
-            <input
-              type="file"
-              onChange={(e) => setPhoto(e.target.files[0])}
-            />
-          </div>
-          <div>
-            <label>Description :</label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Modifier la description"
-            ></textarea>
-          </div>
-        </section>
+    <>
+      <div className='header'>
+        <h2>Paramètres du compte</h2>
+      </div>
+      <div className="parametres">
+        <form onSubmit={handleSubmit}>
+          <section>
+            <h2>Informations Personnelles</h2>
+            <div>
+              <label>Pseudo :</label>
+              <input
+                type="text"
+                value={pseudo}
+                onChange={(e) => setPseudo(e.target.value)}
+                placeholder="Modifier le pseudo"
+              />
+            </div>
+            <div>
+              <label>Photo de profil :</label>
+              <input
+                type="file"
+                onChange={(e) => setPhoto(e.target.files[0])}
+              />
+            </div>
+            <div>
+              <label>Description :</label>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Modifier la description"
+              ></textarea>
+            </div>
+          </section>
 
-        <section>
-          <h2>Sécurité et Confidentialité</h2>
-          <div>
-            <label>Changer le mot de passe :</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Nouveau mot de passe"
-            />
-          </div>
-        </section>
+          <section>
+            <h2>Sécurité et Confidentialité</h2>
+            <div>
+              <label>Changer le mot de passe :</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Nouveau mot de passe"
+              />
+            </div>
+          </section>
 
-        <section>
-          <h2>Disponibilités</h2>
-          <div>
-            <label>Modifier les disponibilités :</label>
-            {/* Contenu de la table de disponibilités */}
-          </div>
-        </section>
+          <section>
+            <h2>Disponibilités</h2>
+            <div>
+              <label>Modifier les disponibilités :</label>
+              {/* Contenu de la table de disponibilités */}
+            </div>
+          </section>
 
-        <button type="submit">Sauvegarder les modifications</button>
-      </form>
-    </div>
+          <button type="submit">Sauvegarder les modifications</button>
+        </form>
+      </div>
+    </>
   );
 };
 

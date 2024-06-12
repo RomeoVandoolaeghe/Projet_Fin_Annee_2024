@@ -18,28 +18,8 @@ const Sidebar = () => {
       <nav className="sidebar-nav">
         <ul>
           <li>
-            <Link to="/Accueil">
-              <FaHome /> <span>ACCUEIL</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/Events">
-              <FaCalendarAlt /> <span>EVENEMENT</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/Group">
-              <FaUsers /> <span>GROUPE</span>
-            </Link>
-          </li>
-          <li>
             <Link to="/CreateGroup">
               <FaUsers /> <span>Creer un groupe</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/HallOfFame">
-              <FaTrophy /> <span>HALL OF FAME</span>
             </Link>
           </li>
           <li>

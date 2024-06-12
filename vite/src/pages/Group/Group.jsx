@@ -1,5 +1,6 @@
 import React from 'react';
 import './Group.css';
+import { Link } from 'react-router-dom';
 import GroupCard from '../../components/GroupCard/GroupCard';
 
 const groups = [
@@ -14,21 +15,29 @@ const groups = [
   { name: 'Mermaid', image: 'M' },
 ];
 
+
 const Group = () => {
   return (
-    <div className="group-page">
-      <header>
-        <h1>Groupe</h1>
-        <div className="header-actions">
-          <input type="text" placeholder="Rechercher" />
-        </div>
-      </header>
-      <div className="group-grid">
-        {groups.map((group, index) => (
-          <GroupCard key={index} name={group.name} image={group.image} />
-        ))}
+    <>
+      <div className='header'>
+        <h2>Groupe</h2>
       </div>
-    </div>
+      <div className="group-page">
+          <div className="header-actions">
+            <input type="text" placeholder="Rechercher" />
+          </div>
+        <div className="group-grid">
+          <div className="group-card">
+            <Link to="/CreateGroup" className='nouveaugroupe'>
+              <p><strong>Nouveau groupe</strong> <br />+</p>
+            </Link>
+          </div>
+          {groups.map((group, index) => (
+            <GroupCard key={index} name={group.name} image={group.image} />
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

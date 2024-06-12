@@ -1,10 +1,17 @@
 .CreateGroup{
     height: 200vh;
 }
-.create-group-form-container {
+
+.create-group-form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.create-group-form-container form {
+    display: flex;
     font-family: Arial, sans-serif;
     width: 60%;
-    margin: 50px auto;
+    margin: auto;
     padding: 20px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
@@ -14,17 +21,6 @@
     align-items: center;
     justify-content: center;
     color: black;
-}
-
-.create-group-form-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.create-group-form-container form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
 }
 
 .create-group-form-container .form-group {

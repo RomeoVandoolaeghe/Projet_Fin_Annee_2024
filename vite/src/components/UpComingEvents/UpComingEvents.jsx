@@ -5,7 +5,7 @@ import './UpComingEvents.css';
 function UpComingEvents({ events }) {
   return (
     <div className="upcoming-events">
-      <h3>À venir</h3>
+      <h4>À venir</h4>
       {events.map((event, index) => (
         <EventCard key={index} event={event} />
       ))}

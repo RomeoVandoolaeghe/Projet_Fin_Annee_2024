@@ -10,9 +10,10 @@
   }
   
   .header-actions {
-    align-items: center;
+    text-align: center;
     margin-right: 60px;
     margin-left: 60px;
+    margin-bottom: 30px;
   }
   
   .header-actions input {
@@ -35,9 +36,16 @@
   .group-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
+    gap: 30px;
     margin-left: 60px;
     margin-right: 60px;
-    color: black;
+    color: white;
   }
-  
+.nouveaugroupe{
+  text-decoration: none; 
+  color: white; /* Définit la couleur du texte à blanc */
+  display: flex; /* Utilise Flexbox */
+  align-items: center; /* Centre verticalement le contenu */
+  justify-content: center; /* Centre horizontalement le contenu, si nécessaire */
+  height: 100%; /* Assurez-vous que le conteneur a une hauteur pour le centrage */
+}

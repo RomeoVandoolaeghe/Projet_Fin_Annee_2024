@@ -2,6 +2,7 @@ import React from 'react';
 import MostFrequentFriends from '../../components/MostFrequentFriends/MostFrequentFriends';
 import MostFrequentPlaces from '../../components/MostFrequentPlaces/MostFrequentPlaces';
 import ParticipationStats from '../../components/ParticipationStats/ParticipationStats';
+import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import './HallofFame.css';
 
 const userStats = {
@@ -26,8 +27,11 @@ const userStats = {
 
 const HallOfFame = () => {
   return (
+    <>
+      <div className='header'>
+        <h2>Hall of Fame <FaTrophy /></h2>
+      </div>
     <div className="hall-of-fame">
-      <h3>Hall of Fame</h3>
       <MostFrequentFriends friends={userStats.mostFrequentFriends} />
       <MostFrequentPlaces places={userStats.mostFrequentPlaces} />
       <ParticipationStats 
@@ -36,6 +40,7 @@ const HallOfFame = () => {
         participationRate={userStats.participationRate} 
       />
     </div>
+    </>
   );
 };
 
