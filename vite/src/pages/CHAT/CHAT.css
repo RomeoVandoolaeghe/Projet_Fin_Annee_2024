@@ -4,7 +4,7 @@
   border-radius: 10px;
 }
 
-.sidebar {
+.side {
   width: 250px;
   background-color: #f5f5f5;
   padding: 5px; /* Reduced padding */
@@ -13,29 +13,29 @@
 }
 
 /* Custom Scrollbar */
-.sidebar::-webkit-scrollbar,
+.side::-webkit-scrollbar,
 .chat-area::-webkit-scrollbar {
   width: 8px; /* Width of the scrollbar */
 }
 
-.sidebar::-webkit-scrollbar-thumb,
+.side::-webkit-scrollbar-thumb,
 .chat-area::-webkit-scrollbar-thumb {
   background-color: #888; /* Color of the scrollbar thumb */
   border-radius: 10px;
 }
 
-.sidebar::-webkit-scrollbar-thumb:hover,
+.side::-webkit-scrollbar-thumb:hover,
 .chat-area::-webkit-scrollbar-thumb:hover {
   background-color: #555; /* Color of the scrollbar thumb when hovered */
 }
 
-.sidebar::-webkit-scrollbar-track,
+.side::-webkit-scrollbar-track,
 .chat-area::-webkit-scrollbar-track {
   background: #f1f1f1; /* Color of the scrollbar track */
   border-radius: 10px;
 }
 
-.sidebar-header {
+.side-header {
   display: flex;
   justify-content: space-between;
   align-items: center;

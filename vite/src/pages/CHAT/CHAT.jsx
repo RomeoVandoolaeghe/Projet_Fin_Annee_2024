@@ -81,8 +81,8 @@ function Chat() {
 
   return (
     <div className="chat-container reveal">
-      <div className="sidebar">
-        <div className="sidebar-header">
+      <div className="side">
+        <div className="side-header">
           <FontAwesomeIcon icon={faCog} className="settings-icon hover-icon" onClick={toggleSettings} />
           <h3>Discussion</h3>
           <FontAwesomeIcon icon={faUserPlus} className="add-user-icon hover-icon" />
