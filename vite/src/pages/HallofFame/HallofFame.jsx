@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{ useEffect} from 'react';
+import ScrollReveal from 'scrollreveal';
 import MostFrequentFriends from '../../components/MostFrequentFriends/MostFrequentFriends';
 import MostFrequentPlaces from '../../components/MostFrequentPlaces/MostFrequentPlaces';
 import ParticipationStats from '../../components/ParticipationStats/ParticipationStats';
@@ -26,12 +27,27 @@ const userStats = {
 };
 
 const HallOfFame = () => {
+
+  useEffect(() => {
+    // Configuration de base de ScrollReveal
+    const sr = ScrollReveal({
+      origin: 'bottom',
+      distance: '20px',
+      duration: 500,
+      delay: 100,
+      reset: true, // Animation réapparaît à chaque défilement
+    });
+
+    // Appliquer l'animation aux éléments avec la classe "reveal"
+    sr.reveal('.reveal');
+  }, []);
+    
   return (
     <>
-      <div className='header'>
+      <div className='header reveal'>
         <h2>Hall of Fame <FaTrophy /></h2>
       </div>
-    <div className="hall-of-fame">
+    <div className="hall-of-fame reveal">
       <MostFrequentFriends friends={userStats.mostFrequentFriends} />
       <MostFrequentPlaces places={userStats.mostFrequentPlaces} />
       <ParticipationStats 

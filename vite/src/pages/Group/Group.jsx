@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{ useEffect} from 'react';
+import ScrollReveal from 'scrollreveal';
 import './Group.css';
 import { Link } from 'react-router-dom';
 import GroupCard from '../../components/GroupCard/GroupCard';
@@ -18,12 +19,27 @@ const groups = [
 
 
 const Group = () => {
+
+  useEffect(() => {
+    // Configuration de base de ScrollReveal
+    const sr = ScrollReveal({
+      origin: 'bottom',
+      distance: '20px',
+      duration: 500,
+      delay: 100,
+      reset: true, // Animation réapparaît à chaque défilement
+    });
+
+    // Appliquer l'animation aux éléments avec la classe "reveal"
+    sr.reveal('.reveal');
+  }, []);
+
   return (
     <>
-      <div className='header'>
+      <div className='header reveal'>
         <h2>Groupe</h2>
       </div>
-      <div className="group-page">
+      <div className="group-page reveal">
           <div className="header-actions">
             <input type="text" placeholder="Rechercher" />
           </div>
