@@ -7,9 +7,6 @@ function DetailGroup({ closeModal }) {
       <>
         <div onClick={closeModal} className="overlay"></div>
         <div className="modal">
-          <header>
-            <h3>Détail du groupe</h3>
-          </header>
           <div className="admin-panel">
             <img src='profil.jpg' alt="Profil" className="profile-icon" />
             <h3> JUNIA XP </h3> 
