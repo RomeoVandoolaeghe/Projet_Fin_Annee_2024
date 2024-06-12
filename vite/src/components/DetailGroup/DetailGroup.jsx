@@ -12,8 +12,8 @@ function DetailGroup({ closeModal }) {
             <h3> JUNIA XP </h3> 
           </div>
           <div>
-            <span>
-                <strong> Administrateur:</strong> Lauric
+            <span className='administrateur'>
+                <strong> Administrateur : </strong> Lauric
             </span>
           </div>
           <div className="user-list">

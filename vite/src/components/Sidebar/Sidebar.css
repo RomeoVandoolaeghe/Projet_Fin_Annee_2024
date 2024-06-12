@@ -5,7 +5,7 @@
   right: 0; /* Changer left à right pour positionner la sidebar à droite */
   height: 100%;
   width: 250px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.5);
   color: black;
   transition: transform 0.3s ease-in-out;
   transform: translateX(250px); /* Ajuster la transformation initiale pour qu'elle soit hors de la vue à droite */

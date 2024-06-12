@@ -25,16 +25,14 @@
 }
 
 /* Header */
-
-.modal header h3 {
-  margin: 0;
+.administrateur {
+  margin-bottom: 30px;
 }
-
 /* Admin Panel */
 .admin-panel {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .profile-icon {
@@ -67,20 +65,24 @@
 
 /* Group Info */
 .group-info {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 /* User List */
 .user-list ul {
   list-style: none;
-  padding: 0;
+  padding: 10px;
 }
 
 .user-list li {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border-bottom: 0.5px solid white;
 }
 
+.user-list h4{
+  margin-top: 10px;
+  text-align: center;
+}
 /* Close Button */
 .close-button {
   position: absolute;
