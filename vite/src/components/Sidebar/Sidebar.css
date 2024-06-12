@@ -1,106 +1,61 @@
+/* Sidebar container */
 .sidebar {
+  position: fixed;
+  top: 0;
+  right: 0; /* Changer left à right pour positionner la sidebar à droite */
+  height: 100%;
   width: 250px;
-  background-color: #f5f5f5;
-  padding: 5px;
-  border-right: 1px solid #ddd;
-  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.8);
+  color: black;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(250px); /* Ajuster la transformation initiale pour qu'elle soit hors de la vue à droite */
+  z-index: 1000;
 }
 
-.sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 0;
-  border-bottom: 1px solid #ddd;
-  position: relative;
+.sidebar.open {
+  transform: translateX(0);
 }
 
-.settings-icon,
-.add-user-icon {
-  color: #757575;
+/* Sidebar toggle button */
+.sidebar-toggle {
+  position: absolute;
+  top: 10px;
+  left: -40px; /* Positionner le bouton à gauche de la sidebar */
+  color: black;
+  padding: 10px;
+  border-radius: 5px 0 0 5px; /* Ajuster les coins pour correspondre au nouveau positionnement */
+  cursor: pointer;
 }
 
-.search {
-  display: flex;
-  align-items: center;
-  background-color: #e0e0e0;
-  padding: 3px 5px;
-  border-radius: 20px;
-  margin: 5px 0;
+.sidebar-toggle:hover {
+  background: rgba(255, 255, 255, 0.8);
 }
 
-.search-icon {
-  color: #757575;
-  margin-right: 5px;
+/* Sidebar navigation */
+.sidebar-nav {
+  padding: 20px;
 }
 
-.search input {
-  width: 100%;
-  border: none;
-  background: transparent;
-  outline: none;
-  padding: 3px 0;
-  color: #333;
-}
-
-.group-members h3 {
-  margin: 5px 0;
-}
-
-.group-members ul {
+.sidebar-nav ul {
   list-style-type: none;
   padding: 0;
 }
 
-.group-members li {
+.sidebar-nav ul li {
+  margin: 20px 0;
+}
+
+.sidebar-nav ul li a {
+  color: black;
+  text-decoration: none;
   display: flex;
   align-items: center;
-  padding: 3px 0;
-  border-bottom: 1px solid #ddd;
 }
 
-.member-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
+.sidebar-nav ul li a span {
+  margin-left: 10px;
 }
 
-.member-info {
-  flex-grow: 1;
-}
-
-.member-info span {
-  display: block;
-}
-
-.status {
-  font-size: 0.8rem;
-  color: gray;
-}
-
-.settings-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-.settings-dropdown ul {
-  list-style: none;
-  padding: 10px;
-  margin: 0;
-}
-
-.settings-dropdown ul li {
-  padding: 5px 0;
-  cursor: pointer;
-}
-
-.settings-dropdown ul li:hover {
-  background-color: #f0f0f0;
+.sidebar-nav ul li a:hover {
+  color: blue;
 }

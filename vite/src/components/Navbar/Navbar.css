@@ -1,24 +1,8 @@
 .navbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  color: white;
+  justify-content: center;
   height: 50px;
   width: 100%;
-}
-
-.profil-image {
-  width: 25px; /* Ajustez la largeur comme vous le souhaitez */
-  height: 25px; /* Ajustez la hauteur comme vous le souhaitez */
-  border-radius: 50%; /* Pour rendre l'image ronde */
-  border: 1px solid white;
-}
-
-.logo img {
-  width: 40px;
-  height: 40px;
-  padding-left: 5px;
 }
 
 .nav-links {
@@ -28,7 +12,7 @@
 
 .nav-links li {
   padding: 0 15px;
-  position: relative; /* Pour le positionnement du menu déroulant */
+ 
 }
 
 .nav-links li a {
@@ -40,30 +24,6 @@
 }
 
 .nav-links li a:hover {
-  color: #ccc;
+  color: black;
 }
 
-.dropdown {
-  display: block;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #222;
-  z-index: 1;
-}
-
-.dropdown li {
-  width: 200px; /* Ajustez la largeur comme vous le souhaitez */
-  padding: 5px;
-}
-
-.dropdown li a {
-  color: white;
-  text-decoration: none;
-  display: block;
-  transition: background-color 0.3s;
-}
-
-.dropdown li a:hover {
-  background-color: #444;
-}

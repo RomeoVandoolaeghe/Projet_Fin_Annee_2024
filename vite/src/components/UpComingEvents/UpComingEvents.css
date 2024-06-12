@@ -1,0 +1,15 @@
+.upcoming-events {
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    height: 100vh;
+  }
+  
+  .upcoming-events h4 {
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white;
+    text-align: left;
+  }
+  
+  
