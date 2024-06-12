@@ -137,7 +137,7 @@ function Chat() {
         </div>
         <div className="messages">
           {messages.map(message => (
-            <div key={message.id} className="message">{message.text}</div>
+            <span key={message.id} className="message">{message.text}</span>
           ))}
         </div>
         <div className="chat-input">
