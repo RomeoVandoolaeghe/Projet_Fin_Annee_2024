@@ -6,13 +6,6 @@
   box-sizing: border-box;
 }
 
-body {
-  background: url("/Sortie.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
 .wrapper {
   display: flex;
   justify-content: center;
