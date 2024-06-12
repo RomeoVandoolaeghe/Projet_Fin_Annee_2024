@@ -1,0 +1,91 @@
+/* Définir une couleur d'arrière-plan uniforme pour l'ensemble de la page */
+body {
+  margin: 0;
+  background-color: #1e90ff; /* Utilisez une couleur similaire à celle de votre header */
+  font-family: Arial, sans-serif;
+  color: black;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden; /* Pour éviter le défilement horizontal */
+}
+
+/* Enlever le fond blanc */
+* {
+  color: black;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* List styles */
+.ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column; /* Mettre les éléments en colonne */
+  align-items: center; /* Centrer les éléments */
+  padding: 0;
+  margin: 10px 0; /* Réduire la marge */
+  color: white;
+}
+
+/* Link styles */
+.link {
+  text-decoration: none;
+  color: white;
+  padding: 3px 7px; /* Réduire le padding */
+  font-size: 0.9rem; /* Réduire la taille de la police */
+}
+
+.link:hover {
+  text-decoration: none;
+  color: black;
+  background-color: white; /* Ajouter un arrière-plan au survol */
+  border: none;
+}
+
+/* Div styles */
+.div {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Réduire l'écart entre les liens */
+  margin-bottom: 10px; /* Réduire l'espace en bas */
+}
+
+/* Header styles */
+h1 {
+  text-align: center;
+  margin: 60px auto 15px; /* Ajouter une marge supérieure pour créer de l'espace */
+  color: white;
+  font-size: 2.5rem; /* Augmenter la taille de la police */
+}
+
+.title {
+  font-size: 3rem;
+  margin-bottom: 20px; /* Réduire l'écart avec les éléments suivants */
+}
+
+.box {
+  margin: 3rem 4rem 3rem;
+}
+
+/* LineHead styles */
+.val {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid black; /* Réduire la bordure */
+  background-color: #4682b4;
+  padding: 5px; /* Réduire le padding */
+  margin: 5px; /* Réduire la marge */
+  font-size: 0.9rem; /* Réduire la taille de la police */
+}
+
+/* LinePlan styles */
+.item {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid black; /* Réduire la bordure */
+  background-color: #87cefa;
+  padding: 5px; /* Réduire le padding */
+  margin: 5px 2rem; /* Réduire la marge */
+  font-size: 0.9rem; /* Réduire la taille de la police */
+}
