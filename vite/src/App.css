@@ -1,14 +1,11 @@
-/* Style pour l'image du logo */
 .logo img {
-  width: 40px; /* Largeur du logo */
-  height: 40px; /* Hauteur du logo */
-  padding-left: 5px; /* Marge intérieure à gauche */
-  position: absolute; /* Position absolue */
-  position: fixed; /* Position fixe */
+  width: 40px; 
+  height: 40px; 
+  padding-left: 5px;
+  position: absolute;
+  position: fixed;
 }
-
-/* Style pour le header */
-.header {
-  text-align: center; /* Centrer le texte */
-  color: white; /* Couleur du texte en blanc */
+.header{
+  text-align: center;
+  color: white;
 }
