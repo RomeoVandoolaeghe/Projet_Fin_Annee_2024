@@ -1,0 +1,11 @@
+.input-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px; /* Réduire le padding */
+  margin: 10px; /* Réduire la marge */
+}
+
+textarea {
+  border-radius: 10px; /* Réduire le rayon de bordure */
+}

@@ -54,35 +54,39 @@ function Connexion() {
 
 
   return (
-    <div className="App">
-      <h1>Formulaire de Connexion</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="pseudo">Pseudo: </label>
-          <input
-            type="text"
-            id="pseudo"
-            name="pseudo"
-            value={formData.pseudo}
-            onChange={handleChange}
-          />
-        </div>
-        <br></br>
-        <div>
-          <label htmlFor="password">Password: </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <br></br>
-        <button type="submit">Envoyer </button>
-      </form>
-    </div>
+    // <div className="App">
+    //   <h1>Formulaire de Connexion</h1>
+    //   <form onSubmit={handleSubmit}>
+    //     <div>
+    //       <label htmlFor="pseudo">Pseudo: </label>
+    //       <input
+    //         type="text"
+    //         id="pseudo"
+    //         name="pseudo"
+    //         value={formData.pseudo}
+    //         onChange={handleChange}
+    //       />
+    //     </div>
+    //     <br></br>
+    //     <div>
+    //       <label htmlFor="password">Password: </label>
+    //       <input
+    //         type="password"
+    //         id="password"
+    //         name="password"
+    //         value={formData.password}
+    //         onChange={handleChange}
+    //         required
+    //       />
+    //     </div>
+    //     <br></br>
+    //     <button type="submit">Envoyer </button>
+    //   </form>
+    // </div>
+    <div className="wrapper">
+    <Navbar1 />
+    <FormBox />
+  </div>
   );
 }
 

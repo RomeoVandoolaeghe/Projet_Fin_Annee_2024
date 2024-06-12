@@ -1,0 +1,20 @@
+.input-hour-box {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espace entre le label et l'input */
+  padding: 10px;
+  text-align: center;
+}
+
+.input-hour-label {
+  margin: 0; /* Supprime les marges par défaut */
+}
+
+.input-hour-field {
+  padding: 10px;
+  font-size: 14px; /* Ajuste la taille de la police */
+  border: 1px solid #ccc; /* Ajoute une bordure */
+  border-radius: 20px; /* Ajoute un rayon de bordure */
+  width: 10rem;
+  height: 2rem;
+}

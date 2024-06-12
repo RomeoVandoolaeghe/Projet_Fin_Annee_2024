@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ScrollReveal from 'scrollreveal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPaperPlane, faCog, faUserPlus, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import './Chat.css';
+import './CHAT.css';
 
 // Simuler une base de données fictive
 const users = [
