@@ -1,6 +1,6 @@
 import './DetailGroup.css';
 import React from 'react';
-// Importez votre image ici. Assurez-vous que le chemin est correct.
+
 
 function DetailGroup({ closeModal }) {
     return (
