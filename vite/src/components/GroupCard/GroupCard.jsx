@@ -3,6 +3,8 @@ import './GroupCard.css';
 import { FaEllipsisV } from 'react-icons/fa';
 import { createPortal } from "react-dom";
 import DetailGroup from '../../components/DetailGroup/DetailGroup';
+import { Link } from 'react-router-dom';
+import '../../pages/Chat/Chat';
 
 const GroupCard = ({ name, image }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -23,7 +25,9 @@ const GroupCard = ({ name, image }) => {
         {image}
       </div>
       <div className="group-info">
+      <Link to="/Chat" className="chat-link">
         <h3><strong>{name}</strong></h3>
+      </Link>
         <FaEllipsisV className="group-options" onClick={toggleDropdown} />
         {dropdownVisible && !showModal && (
           <ul className="dropdown">
@@ -35,6 +39,7 @@ const GroupCard = ({ name, image }) => {
             </li>
           </ul>
         )}
+      
       </div>
       {showModal && 
         createPortal(

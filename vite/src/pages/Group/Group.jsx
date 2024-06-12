@@ -26,11 +26,11 @@ const Group = () => {
               <p><strong>Nouveau groupe</strong> <br /><FaUsers /></p>
             </Link>
           </div>
-          <Link to="/Chat" className="chat-link">
+          
             {groups.map((group, index) => (
               <GroupCard key={index} name={group.name} image={group.image} />
             ))}
-          </Link>
+          
         </div>
       </div>
     </>

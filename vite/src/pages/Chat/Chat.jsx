@@ -80,81 +80,83 @@ function Chat() {
   };
 
   return (
-    <div className='chatblock'>
-        <div className="chat-container reveal">
-        <div className="side">
-            <div className="side-header">
-            <FontAwesomeIcon icon={faCog} className="settings-icon hover-icon" onClick={toggleSettings} />
-            <h3>Discussion</h3>
-            <FontAwesomeIcon icon={faUserPlus} className="add-user-icon hover-icon" />
-            {showSettings && (
-                <div className="settings-dropdown">
-                <ul>
-                    <li>Profil</li>
-                    <li>Paramètres</li>
-                    <li>Déconnexion</li>
-                </ul>
-                </div>
-            )}
-            </div>
-            <div className="search">
-            <FontAwesomeIcon icon={faSearch} className="search-icon" />
-            <input
-                type="text"
-                placeholder="Rechercher un membre"
-                value={searchTerm}
-                onChange={handleSearch}
-            />
-            </div>
-            <div className="group-members">
-            <h3>Membres du groupe</h3>
-            <ul>
-                {searchResults.map(user => (
-                <li key={user.id}>
-                    <img src={user.image} alt={user.name} className="member-avatar" />
-                    <div className="member-info">
-                    <span>{user.name}</span>
-                    <span className="status">{user.status}</span>
-                    </div>
-                </li>
-                ))}
-            </ul>
-            </div>
-        </div>
-        <div className="chat-area">
-            <div className="chat-header">
-            <img src="/profil.jpg" alt="Group Logo" className="group-logo" /> {/* Ajoutez votre logo de groupe ici */}
-            JUNIA XP
-            <div className="chat-header-icons">
-                <FontAwesomeIcon icon={faUserPlus} className="hover-icon" />
-                <FontAwesomeIcon icon={faInfoCircle} className="hover-icon" onClick={toggleGroupDetails} />
-            </div>
-            {showGroupDetails && (
-                <div className="group-details">
-                <h4>Détail du groupe</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>
-                </div>
-            )}
-            </div>
-            <div className="messages">
-            {messages.map(message => (
-                <span key={message.id} className="message">{message.text}</span>
-            ))}
-            </div>
-            <div className="chat-input">
-            <input
-                type="text"
-                placeholder="Entrez votre message ..."
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-            />
-            <button className="send-button" onClick={handleSendMessage}>
-                <FontAwesomeIcon icon={faPaperPlane} />
-            </button>
-            </div>
-        </div>
-        </div>
-    </div>
+    <>
+      <div className='chatblock'>
+          <div className="chat-container reveal">
+          <div className="side">
+              <div className="side-header">
+              <FontAwesomeIcon icon={faCog} className="settings-icon hover-icon" onClick={toggleSettings} />
+              <h3>Discussion</h3>
+              <FontAwesomeIcon icon={faUserPlus} className="add-user-icon hover-icon" />
+              {showSettings && (
+                  <div className="settings-dropdown">
+                  <ul>
+                      <li>Profil</li>
+                      <li>Paramètres</li>
+                      <li>Déconnexion</li>
+                  </ul>
+                  </div>
+              )}
+              </div>
+              <div className="search">
+              <FontAwesomeIcon icon={faSearch} className="search-icon" />
+              <input
+                  type="text"
+                  placeholder="Rechercher un membre"
+                  value={searchTerm}
+                  onChange={handleSearch}
+              />
+              </div>
+              <div className="group-members">
+              <h3>Membres du groupe</h3>
+              <ul>
+                  {searchResults.map(user => (
+                  <li key={user.id}>
+                      <img src={user.image} alt={user.name} className="member-avatar" />
+                      <div className="member-info">
+                      <span>{user.name}</span>
+                      <span className="status">{user.status}</span>
+                      </div>
+                  </li>
+                  ))}
+              </ul>
+              </div>
+          </div>
+          <div className="chat-area">
+              <div className="chat-header">
+              <img src="/profil.jpg" alt="Group Logo" className="group-logo" /> {/* Ajoutez votre logo de groupe ici */}
+              JUNIA XP
+              <div className="chat-header-icons">
+                  <FontAwesomeIcon icon={faUserPlus} className="hover-icon" />
+                  <FontAwesomeIcon icon={faInfoCircle} className="hover-icon" onClick={toggleGroupDetails} />
+              </div>
+              {showGroupDetails && (
+                  <div className="group-details">
+                  <h4>Détail du groupe</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>
+                  </div>
+              )}
+              </div>
+              <div className="messages">
+              {messages.map(message => (
+                  <span key={message.id} className="message">{message.text}</span>
+              ))}
+              </div>
+              <div className="chat-input">
+              <input
+                  type="text"
+                  placeholder="Entrez votre message ..."
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+              />
+              <button className="send-button" onClick={handleSendMessage}>
+                  <FontAwesomeIcon icon={faPaperPlane} />
+              </button>
+              </div>
+          </div>
+          </div>
+      </div>
+    </>
   );
 }
 
