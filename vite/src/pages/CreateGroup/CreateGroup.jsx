@@ -17,7 +17,7 @@ function CreateGroup() {
   return (
     <div className="create-group-form-container">
       <header>
-        <h2>Créer un groupe</h2>
+        <h3>Créer un groupe</h3>
       </header> 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
