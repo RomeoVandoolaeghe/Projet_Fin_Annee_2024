@@ -1,21 +1,7 @@
-import React,{ useEffect} from 'react';
-import ScrollReveal from 'scrollreveal';
+import React from 'react';
 import UpComingEvents from '../../components/UpComingEvents/UpComingEvents';
 
-function Home({ name }) {
-  useEffect(() => {
-    // Configuration de base de ScrollReveal
-    const sr = ScrollReveal({
-      origin: 'bottom',
-      distance: '20px',
-      duration: 500,
-      delay: 100,
-      reset: true, // Animation réapparaît à chaque défilement
-    });
-
-    // Appliquer l'animation aux éléments avec la classe "reveal"
-    sr.reveal('.reveal');
-  }, []);
+function Home ({ name }) {
   const events = [
     {
       title: "Palais des Beaux - Arts",
@@ -33,10 +19,10 @@ function Home({ name }) {
     
   return ( 
     <>
-    <div className='header reveal'>
+    <div className='header'>
       <h2>Hello {name} !!!</h2>
     </div>
-      <div className="home reveal">
+      <div className="home">
         <UpComingEvents events={events} />
       </div>
     </>

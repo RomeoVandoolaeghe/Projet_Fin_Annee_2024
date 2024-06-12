@@ -23,7 +23,9 @@ function Events() {
 
   return (
     <>
-      <h1 className="reveal title">Planning</h1>
+      <div className='header'>  
+        <h2>Planning</h2>
+      </div>
       <ul className='ul'>
         <div className='div'>
           <li className="reveal"><Link to="/Calendar" className='link'>Calendrier</Link></li>
