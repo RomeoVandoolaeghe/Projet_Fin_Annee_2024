@@ -8,9 +8,7 @@ function CreateGroup() {
 
     const handleSubmit = (event) => {
     event.preventDefault();
-    // Logique pour créer un groupe
     console.log(`Groupe créé : ${groupName}, Utilisateurs : ${users}`);
-    // Réinitialise les champs après soumission
     setGroupName('');
     setUsers('');
   };
