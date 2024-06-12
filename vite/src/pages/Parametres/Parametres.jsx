@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Parametres.css';
+import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSignOutAlt } from 'react-icons/fa';
 
 const Parametres = () => {
   const [pseudo, setPseudo] = useState('');
@@ -38,7 +39,7 @@ const Parametres = () => {
   return (
     <>
       <div className='header'>
-        <h2>Paramètres du compte</h2>
+        <h2>Paramètres du compte <FaCog /> </h2>
       </div>
       <div className="parametres">
         <form onSubmit={handleSubmit}>
