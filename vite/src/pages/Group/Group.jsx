@@ -2,6 +2,7 @@ import React from 'react';
 import './Group.css';
 import { Link } from 'react-router-dom';
 import GroupCard from '../../components/GroupCard/GroupCard';
+import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSignOutAlt } from 'react-icons/fa';
 
 const groups = [
   { name: 'ASTRO WORD', image: ' A ' },
@@ -29,7 +30,7 @@ const Group = () => {
         <div className="group-grid">
           <div className="group-card">
             <Link to="/CreateGroup" className='nouveaugroupe'>
-              <p><strong>Nouveau groupe</strong> <br />+</p>
+              <p><strong>Nouveau groupe</strong> <br /><FaUsers /></p>
             </Link>
           </div>
           {groups.map((group, index) => (

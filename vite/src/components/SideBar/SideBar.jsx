@@ -18,11 +18,6 @@ const Sidebar = () => {
       <nav className="sidebar-nav">
         <ul>
           <li>
-            <Link to="/CreateGroup">
-              <FaUsers /> <span>Creer un groupe</span>
-            </Link>
-          </li>
-          <li>
             <Link to="/Profile">
               <FaUser /> <span>Profil</span>
             </Link>
