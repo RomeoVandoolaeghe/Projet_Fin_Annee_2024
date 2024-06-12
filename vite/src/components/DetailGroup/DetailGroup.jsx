@@ -1,5 +1,6 @@
 import './DetailGroup.css';
 import React from 'react';
+// Importez votre image ici. Assurez-vous que le chemin est correct.
 
 function DetailGroup({ closeModal }) {
     return (
@@ -10,19 +11,24 @@ function DetailGroup({ closeModal }) {
             <h3>Détail du groupe</h3>
           </header>
           <div className="admin-panel">
-            <div className="profile-icon" />
-                <h3> JUNIA XP </h3> 
-            </div>
-            <div className="user-list">
-                <h4>Membres :</h4>
-                <ul>
-                <li>Utilisateur 1</li>
-                <li>Utilisateur 2</li>
-                </ul>
-            </div>
-            <button className="close-button" onClick={closeModal}>
-                x
-            </button>
+            <img src='profil.jpg' alt="Profil" className="profile-icon" />
+            <h3> JUNIA XP </h3> 
+          </div>
+          <div>
+            <span>
+                <strong> Administrateur:</strong> Lauric
+            </span>
+          </div>
+          <div className="user-list">
+            <h4>Membres :</h4>
+            <ul>
+              <li>Utilisateur 1</li>
+              <li>Utilisateur 2</li>
+            </ul>
+          </div>
+          <button className="close-button" onClick={closeModal}>
+            x
+          </button>
         </div>
       </>
     );
