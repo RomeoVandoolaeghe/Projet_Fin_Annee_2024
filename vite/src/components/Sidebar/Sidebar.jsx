@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSignOutAlt } from 'react-icons/fa';
-import './SideBar.css';
+import './Sidebar.css';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
