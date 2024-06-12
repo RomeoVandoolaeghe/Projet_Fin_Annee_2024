@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import './GroupCard.css';
 import { FaEllipsisV } from 'react-icons/fa';
+import { createPortal } from "react-dom";
+import DetailGroup from '../../components/DetailGroup/DetailGroup';
 
 const GroupCard = ({ name, image }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
@@ -21,8 +22,15 @@ const GroupCard = ({ name, image }) => {
         {dropdownVisible && (
           <ul className="dropdown">
             <li> supprimer </li>
-            <li> modifier </li>
-            <li> Details </li>
+            <li>
+              <button onClick={() => setShowModal(true)}>
+                Details
+              </button>{showModal &&
+                          createPortal(
+                          <DetailGroup closeModal={() => setShowModal(false)} />,
+                          document.body
+                        )}
+            </li>
           </ul>
         )}
       </div>
