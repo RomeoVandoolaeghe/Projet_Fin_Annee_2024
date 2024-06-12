@@ -4,14 +4,24 @@ import React from 'react';
 function DetailGroup({ closeModal }) {
     return (
       <>
-        <div
-          onClick={closeModal}
-          className="overlay"
-        ></div>
+        <div onClick={closeModal} className="overlay"></div>
         <div className="modal">
-            <p>Here is the content</p>
+          <header>
+            <h3>Détail du groupe</h3>
+          </header>
+          <div className="admin-panel">
+            <div className="profile-icon" />
+                <h3> JUNIA XP </h3> 
+            </div>
+            <div className="user-list">
+                <h4>Membres :</h4>
+                <ul>
+                <li>Utilisateur 1</li>
+                <li>Utilisateur 2</li>
+                </ul>
+            </div>
             <button className="close-button" onClick={closeModal}>
-                X
+                x
             </button>
         </div>
       </>

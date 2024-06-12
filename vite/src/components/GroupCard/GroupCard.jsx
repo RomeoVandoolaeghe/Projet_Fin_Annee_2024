@@ -7,8 +7,14 @@ import DetailGroup from '../../components/DetailGroup/DetailGroup';
 const GroupCard = ({ name, image }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleShowModal = () => {
+    setShowModal(true);
+    setDropdownVisible(false); // Ferme le dropdown quand le modal s'affiche
   };
 
   return (
@@ -19,21 +25,23 @@ const GroupCard = ({ name, image }) => {
       <div className="group-info">
         <h3><strong>{name}</strong></h3>
         <FaEllipsisV className="group-options" onClick={toggleDropdown} />
-        {dropdownVisible && (
+        {dropdownVisible && !showModal && (
           <ul className="dropdown">
-            <li> supprimer </li>
+            <li><button> supprimer </button></li>
             <li>
-              <button onClick={() => setShowModal(true)}>
+              <button onClick={handleShowModal}>
                 Details
-              </button>{showModal &&
-                          createPortal(
-                          <DetailGroup closeModal={() => setShowModal(false)} />,
-                          document.body
-                        )}
+              </button>
             </li>
           </ul>
         )}
       </div>
+      {showModal && 
+        createPortal(
+          <DetailGroup closeModal={() => setShowModal(false)} />,
+          document.body
+        )
+      }
     </div>
   );
 };
