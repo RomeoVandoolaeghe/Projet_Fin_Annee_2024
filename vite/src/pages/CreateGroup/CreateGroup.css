@@ -2,11 +2,6 @@
     height: 200vh;
 }
 
-.create-group-form-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
 .create-group-form-container form {
     display: flex;
     font-family: Arial, sans-serif;
@@ -31,7 +26,6 @@
 .create-group-form-container label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
 }
 
 .create-group-form-container input[type="text"] {

@@ -15,11 +15,15 @@ function CreateGroup() {
   return (
     <div className="create-group-form-container">
       <header>
-        <h3>Créer un groupe</h3>
+        <h5>
+          Créer un groupe
+        </h5>
       </header> 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="group-name">Nom du groupe :</label>
+          <label htmlFor="group-name"> 
+            Nom du groupe : 
+          </label>
           <input 
             type="text" 
             id="group-name" 
@@ -30,7 +34,9 @@ function CreateGroup() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="users">Ajouter des utilisateurs :</label>
+          <label htmlFor="users">
+            Ajouter des utilisateurs :
+          </label>
           <input 
             type="text" 
             id="users" 
@@ -44,7 +50,9 @@ function CreateGroup() {
           <button type="button" onClick={() => window.history.back()}>
             Retour
           </button>
-          <button type="submit">Créer</button>
+          <button type="submit">
+            Créer
+          </button>
         </div>
       </form>
     </div>
