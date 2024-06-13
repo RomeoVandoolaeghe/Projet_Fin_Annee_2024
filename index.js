@@ -135,6 +135,8 @@ function isAuthenticated(req, res, next) {
 }
 
 
+
+
 // Route pour les disponibilités
 app.post('/disponibilites', isAuthenticated, async (req, res) => {
     const { datetimedebut, datetimefin } = req.body;
