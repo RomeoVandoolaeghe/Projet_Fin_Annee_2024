@@ -166,7 +166,13 @@ app.get('/disponibilites', isAuthenticated, async (req, res) => {
 });
 
 
+
+app.post('/acces', isAuthenticated, async (req, res) => {
+
+});
+
 // Route pour supprimer une disponibilité
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });
+
