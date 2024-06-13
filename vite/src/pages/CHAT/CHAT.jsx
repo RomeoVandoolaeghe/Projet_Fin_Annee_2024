@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ScrollReveal from 'scrollreveal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPaperPlane, faCog, faUserPlus, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faPaperPlane, faUserPlus, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import './CHAT.css';
 
 // Simuler une base de données fictive
@@ -36,6 +36,9 @@ function Chat() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
+  const dropdownRef = useRef(null);
+  const inputRef = useRef(null);
+
   useEffect(() => {
     // Configuration de base de ScrollReveal
     const sr = ScrollReveal({
@@ -48,6 +51,21 @@ function Chat() {
 
     // Appliquer l'animation aux éléments avec la classe "reveal"
     sr.reveal('.reveal');
+
+    // Ajouter un écouteur d'événements pour les clics en dehors du dropdown
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowGroupDetails(false);
+        setShowSettings(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Nettoyer l'écouteur d'événements à la désactivation du composant
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const toggleGroupDetails = () => {
@@ -79,82 +97,79 @@ function Chat() {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
+
   return (
     <>
       <div className='chatblock'>
-          <div className="chat-container reveal">
+        <div className="chat-container reveal">
           <div className="side">
-              <div className="side-header">
-              <FontAwesomeIcon icon={faCog} className="settings-icon hover-icon" onClick={toggleSettings} />
-              <h3>Discussion</h3>
-              <FontAwesomeIcon icon={faUserPlus} className="add-user-icon hover-icon" />
-              {showSettings && (
-                  <div className="settings-dropdown">
-                  <ul>
-                      <li>Profil</li>
-                      <li>Paramètres</li>
-                      <li>Déconnexion</li>
-                  </ul>
-                  </div>
-              )}
-              </div>
-              <div className="search">
+            <div className="side-header">
+              <h3 className='header'>Discussion</h3>
+            </div>
+            <div className="search">
               <FontAwesomeIcon icon={faSearch} className="search-icon" />
               <input
-                  type="text"
-                  placeholder="Rechercher un membre"
-                  value={searchTerm}
-                  onChange={handleSearch}
+                type="text"
+                placeholder="Rechercher un membre"
+                value={searchTerm}
+                onChange={handleSearch}
               />
-              </div>
-              <div className="group-members">
+            </div>
+            <div className="group-members">
               <h3>Membres du groupe</h3>
               <ul>
-                  {searchResults.map(user => (
+                {searchResults.map(user => (
                   <li key={user.id}>
-                      <img src={user.image} alt={user.name} className="member-avatar" />
-                      <div className="member-info">
+                    <img src={user.image} alt={user.name} className="member-avatar" />
+                    <div className="member-info">
                       <span>{user.name}</span>
                       <span className="status">{user.status}</span>
-                      </div>
+                    </div>
                   </li>
-                  ))}
+                ))}
               </ul>
-              </div>
+            </div>
           </div>
           <div className="chat-area">
-              <div className="chat-header">
+            <div className="chat-header">
               <img src="/profil.jpg" alt="Group Logo" className="group-logo" /> {/* Ajoutez votre logo de groupe ici */}
               JUNIA XP
               <div className="chat-header-icons">
-                  <FontAwesomeIcon icon={faUserPlus} className="hover-icon" />
-                  <FontAwesomeIcon icon={faInfoCircle} className="hover-icon" onClick={toggleGroupDetails} />
+                <FontAwesomeIcon icon={faUserPlus} className="hover-icon" />
+                <FontAwesomeIcon icon={faInfoCircle} className="hover-icon" onClick={toggleGroupDetails} />
               </div>
               {showGroupDetails && (
-                  <div className="group-details">
+                <div className="group-details" ref={dropdownRef}>
                   <h4>Détail du groupe</h4>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>
-                  </div>
+                </div>
               )}
-              </div>
-              <div className="messages">
+            </div>
+            <div className="messages">
               {messages.map(message => (
-                  <span key={message.id} className="message">{message.text}</span>
+                <span key={message.id} className="message">{message.text}</span>
               ))}
-              </div>
-              <div className="chat-input">
+            </div>
+            <div className="chat-input">
               <input
-                  type="text"
-                  placeholder="Entrez votre message ..."
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
+                type="text"
+                placeholder="Entrez votre message ..."
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                ref={inputRef}
               />
               <button className="send-button" onClick={handleSendMessage}>
-                  <FontAwesomeIcon icon={faPaperPlane} />
+                <FontAwesomeIcon icon={faPaperPlane} />
               </button>
-              </div>
+            </div>
           </div>
-          </div>
+        </div>
       </div>
     </>
   );
