@@ -117,7 +117,7 @@ const FormBox = () => {
           <span className="material-symbols-outlined">lock</span>
         </div>
         <div className="input-box">
-          <input type="submit" className="submit" value="Sign In" onClick={handleSubmit} />
+          <input type="submit" className="submit" value="Se connecter" onClick={handleSubmit} />
         </div>
       </div>
       <div className="register-container" id="register">
@@ -142,17 +142,19 @@ const FormBox = () => {
           <span className="material-symbols-outlined">mail</span>
 
         </div>
-        <div className="input-box">
-          <input type="password" className="input-field" placeholder="Password" name="password"
-            value={formData2.password}
-            onChange={handleChange2}
-            pattern="(?=.*\d)(?=.*[A-Z])(?=.*[@$!%*?&]).*"
-            required />
-          <span className="material-symbols-outlined">lock</span>
-        </div>
-        <div className="input-box">
-          <input type="submit" className="submit" value="Sign Up" onClick={handleSubmit2} />
-        </div>
+
+          <div className="input-box">
+            <input type="password" className="input-field" placeholder="Password" name="password"
+    value={formData2.password}
+    onChange={handleChange2}
+    pattern="(?=.*\d)(?=.*[A-Z])(?=.*[@$!%*?&]).*"
+    required />
+            <span className="material-symbols-outlined">lock</span>
+          </div>
+<div className="input-box">
+  <input type="submit" className="submit" value="S'inscrire" onClick={handleSubmit2} />
+</div>
+
 
       </div>
     </div>
