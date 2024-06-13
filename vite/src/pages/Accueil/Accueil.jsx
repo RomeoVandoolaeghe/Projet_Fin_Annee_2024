@@ -9,9 +9,9 @@ function Home ({ name }) {
   axios.post("http://localhost:3000/acces", { withCredentials: true })
       .then(response => {
         console.log('Réponse de la requête POST:', response);
-        if (response.status === 401) {
-          window.location.href = 'http://localhost:5173/';
-        }
+        // if (response.status === 201) {
+        //   window.location.href = 'http://localhost:5173';
+        // }
       })
       .catch(error => {
         console.error('Erreur lors de la requête POST:', error);

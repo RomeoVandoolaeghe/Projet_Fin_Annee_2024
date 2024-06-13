@@ -103,7 +103,7 @@ app.post('/connexion', async (req, res) => {
         req.session.user = {
             id: user.ID_utilisateur,
         };
-        res.send('Connexion réussie');
+        res.send(req.session.user);
 
     } catch (err) {
         console.error("Erreur serveur:", err);
@@ -131,7 +131,7 @@ function isAuthenticated(req, res, next) {
     if (req.session.user) {
         return next();
     }
-    res.status(401).send('Vous devez être connecté pour accéder à cette ressource');
+    res.status(201).send('Non authentifié');
 }
 
 
@@ -168,7 +168,7 @@ app.get('/disponibilites', isAuthenticated, async (req, res) => {
 
 
 app.post('/acces', isAuthenticated, async (req, res) => {
-
+    res.send('Accès autorisé');
 });
 
 // Route pour supprimer une disponibilité
