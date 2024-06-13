@@ -87,12 +87,13 @@ app.post('/connexion', async (req, res) => {
     try {
         const [result] = await db.promise().query('SELECT * FROM utilisateur WHERE Pseudo = ?', [pseudo]);
         if (result.length === 0) {
-            return res.send('Utilisateur non trouvé');
+            return res.status(401).send('Utilisateur non trouvé');
+
         }
         const user = result[0];
         const isMatch = await bcrypt.compare(password, user.Password);
         if (!isMatch) {
-            return res.send('Mot de passe incorrect');
+            return res.status(400).send('Mot de passe incorrect');
         }
 
         // Vérifiez les données utilisateur obtenues de la base de données
@@ -102,7 +103,8 @@ app.post('/connexion', async (req, res) => {
         req.session.user = {
             id: user.ID_utilisateur,
         };
-        res.send(req.session.user);
+        res.send('Connexion réussie');
+
     } catch (err) {
         console.error("Erreur serveur:", err);
         res.status(500).send('Erreur serveur');
