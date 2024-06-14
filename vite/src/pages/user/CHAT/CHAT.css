@@ -20,29 +20,6 @@
   border-radius: 10px 0px 0px 0px;
 }
 
-/* Custom Scrollbar */
-.side::-webkit-scrollbar,
-.chat-area::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
-}
-
-.side::-webkit-scrollbar-thumb,
-.chat-area::-webkit-scrollbar-thumb {
-  background-color: #888; /* Color of the scrollbar thumb */
-  border-radius: 10px;
-}
-
-.side::-webkit-scrollbar-thumb:hover,
-.chat-area::-webkit-scrollbar-thumb:hover {
-  background-color: white; /* Color of the scrollbar thumb when hovered */
-}
-
-.side::-webkit-scrollbar-track,
-.chat-area::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Color of the scrollbar track */
-  border-radius: 10px;
-}
-
 .side-header {
   display: flex;
   text-align: center;
@@ -52,6 +29,7 @@
 }
 .header {
   width: 100%;
+  color: black; /* Change the color to black */
 }
 
 .settings-icon,
@@ -132,7 +110,7 @@
   background-color: rgba(255, 255, 255, 0.8);
   position: relative;
   overflow-y: auto; /* Ensure chat-area also uses custom scrollbar */
-  border-top-right-radius: 0px 10px 10px 0px;
+  border-top-right-radius: 10px;
 }
 
 .chat-header {
@@ -151,13 +129,10 @@
   border-radius: 50%;
   margin-right: 10px;
 }
-
 .chat-header-icons > * {
   margin-right: 20px;
   cursor: pointer;
-  border: 2px solid black;
 }
-
 .group-details {
   position: absolute;
   top: 100%;
@@ -186,6 +161,8 @@
   margin: 3px 0; /* Reduced margin */
   background-color: #f0f0f0;
   border-radius: 5px;
+  display: block; /* Ensure each message is displayed as a block */
+  white-space: pre-wrap; /* Preserve whitespace and line breaks */
 }
 
 .chat-input {
@@ -222,10 +199,13 @@
 
 .hover-icon:hover {
   color: #474646;
-  background-color: blue;
+  background-color: rgba(105, 105, 105, 0.442);
   border-radius: 10px;
   padding: 10px;
   margin-right: 20px;
+}
+.hover-icon {
+  padding: 10px;
 }
 
 .settings-dropdown {
