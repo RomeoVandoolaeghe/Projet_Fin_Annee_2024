@@ -30,7 +30,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/Logout">
+              <Link to="/">
                 <FaSignOutAlt /> <span>Déconnexion</span>
               </Link>
             </li>

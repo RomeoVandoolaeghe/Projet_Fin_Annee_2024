@@ -3,10 +3,9 @@
   position: fixed;
   top: 0;
   justify-content: space-around;
-  width: 100%;
+  width: 98.7%;
   height: 100px;
   line-height: 100px;
-  background: linear-gradient(rgba(39, 39, 39, 0.6), transparent);
   z-index: 100;
 }
 
