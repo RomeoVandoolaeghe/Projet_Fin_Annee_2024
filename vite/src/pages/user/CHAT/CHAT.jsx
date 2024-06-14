@@ -109,7 +109,7 @@ function Chat() {
         <div className="chat-container reveal">
           <div className="side">
             <div className="side-header">
-              <p className='stay'>Discussion</p>
+              <h3 className='stay'>Discussion</h3>
             </div>
             <div className="search">
               <FontAwesomeIcon icon={faSearch} className="search-icon" />
@@ -141,11 +141,19 @@ function Chat() {
               JUNIA XP
               <div className="chat-header-icons">
                 <FontAwesomeIcon icon={faUserPlus} className="hover-icon" />
+                <FontAwesomeIcon icon={faInfoCircle} className="hover-icon" onClick={toggleGroupDetails} />
               </div>
               {showGroupDetails && (
                 <div className="group-details" ref={dropdownRef}>
                   <h4>Règles du chat</h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>
+                  <p className='paragraphe'><li>Traitez tous les membres avec respect et courtoisie.</li>
+                    <li>Évitez les insultes, les commentaires désobligeants ou les attaques personnelles.</li>
+                    <li>Utilisez un langage approprié et évitez les gros mots ou le langage offensant.</li>
+                    <li>N'utilisez pas de termes racistes, sexistes, homophobes ou tout autre langage discriminatoire.</li>
+                    <li>Ne postez pas de messages répétitifs ou de spam.</li>
+                    <li>Évitez de publier des liens non sollicités ou des publicités.</li>
+                    <li>Respectez la confidentialité des autres membres.</li>
+                    <li>Ne partagez pas d'informations personnelles telles que des adresses, des numéros de téléphone ou des informations financières.</li></p>
                 </div>
               )}
             </div>
