@@ -1,6 +1,6 @@
 import React from 'react';
-import Calendar from '../../components/Calendar/Calendar.jsx';
-import Button from '../../components/Button/Button';
+import Calendar from '../../../components/Calendar/Calendar.jsx';
+import Button from '../../../components/Button/Button.jsx';
 
 function Calendars() {
   return (

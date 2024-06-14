@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import ScrollReveal from 'scrollreveal';
 import './CreateOutput.css'
-import Formline from "../../components/FormLine/FormLine.jsx";
-import InputHour from "../../components/InputHour/InputHour.jsx";
-import InputNumber from "../../components/InputNumber/InputNumber.jsx";
-import InputDate from '../../components/InputDate/InputDate.jsx'; // Assurez-vous que le chemin est correct
-import Button from '../../components/Button/Button.jsx';
-import TextArea from '../../components/TextArea/TextArea.jsx';
+import Formline from "../../../components/FormLine/FormLine.jsx";
+import InputHour from "../../../components/InputHour/InputHour.jsx";
+import InputNumber from "../../../components/InputNumber/InputNumber.jsx";
+import InputDate from '../../../components/InputDate/InputDate.jsx'; // Assurez-vous que le chemin est correct
+import Button from '../../../components/Button/Button.jsx';
+import TextArea from '../../../components/TextArea/TextArea.jsx';
 
 function CreateOutput(){
   useEffect(() => {

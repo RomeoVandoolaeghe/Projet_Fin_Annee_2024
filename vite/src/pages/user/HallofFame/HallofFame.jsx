@@ -1,7 +1,7 @@
 import React from 'react';
-import MostFrequentFriends from '../../components/MostFrequentFriends/MostFrequentFriends';
-import MostFrequentPlaces from '../../components/MostFrequentPlaces/MostFrequentPlaces';
-import ParticipationStats from '../../components/ParticipationStats/ParticipationStats';
+import MostFrequentFriends from '../../../components/MostFrequentFriends/MostFrequentFriends';
+import MostFrequentPlaces from '../../../components/MostFrequentPlaces/MostFrequentPlaces';
+import ParticipationStats from '../../../components/ParticipationStats/ParticipationStats';
 import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import './HallofFame.css';
 
