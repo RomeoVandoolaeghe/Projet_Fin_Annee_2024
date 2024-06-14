@@ -141,6 +141,7 @@ function Chat() {
               JUNIA XP
               <div className="chat-header-icons">
                 <FontAwesomeIcon icon={faUserPlus} className="hover-icon" />
+<<<<<<< HEAD:vite/src/pages/CHAT/CHAT.jsx
               </div>
             </div>
             <div className="messages">
@@ -148,6 +149,20 @@ function Chat() {
                 <span key={message.id} className="message">
                   {message.text}
                 </span>
+=======
+                <FontAwesomeIcon icon={faInfoCircle} className="hover-icon" onClick={toggleGroupDetails} />
+              </div>
+              {showGroupDetails && (
+                <div className="group-details" ref={dropdownRef}>
+                  <h4>Détail du groupe</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>
+                </div>
+              )}
+            </div>
+            <div className="messages">
+              {messages.map(message => (
+                <span key={message.id} className="message">{message.text}</span>
+>>>>>>> 1a4f1c5d855f96b5167702868fedc3ecb64c4d15:vite/src/pages/user/CHAT/CHAT.jsx
               ))}
             </div>
             <div className="chat-input">

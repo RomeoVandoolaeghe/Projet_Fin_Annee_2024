@@ -67,7 +67,10 @@ const FormBox = () => {
     axios.post(url, formData, { withCredentials: true })
       .then(response => {
         console.log('Réponse du serveur:', response.data);
-        // document.cookie = "Pseudo_Cookie=" + formData.pseudo + "; path=/; max-age=500000;Secure"; // max-age en secondes (ici, 1 heure)
+        console.log('Status:', response.status);
+        if (response.status === 200) {
+          window.location.href = 'http://localhost:5173/Accueil';
+        }
       })
       .catch(error => {
         console.error('Erreur lors de la requête POST:', error);
@@ -85,7 +88,7 @@ const FormBox = () => {
     // L'URL de l'API à laquelle vous envoyez la requête POST
     const url = 'http://localhost:3000/inscription';
 
-    axios.post(url, formData2)
+    axios.post(url, formData2, { withCredentials: true })
       .then(response => {
         console.log('Réponse du serveur:', response.data);
 
@@ -143,17 +146,17 @@ const FormBox = () => {
 
         </div>
 
-          <div className="input-box">
-            <input type="password" className="input-field" placeholder="Password" name="password"
-    value={formData2.password}
-    onChange={handleChange2}
-    pattern="(?=.*\d)(?=.*[A-Z])(?=.*[@$!%*?&]).*"
-    required />
-            <span className="material-symbols-outlined">lock</span>
-          </div>
-<div className="input-box">
-  <input type="submit" className="submit" value="S'inscrire" onClick={handleSubmit2} />
-</div>
+        <div className="input-box">
+          <input type="password" className="input-field" placeholder="Password" name="password"
+            value={formData2.password}
+            onChange={handleChange2}
+            pattern="(?=.*\d)(?=.*[A-Z])(?=.*[@$!%*?&]).*"
+            required />
+          <span className="material-symbols-outlined">lock</span>
+        </div>
+        <div className="input-box">
+          <input type="submit" className="submit" value="S'inscrire" onClick={handleSubmit2} />
+        </div>
 
 
       </div>

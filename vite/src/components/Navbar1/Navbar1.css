@@ -1,4 +1,5 @@
 .nav {
+  
   display: flex;
   position: fixed;
   top: 0;
@@ -6,6 +7,11 @@
   width: 98.7%;
   height: 100px;
   line-height: 100px;
+<<<<<<< HEAD
+=======
+/*   background: linear-gradient(rgba(0, 0, 0, 0.6), transparent); */
+background-color: grey;
+>>>>>>> 1a4f1c5d855f96b5167702868fedc3ecb64c4d15
   z-index: 100;
 }
 

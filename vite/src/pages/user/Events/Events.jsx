@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import LineHead from '../../components/LineHead/LineHead.jsx';
-import LinePlan from '../../components/LinePlan/LinePlan.jsx';
+import LineHead from '../../../components/LineHead/LineHead.jsx';
+import LinePlan from '../../../components/LinePlan/LinePlan.jsx';
 import ScrollReveal from 'scrollreveal';
 import React, { useEffect } from 'react';
 import './Events.css';

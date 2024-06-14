@@ -87,12 +87,13 @@ app.post('/connexion', async (req, res) => {
     try {
         const [result] = await db.promise().query('SELECT * FROM utilisateur WHERE Pseudo = ?', [pseudo]);
         if (result.length === 0) {
-            return res.send('Utilisateur non trouvé');
+            return res.status(401).send('Utilisateur non trouvé');
+
         }
         const user = result[0];
         const isMatch = await bcrypt.compare(password, user.Password);
         if (!isMatch) {
-            return res.send('Mot de passe incorrect');
+            return res.status(400).send('Mot de passe incorrect');
         }
 
         // Vérifiez les données utilisateur obtenues de la base de données
@@ -103,6 +104,7 @@ app.post('/connexion', async (req, res) => {
             id: user.ID_utilisateur,
         };
         res.send(req.session.user);
+
     } catch (err) {
         console.error("Erreur serveur:", err);
         res.status(500).send('Erreur serveur');
@@ -129,8 +131,10 @@ function isAuthenticated(req, res, next) {
     if (req.session.user) {
         return next();
     }
-    res.status(401).send('Vous devez être connecté pour accéder à cette ressource');
+    res.status(201).send('Non authentifié');
 }
+
+
 
 
 // Route pour les disponibilités
@@ -164,7 +168,13 @@ app.get('/disponibilites', isAuthenticated, async (req, res) => {
 });
 
 
+
+app.post('/acces', isAuthenticated, async (req, res) => {
+    res.send('Accès autorisé');
+});
+
 // Route pour supprimer une disponibilité
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });
+
