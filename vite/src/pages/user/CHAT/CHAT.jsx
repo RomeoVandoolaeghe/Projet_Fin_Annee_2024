@@ -109,7 +109,7 @@ function Chat() {
         <div className="chat-container reveal">
           <div className="side">
             <div className="side-header">
-              <h3 className='header'>Discussion</h3>
+              <p className='stay'>Discussion</p>
             </div>
             <div className="search">
               <FontAwesomeIcon icon={faSearch} className="search-icon" />
@@ -141,28 +141,19 @@ function Chat() {
               JUNIA XP
               <div className="chat-header-icons">
                 <FontAwesomeIcon icon={faUserPlus} className="hover-icon" />
-<<<<<<< HEAD:vite/src/pages/CHAT/CHAT.jsx
-              </div>
-            </div>
-            <div className="messages">
-              {messages.map(message => (
-                <span key={message.id} className="message">
-                  {message.text}
-                </span>
-=======
-                <FontAwesomeIcon icon={faInfoCircle} className="hover-icon" onClick={toggleGroupDetails} />
               </div>
               {showGroupDetails && (
                 <div className="group-details" ref={dropdownRef}>
-                  <h4>Détail du groupe</h4>
+                  <h4>Règles du chat</h4>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>
                 </div>
               )}
             </div>
             <div className="messages">
               {messages.map(message => (
-                <span key={message.id} className="message">{message.text}</span>
->>>>>>> 1a4f1c5d855f96b5167702868fedc3ecb64c4d15:vite/src/pages/user/CHAT/CHAT.jsx
+                <span key={message.id} className="message">
+                  {message.text}
+                </span>
               ))}
             </div>
             <div className="chat-input">

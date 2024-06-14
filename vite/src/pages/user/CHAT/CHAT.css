@@ -27,9 +27,12 @@
   border-bottom: 1px solid #ddd;
   position: relative;
 }
-.header {
+.stay {
+  color: black;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
   width: 100%;
-  color: black; /* Change the color to black */
 }
 
 .settings-icon,
