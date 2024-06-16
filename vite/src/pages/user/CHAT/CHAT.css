@@ -148,7 +148,9 @@
   padding: 10px;
   z-index: 1000;
 }
-
+.paragraphe {
+  font-size: 12px;
+}
 .group-details h4 {
   margin-top: 0;
 }
