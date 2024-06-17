@@ -2,6 +2,7 @@ import React from 'react';
 import './Group.css';
 import { Link } from 'react-router-dom';
 import GroupCard from '../../../components/GroupCard/GroupCard';
+// import GroupManager from '../../../components/GroupManager/GroupMananger'
 import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import '../CHAT/CHAT';
 

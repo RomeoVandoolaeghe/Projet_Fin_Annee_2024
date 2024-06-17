@@ -5,7 +5,6 @@ import React from 'react';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Events from './pages/user/Events/Events.jsx';
 import CreateOutput from './pages/user/CreateOutput/CreateOutput.jsx';
-import Calendar from './pages/user/Calendars/Calendars.jsx';
 import Login from './pages/Login/Login.jsx';
 import Chat from './pages/user/CHAT/CHAT.jsx';
 import Home from './pages/user/Accueil/Accueil.jsx';
@@ -33,7 +32,6 @@ function App() {
         <Route path='/' element={<Login />} />
         <Route path='/CreateOutput' element={<CreateOutput />} />
         <Route path="/Events" element={<Events />} />
-        <Route path='/Calendar' element={<Calendar />} />
         <Route path="/CHAT" element={<Chat />} />
         <Route path="/Accueil" element={<Home />} />
         <Route path="/Profile" element={<ProfilePage />} />

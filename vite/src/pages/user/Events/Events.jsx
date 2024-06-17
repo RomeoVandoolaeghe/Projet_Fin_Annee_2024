@@ -28,7 +28,6 @@ function Events() {
       </div>
       <ul className='ul'>
         <div className='div'>
-          <li className="reveal"><Link to="/Calendar" className='link'>Calendrier</Link></li>
           <li className="reveal"><Link to="/Events" className='link'>Table</Link></li>
         </div>
         <li className="reveal"><Link to="/CreateOutput" className='link'>Creer une sortie</Link></li>
