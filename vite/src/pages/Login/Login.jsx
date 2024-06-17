@@ -5,14 +5,6 @@ import './Login.css';
 import { useState } from 'react';
 
 
-
-
-
-
-
-
-
-
 const Login = () => {
 
   

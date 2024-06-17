@@ -1,58 +1,53 @@
 import React, { useState } from 'react';
-import './CreateGroup.css'; 
+import { useNavigate } from 'react-router-dom';
+import './CreateGroup.css';
 
+function CreateGroup({ onCreateGroup }) {
+  const [groupName, setGroupName] = useState('');
+  const [users, setUsers] = useState('');
+  const navigate = useNavigate();
 
-function CreateGroup() {
-    const [groupName, setGroupName] = useState('');
-    const [users, setUsers] = useState('');
-
-    const handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`Groupe créé : ${groupName}, Utilisateurs : ${users}`);
+    onCreateGroup(groupName, users);
     setGroupName('');
     setUsers('');
+    navigate('/Group'); // Rediriger vers la page des groupes après la création
   };
+
   return (
     <div className="create-group-form-container">
       <header>
-        <h5>
-          Créer un groupe
-        </h5>
-      </header> 
+        <h5>Créer un groupe</h5>
+      </header>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="group-name"> 
-            Nom du groupe : 
-          </label>
-          <input 
-            type="text" 
-            id="group-name" 
-            name="group-name" 
-            value={groupName} 
-            onChange={(e) => setGroupName(e.target.value)} 
-            required 
+          <label htmlFor="group-name">Nom du groupe :</label>
+          <input
+            type="text"
+            id="group-name"
+            name="group-name"
+            value={groupName}
+            onChange={(e) => setGroupName(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="users">
-            Ajouter des utilisateurs :
-          </label>
-          <input 
-            type="text" 
-            id="users" 
-            name="users" 
-            value={users} 
-            onChange={(e) => setUsers(e.target.value)} 
-            required 
+          <label htmlFor="users">Ajouter des utilisateurs :</label>
+          <input
+            type="text"
+            id="users"
+            name="users"
+            value={users}
+            onChange={(e) => setUsers(e.target.value)}
+            required
           />
         </div>
         <div className="form-group buttons">
-          <button type="button" onClick={() => window.history.back()}>
+          <button type="button" onClick={() => navigate(-1)}>
             Retour
           </button>
-          <button type="submit">
-            Créer
-          </button>
+          <button type="submit">Créer</button>
         </div>
       </form>
     </div>
