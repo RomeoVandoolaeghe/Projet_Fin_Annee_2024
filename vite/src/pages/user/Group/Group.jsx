@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import GroupCard from '../../../components/GroupCard/GroupCard';
 import { FaUsers } from 'react-icons/fa';
 import './Group.css';
 
 const Group = ({ groups }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredGroups = groups.filter(group =>
+    group.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <div className='header'>
@@ -12,7 +22,12 @@ const Group = ({ groups }) => {
       </div>
       <div className="group-page">
         <div className="header-actions">
-          <input type="text" placeholder="Rechercher" />
+          <input
+            type="text"
+            placeholder="Rechercher"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
         </div>
         <div className="group-grid">
           <div className="group-card">
@@ -20,8 +35,8 @@ const Group = ({ groups }) => {
               <p><strong>Nouveau groupe</strong> <br /><FaUsers /></p>
             </Link>
           </div>
-          {groups.map((group, index) => (
-            <GroupCard key={index} name={group.name} image={group.image} />
+          {filteredGroups.map((group, index) => (
+            <GroupCard key={index} name={group.name} image={group.image} color={group.color} />
           ))}
         </div>
       </div>

@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './CreateGroup.css';
 
 function CreateGroup({ onCreateGroup }) {
   const [groupName, setGroupName] = useState('');
   const [users, setUsers] = useState('');
-  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     onCreateGroup(groupName, users);
     setGroupName('');
     setUsers('');
-    navigate('/Group'); // Rediriger vers la page des groupes après la création
+  };
+  const addGroup = (groupName, users) => {
+    const newGroup = {
+      id: groups.length + 1,
+      name: groupName,
+      users: users.split(',').map(user => user.trim()), // Convertir les utilisateurs en tableau
+      image: groupName.charAt(0).toUpperCase() // Juste une logique pour l'image, vous pouvez la changer
+    };
+    setGroups([...groups, newGroup]);
   };
 
   return (
@@ -44,10 +50,10 @@ function CreateGroup({ onCreateGroup }) {
           />
         </div>
         <div className="form-group buttons">
-          <button type="button" onClick={() => navigate(-1)}>
+          <button type="button" onClick={() => window.history.back()}>
             Retour
           </button>
-          <button type="submit">Créer</button>
+          <button type="submit" onCreateGroup={addGroup}>Créer</button>
         </div>
       </form>
     </div>
