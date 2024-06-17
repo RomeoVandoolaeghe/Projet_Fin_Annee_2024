@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SearchBar from '../../../components/SearchBar/SearchBar';
-import FriendsList from '../../../components/FriendsList/FriendsList';
+import FriendList_AddFriend from '../../../components/FriendList_AddFriend/FriendList_AddFriend';
 import './AddFriend.css';
 
 const AddFriend = () => {
@@ -28,7 +28,7 @@ const AddFriend = () => {
     <div>
       <h3>Ajouter des amis</h3>
       <SearchBar onSearch={handleSearch} />
-      <FriendsList friends={friends} />
+      <FriendList_AddFriend friends={friends} />
     </div>
   );
 };

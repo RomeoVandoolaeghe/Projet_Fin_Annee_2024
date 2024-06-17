@@ -3,10 +3,13 @@ const mysql = require('mysql');
 const router = express.Router();
 const pool = require('../db'); // Assurez-vous que le chemin est correct
 
-// Route de vérification
 router.post('/search_utilisateur', (req, res) => {
   const { champ } = req.body;
-  const sql = 'SELECT * FROM utilisateur WHERE Pseudo = ?';
+
+  // Ajout d'un log pour vérifier la valeur de champ
+  console.log('Valeur de champ:', champ);
+
+  const sql = 'SELECT * FROM utilisateur';
 
   pool.query(sql, [champ], (err, result) => {
     if (err) {
@@ -14,15 +17,14 @@ router.post('/search_utilisateur', (req, res) => {
       return res.status(500).json({ error: 'Internal server error' });
     }
 
+    // Ajout d'un log pour vérifier le résultat de la requête
+    console.log('Résultat de la requête:', result);
+
     if (result.length === 0) {
       return res.status(404).json({ message: 'Utilisateur non trouvé' });
     }
 
-    if(result.length != 0){
-
-      res.send(result);
-      console.log(result); // Cette requête renvoie le profil de l'utilisateur 
-    }
+    return res.send(result);
   });
 });
 
@@ -127,6 +129,7 @@ router.post('/get_amis', (req, res) => {
     return res.status(200).json(result);
   });
 });
+
 
 
 
