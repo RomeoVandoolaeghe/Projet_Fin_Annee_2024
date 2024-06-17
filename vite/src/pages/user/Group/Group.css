@@ -55,3 +55,6 @@ header h1 {
   justify-content: center; /* Centre horizontalement le contenu, si nécessaire */
   height: 100%; /* Assurez-vous que le conteneur a une hauteur pour le centrage */
 }
+.group-page {
+  margin-bottom: 40px;
+}

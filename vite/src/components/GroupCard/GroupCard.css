@@ -22,10 +22,17 @@
   object-fit: cover;
 }
 
+.group-info {
+  overflow: hidden;
+}
+
 .group-info h3 {
   font-size: 15px;
   margin-top: 20px;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .group-options {

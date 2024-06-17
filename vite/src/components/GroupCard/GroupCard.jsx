@@ -39,7 +39,7 @@ const GroupCard = ({ name, image, color }) => {
       </div>
       <div className="group-info">
         <Link to="/Chat" className="chat-link">
-          <h3><strong>{name}</strong></h3>
+          <h3 className="group-name"><strong>{name}</strong></h3>
         </Link>
         <FaEllipsisV className="group-options" onClick={toggleDropdown} />
         {dropdownVisible && !showModal && (
