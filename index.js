@@ -5,9 +5,23 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require("express-session"); // Importe le module express-session
 require('dotenv').config(); // Charge les variables d'environnement à partir du fichier .env
+const MySQLStore = require('express-mysql-session')(session); // Importe le module express-mysql-session
+
+// Configuration de la base de données MySQL
+const options = {
+    host: 'localhost',
+    port: 8889, // Port par défaut de MySQL sur MAMP
+    user: 'root', // Utilisateur par défaut de MAMP
+    password: 'root', // Mot de passe par défaut de MAMP
+    database: 'database_name' // Remplacez par le nom de votre base de données
+  };
+  
+  // Création du store de sessions MySQL
+  const sessionStore = new MySQLStore(options);
 
 
 const app = express(); // Crée une instance de l'application Express
+
 
 // Middleware pour gérer les requêtes CORS
 app.use(cors({
@@ -17,6 +31,7 @@ app.use(cors({
 app.use(cookieParser()); // Middleware pour gérer les cookies
 app.use(express.json()); // Middleware pour gérer les données JSON
 app.use(session({ // Middleware pour gérer les sessions
+    store: sessionStore,
     name: process.env.SESSION_NAME,
     resave: false,
     saveUninitialized: false,
@@ -36,10 +51,12 @@ app.use('/amis', amis);
 
 
 
+
+
 const PORT = process.env.PORT || 3000; // Port sur lequel le serveur écoute
 
 // Connexion à la base de données
-const db = mysql.createConnection({ 
+const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'root',
@@ -133,11 +150,11 @@ app.post('/logout', (req, res) => {
 
 // Middleware pour vérifier si l'utilisateur est authentifié
 function isAuthenticated(req, res, next) {
-    // if (req.session.user) {
-    //     return res.send('Authentifié');
-    // }
-    // res.status(201).send('Non authentifié');
-    res.send(req.session.user);
+    if (req.session.user) {
+        return res.send('Authentifié');
+    }
+    res.status(201).send('Non authentifié');
+
 }
 
 
@@ -169,6 +186,44 @@ app.get('/disponibilites', isAuthenticated, async (req, res) => {
         console.error("Erreur lors de la récupération des disponibilités : ", err);
         res.status(500).send('Erreur serveur');
     }
+});
+
+
+app.get("/friends",isAuthenticated, async (req, res) => {
+    
+    const ID_utilisateur1 = req.session.user.id;
+    const { ID_utilisateur2 } = 11;
+
+
+    // Vérifiez d'abord si la relation existe déjà dans les deux sens
+    const checkSql = ' SELECT * FROM amitie WHERE ((ID_utilisateur1 = ? AND ID_utilisateur2 = ?) OR (ID_utilisateur1 = ? AND ID_utilisateur2 = ?))';
+
+    db.query(checkSql, [ID_utilisateur1, ID_utilisateur2, ID_utilisateur2, ID_utilisateur1], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        if (result.length > 0) {
+
+            return res.status(400).json({ message: 'La relation d\'amitié existe déjà entre les utilisateurs' });
+
+        }
+
+        if (result.length === 0) {
+            console.log("La relation d'amitié n'existe pas");
+            res.send(result);
+        }
+
+
+    });
+
+
+
+
+
+
+
 });
 
 
