@@ -16,8 +16,9 @@ import AddFriend from './pages/user/AddFriend/AddFriend.jsx';
 import Group from './pages/user/Group/Group.jsx';
 import CreateGroup from './pages/user/CreateGroup/CreateGroup.jsx';
 import SideBar from './components/Sidebar/Sidebar.jsx';
-
+import accueil_admin from './pages/admin/accueil-admin/accueil-admin.jsx';                   
 // Importation des styles globaux de l'application
+
 import "./App.css"
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         <Route path="/HallofFame" element={<HallofFame />} />
         <Route path="/AddFriend" element={<AddFriend />} />
         <Route path="/CreateGroup" element={<CreateGroup />} />
+        <Route path="/accueil-admin" element={<accueil_admin />} />
       </Routes>
     </Router>
   );
