@@ -169,6 +169,31 @@ app.get('/disponibilites', isAuthenticated, async (req, res) => {
 });
 
 
+app.get("/friends", isAuthenticated, async (req, res) => {
+    const { ID_utilisateur1,ID_utilisateur2  } = req.body;
+
+    // Vérifiez d'abord si la relation existe déjà dans les deux sens
+    const checkSql =' SELECT * FROM amitie WHERE ((ID_utilisateur1 = ? AND ID_utilisateur2 = ?) OR (ID_utilisateur1 = ? AND ID_utilisateur2 = ?))';
+    
+    pool.query(checkSql, [ID_utilisateur1,ID_utilisateur2,ID_utilisateur2,ID_utilisateur1], (err, result) => {
+      if (err) {
+        console.error('Error executing query', err);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+  
+      if (result.length > 0) {
+        return res.status(400).json({ message: 'La relation d\'amitié existe déjà entre les utilisateurs' });
+      }
+  
+      if (result.length === 0) {
+        console.log("La relation d'amitié n'existe pas");
+        res.send(result);
+      }
+  
+    });
+});
+
+
 
 app.post('/acces', isAuthenticated, async (req, res) => {
     res.send('Accès autorisé');
