@@ -27,7 +27,7 @@ const AddFriend = () => {
   return (
     <div>
       <h3>Ajouter des amis</h3>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar />
       <FriendList_AddFriend friends={friends} />
     </div>
   );

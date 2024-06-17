@@ -189,10 +189,14 @@ app.get('/disponibilites', isAuthenticated, async (req, res) => {
 });
 
 
-app.post("/friends", isAuthenticated, async (req, res) => {
+
+
+app.post("/verif_ami", async (req, res) => {
 
     const ID_utilisateur1 = req.session.user.id;
     const { ID_utilisateur2 } = req.body;
+    console.log(ID_utilisateur2);
+    
 
     // Vérifiez d'abord si la relation existe déjà dans les deux sens
     const checkSql = ' SELECT * FROM amitie WHERE ((ID_utilisateur1 = ? AND ID_utilisateur2 = ?) OR (ID_utilisateur1 = ? AND ID_utilisateur2 = ?))';
@@ -202,7 +206,7 @@ app.post("/friends", isAuthenticated, async (req, res) => {
             console.error('Error executing query', err);
             return res.status(500).json({ error: 'Internal server error' });
         }
-
+        
 
         if (result.length > 0) {
             return res.status(400).json({ message: 'La relation d\'amitié existe déjà entre les utilisateurs' });
@@ -210,7 +214,6 @@ app.post("/friends", isAuthenticated, async (req, res) => {
         }
 
         if (result.length === 0) {
-
             return res.status(200).json({ message: 'La relation d\'amitié n\'existe pas entre les utilisateurs' });
         }
 
@@ -218,8 +221,9 @@ app.post("/friends", isAuthenticated, async (req, res) => {
 });
 
 
-app.get("/friends", async (req, res) => {
-    const ID_utilisateur1 = 8;
+app.get("/friends",isAuthenticated, async (req, res) => {
+    const ID_utilisateur1 = req.session.user.id;
+
 
     // Vérifiez d'abord si la relation existe déjà dans les deux sens
     const checkSql = 'SELECT ID_utilisateur2 FROM amitie WHERE ID_utilisateur1 = ?';
@@ -231,7 +235,7 @@ app.get("/friends", async (req, res) => {
         }
         if (result.length > 0) {
             const friendIds = result.map(row => row.ID_utilisateur2);
- 
+
             // Construire la requête pour obtenir les pseudos
             const getPseudoSql = 'SELECT Pseudo FROM utilisateur WHERE ID_utilisateur IN (?)';
 
@@ -260,28 +264,75 @@ app.post('/acces', isAuthenticated, async (req, res) => {
 
 
 app.post('/Check_ami', (req, res) => {
-    const { ID_utilisateur1,ID_utilisateur2  } = req.body;
-  
+    const { ID_utilisateur1, ID_utilisateur2 } = req.body;
+
     // Vérifiez d'abord si la relation existe déjà dans les deux sens
-    const checkSql =' SELECT * FROM amitie WHERE ((ID_utilisateur1 = ? AND ID_utilisateur2 = ?) OR (ID_utilisateur1 = ? AND ID_utilisateur2 = ?))';
-    
-    db.query(checkSql, [ID_utilisateur1,ID_utilisateur2,ID_utilisateur2,ID_utilisateur1], (err, result) => {
-      if (err) {
-        console.error('Error executing query', err);
-        return res.status(500).json({ error: 'Internal server error' });
-      }
-  
-      if (result.length > 0) {
-        return res.status(400).json({ message: 'La relation d\'amitié existe déjà entre les utilisateurs' });
-      }
-  
-      if (result.length === 0) {
-        console.log("La relation d'amitié n'existe pas");
-        res.send(result);
-      }
-  
+    const checkSql = ' SELECT * FROM amitie WHERE ((ID_utilisateur1 = ? AND ID_utilisateur2 = ?) OR (ID_utilisateur1 = ? AND ID_utilisateur2 = ?))';
+
+    db.query(checkSql, [ID_utilisateur1, ID_utilisateur2, ID_utilisateur2, ID_utilisateur1], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        if (result.length > 0) {
+            return res.status(400).json({ message: 'La relation d\'amitié existe déjà entre les utilisateurs' });
+        }
+
+        if (result.length === 0) {
+            console.log("La relation d'amitié n'existe pas");
+            res.send(result);
+        }
+
     });
-  });
+});
+
+
+
+app.post('/search_utilisateur_id', (req, res) => {
+    const { champ } = req.body;
+    const sql = 'SELECT ID_utilisateur FROM utilisateur WHERE Pseudo = ?';
+
+    db.query(sql, [champ], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        if (result.length === 0) {
+            return res.status(404).json({ message: 'Utilisateur non trouvé' });
+        }
+
+        return res.status(200).json({ ID_utilisateur: result[0].ID_utilisateur });
+    });
+});
+
+
+// app.get('/search_utilisateur', (req, res) => {
+
+    
+//     // Ajout d'un log pour vérifier la valeur de champ
+//     // console.log('Valeur de champ:', champ);
+
+//     const sql = 'SELECT * FROM utilisateur WHERE ID_utilisateur = 8';
+
+//     db.query(sql, (err, result) => {
+//         if (err) {
+//             console.error('Error executing query', err);
+//             return res.status(500).json({ error: 'Internal server error' });
+//         }
+
+//         // Ajout d'un log pour vérifier le résultat de la requête
+//         console.log('Résultat de la requête:', result);
+
+//         if (result.length === 0) {
+//             return res.status(404).json({ message: 'Utilisateur non trouvé' });
+//         }
+
+//         return res.send(result);
+//     });
+// });
+
 
 
 // Route pour supprimer une disponibilité
