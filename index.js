@@ -10,14 +10,14 @@ const MySQLStore = require('express-mysql-session')(session); // Importe le modu
 // Configuration de la base de données MySQL
 const options = {
     host: 'localhost',
-    port: 8889, // Port par défaut de MySQL sur MAMP
+    port: 3306, // Port par défaut de MySQL sur MAMP
     user: 'root', // Utilisateur par défaut de MAMP
     password: 'root', // Mot de passe par défaut de MAMP
-    database: 'database_name' // Remplacez par le nom de votre base de données
-  };
-  
-  // Création du store de sessions MySQL
-  const sessionStore = new MySQLStore(options);
+    database: 'hanghout' // Remplacez par le nom de votre base de données
+};
+
+// Création du store de sessions MySQL
+const sessionStore = new MySQLStore(options);
 
 
 
@@ -146,7 +146,7 @@ app.post('/logout', (req, res) => {
 // Middleware pour vérifier si l'utilisateur est authentifié
 function isAuthenticated(req, res, next) {
     if (req.session.user) {
-        return res.send('Authentifié');
+        return next();
     }
     res.status(201).send('Non authentifié');
 
@@ -186,11 +186,10 @@ app.get('/disponibilites', isAuthenticated, async (req, res) => {
 });
 
 
-app.get("/friends",isAuthenticated, async (req, res) => {
-    
-    const ID_utilisateur1 = req.session.user.id;
-    const { ID_utilisateur2 } = 11;
+app.post("/friends", isAuthenticated, async (req, res) => {
 
+    const ID_utilisateur1 = req.session.user.id;
+    const { ID_utilisateur2 } = req.body;
 
     // Vérifiez d'abord si la relation existe déjà dans les deux sens
     const checkSql = ' SELECT * FROM amitie WHERE ((ID_utilisateur1 = ? AND ID_utilisateur2 = ?) OR (ID_utilisateur1 = ? AND ID_utilisateur2 = ?))';
@@ -201,27 +200,52 @@ app.get("/friends",isAuthenticated, async (req, res) => {
             return res.status(500).json({ error: 'Internal server error' });
         }
 
+
         if (result.length > 0) {
-
             return res.status(400).json({ message: 'La relation d\'amitié existe déjà entre les utilisateurs' });
-
+            // console.log("amitié existe");
         }
 
         if (result.length === 0) {
-            console.log("La relation d'amitié n'existe pas");
-            res.send(result);
+
+            return res.status(200).json({ message: 'La relation d\'amitié n\'existe pas entre les utilisateurs' });
         }
 
-
     });
-
-
-
-
-
-
-
 });
+
+
+app.get("/friends", async (req, res) => {
+    const ID_utilisateur1 = 8;
+
+    // Vérifiez d'abord si la relation existe déjà dans les deux sens
+    const checkSql = 'SELECT ID_utilisateur2 FROM amitie WHERE ID_utilisateur1 = ?';
+
+    db.query(checkSql, [ID_utilisateur1], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        if (result.length > 0) {
+            const friendIds = result.map(row => row.ID_utilisateur2);
+ 
+            // Construire la requête pour obtenir les pseudos
+            const getPseudoSql = 'SELECT Pseudo FROM utilisateur WHERE ID_utilisateur IN (?)';
+
+            db.query(getPseudoSql, [friendIds], (err, friends) => {
+                if (err) {
+                    console.error('Error executing query', err);
+                    return res.status(500).json({ error: 'Internal server error' });
+                }
+
+                return res.json(friends);
+            });
+        } else {
+            return res.status(200).json({ message: "Aucun ami trouvé" });
+        }
+    });
+});
+
 
 
 
