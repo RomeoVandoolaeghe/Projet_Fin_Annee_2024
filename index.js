@@ -185,37 +185,36 @@ app.get('/disponibilites', isAuthenticated, async (req, res) => {
 
 
 
-app.post("/verif_ami", async (req, res) => {
+app.post("/verif_ami", (req, res) => {
+    const ID_utilisateur1 = req.session.user.id; // ID de l'utilisateur actuel
+    console.log("ID de l'utilisateur actuel:", ID_utilisateur1);
+    const {champ}  = req.body; // Pseudo de l'utilisateur à rechercher
+    console.log("Pseudo de l'utilisateur à rechercher:", champ);
+    // Requête SQL combinée
+    const checkSql = `
+      SELECT * FROM amitie
+      WHERE ((ID_utilisateur1 = ? AND ID_utilisateur2 = (SELECT ID_utilisateur FROM utilisateur WHERE Pseudo = ?))
+         OR (ID_utilisateur1 = (SELECT ID_utilisateur FROM utilisateur WHERE Pseudo = ?) AND ID_utilisateur2 = ?))
+    `;
 
-    const ID_utilisateur1 = req.session.user.id;
-    const { ID_utilisateur2 } = req.body;
-    console.log(ID_utilisateur2);
-    
-
-    // Vérifiez d'abord si la relation existe déjà dans les deux sens
-    const checkSql = ' SELECT * FROM amitie WHERE ((ID_utilisateur1 = ? AND ID_utilisateur2 = ?) OR (ID_utilisateur1 = ? AND ID_utilisateur2 = ?))';
-
-    db.query(checkSql, [ID_utilisateur1, ID_utilisateur2, ID_utilisateur2, ID_utilisateur1], (err, result) => {
+    db.query(checkSql, [ID_utilisateur1, champ, champ, ID_utilisateur1], (err, result) => {
         if (err) {
             console.error('Error executing query', err);
             return res.status(500).json({ error: 'Internal server error' });
         }
-        
+
 
         if (result.length > 0) {
-            return res.status(400).json({ message: 'La relation d\'amitié existe déjà entre les utilisateurs' });
-            // console.log("amitié existe");
+            return res.json({ message: 'La relation d\'amitié existe déjà entre les utilisateurs' });
         }
 
-        if (result.length === 0) {
-            return res.status(200).json({ message: 'La relation d\'amitié n\'existe pas entre les utilisateurs' });
-        }
-
+        return res.status(200).json({ message: 'La relation d\'amitié n\'existe pas entre les utilisateurs' });
     });
 });
 
 
-app.get("/friends",isAuthenticated, async (req, res) => {
+
+app.get("/friends", isAuthenticated, async (req, res) => {
     const ID_utilisateur1 = req.session.user.id;
 
 
@@ -304,7 +303,7 @@ app.post('/search_utilisateur_id', (req, res) => {
 
 // app.get('/search_utilisateur', (req, res) => {
 
-    
+
 //     // Ajout d'un log pour vérifier la valeur de champ
 //     // console.log('Valeur de champ:', champ);
 

@@ -36,25 +36,14 @@ const SearchBar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const url = 'http://localhost:3000/search_utilisateur_id';
+    const url = 'http://localhost:3000/verif_ami';
 
     axios
       .post(url, { champ: formData.term }, { withCredentials: true })
       .then((response) => {
         console.log('Réponse du serveur:', response.data);
-        const id_utilisateur = response.data.ID_utilisateur;
-        console.log('ID utilisateur:', id_utilisateur);
-
-
-        // Faire une deuxième requête avec l'ID utilisateur
-        axios.post('http://localhost:3000/verif_ami',{ID_utilisateur2 : formData.id_utilisateur},{ withCredentials: true })
-          .then((response) => {
-            console.log('Réponse du serveur:', response.data);
-          })
-          .catch((error) => {
-            console.error('Erreur lors de la requête POST:', error);
-            setError('Une erreur est survenue lors de l\'ajout de l\'ami.');
-          });
+        // const id_utilisateur = response.data.ID_utilisateur;
+        // console.log('ID utilisateur:', id_utilisateur);
       })
       .catch((error) => {
         console.error('Erreur lors de la requête POST:', error);
