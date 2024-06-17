@@ -47,12 +47,6 @@ app.use(session({ // Middleware pour gérer les sessions
 const amis = require('./Routes/amis');
 app.use('/amis', amis);
 
-
-
-
-
-
-
 const PORT = process.env.PORT || 3000; // Port sur lequel le serveur écoute
 
 // Connexion à la base de données
