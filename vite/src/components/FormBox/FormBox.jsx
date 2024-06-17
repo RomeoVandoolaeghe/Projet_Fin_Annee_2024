@@ -68,9 +68,9 @@ const FormBox = () => {
       .then(response => {
         console.log('Réponse du serveur:', response.data);
         console.log('Status:', response.status);
-        if (response.status === 200) {
-          window.location.href = 'http://localhost:5173/Accueil';
-        }
+        // if (response.status === 200) {
+        //   window.location.href = 'http://localhost:5173/Accueil';
+        // }
       })
       .catch(error => {
         console.error('Erreur lors de la requête POST:', error);

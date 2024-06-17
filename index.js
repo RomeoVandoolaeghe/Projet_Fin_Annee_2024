@@ -87,17 +87,16 @@ app.post('/connexion', async (req, res) => {
     try {
         const [result] = await db.promise().query('SELECT * FROM utilisateur WHERE Pseudo = ?', [pseudo]);
         if (result.length === 0) {
-            return res.status(401).send('Utilisateur non trouvé');
+            return res.status(203).send('Utilisateur non trouvé');
 
         }
         const user = result[0];
         const isMatch = await bcrypt.compare(password, user.Password);
         if (!isMatch) {
-            return res.status(400).send('Mot de passe incorrect');
+            return res.status(202).send('Mot de passe incorrect');
         }
 
-        // Vérifiez les données utilisateur obtenues de la base de données
-        console.log('User:', user);
+
 
         // Définissez la session utilisateur
         req.session.user = {
@@ -110,6 +109,7 @@ app.post('/connexion', async (req, res) => {
         res.status(500).send('Erreur serveur');
     }
 });
+
 
 
 
@@ -128,10 +128,11 @@ app.post('/logout', (req, res) => {
 
 // Middleware pour vérifier si l'utilisateur est authentifié
 function isAuthenticated(req, res, next) {
-    if (req.session.user) {
-        return next();
-    }
-    res.status(201).send('Non authentifié');
+    // if (req.session.user) {
+    //     return res.send('Authentifié');
+    // }
+    // res.status(201).send('Non authentifié');
+    res.send(req.session.user);
 }
 
 
@@ -177,4 +178,5 @@ app.post('/acces', isAuthenticated, async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });
+
 
