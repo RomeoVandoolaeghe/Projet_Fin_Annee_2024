@@ -249,6 +249,9 @@ app.get("/friends", isAuthenticated, async (req, res) => {
 
 
 
+
+
+
 app.post('/acces', isAuthenticated, async (req, res) => {
     res.send('Accès autorisé');
 });
@@ -259,7 +262,7 @@ app.post('/create_ami', (req, res) => {
 
     const ID_utilisateur1 = req.session.user.id;
     console.log(ID_utilisateur1);
-    const {champ} = req.body;
+    const { champ } = req.body;
     console.log(champ);
 
     // Insérez une nouvelle ligne dans la table amitie
@@ -279,49 +282,35 @@ app.post('/create_ami', (req, res) => {
 app.post('/delete_ami', (req, res) => {
     const ID_utilisateur1 = req.session.user.id;
     console.log(ID_utilisateur1);
-    const {pseudo } = req.body;
-    console.log(pseudo);    
+    const { pseudo } = req.body;
+    console.log(pseudo);
     // Supprimer la relation d'amitié de la table amitie
     const deleteSql = 'DELETE FROM amitie WHERE (ID_utilisateur1 = ? AND ID_utilisateur2 = (SELECT ID_utilisateur FROM utilisateur WHERE Pseudo =?)) OR (ID_utilisateur1 = (SELECT ID_utilisateur FROM utilisateur WHERE Pseudo =?) AND ID_utilisateur2 = ?)';
-  
+
     db.query(deleteSql, [ID_utilisateur1, pseudo, pseudo, ID_utilisateur1], (err, result) => {
-      if (err) {
-        console.error('Error executing query', err);
-        return res.status(500).json({ error: 'Internal server error' });
-      }
-  
-      if (result.affectedRows === 0) {
-        return res.status(404).json({ message: 'Relation d\'amitié non trouvée' });
-      }
-  
-      return res.status(200).json({ message: 'Relation d\'amitié supprimée avec succès' });
+        if (err) {
+            console.error('Error executing query', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Relation d\'amitié non trouvée' });
+        }
+
+        return res.status(200).json({ message: 'Relation d\'amitié supprimée avec succès' });
     });
-  });
-
-// app.get('/search_utilisateur', (req, res) => {
+});
 
 
-//     // Ajout d'un log pour vérifier la valeur de champ
-//     // console.log('Valeur de champ:', champ);
-
-//     const sql = 'SELECT * FROM utilisateur WHERE ID_utilisateur = 8';
-
-//     db.query(sql, (err, result) => {
-//         if (err) {
-//             console.error('Error executing query', err);
-//             return res.status(500).json({ error: 'Internal server error' });
-//         }
-
-//         // Ajout d'un log pour vérifier le résultat de la requête
-//         console.log('Résultat de la requête:', result);
-
-//         if (result.length === 0) {
-//             return res.status(404).json({ message: 'Utilisateur non trouvé' });
-//         }
-
-//         return res.send(result);
-//     });
-// });
+app.post('/modif_dispo', (req, res) => {
+    const ID_utilisateur = req.session.user.id;
+    const { jour, heure_debut, heure_fin } = req.body;
+    console.log(jour);
+    console.log(heure_debut);
+    console.log(heure_fin);
+    // Mettre à jour la disponibilité de l'utilisateur
+    const updateSql = 'INSERT INTO disponibilite SET Date_Dispo_debut = ?, Date_Dispo_fin = ? WHERE ID_Utilisateur = ? AND Jour = ?';
+});
 
 
 
