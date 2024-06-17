@@ -1,8 +1,8 @@
-
 header {
   align-items: center;
   padding-bottom: 20px;
   color: #ffffff;
+  margin-bottom: 40px;
 }
 
 header h1 {
@@ -41,15 +41,17 @@ header h1 {
   margin-right: 60px;
   color: white;
 }
+
 .chat-link {
-  text-decoration: none; 
+  text-decoration: none;
   color: white; /* Définit la couleur du texte à blanc */
 }
-.nouveaugroupe{
-text-decoration: none; 
-color: white; /* Définit la couleur du texte à blanc */
-display: flex; /* Utilise Flexbox */
-align-items: center; /* Centre verticalement le contenu */
-justify-content: center; /* Centre horizontalement le contenu, si nécessaire */
-height: 100%; /* Assurez-vous que le conteneur a une hauteur pour le centrage */
+
+.nouveaugroupe {
+  text-decoration: none;
+  color: white; /* Définit la couleur du texte à blanc */
+  display: flex; /* Utilise Flexbox */
+  align-items: center; /* Centre verticalement le contenu */
+  justify-content: center; /* Centre horizontalement le contenu, si nécessaire */
+  height: 100%; /* Assurez-vous que le conteneur a une hauteur pour le centrage */
 }
