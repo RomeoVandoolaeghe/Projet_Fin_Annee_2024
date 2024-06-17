@@ -9,6 +9,24 @@ const FriendsList = () => {
   const [error, setError] = useState(null);
   const [showDeleteButtons, setShowDeleteButtons] = useState(false);
 
+
+  const handleDeleteClick = (pseudo) => {
+    // Appelez la fonction de suppression avec le pseudo du friend
+    const url = 'http://localhost:3000/delete_ami';
+    axios
+      .post(url, {pseudo}, { withCredentials: true })
+      .then((response) => {
+        console.log('Réponse du serveur:', response.data);
+        location.reload();
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la requête POST:', error);
+        setError('Une erreur est survenue lors de la recherche.');
+      });
+  };
+
+
+
   useEffect(() => {
     const fetchAmis = async () => {
       try {
@@ -44,8 +62,13 @@ const FriendsList = () => {
             <li key={index}>
               {friend.Pseudo}
               {showDeleteButtons ? (
-                <FaTrashAlt className="icon delete" />
-              ) : ("")}
+                <FaTrashAlt
+                  className="icon delete"
+                  onClick={() => handleDeleteClick(friend.Pseudo)}
+                />
+              ) : (
+                ""
+              )}
             </li>
           ))}
         </ul>
