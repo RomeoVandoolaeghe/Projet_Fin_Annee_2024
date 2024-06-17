@@ -8,4 +8,5 @@
 
 textarea {
   border-radius: 10px; /* Réduire le rayon de bordure */
+  padding: 10px;
 }
