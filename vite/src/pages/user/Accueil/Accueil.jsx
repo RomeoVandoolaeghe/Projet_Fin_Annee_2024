@@ -1,5 +1,5 @@
 import React from 'react';
-import UpComingEvents from '../../components/UpComingEvents/UpComingEvents';
+import UpComingEvents from '../../../components/UpComingEvents/UpComingEvents';
 import axios from 'axios'
 
 

@@ -111,7 +111,7 @@ const FormBox = () => {
         </div>
         <div className="input-box">
           <input type="text" name="pseudo" className="input-field" placeholder="Votre Pseudo" value={formData.pseudo}
-            onChange={handleChange} />
+            onChange={handleChange} required/>
           <span className="material-symbols-outlined">mail</span>
         </div>
         <div className="input-box">
@@ -132,7 +132,7 @@ const FormBox = () => {
           <div className="input-box">
             <input type="text" className="input-field" placeholder="Pseudo" name="pseudo"
               value={formData2.pseudo}
-              onChange={handleChange2} />
+              onChange={handleChange2} required/>
             <span className="material-symbols-outlined">person</span>
           </div>
         </div>

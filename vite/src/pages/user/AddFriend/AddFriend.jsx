@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import SearchBar from '../../components/SearchBar/SearchBar';
-import FriendsList from '../../components/FriendsList/FriendsList';
+import SearchBar from '../../../components/SearchBar/SearchBar';
+import FriendsList from '../../../components/FriendsList/FriendsList';
 import './AddFriend.css';
 
 const AddFriend = () => {
