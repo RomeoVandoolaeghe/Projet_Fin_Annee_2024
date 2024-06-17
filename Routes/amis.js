@@ -9,7 +9,7 @@ router.post('/search_utilisateur', (req, res) => {
   // Ajout d'un log pour vérifier la valeur de champ
   console.log('Valeur de champ:', champ);
 
-  const sql = 'SELECT * FROM utilisateur WHERE Pseudo = ?';
+  const sql = 'SELECT * FROM utilisateur';
 
   pool.query(sql, [champ], (err, result) => {
     if (err) {
@@ -27,7 +27,6 @@ router.post('/search_utilisateur', (req, res) => {
     return res.send(result);
   });
 });
-
 
 
 router.post('/search_utilisateur_id', (req, res) => {
@@ -130,6 +129,7 @@ router.post('/get_amis', (req, res) => {
     return res.status(200).json(result);
   });
 });
+
 
 
 
