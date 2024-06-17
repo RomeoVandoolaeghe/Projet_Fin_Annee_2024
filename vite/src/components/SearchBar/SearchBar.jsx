@@ -50,6 +50,19 @@ const SearchBar = () => {
         setError('Une erreur est survenue lors de la recherche.');
       });
 
+
+      axios
+      .post('http://localhost:3000/create_ami', { champ: formData.term }, { withCredentials: true })
+      .then((response) => {
+        console.log('Réponse du serveur:', response.data);
+        location.reload();
+
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la requête POST:', error);
+        setError('Une erreur est survenue lors de la recherche.');
+      });
+
     resetForm();
   };
 
