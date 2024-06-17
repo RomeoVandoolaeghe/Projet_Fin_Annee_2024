@@ -7,7 +7,6 @@ const session = require("express-session"); // Importe le module express-session
 require('dotenv').config(); // Charge les variables d'environnement à partir du fichier .env
 
 
-
 const app = express(); // Crée une instance de l'application Express
 
 // Middleware pour gérer les requêtes CORS
@@ -29,6 +28,12 @@ app.use(session({ // Middleware pour gérer les sessions
     }
 }));
 
+// Importer les routes
+const amis = require('./Routes/amis');
+app.use('/amis', amis);
+
+
+
 
 
 const PORT = process.env.PORT || 3000; // Port sur lequel le serveur écoute
@@ -46,7 +51,7 @@ db.connect((err) => {
     if (err) {
         throw err;
     }
-    console.log('Connecté à la base de données');
+    console.log('Connecté à la base de données 2');
 });
 
 
@@ -136,8 +141,6 @@ function isAuthenticated(req, res, next) {
 }
 
 
-
-
 // Route pour les disponibilités
 app.post('/disponibilites', isAuthenticated, async (req, res) => {
     const { datetimedebut, datetimefin } = req.body;
@@ -173,6 +176,34 @@ app.get('/disponibilites', isAuthenticated, async (req, res) => {
 app.post('/acces', isAuthenticated, async (req, res) => {
     res.send('Accès autorisé');
 });
+
+
+
+
+app.post('/Check_ami', (req, res) => {
+    const { ID_utilisateur1,ID_utilisateur2  } = req.body;
+  
+    // Vérifiez d'abord si la relation existe déjà dans les deux sens
+    const checkSql =' SELECT * FROM amitie WHERE ((ID_utilisateur1 = ? AND ID_utilisateur2 = ?) OR (ID_utilisateur1 = ? AND ID_utilisateur2 = ?))';
+    
+    db.query(checkSql, [ID_utilisateur1,ID_utilisateur2,ID_utilisateur2,ID_utilisateur1], (err, result) => {
+      if (err) {
+        console.error('Error executing query', err);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+  
+      if (result.length > 0) {
+        return res.status(400).json({ message: 'La relation d\'amitié existe déjà entre les utilisateurs' });
+      }
+  
+      if (result.length === 0) {
+        console.log("La relation d'amitié n'existe pas");
+        res.send(result);
+      }
+  
+    });
+  });
+
 
 // Route pour supprimer une disponibilité
 app.listen(PORT, () => {
