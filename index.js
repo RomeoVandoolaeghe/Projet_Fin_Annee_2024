@@ -198,7 +198,9 @@ app.post("/verif_ami", (req, res) => {
     `;
 
 
+
     
+
     db.query(checkSql, [ID_utilisateur1, champ, champ, ID_utilisateur1], (err, result) => {
         if (err) {
             console.error('Error executing query', err);
