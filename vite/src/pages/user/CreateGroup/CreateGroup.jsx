@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CreateGroup.css';
 
 function CreateGroup({ onCreateGroup }) {
   const [groupName, setGroupName] = useState('');
   const [users, setUsers] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     onCreateGroup(groupName, users);
     setGroupName('');
     setUsers('');
+    navigate('/Group'); // Rediriger vers la page des groupes après la création
   };
 
   return (
@@ -41,7 +44,7 @@ function CreateGroup({ onCreateGroup }) {
           />
         </div>
         <div className="form-group buttons">
-          <button type="button" onClick={() => window.history.back()}>
+          <button type="button" onClick={() => navigate(-1)}>
             Retour
           </button>
           <button type="submit">Créer</button>
@@ -52,4 +55,3 @@ function CreateGroup({ onCreateGroup }) {
 }
 
 export default CreateGroup;
-
