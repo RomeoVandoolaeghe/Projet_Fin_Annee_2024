@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import DetailGroup from '../../components/DetailGroup/DetailGroup';
 import { Link } from 'react-router-dom';
 
-const GroupCard = ({ name, image }) => {
+const GroupCard = ({ name, image, color }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const dropdownRef = useRef(null);
@@ -34,7 +34,7 @@ const GroupCard = ({ name, image }) => {
 
   return (
     <div className="group-card">
-      <div className="group-image">
+      <div className="group-image" style={{ backgroundColor: color }}>
         {image}
       </div>
       <div className="group-info">
