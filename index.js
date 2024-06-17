@@ -175,10 +175,10 @@ app.get("/friends", isAuthenticated, async (req, res) => {
     // Vérifiez d'abord si la relation existe déjà dans les deux sens
     const checkSql =' SELECT * FROM amitie WHERE ((ID_utilisateur1 = ? AND ID_utilisateur2 = ?) OR (ID_utilisateur1 = ? AND ID_utilisateur2 = ?))';
     
-    pool.query(checkSql, [ID_utilisateur1,ID_utilisateur2,ID_utilisateur2,ID_utilisateur1], (err, result) => {
+    db.query(checkSql, [ID_utilisateur1,ID_utilisateur2,ID_utilisateur2,ID_utilisateur1], (err, result) => {
       if (err) {
         console.error('Error executing query', err);
-        return res.status(500).json({ error: 'Internal server error' });
+          return res.status(500).json({ error: 'Internal server error' });
       }
   
       if (result.length > 0) {
