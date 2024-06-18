@@ -391,6 +391,19 @@ app.post("/delete_dispo", (req, res) => {
 });
 
 
+app.get('/get_pseudo', isAuthenticated, async (req, res) => {
+    try {
+        const ID_user = req.session.user.id;
+        const [rows] = await db.promise().query('SELECT Pseudo FROM utilisateur WHERE ID_utilisateur = ?', [ID_user]);
+        res.send(rows[0]);
+    } catch (err) {
+        console.error("Erreur lors de la récupération du pseudo : ", err);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
+
+
 
 
 
