@@ -98,13 +98,7 @@ const Parametres = () => {
         <form onSubmit={handleSubmit}>
           <section>
             <h2>Informations Personnelles</h2>
-            <div>
-              <label>Pseudo :</label>
-              <input
-                type="text"
-                placeholder="Modifier le pseudo"
-              />
-            </div>
+
             <div>
               <label>Photo de profil :</label>
               <input
@@ -120,16 +114,6 @@ const Parametres = () => {
             </div>
           </section>
 
-          <section>
-            <h2>Sécurité et Confidentialité</h2>
-            <div>
-              <label>Changer le mot de passe :</label>
-              <input
-                type="password"
-                placeholder="Nouveau mot de passe"
-              />
-            </div>
-          </section>
 
           <section>
             <h2>Disponibilités</h2>

@@ -45,8 +45,6 @@ function Home() {
     },
   ];
 
-  name = 'Hugo';
-
   return (
     <>
       <div className='header'>

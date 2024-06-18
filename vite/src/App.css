@@ -1,9 +1,18 @@
+
+
+
 .logo img {
-  width: 40px; 
-  height: 40px; 
-  padding-left: 5px;
+  width: 60px; 
+  height: 60px; 
+  margin: 7px;
+  padding: 10px;
   position: absolute;
   position: fixed;
+  border-style: solid;
+  border-radius: 10px;
+  opacity: 70%;
+  background-color: rgba(255, 255, 255, 0.626);
+
 }
 .header{
   text-align: center;
