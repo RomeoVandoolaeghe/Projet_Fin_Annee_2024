@@ -10,29 +10,33 @@ const initialUser = {
   Description: 'Ouvert communicatif aime rencontrer de nouvelles personnes et élargir son réseau social.',
 };
 
-
-
 const ProfileHeader = ({ isEditMode }) => {
   const [user, setUser] = useState(initialUser);
   const [error, setError] = useState(null);
-  const [initialAvailability,setDispo]=useState([]);
-
+  const [initialAvailability, setDispo] = useState([]);
 
   useEffect(() => {
-    const fetchAmis = async () => {
+    console.log("useEffect exécuté");
+
+    const fetchDispo = async () => {
+      console.log("Début de fetchDispo");
+
       try {
         const response = await axios.get('http://localhost:3000/recup_dispo', { withCredentials: true });
+        console.log("Réponse reçue:", response);
         if (response.data && Array.isArray(response.data)) {
+          console.log("Données valides reçues:", response.data);
           setDispo(response.data);
         } else {
           console.error('Les données reçues ne sont pas valides', response.data);
         }
       } catch (error) {
+        console.log("Erreur lors de la requête:", error);
         setError(error);
       }
     };
 
-    fetchAmis();
+    fetchDispo();
   }, []);
 
   const handleInputChange = (e) => {
@@ -92,30 +96,32 @@ const ProfileHeader = ({ isEditMode }) => {
           </>
         )}
         <h4>Disponibilités</h4>
-      <table className="availability-table">
-        <thead>
-          <tr>
-            <th>Jour</th>
-            <th>Début</th>
-            <th>Fin</th>
-          </tr>
-        </thead>
-        <tbody>
-          {initialAvailability.map((item, index) => (
-            <tr key={index}>
-              <td>{item.day}</td>
-              <td>
-                <span>{item.start}</span>
-              </td>
-              <td>
-                <span>{item.end}</span>
-              </td>
+        {error && ( // Affichage conditionnel du message d'erreur
+          <p className="error-message">Erreur lors du chargement des disponibilités: {error.message}</p>
+        )}
+        <table className="availability-table">
+          <thead>
+            <tr>
+              <th>Jour</th>
+              <th>Début</th>
+              <th>Fin</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {initialAvailability.map((item, index) => (
+              <tr key={index}>
+                <td>{item.Jour}</td>
+                <td>
+                  <span>{item.Heure_debut}</span>
+                </td>
+                <td>
+                  <span>{item.Heure_fin}</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      
     </div>
   );
 };
