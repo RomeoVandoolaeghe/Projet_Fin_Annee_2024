@@ -29,10 +29,6 @@ const FriendsList = () => {
   const [groups, setGroups] = useState(group);
   const [showDeleteButtons, setShowDeleteButtons] = useState(false);
 
-  const toggleDeleteButtons = () => {
-    setShowDeleteButtons(!showDeleteButtons);
-  };
-
   return (
     <div>
       <div className="list-container invitations-list">
@@ -52,9 +48,9 @@ const FriendsList = () => {
       <div className="list-container friends-list">
         <div className="friends-list-header">
           <h4>Liste d’amis</h4>
-          <button className="toggle-delete" onClick={toggleDeleteButtons}>
-            <Link to="/AddFriend" className='button_2'>Gérer des amis</Link>
-          </button>
+          
+            <Link to="/AddFriend" className='button_2'><button className="toggle-delete" >Gérer des amis</button></Link>
+          
         </div>
         <ul>
           {friends.map((friend, index) => (
