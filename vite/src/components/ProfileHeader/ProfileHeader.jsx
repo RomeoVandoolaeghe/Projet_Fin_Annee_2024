@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProfileHeader.css';
 import axios from 'axios';
 
@@ -17,11 +17,7 @@ const ProfileHeader = ({ isEditMode }) => {
   ]);
 
   useEffect(() => {
-    console.log("useEffect exécuté");
-
     const fetchDispo = async () => {
-      console.log("Début de fetchDispo");
-
       try {
         const response = await axios.get('http://localhost:3000/recup_dispo', { withCredentials: true });
         console.log("Réponse reçue:", response);
@@ -35,7 +31,6 @@ const ProfileHeader = ({ isEditMode }) => {
         setError(error);
       }
     };
-
     fetchDispo();
   }, []);
 
@@ -108,12 +103,12 @@ const ProfileHeader = ({ isEditMode }) => {
             </tr>
           </thead>
           <tbody>
-            {initialAvailability.map((item, index) => 
+            {initialAvailability.map((item, index) =>
               <tr key={index}>
                 <td>{item.Jour}</td>
                 <td>{item.Heure_debut}</td>
                 <td>{item.Heure_fin}</td>
-    
+
               </tr>
             )}
           </tbody>

@@ -37,7 +37,7 @@ app.use(session({ // Middleware pour gérer les sessions
     saveUninitialized: false,
     secret: process.env.SESSION_SECRET,
     cookie: {
-        maxAge: 3600000,
+        maxAge: 36000000,
         sameSite: 'strict', // Ensure this is set to 'strict' for better security
         secure: false // Set to true if using https
     }
