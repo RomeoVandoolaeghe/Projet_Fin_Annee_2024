@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './GroupCard.css';
-import { FaEllipsisV } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisV, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { createPortal } from 'react-dom';
 import DetailGroup from '../../components/DetailGroup/DetailGroup';
 import { Link } from 'react-router-dom';
+import './GroupCard.css';
 
-const GroupCard = ({ name, image, color }) => {
+const GroupCard = ({ id, name, image, color, onDelete }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const dropdownRef = useRef(null);
@@ -32,6 +33,10 @@ const GroupCard = ({ name, image, color }) => {
     };
   }, []);
 
+  const handleDelete = () => {
+    onDelete(id);
+  };
+
   return (
     <div className="group-card">
       <div className="group-image" style={{ backgroundColor: color }}>
@@ -39,12 +44,12 @@ const GroupCard = ({ name, image, color }) => {
       </div>
       <div className="group-info">
         <Link to="/Chat" className="chat-link">
-          <h3 className="group-name"><strong>{name}</strong></h3>
+          <h3><strong>{name}</strong></h3>
         </Link>
-        <FaEllipsisV className="group-options" onClick={toggleDropdown} />
+        <FontAwesomeIcon icon={faEllipsisV} className="group-options" onClick={toggleDropdown} />
         {dropdownVisible && !showModal && (
           <ul className="dropdown" ref={dropdownRef}>
-            <li><button>Supprimer</button></li>
+            <li><button onClick={handleDelete}>Supprimer</button></li>
             <li>
               <button onClick={handleShowModal}>Détails</button>
             </li>

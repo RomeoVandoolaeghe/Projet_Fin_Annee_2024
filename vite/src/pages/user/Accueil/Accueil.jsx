@@ -16,11 +16,6 @@ function Home({ name }) {
       console.error('Erreur lors de la requête POST:', error);
     });
 
-
-
-
-
-
   axios.post("http://localhost:3000/acces", "", { withCredentials: true })
     .then(response => {
       console.log('Réponse de la requête POST:', response);
