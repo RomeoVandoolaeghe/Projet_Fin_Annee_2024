@@ -78,7 +78,6 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  text-decoration: none;
 }
 
 /* Styles pour le bouton de gestion */
@@ -90,11 +89,19 @@ button {
 
 .toggle-delete {
   background-color: transparent;
-  color: #007BFF;
+  color: #007bff;
   cursor: pointer;
   font-size: 0.9em;
 }
 
 .toggle-delete:hover {
-  border: 0.5px solid blue;
+  text-decoration: none;
+}
+
+.threat {
+  margin-top: 30px;
+}
+
+.button_2 {
+  text-decoration: none;
 }
