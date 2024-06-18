@@ -1,68 +1,43 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import ScrollReveal from 'scrollreveal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPaperPlane, faUserPlus, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faPaperPlane, faUserPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import './CHAT.css';
 
-// Simuler une base de données fictive
 const users = [
   { id: 1, name: 'Docteur Strange', status: 'Actif', image: '/profil.jpg' },
   { id: 2, name: 'Tony Stark', status: 'Inactif', image: '/profil.jpg' },
-  { id: 3, name: 'Steve Rogers', status: 'Actif', image: '/profil.jpg' },
-  { id: 4, name: 'Natasha Romanoff', status: 'Actif', image: '/profil.jpg' },
-  { id: 5, name: 'Bruce Banner', status: 'Inactif', image: '/profil.jpg' },
-  { id: 6, name: 'Clint Barton', status: 'Actif', image: '/profil.jpg' },
-  { id: 8, name: 'Wanda Maximoff', status: 'Actif', image: '/profil.jpg' },
-  { id: 9, name: 'Natasha Romanoff', status: 'Actif', image: '/profil.jpg' },
-  { id: 10, name: 'Bruce Banner', status: 'Inactif', image: '/profil.jpg' },
-  { id: 11, name: 'Clint Barton', status: 'Actif', image: '/profil.jpg' },
-  { id: 12, name: 'Wanda Maximoff', status: 'Actif', image: '/profil.jpg' },
-  { id: 13, name: 'Natasha Romanoff', status: 'Actif', image: '/profil.jpg' },
-  { id: 14, name: 'Bruce Banner', status: 'Inactif', image: '/profil.jpg' },
-  { id: 15, name: 'Clint Barton', status: 'Actif', image: '/profil.jpg' },
-  { id: 16, name: 'Wanda Maximoff', status: 'Actif', image: '/profil.jpg' },
-  { id: 17, name: 'Natasha Romanoff', status: 'Actif', image: '/profil.jpg' },
-  { id: 18, name: 'Bruce Banner', status: 'Inactif', image: '/profil.jpg' },
-  { id: 19, name: 'Clint Barton', status: 'Actif', image: '/profil.jpg' },
-  { id: 20, name: 'Wanda Maximoff', status: 'Actif', image: '/profil.jpg' },
-  // Ajoutez d'autres utilisateurs fictifs si nécessaire
+  // ... autres utilisateurs
 ];
 
 function Chat() {
   const [showGroupDetails, setShowGroupDetails] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState(users);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
   const dropdownRef = useRef(null);
-  const inputRef = useRef(null);
 
   useEffect(() => {
-    // Configuration de base de ScrollReveal
     const sr = ScrollReveal({
       origin: 'bottom',
       distance: '20px',
       duration: 500,
       delay: 100,
-      reset: true, // Animation réapparaît à chaque défilement
+      reset: true,
     });
 
-    // Appliquer l'animation aux éléments avec la classe "reveal"
     sr.reveal('.reveal');
 
-    // Ajouter un écouteur d'événements pour les clics en dehors du dropdown
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowGroupDetails(false);
-        setShowSettings(false);
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-
-    // Nettoyer l'écouteur d'événements à la désactivation du composant
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -70,10 +45,6 @@ function Chat() {
 
   const toggleGroupDetails = () => {
     setShowGroupDetails(!showGroupDetails);
-  };
-
-  const toggleSettings = () => {
-    setShowSettings(!showSettings);
   };
 
   const handleSearch = (event) => {
@@ -92,7 +63,7 @@ function Chat() {
 
   const handleSendMessage = () => {
     if (newMessage.trim()) {
-      setMessages([...messages, { id: messages.length + 1, text: newMessage }]);
+      setMessages([...messages, { id: messages.length + 1, text: newMessage, sender: 'user' }]);
       setNewMessage('');
     }
   };
@@ -137,29 +108,15 @@ function Chat() {
           </div>
           <div className="chat-area">
             <div className="chat-header">
-              <img src="/profil.jpg" alt="Group Logo" className="group-logo" /> {/* Ajoutez votre logo de groupe ici */}
+              <img src="/profil.jpg" alt="Group Logo" className="group-logo" />
               JUNIA XP
               <div className="chat-header-icons">
                 <FontAwesomeIcon icon={faUserPlus} className="hover-icon" />
-                <FontAwesomeIcon icon={faInfoCircle} className="hover-icon" onClick={toggleGroupDetails} />
               </div>
-              {showGroupDetails && (
-                <div className="group-details" ref={dropdownRef}>
-                  <h4>Règles du chat</h4>
-                  <p className='paragraphe'><li>Traitez tous les membres avec respect et courtoisie.</li>
-                    <li>Évitez les insultes, les commentaires désobligeants ou les attaques personnelles.</li>
-                    <li>Utilisez un langage approprié et évitez les gros mots ou le langage offensant.</li>
-                    <li>N'utilisez pas de termes racistes, sexistes, homophobes ou tout autre langage discriminatoire.</li>
-                    <li>Ne postez pas de messages répétitifs ou de spam.</li>
-                    <li>Évitez de publier des liens non sollicités ou des publicités.</li>
-                    <li>Respectez la confidentialité des autres membres.</li>
-                    <li>Ne partagez pas d'informations personnelles telles que des adresses, des numéros de téléphone ou des informations financières.</li></p>
-                </div>
-              )}
             </div>
             <div className="messages">
               {messages.map(message => (
-                <span key={message.id} className="message">
+                <span key={message.id} className={`message ${message.sender}`}>
                   {message.text}
                 </span>
               ))}
@@ -171,11 +128,13 @@ function Chat() {
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
-                ref={inputRef}
               />
               <button className="send-button" onClick={handleSendMessage}>
                 <FontAwesomeIcon icon={faPaperPlane} />
               </button>
+              <Link to="/CreateOutput" className="send-button">
+                <FontAwesomeIcon icon={faPlusCircle} />
+              </Link>
             </div>
           </div>
         </div>

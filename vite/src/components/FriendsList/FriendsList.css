@@ -71,8 +71,7 @@
 }
 
 button {
-  margin-top: 5px;
-  padding: 5px 10px;
+  padding: 5px;
   border: none;
   color: white;
   border-radius: 5px;
@@ -92,6 +91,8 @@ button {
   color: #007bff;
   cursor: pointer;
   font-size: 0.9em;
+  margin-top: -15px;
+  margin-right: -5px;
 }
 
 .toggle-delete:hover {
