@@ -13,7 +13,8 @@ const initialUser = {
 const ProfileHeader = ({ isEditMode }) => {
   const [user, setUser] = useState(initialUser);
   const [error, setError] = useState(null);
-  const [initialAvailability, setDispo] = useState([]);
+  const [initialAvailability, setDispo] = useState([
+  ]);
 
   useEffect(() => {
     console.log("useEffect exécuté");
@@ -25,7 +26,6 @@ const ProfileHeader = ({ isEditMode }) => {
         const response = await axios.get('http://localhost:3000/recup_dispo', { withCredentials: true });
         console.log("Réponse reçue:", response);
         if (response.data && Array.isArray(response.data)) {
-          console.log("Données valides reçues:", response.data);
           setDispo(response.data);
         } else {
           console.error('Les données reçues ne sont pas valides', response.data);
@@ -108,17 +108,14 @@ const ProfileHeader = ({ isEditMode }) => {
             </tr>
           </thead>
           <tbody>
-            {initialAvailability.map((item, index) => (
+            {initialAvailability.map((item, index) => 
               <tr key={index}>
                 <td>{item.Jour}</td>
-                <td>
-                  <span>{item.Heure_debut}</span>
-                </td>
-                <td>
-                  <span>{item.Heure_fin}</span>
-                </td>
+                <td>{item.Heure_debut}</td>
+                <td>{item.Heure_fin}</td>
+    
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

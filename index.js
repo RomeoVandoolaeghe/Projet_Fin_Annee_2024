@@ -406,8 +406,9 @@ app.get('/get_pseudo', isAuthenticated, async (req, res) => {
 app.get('/recup_dispo', isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
-        const [rows] = await db.promise().query('SELECT * FROM disponibilite WHERE ID_Utilisateur = ?', [ID_user]);
+        const [rows] = await db.promise().query("SELECT * FROM disponibilite WHERE ID_Utilisateur = ? ORDER BY CASE Jour WHEN 'Lundi' THEN 1 WHEN 'Mardi' THEN 2 WHEN 'Mercredi' THEN 3 WHEN 'Jeudi' THEN 4 WHEN 'Vendredi' THEN 5 WHEN 'Samedi' THEN 6 WHEN 'Dimanche' THEN 7  END ASC", [ID_user]);
         res.send(rows);
+        console.log(rows);
     } catch (err) {
         console.error("Erreur lors de la récupération du pseudo : ", err);
         res.status(500).send('Erreur serveur');
