@@ -75,4 +75,5 @@
 }
 .button_1:hover {
   background-color: rgba(156, 10, 10, 0.725);
+  color: red;
 }
