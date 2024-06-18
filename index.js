@@ -407,7 +407,7 @@ app.get('/recup_dispo', isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
         const [rows] = await db.promise().query('SELECT * FROM disponibilite WHERE ID_Utilisateur = ?', [ID_user]);
-        res.send(rows[0]);
+        res.send(rows);
     } catch (err) {
         console.error("Erreur lors de la récupération du pseudo : ", err);
         res.status(500).send('Erreur serveur');
