@@ -53,7 +53,7 @@ const FriendsList = () => {
         <div className="friends-list-header">
           <h4>Liste d’amis</h4>
           <button className="toggle-delete" onClick={toggleDeleteButtons}>
-            <Link to="/AddFriend" className='button_2'>Ajouter un ami</Link>
+            <Link to="/AddFriend" className='button_2'>Gérer des amis</Link>
           </button>
         </div>
         <ul>
