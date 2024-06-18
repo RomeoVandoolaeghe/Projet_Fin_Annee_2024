@@ -70,3 +70,9 @@
 .parametres button[type="submit"]:hover {
   background-color: #0056b3;
 }
+.button_1 {
+  background: red;
+}
+.button_1:hover {
+  background-color: rgba(156, 10, 10, 0.725);
+}

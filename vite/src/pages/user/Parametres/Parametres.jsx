@@ -12,7 +12,6 @@ const Parametres = () => {
     heure_debut: '',
     heure_fin: '',
   });
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -117,6 +116,7 @@ const Parametres = () => {
 
               <label name="time">Choisissez une heure de début :</label>
               <input type="time" id="time_debut" name="time" required />
+              <button className='button_1' type="submit" onClick={handleSubmit}>Supprimer</button>
 
               <label name="time">Choisissez une heure de fin :</label>
               <input type="time" id="time_fin" name="time" required />
