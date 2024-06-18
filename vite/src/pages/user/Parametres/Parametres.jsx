@@ -12,6 +12,7 @@ const Parametres = () => {
     heure_debut: '',
     heure_fin: '',
   });
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -56,12 +57,37 @@ const Parametres = () => {
         console.error('Erreur', error);
       });
 
-
-
-
-
-
   };
+
+  const handleSubmit_supp = (e) => {
+    e.preventDefault();
+    formData.jour = document.getElementById('jours').value;
+    console.log(formData.jour);
+
+    var occurence;
+    axios.post('http://localhost:3000/verif_dispo', { jour: formData.jour }, { withCredentials: true })
+      .then(response => {
+
+        console.log('nb occurence:', response.data.occurence);
+        occurence = response.data.occurence;
+        if (occurence == 1) {
+          axios.post('http://localhost:3000/delete_dispo', { jour: formData.jour }, { withCredentials: true })
+            .then(response => {
+              alert('Disponibilité supprimée avec succès', response.data);
+            })
+            .catch(error => {
+              console.error('Erreur lors de la suppresion de la dispo', error);
+            });
+        }
+        if (occurence == 0) {
+          alert('Vous n\'avez pas de disponibilité à supprimer pour ce jour');
+        }
+      })
+
+      .catch(error => {
+        console.error('Erreur', error);
+      });
+  }
 
   return (
     <>
@@ -124,7 +150,7 @@ const Parametres = () => {
 
               <label name="time">Choisissez une heure de début :</label>
               <input type="time" id="time_debut" name="time" required />
-              <button className='button_1' type="submit" onClick={handleSubmit}>Supprimer</button>
+              <button className='button_1' type="submit" onClick={handleSubmit_supp}>Supprimer </button>
 
               <label name="time">Choisissez une heure de fin :</label>
               <input type="time" id="time_fin" name="time" required />
