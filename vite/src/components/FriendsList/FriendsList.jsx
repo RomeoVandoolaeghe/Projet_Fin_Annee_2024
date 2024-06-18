@@ -4,13 +4,13 @@ import './FriendsList.css';
 import { Link } from 'react-router-dom';
 
 const friends = [
-  { name: 'Ragnar Lodbrok'},
-  { name: 'Harald Hardrada'},
+  { name: 'Ragnar Lodbrok' },
+  { name: 'Harald Hardrada' },
   { name: 'Thorfinn Karlsefni' },
-  { name: 'Thors Karlsefni'},
+  { name: 'Thors Karlsefni' },
   { name: 'Leif Erikson' },
   { name: 'Thorkell Le Grand' },
-  { name: 'Knut Le Grand'},
+  { name: 'Knut Le Grand' },
   { name: 'Kjetill Eriksson' },
 ];
 
@@ -35,9 +35,7 @@ const FriendsList = () => {
       <div className="list-container friends-list">
         <div className="friends-list-header">
           <h4>Liste d’amis</h4>
-          
-            <Link to="/AddFriend" className='button_2'><button className="toggle-delete" >Gérer des amis</button></Link>
-          
+          <Link to="/AddFriend" className='button_2'><button className="toggle-delete" >Gérer des amis</button></Link>
         </div>
         <ul>
           {friends.map((friend, index) => (
