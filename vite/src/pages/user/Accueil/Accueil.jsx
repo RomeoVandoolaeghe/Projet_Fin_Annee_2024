@@ -6,7 +6,7 @@ import axios from 'axios'
 
 function Home ({ name }) {
 
-  axios.post("http://localhost:3000/acces", { withCredentials: true })
+  axios.post("http://localhost:3000/acces", "",{ withCredentials: true })
       .then(response => {
         console.log('Réponse de la requête POST:', response);
         // if (response.status === 201) {

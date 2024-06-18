@@ -147,7 +147,10 @@ function isAuthenticated(req, res, next) {
     if (req.session.user) {
         return next();
     }
-    res.status(201).send('Non authentifié');
+    else{
+        return res.status(201).send('Non authentifié'); 
+    }
+
 
 }
 
@@ -252,7 +255,7 @@ app.get("/friends", isAuthenticated, async (req, res) => {
 
 
 
-app.post('/acces', isAuthenticated, async (req, res) => {
+app.post('/acces',isAuthenticated, async (req, res) => {
     res.send('Accès autorisé');
 });
 
