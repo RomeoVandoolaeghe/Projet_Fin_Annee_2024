@@ -31,20 +31,7 @@ const FriendsList = () => {
 
   return (
     <div>
-      <div className="list-container invitations-list">
-        <h4>Invitations</h4>
-        <ul>
-          {invitations.map((invitation, index) => (
-            <li key={index}>
-              {invitation.name}
-              <div className="invitation-buttons">
-                <FaCheck className="icon accept" />
-                <FaTimes className="icon reject" />
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+
       <div className="list-container friends-list">
         <div className="friends-list-header">
           <h4>Liste d’amis</h4>
