@@ -6,12 +6,17 @@ import './Group.css';
 
 const Group = ({ groups }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [groupList, setGroupList] = useState(groups);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredGroups = groups.filter(group =>
+  const handleDeleteGroup = (id) => {
+    setGroupList(groupList.filter(group => group.id !== id));
+  };
+
+  const filteredGroups = groupList.filter(group =>
     group.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -35,8 +40,15 @@ const Group = ({ groups }) => {
               <p><strong>Nouveau groupe</strong> <br /><FaUsers /></p>
             </Link>
           </div>
-          {filteredGroups.map((group, index) => (
-            <GroupCard key={index} name={group.name} image={group.image} color={group.color} />
+          {filteredGroups.map((group) => (
+            <GroupCard
+              key={group.id}
+              id={group.id}
+              name={group.name}
+              image={group.image}
+              color={group.color}
+              onDelete={handleDeleteGroup}
+            />
           ))}
         </div>
       </div>
