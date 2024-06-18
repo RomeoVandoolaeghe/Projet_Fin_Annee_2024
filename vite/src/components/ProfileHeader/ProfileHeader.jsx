@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './ProfileHeader.css';
-
+import axios from 'axios';
+import UseEffect 
 
 const initialUser = {
   Nom: 'Yecir',
@@ -10,16 +11,30 @@ const initialUser = {
   Description: 'Ouvert communicatif aime rencontrer de nouvelles personnes et élargir son réseau social.',
 };
 
-const initialAvailability = [
-  { day: 'Lundi', start: '09:00', end: '18:00' },
-  { day: 'Mardi', start: '09:00', end: '18:00' },
-  { day: 'Mercredi', start: '09:00', end: '18:00' },
-  { day: 'Jeudi', start: '09:00', end: '18:00' },
-  { day: 'Vendredi', start: '09:00', end: '18:00' },
-];
+
 
 const ProfileHeader = ({ isEditMode }) => {
   const [user, setUser] = useState(initialUser);
+  const [error, setError] = useState(null);
+  const [initialAvailability,setDispo]=useState([]);
+
+
+  useEffect(() => {
+    const fetchAmis = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/recup_dispo', { withCredentials: true });
+        if (response.data && Array.isArray(response.data)) {
+          setDispo(response.data);
+        } else {
+          console.error('Les données reçues ne sont pas valides', response.data);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    fetchAmis();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
