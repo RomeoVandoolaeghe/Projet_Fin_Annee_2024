@@ -33,7 +33,13 @@ const Parametres = () => {
         console.log('nb occurence:', response.data.occurence);
         occurence = response.data.occurence;
         if (occurence == 1) {
-          alert('disponibilité déjà existante pour ce jour');
+          axios.post('http://localhost:3000/modif_dispo', { jour: formData.jour, heure_debut: formData.heure_debut, heure_fin: formData.heure_fin }, { withCredentials: true })
+            .then(response => {
+              alert('Disponibilité modifiée avec succès', response.data);
+            })
+            .catch(error => {
+              console.error('Erreur lors de la mise de la dispo', error);
+            });
         }
         if (occurence == 0) {
           axios.post('http://localhost:3000/ajout_dispo', { jour: formData.jour, heure_debut: formData.heure_debut, heure_fin: formData.heure_fin }, { withCredentials: true })
@@ -49,6 +55,8 @@ const Parametres = () => {
       .catch(error => {
         console.error('Erreur', error);
       });
+
+
 
 
 

@@ -337,8 +337,8 @@ app.post('/verif_dispo', (req, res) => {
     const { jour} = req.body;
 
     // Mettre à jour la disponibilité de l'utilisateur
-    const updateSql = 'SELECT COUNT(jour=?) AS occurence FROM disponibilite WHERE ID_Utilisateur = ?';
-    db.query(updateSql, [jour,ID_utilisateur], (err, result) => {
+    const updateSql = 'SELECT COUNT(*) AS occurence FROM disponibilite WHERE ID_Utilisateur = ? AND Jour=?';
+    db.query(updateSql, [ID_utilisateur,jour], (err, result) => {
         if (err) {
             console.error('Error executing query', err);
             return res.status(500).json({ error: 'Internal server error' });
@@ -349,21 +349,23 @@ app.post('/verif_dispo', (req, res) => {
 });
 
 
-app.post('/ajout_dispo', (req, res) => {
+app.post('/modif_dispo', (req, res) => {
     const ID_utilisateur = req.session.user.id;
-    const { jour} = req.body;
+    const { jour, heure_debut, heure_fin } = req.body;
 
     // Mettre à jour la disponibilité de l'utilisateur
-    const updateSql = 'SELECT COUNT(jour=?) AS occurence FROM disponibilite WHERE ID_Utilisateur = ?';
-    db.query(updateSql, [jour,ID_utilisateur], (err, result) => {
+    const updateSql = 'UPDATE disponibilite SET Heure_debut = ?, Heure_fin = ? WHERE ID_Utilisateur = ? AND Jour = ?';
+    db.query(updateSql, [heure_debut,heure_fin,ID_utilisateur,jour], (err, result) => {
         if (err) {
             console.error('Error executing query', err);
             return res.status(500).json({ error: 'Internal server error' });
         }
-
-        return res.status(200).send(result[0]);
+        return res.status(200).send("Disponibilité modifiée avec succès");
     });
 });
+
+
+
 
 
 
