@@ -1,32 +1,43 @@
 .event-card {
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 20px;
-    border-radius: 10px 50px 50px 10px;
-    margin-bottom: 20px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  border-radius: 10px 50px 50px 10px;
+  margin-bottom: 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: slide-in 1s ease-out;
+}
+
+.event-title-location {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.event-location {
+  font-size: 16px;
+  color: black;
+}
+
+.event-time {
+  font-size: 16px;
+  color: rgb(38, 34, 34);
+}
+
+@keyframes slide-in {
+  0% {
+      transform: translateX(-100%);
+      opacity: 0;
   }
-  
-  .event-title-location {
-    display: flex;
-    flex-direction: column;
+  100% {
+      transform: translateX(0);
+      opacity: 1;
   }
-  
-  .event-title {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .event-location {
-    font-size: 16px;
-    color: black;
-  }
-  
-  .event-time {
-    font-size: 16px;
-    color:rgb(38, 34, 34);
-  }
-  
+}
