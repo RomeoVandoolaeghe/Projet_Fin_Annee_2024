@@ -128,14 +128,12 @@ const FormBox = () => {
           <span>Vous avez un compte ?<a href="#" onClick={() => window.login()}>Se connecter</a></span>
           <header>S'inscrire</header>
         </div>
-        <div className="two-forms">
           <div className="input-box">
             <input type="text" className="input-field" placeholder="Pseudo" name="pseudo"
               value={formData2.pseudo}
               onChange={handleChange2} required/>
             <span className="material-symbols-outlined">person</span>
           </div>
-        </div>
         <div className="input-box">
           <input type="text" className="input-field" placeholder="Email" name="e_mail"
             value={formData2.e_mail}
