@@ -50,7 +50,7 @@ function App() {
       <Router>
         {window.location.pathname !== '/' && <div className="logo"><img src="logo.png" alt="Logo du site" /></div>}
         {window.location.pathname !== '/' && <Navbar />}
-        {window.location.pathname !== '/' && <SideBar />}
+        {/* {window.location.pathname !== '/' && <SideBar />} */}
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/CreateOutput' element={<CreateOutput />} />
