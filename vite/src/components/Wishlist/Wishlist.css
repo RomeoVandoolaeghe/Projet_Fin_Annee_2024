@@ -33,7 +33,7 @@ h3 {
 }
 
 .add-button:hover {
-  border: 1px solid blue;
+  border: none;
 }
 
 .wishlist-table {
@@ -41,7 +41,8 @@ h3 {
   border-collapse: collapse;
 }
 
-.wishlist-table th, .wishlist-table td {
+.wishlist-table th,
+.wishlist-table td {
   padding: 10px;
   border-bottom: 1px solid #ddd;
   text-align: left;
@@ -51,10 +52,3 @@ h3 {
   background-color: #f4f4f4;
   font-weight: bold;
 }
-
-
-
-
-
-
-

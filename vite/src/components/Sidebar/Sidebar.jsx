@@ -34,11 +34,6 @@ const Sidebar = () => {
         <nav className="sidebar-nav">
           <ul>
             <li>
-              <Link to="/Profile">
-                <FaUser /> <span>Profil</span>
-              </Link>
-            </li>
-            <li>
               <Link to="/Parametres">
                 <FaCog /> <span>Paramètres du compte</span>
               </Link>
