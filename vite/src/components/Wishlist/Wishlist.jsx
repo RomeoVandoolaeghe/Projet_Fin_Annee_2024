@@ -11,6 +11,7 @@ const initialActivities = [
 
 const Wishlist = ({ isEditMode }) => {
   const [activities, setActivities] = useState(initialActivities);
+  const [newActivity, setNewActivity] = useState({ activity: "", duration: "", location: "" });
 
   const handleInputChange = (index, field, value) => {
     const newActivities = [...activities];
@@ -18,9 +19,16 @@ const Wishlist = ({ isEditMode }) => {
     setActivities(newActivities);
   };
 
+  const handleNewActivityChange = (field, value) => {
+    setNewActivity({
+      ...newActivity,
+      [field]: value
+    });
+  };
+
   const handleAddActivity = () => {
-    const newActivity = { activity: "", duration: "", location: "" };
     setActivities([...activities, newActivity]);
+    setNewActivity({ activity: "", duration: "", location: "" });
   };
 
   return (
@@ -75,11 +83,38 @@ const Wishlist = ({ isEditMode }) => {
               </td>
             </tr>
           ))}
+          {isEditMode && (
+            <tr>
+              <td>
+                <input
+                  type="text"
+                  placeholder="Nouvelle activité"
+                  value={newActivity.activity}
+                  onChange={(e) => handleNewActivityChange('activity', e.target.value)}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  placeholder="Durée"
+                  value={newActivity.duration}
+                  onChange={(e) => handleNewActivityChange('duration', e.target.value)}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  placeholder="Lieu"
+                  value={newActivity.location}
+                  onChange={(e) => handleNewActivityChange('location', e.target.value)}
+                />
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
-</div>
-
+    </div>
   );
-}
+};
 
 export default Wishlist;

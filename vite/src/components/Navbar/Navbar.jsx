@@ -12,6 +12,7 @@ const Navbar = () => {
         <li><Link to="/Events">EVENEMENT</Link></li>
         <li><Link to="/Group">GROUPE</Link></li>
         <li><Link to="/HallOfFame">HALL OF FAME</Link></li>
+        <li><Link to="/Profile">PROFIL</Link></li>
       </ul>
     </nav>
   );

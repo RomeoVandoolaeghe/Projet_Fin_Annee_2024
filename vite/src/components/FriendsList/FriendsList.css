@@ -86,9 +86,9 @@ button {
   align-items: center;
 }
 
-.toggle-delete {
-  background-color: transparent;
-  color: #007bff;
+.toggle-del {
+  background: rgba(255, 255, 255, 0.8);
+  color: black;
   cursor: pointer;
   font-size: 0.9em;
   margin-top: -15px;
