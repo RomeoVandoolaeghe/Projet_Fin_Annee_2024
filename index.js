@@ -129,16 +129,27 @@ app.post('/connexion', async (req, res) => {
 
 
 
-// Route pour la déconnexion
 app.post('/logout', (req, res) => {
-    req.session.destroy((err) => {
+    const sessionId = req.session.id;
+
+    // Suppression de la session de la base de données
+    db.query("DELETE FROM sessions", (err) => {
         if (err) {
-            console.error('Erreur lors de la déconnexion:', err);
+            return res.status(500).send("Erreur lors de la suppression de la session.");
         }
-        res.send('Déconnexion réussie');
+
+        // Supprimer la session côté serveur
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).send("Erreur lors de la destruction de la session.");
+            }
+
+            // Supprimer le cookie de session du navigateur
+            res.clearCookie('sid', { path: '/' });
+            return res.send("Déconnexion réussie.");
+        });
     });
 });
-
 
 
 
@@ -147,8 +158,8 @@ function isAuthenticated(req, res, next) {
     if (req.session.user) {
         return next();
     }
-    else{
-        return res.status(201).send('Non authentifié'); 
+    else {
+        return res.status(201).send('Non authentifié');
     }
 
 
@@ -255,7 +266,7 @@ app.get("/friends", isAuthenticated, async (req, res) => {
 
 
 
-app.post('/acces',isAuthenticated, async (req, res) => {
+app.post('/acces', isAuthenticated, async (req, res) => {
     res.send('Accès autorisé');
 });
 
@@ -305,15 +316,59 @@ app.post('/delete_ami', (req, res) => {
 });
 
 
-app.post('/modif_dispo', (req, res) => {
+app.post('/ajout_dispo', (req, res) => {
     const ID_utilisateur = req.session.user.id;
     const { jour, heure_debut, heure_fin } = req.body;
-    console.log(jour);
-    console.log(heure_debut);
-    console.log(heure_fin);
     // Mettre à jour la disponibilité de l'utilisateur
-    const updateSql = 'INSERT INTO disponibilite SET Date_Dispo_debut = ?, Date_Dispo_fin = ? WHERE ID_Utilisateur = ? AND Jour = ?';
+    const updateSql = 'INSERT INTO `disponibilite`(`ID_Utilisateur`, `Jour`, `Heure_debut`, `Heure_fin`) VALUES (?,?,?,?)';
+    db.query(updateSql, [ID_utilisateur, jour, heure_debut, heure_fin], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        return res.status(200).json({ message: 'Disponibilité modifiée avec succès' });
+    });
 });
+
+
+app.post('/verif_dispo', (req, res) => {
+    const ID_utilisateur = req.session.user.id;
+    const { jour} = req.body;
+
+    // Mettre à jour la disponibilité de l'utilisateur
+    const updateSql = 'SELECT COUNT(jour=?) AS occurence FROM disponibilite WHERE ID_Utilisateur = ?';
+    db.query(updateSql, [jour,ID_utilisateur], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        return res.status(200).send(result[0]);
+    });
+});
+
+
+app.post('/ajout_dispo', (req, res) => {
+    const ID_utilisateur = req.session.user.id;
+    const { jour} = req.body;
+
+    // Mettre à jour la disponibilité de l'utilisateur
+    const updateSql = 'SELECT COUNT(jour=?) AS occurence FROM disponibilite WHERE ID_Utilisateur = ?';
+    db.query(updateSql, [jour,ID_utilisateur], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        return res.status(200).send(result[0]);
+    });
+});
+
+
+
+
+
 
 
 

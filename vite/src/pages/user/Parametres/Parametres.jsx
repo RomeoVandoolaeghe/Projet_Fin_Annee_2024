@@ -6,28 +6,54 @@ import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSign
 const Parametres = () => {
 
 
+  // Déclaration de l'état pour les données du formulaire
+  const [formData, setFormData] = useState({
+    jour: '',
+    heure_debut: '',
+    heure_fin: '',
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    var occurence;
 
-    const jour = document.getElementById('jours').value;
-    const heure_debut = document.getElementById('time_debut').value;
-    const heure_fin = document.getElementById('time_fin').value;
-
-    if(heure_debut >= heure_fin){
+    formData.jour = document.getElementById('jours').value;
+    formData.heure_debut = document.getElementById('time_debut').value;
+    formData.heure_fin = document.getElementById('time_fin').value;
+    console.log(formData.jour, formData.heure_debut, formData.heure_fin);
+    if (formData.heure_debut >= formData.heure_fin) {
       alert('L\'heure de début doit être inférieure à l\'heure de fin');
       return;
     }
 
 
-    axios.post('http://localhost:3001/modif_dispo', { jour: jour, heure_debut: heure_debut, heure_fin: heure_fin }, { withCredentials: true })
+    axios.post('http://localhost:3000/verif_dispo', { jour: formData.jour }, { withCredentials: true })
       .then(response => {
-        console.log('Disponibilité modifiée avec succès:', response.data);
+
+        console.log('nb occurence:', response.data.occurence);
+        occurence = response.data.occurence;
+        if (occurence == 1) {
+          alert('disponibilité déjà existante pour ce jour');
+        }
+        if (occurence == 0) {
+          axios.post('http://localhost:3000/ajout_dispo', { jour: formData.jour, heure_debut: formData.heure_debut, heure_fin: formData.heure_fin }, { withCredentials: true })
+            .then(response => {
+              alert('Disponibilité ajoutée avec succès', response.data);
+            })
+            .catch(error => {
+              console.error('Erreur lors de la mise de la dispo', error);
+            });
+        }
       })
+
       .catch(error => {
-        console.error('Erreur lors de la mise à jour de l\'image:', error);
+        console.error('Erreur', error);
       });
+
+
+
+
   };
 
   return (
@@ -76,31 +102,31 @@ const Parametres = () => {
             <h2>Disponibilités</h2>
             <div>
               <label>Modifier vos disponibilités</label>
-    
 
-                  <label name="jour">Choisissez un jour :</label>
-                  <select id="jours" name="jours">
-                    <option value="Lundi">Lundi</option>
-                    <option value="Mardi">Mardi</option>
-                    <option value="Mercredi">Mercredi</option>
-                    <option value="Jeudi">Jeudi</option>
-                    <option value="Vendredi">Vendredi</option>
-                    <option value="Samedi">Samedi</option>
-                    <option value="Dimanche">Dimanche</option>
-                  </select>
 
-                  <label name="time">Choisissez une heure de début :</label>
-                  <input type="time" id="time_debut" name="time" required/>
+              <label name="jour">Choisissez un jour :</label>
+              <select id="jours" name="jours">
+                <option value="Lundi">Lundi</option>
+                <option value="Mardi">Mardi</option>
+                <option value="Mercredi">Mercredi</option>
+                <option value="Jeudi">Jeudi</option>
+                <option value="Vendredi">Vendredi</option>
+                <option value="Samedi">Samedi</option>
+                <option value="Dimanche">Dimanche</option>
+              </select>
 
-                  <label name="time">Choisissez une heure de fin :</label>
-                  <input type="time" id="time_fin" name="time" required/>
+              <label name="time">Choisissez une heure de début :</label>
+              <input type="time" id="time_debut" name="time" required />
 
-                  <button type="submit" onClick={handleSubmit}>Sauvegarder vos disponibilités</button>
-                
- 
+              <label name="time">Choisissez une heure de fin :</label>
+              <input type="time" id="time_fin" name="time" required />
 
- 
-          
+              <button type="submit" onClick={handleSubmit}>Sauvegarder vos disponibilités</button>
+
+
+
+
+
             </div>
           </section>
 

@@ -71,6 +71,13 @@ const FormBox = () => {
         if (response.status === 200) {
           window.location.href = 'http://localhost:5173/Accueil';
         }
+        if (response.status === 202) {
+          alert('Pseudo ou mot de passe incorrect');
+        }
+        if (response.status === 203) {
+          alert('Utilisateur non inscrit');
+        }
+
       })
       .catch(error => {
         console.error('Erreur lors de la requête POST:', error);

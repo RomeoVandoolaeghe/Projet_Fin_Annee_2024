@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBars, FaUser, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import './Sidebar.css';
+import axios from 'axios';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +10,19 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
+
+  const handleLogout = () => {
+    axios.post('http://localhost:3000/logout', { withCredentials: true })
+      .then(response => {
+        console.log('Réponse du serveur:', response.data);
+      })
+      .catch(error => {
+        console.error('Erreur lors de la requête POST:', error);
+      });
+  }
+
+
 
   return (
     <>
@@ -29,7 +43,7 @@ const Sidebar = () => {
                 <FaCog /> <span>Paramètres du compte</span>
               </Link>
             </li>
-            <li>
+            <li onClick={handleLogout}>
               <Link to="/">
                 <FaSignOutAlt /> <span>Déconnexion</span>
               </Link>
