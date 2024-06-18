@@ -20,6 +20,8 @@ function Home ({ name }) {
         console.error('Erreur lors de la requête POST:', error);
 });
 
+
+
   const events = [
     {
       title: "Palais des Beaux - Arts",
