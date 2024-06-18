@@ -2,21 +2,36 @@ import React, { useState, useEffect } from 'react';
 import './ProfileHeader.css';
 import axios from 'axios';
 
-const initialUser = {
-  Nom: 'Yecir',
-  Prenom: 'Badir',
-  Email: 'yecir.badir@example.com',
-  Telephone: '123-456-7890',
-  Description: 'Ouvert communicatif aime rencontrer de nouvelles personnes et élargir son réseau social.',
-};
+
 
 const ProfileHeader = ({ isEditMode }) => {
-  const [user, setUser] = useState(initialUser);
   const [error, setError] = useState(null);
-  const [initialAvailability, setDispo] = useState([
-  ]);
+  const [initialAvailability, setDispo] = useState([]);
+  const [user, setInitialUser] = useState([]);
 
   useEffect(() => {
+
+    const fetchDescription = async () => {
+      
+      try {
+        const response = await axios.get('http://localhost:3000/recup_description', { withCredentials: true });
+        console.log("Réponse reçue description :", response.data.Description);
+        if (response.data){
+          setInitialUser(response.data);
+        } else {
+          console.error('Les données reçues ne sont pas valides', response.data);
+        }
+      } catch (error) {
+        console.log("Erreur lors de la requête:", error);
+        setError(error);
+      }
+    };
+    fetchDescription();
+
+
+
+
+
     const fetchDispo = async () => {
       try {
         const response = await axios.get('http://localhost:3000/recup_dispo', { withCredentials: true });
@@ -32,6 +47,9 @@ const ProfileHeader = ({ isEditMode }) => {
       }
     };
     fetchDispo();
+
+
+
   }, []);
 
   const handleInputChange = (e) => {
@@ -56,41 +74,21 @@ const ProfileHeader = ({ isEditMode }) => {
               value={user.Nom}
               onChange={handleInputChange}
             />
-            <input
-              type="text"
-              name="Prenom"
-              value={user.Prenom}
-              onChange={handleInputChange}
-            />
-            <input
-              type="email"
-              name="Email"
-              value={user.Email}
-              onChange={handleInputChange}
-            />
-            <input
-              type="tel"
-              name="Telephone"
-              value={user.Telephone}
-              onChange={handleInputChange}
-            />
-            <textarea
+            {/* <textarea
               name="Description"
               value={user.Description}
               onChange={handleInputChange}
-            />
+            /> */}
           </>
         ) : (
           <>
             <h3>
-              {user.Nom} {user.Prenom}
+              Pseudo
             </h3>
-            <p><strong>Email :</strong> {user.Email}</p>
-            <p><strong>Téléphone :</strong> {user.Telephone}</p>
-            <p><strong>Description : </strong>{user.Description}</p>
+            <p id='description'><strong>Ma Description : </strong>{user.Description}</p>
           </>
         )}
-        <h4>Disponibilités</h4>
+        <h4>Mes Disponibilités</h4>
         {error && ( // Affichage conditionnel du message d'erreur
           <p className="error-message">Erreur lors du chargement des disponibilités: {error.message}</p>
         )}

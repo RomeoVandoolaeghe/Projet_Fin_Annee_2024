@@ -13,6 +13,12 @@ const Parametres = () => {
     heure_fin: '',
   });
 
+  
+
+
+
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -26,6 +32,12 @@ const Parametres = () => {
       alert('L\'heure de début doit être inférieure à l\'heure de fin');
       return;
     }
+
+
+
+
+    
+    
 
 
     axios.post('http://localhost:3000/verif_dispo', { jour: formData.jour }, { withCredentials: true })
@@ -106,7 +118,7 @@ const Parametres = () => {
               />
             </div>
             <div>
-              <label>Description :</label>
+              <label id="description">Description :</label>
               <textarea
 
                 placeholder="Modifier la description"
