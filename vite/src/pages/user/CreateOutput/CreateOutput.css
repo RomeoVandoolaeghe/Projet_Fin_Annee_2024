@@ -49,6 +49,7 @@ body {
 button:hover {
   background-color: #38ce3f;
   border: none;
+  color: white;
 }
 
 .button-box {
