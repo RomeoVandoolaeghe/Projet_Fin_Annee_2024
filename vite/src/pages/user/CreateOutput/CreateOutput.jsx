@@ -27,7 +27,7 @@ function CreateOutput(){
     <>
       <div className="container">
         <div className='button-box'>
-          <Button title="Retour" to="/Events" />
+          <Button title="Retour" to="/Chat" />
         </div>
         <div className='start reveal'>
           <h1>Creer une sortie</h1>

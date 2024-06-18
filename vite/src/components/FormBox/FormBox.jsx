@@ -106,8 +106,11 @@ const FormBox = () => {
 
     resetForm2(); // Clear le formulaire
   };
-
-
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
 
   return (
     <div className="form-box">

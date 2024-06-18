@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './ProfileHeader.css';
 import axios from 'axios';
-import UseEffect 
 
 const initialUser = {
   Nom: 'Yecir',
