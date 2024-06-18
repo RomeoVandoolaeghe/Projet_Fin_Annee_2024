@@ -1,7 +1,7 @@
 import React from 'react';
 import UpComingEvents from '../../../components/UpComingEvents/UpComingEvents';
 import axios from 'axios'
-
+import './Accueil.css';
 
 
 function Home() {

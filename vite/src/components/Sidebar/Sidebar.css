@@ -20,10 +20,10 @@
 .sidebar-toggle {
   position: absolute;
   top: 10px;
-  left: -50px; /* Positionner le bouton à gauche de la sidebar */
+  left: -36px; /* Positionner le bouton à gauche de la sidebar */
   color: black;
   padding: 10px;
-  border-radius: 5px 0 0 5px; /* Ajuster les coins pour correspondre au nouveau positionnement */
+  /* border-radius: 5px 0 0 5px; Ajuster les coins pour correspondre au nouveau positionnement */
   cursor: pointer;
 }
 
