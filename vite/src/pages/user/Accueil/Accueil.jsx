@@ -4,12 +4,12 @@ import axios from 'axios'
 
 
 
-function Home({ name }) {
+function Home() {
 
   axios.get("http://localhost:3000/get_pseudo", { withCredentials: true })
     .then(response => {
       console.log('Réponse de la requête POST:', response);
-      document.getElementById('pseudo').innerHTML = "Hello " + response.data.Pseudo;
+      document.getElementById('pseudo').innerHTML = "Hello " + response.data.Pseudo + " !";
 
     })
     .catch(error => {
