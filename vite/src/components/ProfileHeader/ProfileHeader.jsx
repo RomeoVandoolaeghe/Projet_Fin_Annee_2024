@@ -11,12 +11,14 @@ const ProfileHeader = ({ isEditMode }) => {
 
   useEffect(() => {
 
+
+    // Récupération des descriptions
     const fetchDescription = async () => {
-      
+
       try {
         const response = await axios.get('http://localhost:3000/recup_description', { withCredentials: true });
         console.log("Réponse reçue description :", response.data.Description);
-        if (response.data){
+        if (response.data) {
           setInitialUser(response.data);
         } else {
           console.error('Les données reçues ne sont pas valides', response.data);
@@ -31,7 +33,7 @@ const ProfileHeader = ({ isEditMode }) => {
 
 
 
-
+    // Récupération des disponibilités
     const fetchDispo = async () => {
       try {
         const response = await axios.get('http://localhost:3000/recup_dispo', { withCredentials: true });
@@ -52,6 +54,8 @@ const ProfileHeader = ({ isEditMode }) => {
 
   }, []);
 
+
+  // Fonction pour gérer les changements dans les inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUser({
@@ -60,34 +64,19 @@ const ProfileHeader = ({ isEditMode }) => {
     });
   };
 
+
+
   return (
     <div className="ProfileHeader">
       <div className="profile-info">
         <div className="profile-picture">
           <img src="profil.jpg" alt="profile-picture" />
         </div>
-        {isEditMode ? (
-          <>
-            <input
-              type="text"
-              name="Nom"
-              value={user.Nom}
-              onChange={handleInputChange}
-            />
-            {/* <textarea
-              name="Description"
-              value={user.Description}
-              onChange={handleInputChange}
-            /> */}
-          </>
-        ) : (
-          <>
-            <h3>
-              Pseudo
-            </h3>
-            <p id='description'><strong>Ma Description : </strong>{user.Description}</p>
-          </>
-        )}
+
+        <>
+          <h3>Pseudo</h3>
+          <p id='description'><strong>Ma Description : </strong>{user.Description}</p>
+        </>
         <h4>Mes Disponibilités</h4>
         {error && ( // Affichage conditionnel du message d'erreur
           <p className="error-message">Erreur lors du chargement des disponibilités: {error.message}</p>
