@@ -29,6 +29,12 @@ const FriendsList = () => {
   const [groups, setGroups] = useState(group);
   const [showDeleteButtons, setShowDeleteButtons] = useState(false);
 
+
+
+
+
+  
+
   return (
     <div>
 
