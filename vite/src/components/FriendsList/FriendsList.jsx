@@ -1,23 +1,10 @@
-import React, { useState } from 'react';
+import React, {useEffect,useState } from 'react';
 import { FaCheck, FaTimes, FaTrashAlt } from 'react-icons/fa';
 import './FriendsList.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-const friends = [
-  { name: 'Ragnar Lodbrok' },
-  { name: 'Harald Hardrada' },
-  { name: 'Thorfinn Karlsefni' },
-  { name: 'Thors Karlsefni' },
-  { name: 'Leif Erikson' },
-  { name: 'Thorkell Le Grand' },
-  { name: 'Knut Le Grand' },
-  { name: 'Kjetill Eriksson' },
-];
 
-const invitations = [
-  { name: 'Bjorn Ironside' },
-  { name: 'Ivar the Boneless' },
-];
 
 const group = [
   { name: 'SEIRIN' },
@@ -26,8 +13,29 @@ const group = [
 ];
 
 const FriendsList = () => {
+  const [friends, setFriends] = useState([]);
   const [groups, setGroups] = useState(group);
+  const [error, setError] = useState(null);
   const [showDeleteButtons, setShowDeleteButtons] = useState(false);
+
+
+  useEffect(() => {
+    const fetchAmis = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/friends', { withCredentials: true });
+        if (response.data && Array.isArray(response.data)) {
+          setFriends(response.data);
+          console.log("mes amis :",response.data);
+        } else {
+          console.error('Les données reçues ne sont pas valides', response.data);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    fetchAmis();
+  }, []);
 
   return (
     <div>
@@ -40,15 +48,11 @@ const FriendsList = () => {
         <ul>
           {friends.map((friend, index) => (
             <li key={index}>
-              {friend.name}
-              {showDeleteButtons ? (
-                <FaTrashAlt className="icon delete" />
-              ) : (
-                <span className={`status`}></span>
-              )}
+              {friend.Pseudo}
             </li>
           ))}
         </ul>
+        {error && <p className="error">{error.message}</p>}
         <h4 className='threat'>Mes groupes</h4>
         <ul>
           {groups.map((group, index) => (

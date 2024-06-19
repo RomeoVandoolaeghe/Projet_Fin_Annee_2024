@@ -31,9 +31,9 @@ const FriendsList = () => {
     const fetchAmis = async () => {
       try {
         const response = await axios.get('http://localhost:3000/friends', { withCredentials: true });
-        console.log("test");
         if (response.data && Array.isArray(response.data)) {
           setFriends(response.data);
+          console.log("mes amis :",response.data);
 
         } else {
           console.error('Les données reçues ne sont pas valides', response.data);

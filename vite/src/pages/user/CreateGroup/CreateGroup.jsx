@@ -20,6 +20,11 @@ function CreateGroup({ onCreateGroup }) {
     };
     setGroups([...groups, newGroup]);
   };
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      addGroup();
+    }
+  };
 
   return (
     <div className="create-group-form-container">
