@@ -31,7 +31,23 @@ const ProfileHeader = ({ isEditMode }) => {
     };
     fetchDescription();
 
+       // Récupération des descriptions
+       const fetchPseudo = async () => {
 
+        try {
+          const response = await axios.get('http://localhost:3000/get_pseudo', { withCredentials: true });
+          console.log("Réponse reçue pseudo :", response.data.Pseudo);
+          if (response.data) {
+            setInitialUser(response.data);
+          } else {
+            console.error('Les données reçues ne sont pas valides', response.data);
+          }
+        } catch (error) {
+          console.log("Erreur lors de la requête:", error);
+          setError(error);
+        }
+      };
+      fetchPseudo();
 
 
     // Récupération des disponibilités
@@ -75,7 +91,7 @@ const ProfileHeader = ({ isEditMode }) => {
         </div>
 
         <>
-          <h3>Pseudo</h3>
+          <h3 id='pseudo'>{user.Pseudo}</h3>
           <p id='description'><strong>Ma Description : </strong>{user.Description}</p>
         </>
         <h4>Mes Disponibilités</h4>
