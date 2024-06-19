@@ -1,29 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './CreateGroup.css';
+import axios from 'axios';
 
-function CreateGroup({ onCreateGroup }) {
-  const [groupName, setGroupName] = useState('');
-  const [users, setUsers] = useState('');
+const CreateGroup = () => {
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onCreateGroup(groupName, users);
-    setGroupName('');
-    setUsers('');
+  // Déclaration de l'état pour les données du formulaire
+  const [formData, setFormData] = useState({
+    term: '',
+  });
+
+  // Gestion du changement dans l'input
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
-  const addGroup = (groupName, users) => {
-    const newGroup = {
-      id: groups.length + 1,
-      name: groupName,
-      users: users.split(',').map(user => user.trim()), // Convertir les utilisateurs en tableau
-      image: groupName.charAt(0).toUpperCase() // Juste une logique pour l'image, vous pouvez la changer
-    };
-    setGroups([...groups, newGroup]);
+
+  // Réinitialisation du formulaire
+  const resetForm = () => {
+    setFormData({
+      term: '',
+    });
   };
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      addGroup();
-    }
+
+
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post('http://localhost:3000/create_group', { nom_groupe: formData.term }, { withCredentials: true })
+      .then((response) => {
+        console.log('Réponse du serveur:', response.data);
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la requête POST:', error);
+        setError('Une erreur est survenue lors de la recherche.');
+      });
+    resetForm();
   };
 
   return (
@@ -37,29 +54,23 @@ function CreateGroup({ onCreateGroup }) {
           <input
             type="text"
             id="group-name"
-            name="group-name"
-            value={groupName}
-            onChange={(e) => setGroupName(e.target.value)}
+            name="term"
+            value={formData.term}
+            onChange={handleChange}
+
+            // onChange={(e) => setGroupName(e.target.value)}
             required
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="users">Ajouter des utilisateurs :</label>
-          <input
-            type="text"
-            id="users"
-            name="users"
-            value={users}
-            onChange={(e) => setUsers(e.target.value)}
-            required
-          />
-        </div>
+
         <div className="form-group buttons">
           <button type="button" onClick={() => window.history.back()}>
             Retour
           </button>
-          <button type="submit" onCreateGroup={addGroup}>Créer</button>
+          <button type="submit">Créer</button>
+
         </div>
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );

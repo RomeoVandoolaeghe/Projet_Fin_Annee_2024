@@ -42,8 +42,6 @@ const SearchBar = () => {
       .post(url, { champ: formData.term }, { withCredentials: true })
       .then((response) => {
         console.log('Réponse du serveur:', response.data);
-        // const id_utilisateur = response.data.ID_utilisateur;
-        // console.log('ID utilisateur:', id_utilisateur);
       })
       .catch((error) => {
         console.error('Erreur lors de la requête POST:', error);
