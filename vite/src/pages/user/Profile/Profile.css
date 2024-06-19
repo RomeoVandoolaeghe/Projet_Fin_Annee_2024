@@ -14,22 +14,22 @@
 }
 
 .column {
-  padding: 20px;
+  padding: 10px;
   color: black;
   text-align: center;
 }
 
 .column:nth-child(1) {
-  width: 30%;
+  width: 25%;
 }
 
 .column:nth-child(2) {
-  width: 70%;
+  width: 50%;
 }
 
 .column:nth-child(3) {
-  width: 30%;
-  margin-right: 45px;
+  width: 25%;
+  margin-right: 5px;
 }
 .friends-list {
   margin-bottom: 10px;
