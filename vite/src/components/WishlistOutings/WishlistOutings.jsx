@@ -4,11 +4,7 @@ import './WishlistOutings.css';
 import { Link } from 'react-router-dom';
 
 const initialOutings = [
-  { activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
-  { activity: "Aller à la plage", duration: "1 jour", location: "Nice" },
-  { activity: "Visiter un musée", duration: "1/2 jour", location: "Louvre, Paris" },
-  { activity: "Faire du ski", duration: "2 jours", location: "Alpes" },
-  { activity: "Randonnée en montagne", duration: "1 jour", location: "Pyrénées" },
+  { location: "Disneyland Paris" },
 ];
 
 const WishlistOutings = () => {
@@ -36,9 +32,7 @@ const WishlistOutings = () => {
           {outings.map((outing, index) => (
             <li key={index}>
               <div>
-                <strong>Activité:</strong> {outing.activity}<br />
-                <strong>Durée:</strong> {outing.duration}<br />
-                <strong>Lieu:</strong> {outing.location}
+                {outing.location}
               </div>
               {showDeleteButtons ? (
                 <FaTrashAlt
