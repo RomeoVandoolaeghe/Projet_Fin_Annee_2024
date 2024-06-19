@@ -1,10 +1,11 @@
 .wishlist-container {
-  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
+  margin: 20px auto;
   width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: black;
+  background: rgba(255, 255, 255, 0.8)
 }
 
 .wishlist-container {
