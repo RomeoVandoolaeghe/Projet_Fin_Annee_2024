@@ -30,15 +30,8 @@ const Parametres = () => {
     .catch(error => {
       console.error('Erreur lors de l\'insertion de la description', error);
     });
-      axios.post('http://localhost:3000/edit_description', { description: formData2.description }, { withCredentials: true })
-      .then(response => {
-        alert('La description a été insérer', response.data);
-      })
-      .catch(error => {
-        console.error('Erreur lors de l\'insertion de la description', error);
-      });
-
       
+  
 
     }
 
