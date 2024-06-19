@@ -448,6 +448,25 @@ app.post('/edit_description', isAuthenticated, async (req, res) => {
 });
 
 
+
+app.post('/edit_wishlist', isAuthenticated, async (req, res) => {
+
+    const ID_utilisateur = req.session.user.id;
+    const {place}  = req.body;
+
+    const editSql = 'UPDATE utilisateur SET Wishlist = ? WHERE ID_utilisateur = ?;';
+
+    db.query(editSql, [place, ID_utilisateur], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        return res.status(200).json({ message: 'Wishlist a bien été updater' });
+    });
+});
+
+
 // Route pour supprimer une disponibilité
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);

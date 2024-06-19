@@ -31,10 +31,7 @@ const Parametres = () => {
       console.error('Erreur lors de l\'insertion de la description', error);
     });
       
-  
-
     }
-
 
   };
 

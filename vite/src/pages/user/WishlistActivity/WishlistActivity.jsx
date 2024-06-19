@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './WishlistActivity.css';
+
 
 const WishlistActivity = () => {
     const [place, setPlace] = useState('');
@@ -11,7 +13,17 @@ const WishlistActivity = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Ajout à la wishlist reussie :', place);
-        setPlace('');
+        if(place != ''){
+
+            axios.post('http://localhost:3000/edit_wishlist', { place: place }, { withCredentials: true })
+            .then(response => {
+              alert('La Whislist a été modifié', response.data);
+            })
+            .catch(error => {
+              console.error('Erreur lors de l\'insertion de la description', error);
+            });
+              
+            }
     };
 
     return (
