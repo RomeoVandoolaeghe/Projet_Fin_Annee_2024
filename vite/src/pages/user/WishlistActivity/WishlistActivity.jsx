@@ -20,7 +20,6 @@ const WishlistActivity = () => {
                 <h3>Ajouter une activité </h3>
             </div>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="placeInput"> Entrer votre activité :</label>
                 <input
                     type="text"
                     id="placeInput"
