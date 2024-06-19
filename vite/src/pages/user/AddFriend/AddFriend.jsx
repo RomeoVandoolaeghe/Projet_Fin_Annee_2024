@@ -25,7 +25,7 @@ const AddFriend = () => {
   };
 
   return (
-    <div>
+    <div className='add-friend'>
       <h3>Ajouter des amis</h3>
       <SearchBar />
       <FriendList_AddFriend friends={friends} />

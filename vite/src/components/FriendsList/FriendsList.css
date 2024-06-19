@@ -87,7 +87,6 @@ button {
 }
 
 .toggle-del {
-  background: rgba(255, 255, 255, 0.8);
   color: black;
   cursor: pointer;
   font-size: 0.9em;
@@ -95,14 +94,12 @@ button {
   margin-right: -5px;
 }
 
-.toggle-delete:hover {
-  text-decoration: none;
+.toggle-del :hover{
+  border-radius: 1px solid black;
 }
+
 
 .threat {
   margin-top: 30px;
 }
 
-.button_2 {
-  text-decoration: none;
-}

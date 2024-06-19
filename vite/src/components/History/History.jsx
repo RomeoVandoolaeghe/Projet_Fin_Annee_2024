@@ -18,11 +18,64 @@ const locationColors = {
 };
 
 const History = () => {
-  const [history] = useState(initialHistory);
+  const [history, setHistory] = useState(initialHistory);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterLocation, setFilterLocation] = useState('');
+  const [sortType, setSortType] = useState('');
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleFilterChange = (e) => {
+    setFilterLocation(e.target.value);
+  };
+
+  const handleSortChange = (e) => {
+    setSortType(e.target.value);
+  };
+
+  const filteredHistory = history
+    .filter(item => 
+      item.activity.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (filterLocation ? item.location === filterLocation : true)
+    )
+    .sort((a, b) => {
+      if (sortType === 'date') {
+        return new Date(a.date) - new Date(b.date);
+      } else if (sortType === 'activity') {
+        return a.activity.localeCompare(b.activity);
+      } else if (sortType === 'duration') {
+        return a.duration.localeCompare(b.duration);
+      }
+      return 0;
+    });
 
   return (
     <div className="history">
       <h4>Historique des sorties</h4>
+      <div className="filters">
+        <input 
+          type="text" 
+          placeholder="Rechercher une activité..." 
+          value={searchTerm} 
+          onChange={handleSearchChange} 
+        />
+        <select value={filterLocation} onChange={handleFilterChange}>
+          <option value="">Tous les lieux</option>
+          <option value="Disneyland Paris">Disneyland Paris</option>
+          <option value="Nice">Nice</option>
+          <option value="Louvre, Paris">Louvre, Paris</option>
+          <option value="Alpes">Alpes</option>
+          <option value="Pyrénées">Pyrénées</option>
+        </select>
+        <select value={sortType} onChange={handleSortChange}>
+          <option value="">Trier par</option>
+          <option value="date">Date</option>
+          <option value="activity">Activité</option>
+          <option value="duration">Durée</option>
+        </select>
+      </div>
       <table className="history-table">
         <thead>
           <tr>
@@ -33,7 +86,7 @@ const History = () => {
           </tr>
         </thead>
         <tbody>
-          {history.map((item, index) => (
+          {filteredHistory.map((item, index) => (
             <tr key={index}>
               <td>{item.date}</td>
               <td>{item.activity}</td>

@@ -1,3 +1,28 @@
-.stats-section p{
+.stats-section {
+    padding: 20px;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stats-section p {
     font-size: 15px;
-}
+    margin: 0;
+  }
+  
+  .stats-section h4 {
+    margin-bottom: 20px;
+  }
+  

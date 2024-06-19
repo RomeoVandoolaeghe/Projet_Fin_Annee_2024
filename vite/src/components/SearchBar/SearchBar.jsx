@@ -42,8 +42,6 @@ const SearchBar = () => {
       .post(url, { champ: formData.term }, { withCredentials: true })
       .then((response) => {
         console.log('Réponse du serveur:', response.data);
-        // const id_utilisateur = response.data.ID_utilisateur;
-        // console.log('ID utilisateur:', id_utilisateur);
       })
       .catch((error) => {
         console.error('Erreur lors de la requête POST:', error);
@@ -51,7 +49,7 @@ const SearchBar = () => {
       });
 
 
-      axios
+    axios
       .post('http://localhost:3000/create_ami', { champ: formData.term }, { withCredentials: true })
       .then((response) => {
         console.log('Réponse du serveur:', response.data);
@@ -70,6 +68,7 @@ const SearchBar = () => {
   return (
     <form onSubmit={handleSubmit}>
       <input
+        className='input-2'
         type="text"
         name="term"
         placeholder="Rechercher des amis"

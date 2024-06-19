@@ -467,11 +467,24 @@ app.post('/edit_wishlist', isAuthenticated, async (req, res) => {
 });
 
 
+app.post('/create_group', async (req, res) => {
+    
+    const {nom_groupe}  = req.body;
+    const editSql = 'INSERT INTO groupe (Nom_Groupe) VALUES (?)';
+
+    db.query(editSql, [nom_groupe], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        return res.status(200).json({ message: 'Le groupe a bien été crée' });
+    });
+
+});
+
 // Route pour supprimer une disponibilité
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });
-
-
-
 

@@ -2,14 +2,20 @@
 form {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-top: 40px;
+    margin-bottom:40px;
   }
   
   input {
     width: 300px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-right: 10px; 
+    margin-right: 10px;
+    padding:5px; 
+    background:white;
+  }
+  input::placeholder{
+    color:black;
   }
   
   button {
