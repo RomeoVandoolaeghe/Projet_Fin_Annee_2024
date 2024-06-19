@@ -94,10 +94,13 @@ const ProfileHeader = ({ isEditMode }) => {
           <h3 id='pseudo'>{user.Pseudo}</h3>
           <p id='description'><strong>Ma Description : </strong>{description.Description}</p>
         </>
+
         <h4>Mes Disponibilités</h4>
         {error && ( // Affichage conditionnel du message d'erreur
           <p className="error-message">Erreur lors du chargement des disponibilités: {error.message}</p>
         )}
+        <Link to="/Parametres"><button>Modifier mon profil</button></Link>
+        <br />
         <table className="availability-table">
           <thead>
             <tr>
@@ -118,7 +121,6 @@ const ProfileHeader = ({ isEditMode }) => {
           </tbody>
         </table>
       </div>
-      <Link to="/Parametres"><button>Modifier mon profil</button></Link>
     </div>
 
   );
