@@ -51,7 +51,7 @@ const SearchBar = () => {
       });
 
 
-      axios
+    axios
       .post('http://localhost:3000/create_ami', { champ: formData.term }, { withCredentials: true })
       .then((response) => {
         console.log('Réponse du serveur:', response.data);
@@ -70,6 +70,7 @@ const SearchBar = () => {
   return (
     <form onSubmit={handleSubmit}>
       <input
+        className='input-2'
         type="text"
         name="term"
         placeholder="Rechercher des amis"
