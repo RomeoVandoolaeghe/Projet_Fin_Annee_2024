@@ -20,6 +20,9 @@ const Parametres = () => {
     console.log(formData2.description);
 
 
+    if(formData2.description != ''){
+
+
     axios.post('http://localhost:3000/edit_description', { description: formData2.description }, { withCredentials: true })
     .then(response => {
       alert('La description a été modifiée', response.data);
@@ -27,6 +30,11 @@ const Parametres = () => {
     .catch(error => {
       console.error('Erreur lors de l\'insertion de la description', error);
     });
+      
+  
+
+    }
+
 
   };
 
