@@ -22,7 +22,7 @@ const Parametres = () => {
 
     axios.post('http://localhost:3000/edit_description', { description: formData2.description }, { withCredentials: true })
     .then(response => {
-      alert('La description a été insérer', response.data);
+      alert('La description a été insérée', response.data);
     })
     .catch(error => {
       console.error('Erreur lors de l\'insertion de la description', error);
@@ -127,7 +127,7 @@ const Parametres = () => {
                 value={formData2.description}
                 onChange={handleDescriptionChange}
               ></textarea>
-              <button type="submit" onClick={handleSubmit2}>Envoyer la description</button>
+              <button type="submit" onClick={handleSubmit2}>Modifier</button>
             </div>
           </section>
 
