@@ -3,18 +3,10 @@ import './History.css';
 
 const initialHistory = [
   { date: '2023-05-20', activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
-  { date: '2023-06-15', activity: "Randonnée en montagne", duration: "1 jour", location: "Chamonix" },
-  { date: '2023-07-10', activity: "Visite du musée", duration: "1 jour", location: "Louvre" },
 ];
 
-const History = ({ isEditMode }) => {
-  const [history, setHistory] = useState(initialHistory);
-
-  const handleInputChange = (index, field, value) => {
-    const newHistory = [...history];
-    newHistory[index][field] = value;
-    setHistory(newHistory);
-  };
+const History = () => {
+  const [history] = useState(initialHistory);
 
   return (
     <div className="history">
@@ -31,50 +23,10 @@ const History = ({ isEditMode }) => {
         <tbody>
           {history.map((item, index) => (
             <tr key={index}>
-              <td>
-                {isEditMode ? (
-                  <input
-                    type="date"
-                    value={item.date}
-                    onChange={(e) => handleInputChange(index, 'date', e.target.value)}
-                  />
-                ) : (
-                  item.date
-                )}
-              </td>
-              <td>
-                {isEditMode ? (
-                  <input
-                    type="text"
-                    value={item.activity}
-                    onChange={(e) => handleInputChange(index, 'activity', e.target.value)}
-                  />
-                ) : (
-                  item.activity
-                )}
-              </td>
-              <td>
-                {isEditMode ? (
-                  <input
-                    type="text"
-                    value={item.duration}
-                    onChange={(e) => handleInputChange(index, 'duration', e.target.value)}
-                  />
-                ) : (
-                  item.duration
-                )}
-              </td>
-              <td>
-                {isEditMode ? (
-                  <input
-                    type="text"
-                    value={item.location}
-                    onChange={(e) => handleInputChange(index, 'location', e.target.value)}
-                  />
-                ) : (
-                  item.location
-                )}
-              </td>
+              <td>{item.date}</td>
+              <td>{item.activity}</td>
+              <td>{item.duration}</td>
+              <td>{item.location}</td>
             </tr>
           ))}
         </tbody>
