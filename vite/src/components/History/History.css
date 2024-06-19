@@ -39,3 +39,8 @@
   border: 1px solid #ccc;
   background-color: #fff;
 }
+
+.location{
+  padding: 3px;
+  border-radius: 100px;
+}
