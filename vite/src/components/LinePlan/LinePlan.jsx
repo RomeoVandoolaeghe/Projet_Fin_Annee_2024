@@ -11,7 +11,6 @@ const LinePlan = () => {
       nb_participant: "50",
       lieu: "Paris",
     },
-    // Ajoutez d'autres données...
   ];
 
   const [datas, setDatas] = useState(initialData);

@@ -7,7 +7,7 @@ const MostFrequentFriends = ({ friends }) => {
     items.forEach((item, index) => {
       setTimeout(() => {
         item.classList.add('show');
-      }, index * 300); // Delay each item by 300ms
+      }, index * 300); 
     });
   }, []);
 
