@@ -8,8 +8,6 @@ import { FaComments } from 'react-icons/fa';
 
 const users = [
   { id: 1, name: 'Docteur Strange', status: 'Actif', image: '/profil.jpg' },
-  { id: 2, name: 'Tony Stark', status: 'Inactif', image: '/profil.jpg' },
-  // ... autres utilisateurs
 ];
 
 function Chat() {
