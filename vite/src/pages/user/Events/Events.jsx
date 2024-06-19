@@ -1,23 +1,19 @@
-import { Link } from 'react-router-dom';
-import LineHead from '../../../components/LineHead/LineHead.jsx';
-import LinePlan from '../../../components/LinePlan/LinePlan.jsx';
-import ScrollReveal from 'scrollreveal';
 import React, { useEffect } from 'react';
+import ScrollReveal from 'scrollreveal';
+import LineHead from '../../../components/LineHead/LineHead';
+import LinePlan from '../../../components/LinePlan/LinePlan';
 import './Events.css';
 
 function Events() {
 
   useEffect(() => {
-    // Configuration de base de ScrollReveal
     const sr = ScrollReveal({
       origin: 'bottom',
       distance: '20px',
       duration: 500,
       delay: 100,
-      reset: true, // Animation réapparaît à chaque défilement
+      reset: true,
     });
-
-    // Appliquer l'animation aux éléments avec la classe "reveal"
     sr.reveal('.reveal');
   }, []);
 
@@ -27,8 +23,7 @@ function Events() {
         <h2>Planning</h2>
       </div>
       <div className='box'>
-        <LineHead/>
-      <LinePlan/>
+        <LinePlan />
       </div>
     </>
   );
