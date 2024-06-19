@@ -87,7 +87,6 @@ button {
 }
 
 .toggle-del {
-  background: rgba(255, 255, 255, 0.8);
   color: black;
   cursor: pointer;
   font-size: 0.9em;

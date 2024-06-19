@@ -49,7 +49,7 @@ const FriendsList = () => {
       <div className="list-container friends-list">
         <div className="friends-list-header">
           <h4>Liste d’amis</h4>
-            <Link to="/AddFriend" className='button_2'><button className="toggle-del" >Gérer des amis</button></Link>
+            <Link to="/AddFriend" className='button_2'><span className="toggle-del" >Gérer des amis</span></Link>
         </div>
         <ul>
           {friends.map((friend, index) => (
