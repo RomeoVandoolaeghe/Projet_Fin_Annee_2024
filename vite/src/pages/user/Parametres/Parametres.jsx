@@ -4,8 +4,6 @@ import './Parametres.css';
 import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSignOutAlt } from 'react-icons/fa';
 
 const Parametres = () => {
-
-
   // Déclaration de l'état pour les données du formulaire
   const [formData, setFormData] = useState({
     jour: '',
@@ -13,11 +11,24 @@ const Parametres = () => {
     heure_fin: '',
   });
 
+  const [formData2, setFormData2] = useState({
+    description: '',
+  });
+
+  const handleSubmit2 = (e) => {
+    e.preventDefault();
+    console.log(formData2.description);
 
 
+    axios.post('http://localhost:3000/edit_description', { description: formData2.description }, { withCredentials: true })
+    .then(response => {
+      alert('La description a été insérer', response.data);
+    })
+    .catch(error => {
+      console.error('Erreur lors de l\'insertion de la description', error);
+    });
 
-
-
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,16 +44,8 @@ const Parametres = () => {
       return;
     }
 
-
-
-
-
-
-
-
     axios.post('http://localhost:3000/verif_dispo', { jour: formData.jour }, { withCredentials: true })
       .then(response => {
-
         console.log('nb occurence:', response.data.occurence);
         occurence = response.data.occurence;
         if (occurence == 1) {
@@ -65,11 +68,9 @@ const Parametres = () => {
 
         }
       })
-
       .catch(error => {
         console.error('Erreur', error);
       });
-
   };
 
   const handleSubmit_supp = (e) => {
@@ -80,7 +81,6 @@ const Parametres = () => {
     var occurence;
     axios.post('http://localhost:3000/verif_dispo', { jour: formData.jour }, { withCredentials: true })
       .then(response => {
-
         console.log('nb occurence:', response.data.occurence);
         occurence = response.data.occurence;
         if (occurence == 1) {
@@ -96,12 +96,15 @@ const Parametres = () => {
           alert('Vous n\'avez pas de disponibilité à supprimer pour ce jour');
         }
       })
-
       .catch(error => {
         console.error('Erreur', error);
       });
 
   }
+
+  const handleDescriptionChange = (e) => {
+    setFormData2({ ...formData2, description: e.target.value });
+  };
 
   return (
     <>
@@ -112,28 +115,26 @@ const Parametres = () => {
         <form onSubmit={handleSubmit}>
           <section>
             <h2>Informations Personnelles</h2>
-
             <div>
               <label>Photo de profil :</label>
-              <input
-                type="file"
-              />
+              <input type="file" />
             </div>
             <div>
               <label id="description">Description :</label>
               <textarea
-
                 placeholder="Modifier la description"
+                id="description"
+                value={formData2.description}
+                onChange={handleDescriptionChange}
               ></textarea>
+              <button type="submit" onClick={handleSubmit2}>Envoyer la description</button>
             </div>
           </section>
-
 
           <section>
             <h2>Disponibilités</h2>
             <div>
               <label>Modifier vos disponibilités</label>
-
 
               <label name="jour">Choisissez un jour :</label>
               <select  id="jours" name="jours">
@@ -154,15 +155,8 @@ const Parametres = () => {
               <input  type="time" id="time_fin" name="time" required />
 
               <button type="submit" onClick={handleSubmit}>Sauvegarder vos disponibilités</button>
-
-
-
-
-
             </div>
           </section>
-
-
         </form>
       </div>
     </>
