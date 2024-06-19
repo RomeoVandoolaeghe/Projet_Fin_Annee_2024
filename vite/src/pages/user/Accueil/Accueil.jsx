@@ -39,8 +39,8 @@ function Home() {
       time: "13:30 - 17:30",
     },
     {
-      title: "Palais des Beaux - Arts",
-      location: "Lille",
+      title: "Louis Vuitton",
+      location: "Paris",
       time: "13:30 - 17:30",
     },
   ];

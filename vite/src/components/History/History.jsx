@@ -3,18 +3,22 @@ import './History.css';
 
 const initialHistory = [
   { date: '2023-05-20', activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
-  { date: '2023-06-15', activity: "Randonnée en montagne", duration: "1 jour", location: "Chamonix" },
-  { date: '2023-07-10', activity: "Visite du musée", duration: "1 jour", location: "Louvre" },
+  { date: '2023-06-15', activity: "Aller à la plage", duration: "1 jour", location: "Nice" },
+  { date: '2023-07-01', activity: "Visiter un musée", duration: "1/2 jour", location: "Louvre, Paris" },
+  { date: '2023-08-05', activity: "Faire du ski", duration: "2 jours", location: "Alpes" },
+  { date: '2023-09-10', activity: "Randonnée en montagne", duration: "1 jour", location: "Pyrénées" },
 ];
 
-const History = ({ isEditMode }) => {
-  const [history, setHistory] = useState(initialHistory);
+const locationColors = {
+  "Disneyland Paris": "#ffcccc",
+  "Nice": "#ccffcc",
+  "Louvre, Paris": "#ccccff",
+  "Alpes": "#ffccff",
+  "Pyrénées": "#ccffff"
+};
 
-  const handleInputChange = (index, field, value) => {
-    const newHistory = [...history];
-    newHistory[index][field] = value;
-    setHistory(newHistory);
-  };
+const History = () => {
+  const [history] = useState(initialHistory);
 
   return (
     <div className="history">
@@ -31,50 +35,10 @@ const History = ({ isEditMode }) => {
         <tbody>
           {history.map((item, index) => (
             <tr key={index}>
-              <td>
-                {isEditMode ? (
-                  <input
-                    type="date"
-                    value={item.date}
-                    onChange={(e) => handleInputChange(index, 'date', e.target.value)}
-                  />
-                ) : (
-                  item.date
-                )}
-              </td>
-              <td>
-                {isEditMode ? (
-                  <input
-                    type="text"
-                    value={item.activity}
-                    onChange={(e) => handleInputChange(index, 'activity', e.target.value)}
-                  />
-                ) : (
-                  item.activity
-                )}
-              </td>
-              <td>
-                {isEditMode ? (
-                  <input
-                    type="text"
-                    value={item.duration}
-                    onChange={(e) => handleInputChange(index, 'duration', e.target.value)}
-                  />
-                ) : (
-                  item.duration
-                )}
-              </td>
-              <td>
-                {isEditMode ? (
-                  <input
-                    type="text"
-                    value={item.location}
-                    onChange={(e) => handleInputChange(index, 'location', e.target.value)}
-                  />
-                ) : (
-                  item.location
-                )}
-              </td>
+              <td>{item.date}</td>
+              <td>{item.activity}</td>
+              <td>{item.duration}</td>
+              <td><span className='location' style={{ backgroundColor: locationColors[item.location] || '#ffffff' }}>{item.location}</span></td>
             </tr>
           ))}
         </tbody>

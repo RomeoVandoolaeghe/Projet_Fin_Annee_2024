@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './WishlistActivity.css';
-
+import WishlistOutings from '../../../components/WishlistOutings/WishlistOutings';
 
 const WishlistActivity = () => {
     const [place, setPlace] = useState('');
@@ -40,6 +40,7 @@ const WishlistActivity = () => {
                 />
                 <button type="submit">Ajouter</button>
             </form>
+            <WishlistOutings />
         </div>
     );
 };
