@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useEffect,useState, createContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Events from './pages/user/Events/Events.jsx';
@@ -29,6 +29,24 @@ function App() {
   const [groups, setGroups] = useState([
     { name: 'ASTRO WORD', image: ' A ', color: getRandomColor() },
   ]);
+  // const [error, setError] = useState(null);
+
+  // useEffect(() => {
+  //   const fetchGroupe = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:3000/recup_group', { withCredentials: true });
+  //       if (response.data && Array.isArray(response.data)) {
+  //         setGroups(response.data); // Mise à jour de groupList avec les données de l'API
+  //       } else {
+  //         console.error('Les données reçues ne sont pas valides', response.data);
+  //       }
+  //     } catch (error) {
+  //       setError(error);
+  //     }
+  //   };
+
+  //   fetchGroupe();
+  // }, []);
 
   const [user, setUser] = useState(null);
 

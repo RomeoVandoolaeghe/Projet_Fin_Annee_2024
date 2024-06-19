@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import GroupCard from '../../../components/GroupCard/GroupCard';
 import { FaUsers } from 'react-icons/fa';
 import './Group.css';
+import axios from 'axios';
 
-const Group = ({ groups }) => {
+const Group = ({ groups = [] }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [groupList, setGroupList] = useState(groups);
+  const [error, setError] = useState(null);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const handleDeleteGroup = (id) => {
-    setGroupList(groupList.filter(group => group.id !== id));
-  };
+
 
   const filteredGroups = groupList.filter(group =>
-    group.name.toLowerCase().includes(searchTerm.toLowerCase())
+    group.Nom_Groupe && group.Nom_Groupe.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -45,9 +45,8 @@ const Group = ({ groups }) => {
               key={group.id}
               id={group.id}
               name={group.name}
-              image={group.image}
-              color={group.color}
-              onDelete={handleDeleteGroup}
+              image={group.image} // Assurez-vous que cette propriété est correctement définie
+              color={group.color} // Assurez-vous que cette propriété est correctement définie
             />
           ))}
         </div>
