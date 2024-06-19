@@ -8,8 +8,10 @@ const MostFrequentFriends = ({ friends }) => (
       {friends.map((friend, index) => (
         <li key={index}> 
           <img src={friend.img} alt={friend.name} />
-          <p> <strong> {friend.name} </strong></p>
-          <p>Sortie en commun : {friend.times}</p>
+          <div className="overlay">
+            <p><strong>{friend.name}</strong></p>
+            <p> {friend.times} <br /> sorties </p>
+          </div>
         </li>
       ))}
     </ul>

@@ -8,8 +8,10 @@ const MostFrequentPlaces = ({ places }) => (
       {places.map((place, index) => (
         <li key={index}> 
           <img src={place.img} alt={place.name} />
-          <p> <strong> {place.name} </strong></p>
-          <p> Nombre de visite : {place.times}</p>
+          <div className="overlay">
+            <p> <strong> {place.name} </strong></p>
+            <p> {place.times} <br /> visites </p>
+          </div>
         </li>
       ))}
     </ul>

@@ -7,7 +7,7 @@ import './HallofFame.css';
 
 const userStats = {
   mostFrequentFriends: [
-    { name: 'Hugo', times: 5, img: 'amis1.jpg' },
+    { name: 'Hugo', times: 5, img: 'lieu1.jpeg' },
     { name: 'Robert', times: 4, img: 'amis1.jpg' },
   ],
   mostFrequentPlaces: [

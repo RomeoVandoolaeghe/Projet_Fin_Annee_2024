@@ -1,7 +1,7 @@
 .stats-section {
   display: flex;
   flex-direction: column;
-  align-items: start; /* Centrer les enfants horizontalement */
+  align-items: center; /* Center the header */
   border-bottom: 1px solid white;
 }
 
@@ -10,29 +10,51 @@
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Augmenter l'écart pour une meilleure lisibilité */
-  justify-content: center; /* Centrer les éléments dans la ligne */
+  gap: 20px; /* Increase the gap for better readability */
+  justify-content: center; /* Center the elements in the row */
 }
 
 .stats-section li {
+  position: relative;
   padding: 10px;
-  list-style: none; /* Retirer les puces */
+  list-style: none; /* Remove bullets */
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajouter une ombre pour un effet de carte */
-  width: 150px; /* Fixer une largeur constante pour les cartes */
-  text-align: center; /* Centrer le texte */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow for a card effect */
+  width: 150px; /* Set a constant width for the cards */
+  height: 250px; /* Set a constant height for the cards */
+  text-align: center; /* Center the text */
   background-color: rgba(255, 255, 255, 0.5);
+  overflow: hidden; /* Hide overflow */
+}
+
+.stats-section li img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.stats-section li .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Add a dark overlay */
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white; /* Set text color to white */
 }
 
 .stats-section li p {
   font-size: 15px;
   margin: 5px 0;
-  text-align: left;
-}
-
-.stats-section img {
-  width: 130px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 50%;
+  z-index: 2; /* Ensure text is above overlay */
+  text-align: center; /* Center the text */
 }
