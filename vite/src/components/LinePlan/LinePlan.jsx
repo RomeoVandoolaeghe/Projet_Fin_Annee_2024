@@ -5,18 +5,21 @@ import './LinePlan.css';
 const LinePlan = () => {
   const initialData = [
     {
+      id: 1,
       date: "30/01/1999",
       heure: "15",
       titre: "Visite de la tour Eiffel",
       nb_participant: "50",
       lieu: "Paris",
     },
+    // Ajoutez d'autres données...
   ];
 
   const [datas, setDatas] = useState(initialData);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterLocation, setFilterLocation] = useState('');
   const [sortType, setSortType] = useState('');
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     const sr = ScrollReveal({
@@ -39,6 +42,20 @@ const LinePlan = () => {
 
   const handleSortChange = (e) => {
     setSortType(e.target.value);
+  };
+
+  const handleEventClick = (event) => {
+    setSelectedEvent(event);
+  };
+
+  const closeModal = () => {
+    setSelectedEvent(null);
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Voulez-vous vraiment supprimer cet événement ?")) {
+      setDatas(datas.filter(data => data.id !== id));
+    }
   };
 
   const filteredData = datas
@@ -85,17 +102,28 @@ const LinePlan = () => {
           <span>Titre</span>
           <span>Participant</span>
           <span>Lieu</span>
+          <span>Action</span>
         </div>
         {filteredData.map((data, index) => (
           <div key={index} className="item">
-            <span>{data.date}</span>
-            <span>{data.heure}</span>
-            <span>{data.titre}</span>
-            <span>{data.nb_participant}</span>
-            <span>{data.lieu}</span>
+            <span onClick={() => handleEventClick(data)}>{data.date}</span>
+            <span onClick={() => handleEventClick(data)}>{data.heure}</span>
+            <span onClick={() => handleEventClick(data)}>{data.titre}</span>
+            <span onClick={() => handleEventClick(data)}>{data.nb_participant}</span>
+            <span onClick={() => handleEventClick(data)}>{data.lieu}</span>
+            <span>
+              <span onClick={() => handleDelete(data.id)}>Supprimer</span>
+            </span>
           </div>
         ))}
       </div>
+      {selectedEvent && (
+        <EventDetails 
+          event={selectedEvent} 
+          isOpen={!!selectedEvent} 
+          onRequestClose={closeModal} 
+        />
+      )}
     </div>
   );
 }
