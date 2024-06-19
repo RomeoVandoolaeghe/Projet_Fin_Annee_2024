@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './wishlist_activity.css';
+import './WishlistActivity.css';
 
 const WishlistActivity = () => {
     const [place, setPlace] = useState('');
@@ -16,16 +16,18 @@ const WishlistActivity = () => {
 
     return (
         <div>
-            <h1>Wishlist Activity</h1>
+            <div className='header'>
+                <h3>Ajouter une activité </h3>
+            </div>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="placeInput">Add Place to Wishlist:</label>
+                <label htmlFor="placeInput"> Entrer votre activité :</label>
                 <input
                     type="text"
                     id="placeInput"
                     value={place}
                     onChange={handlePlaceChange}
                 />
-                <button type="submit">Add</button>
+                <button type="submit">Ajouter</button>
             </form>
         </div>
     );
