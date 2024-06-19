@@ -19,13 +19,13 @@ const Wishlist = () => {
       <div className="header-container">
         <h3>Ma Wishlist</h3>
         <Link to="/WishlistActivity" className="button_2">
-          <button className="add-button">Ajouter une activité + </button>
+          <button className="add-button">Ajouter une sortie </button>
         </Link>
       </div>
       <table className="wishlist-table">
         <thead>
           <tr>
-            <th>Activités</th>
+            <th>Sortie</th>
           </tr>
         </thead>
         <tbody>
