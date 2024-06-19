@@ -428,9 +428,31 @@ app.get('/recup_description', isAuthenticated, async (req, res) => {
 });
 
 
+
+app.post('/edit_description', isAuthenticated, async (req, res) => {
+
+
+    const ID_utilisateur = req.session.user.id;
+    const {description}  = req.body;
+
+    const editSql = 'UPDATE utilisateur SET Description = ? WHERE ID_utilisateur = ?;';
+
+    db.query(editSql, [description, ID_utilisateur], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        return res.status(200).json({ message: 'Description a bien été inséré' });
+    });
+});
+
+
 // Route pour supprimer une disponibilité
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });
+
+
 
 
