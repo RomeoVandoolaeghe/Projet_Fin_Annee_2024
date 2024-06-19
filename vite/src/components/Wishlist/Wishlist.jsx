@@ -26,16 +26,12 @@ const Wishlist = () => {
         <thead>
           <tr>
             <th>Activités</th>
-            <th>Durée</th>
-            <th>Lieu</th>
           </tr>
         </thead>
         <tbody>
           {activities.map((item, index) => (
             <tr key={index}>
               <td>{item.activity}</td>
-              <td>{item.duration}</td>
-              <td>{item.location}</td>
             </tr>
           ))}
         </tbody>
