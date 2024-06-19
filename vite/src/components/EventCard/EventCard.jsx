@@ -1,7 +1,6 @@
 import React from 'react';
 import './EventCard.css';
 
-
 function EventCard({ event }) {
   return (
     <div className="event-card">

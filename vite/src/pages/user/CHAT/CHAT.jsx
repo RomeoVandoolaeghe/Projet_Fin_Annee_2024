@@ -4,11 +4,10 @@ import ScrollReveal from 'scrollreveal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPaperPlane, faUserPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import './CHAT.css';
+import { FaComments } from 'react-icons/fa';
 
 const users = [
   { id: 1, name: 'Docteur Strange', status: 'Actif', image: '/profil.jpg' },
-  { id: 2, name: 'Tony Stark', status: 'Inactif', image: '/profil.jpg' },
-  // ... autres utilisateurs
 ];
 
 function Chat() {
@@ -76,6 +75,11 @@ function Chat() {
 
   return (
     <>
+    <div className='header'>
+      <h3> 
+        CHAT <FaComments size={20}  />
+      </h3>
+    </div>
       <div className='chatblock'>
         <div className="chat-container reveal">
           <div className="side">
