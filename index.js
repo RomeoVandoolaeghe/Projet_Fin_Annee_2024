@@ -280,13 +280,19 @@ app.post('/create_ami', (req, res) => {
     console.log(champ);
 
     // Insérez une nouvelle ligne dans la table amitie
-    const insertSql = 'INSERT INTO `amitie` (`ID_utilisateur1`, `ID_utilisateur2`) VALUES (?, (SELECT ID_utilisateur FROM utilisateur WHERE Pseudo=?));';
-
-    db.query(insertSql, [ID_utilisateur1, champ], (err, result) => {
+    const insertSql1 = 'INSERT INTO `amitie` (`ID_utilisateur1`, `ID_utilisateur2`) VALUES (?, (SELECT ID_utilisateur FROM utilisateur WHERE Pseudo=?)) ;';
+    const insertSql2 =  'INSERT INTO `amitie` (`ID_utilisateur2`, `ID_utilisateur1`) VALUES (?, (SELECT ID_utilisateur FROM utilisateur WHERE Pseudo=?));';
+    db.query(insertSql1, [ID_utilisateur1, champ], (err, result) => {
         if (err) {
             console.error('Error executing query', err);
             return res.status(500).json({ error: 'Internal server error' });
         }
+        db.query(insertSql2, [ID_utilisateur1, champ], (err, result) => {
+            if (err) {
+                console.error('Error executing query', err);
+                return res.status(500).json({ error: 'Internal server error' });
+            }
+        });
 
         return res.status(201).json({ message: 'Relation d\'amitié créée avec succès' });
     });
