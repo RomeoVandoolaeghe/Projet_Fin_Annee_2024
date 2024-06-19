@@ -24,7 +24,8 @@
 .event-location {
   font-size: 16px;
   color: black;
-  
+  border: 1px solid black;
+  border-radius: 25px;
 }
 
 .event-time {
