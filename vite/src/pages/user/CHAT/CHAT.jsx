@@ -76,6 +76,9 @@ function Chat() {
 
   return (
     <>
+    <div className='header'>
+      <h3> CHAT </h3>
+    </div>
       <div className='chatblock'>
         <div className="chat-container reveal">
           <div className="side">
