@@ -5,11 +5,23 @@
   margin: 20px auto;
   width: 100%;
   color: black;
-  background: rgba(255, 255, 255, 0.8)
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .history h4 {
   margin-bottom: 20px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters input, .filters select {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .history-table {
@@ -40,7 +52,7 @@
   background-color: #fff;
 }
 
-.location{
+.location {
   padding: 5px 10px;
   border-radius: 100px;
 }

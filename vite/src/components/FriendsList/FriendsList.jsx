@@ -19,6 +19,12 @@ const FriendsList = () => {
   const [showDeleteButtons, setShowDeleteButtons] = useState(false);
 
 
+
+
+
+  
+
+
   useEffect(() => {
     const fetchAmis = async () => {
       try {
