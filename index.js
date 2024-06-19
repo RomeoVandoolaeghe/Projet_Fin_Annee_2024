@@ -167,7 +167,7 @@ function isAuthenticated(req, res, next) {
 
 
 // Route pour les disponibilités
-app.post('/disponibilites', isAuthenticated, async (req, res) => {
+app.post('/disponibilites',isAuthenticated, async (req, res) => {
     const { datetimedebut, datetimefin } = req.body;
     try {
         const ID_user = req.session.user.id;
@@ -185,7 +185,7 @@ app.post('/disponibilites', isAuthenticated, async (req, res) => {
 
 
 // Route pour récupérer les disponibilités
-app.get('/disponibilites', isAuthenticated, async (req, res) => {
+app.get('/disponibilites',isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
         const [rows] = await db.promise().query('SELECT * FROM disponibilite WHERE ID_Utilisateur = ?', [ID_user]);
@@ -199,7 +199,7 @@ app.get('/disponibilites', isAuthenticated, async (req, res) => {
 
 
 
-app.post("/verif_ami", (req, res) => {
+app.post("/verif_ami",isAuthenticated, (req, res) => {
     const ID_utilisateur1 = req.session.user.id; // ID de l'utilisateur actuel
     console.log("ID de l'utilisateur actuel:", ID_utilisateur1);
     const { champ } = req.body; // Pseudo de l'utilisateur à rechercher
@@ -228,7 +228,7 @@ app.post("/verif_ami", (req, res) => {
 
 
 
-app.get("/friends", isAuthenticated, async (req, res) => {
+app.get("/friends",isAuthenticated, async (req, res) => {
     const ID_utilisateur1 = req.session.user.id;
 
 
@@ -266,13 +266,14 @@ app.get("/friends", isAuthenticated, async (req, res) => {
 
 
 
-app.post('/acces', isAuthenticated, async (req, res) => {
-    res.send('Accès autorisé');
+app.post('/acces',isAuthenticated, async (req, res) => {
+    return res.status(200).send('Accès autorisé');
+    
 });
 
 
 
-app.post('/create_ami', (req, res) => {
+app.post('/create_ami',isAuthenticated, (req, res) => {
 
     const ID_utilisateur1 = req.session.user.id;
     console.log(ID_utilisateur1);
@@ -299,7 +300,7 @@ app.post('/create_ami', (req, res) => {
 });
 
 
-app.post('/delete_ami', (req, res) => {
+app.post('/delete_ami',isAuthenticated, (req, res) => {
     const ID_utilisateur1 = req.session.user.id;
     console.log(ID_utilisateur1);
     const { pseudo } = req.body;
@@ -322,7 +323,7 @@ app.post('/delete_ami', (req, res) => {
 });
 
 
-app.post('/ajout_dispo', (req, res) => {
+app.post('/ajout_dispo',isAuthenticated, (req, res) => {
     const ID_utilisateur = req.session.user.id;
     const { jour, heure_debut, heure_fin } = req.body;
     // Mettre à jour la disponibilité de l'utilisateur
@@ -338,7 +339,7 @@ app.post('/ajout_dispo', (req, res) => {
 });
 
 
-app.post('/verif_dispo', (req, res) => {
+app.post('/verif_dispo',isAuthenticated, (req, res) => {
     const ID_utilisateur = req.session.user.id;
     const { jour } = req.body;
 
@@ -355,7 +356,7 @@ app.post('/verif_dispo', (req, res) => {
 });
 
 
-app.post('/modif_dispo', (req, res) => {
+app.post('/modif_dispo',isAuthenticated, (req, res) => {
     const ID_utilisateur = req.session.user.id;
     const { jour, heure_debut, heure_fin } = req.body;
 
@@ -373,7 +374,7 @@ app.post('/modif_dispo', (req, res) => {
 
 
 
-app.post("/delete_dispo", (req, res) => {
+app.post("/delete_dispo",isAuthenticated, (req, res) => {
 
 
     const ID_utilisateur = req.session.user.id;
@@ -397,7 +398,7 @@ app.post("/delete_dispo", (req, res) => {
 });
 
 
-app.get('/get_pseudo', isAuthenticated, async (req, res) => {
+app.get('/get_pseudo',isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
         const [rows] = await db.promise().query('SELECT Pseudo FROM utilisateur WHERE ID_utilisateur = ?', [ID_user]);
@@ -409,7 +410,7 @@ app.get('/get_pseudo', isAuthenticated, async (req, res) => {
 });
 
 
-app.get('/recup_dispo', isAuthenticated, async (req, res) => {
+app.get('/recup_dispo',isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
         const [rows] = await db.promise().query("SELECT * FROM disponibilite WHERE ID_Utilisateur = ? ORDER BY CASE Jour WHEN 'Lundi' THEN 1 WHEN 'Mardi' THEN 2 WHEN 'Mercredi' THEN 3 WHEN 'Jeudi' THEN 4 WHEN 'Vendredi' THEN 5 WHEN 'Samedi' THEN 6 WHEN 'Dimanche' THEN 7  END ASC", [ID_user]);
@@ -422,7 +423,7 @@ app.get('/recup_dispo', isAuthenticated, async (req, res) => {
 
 
 
-app.get('/recup_description', isAuthenticated, async (req, res) => {
+app.get('/recup_description',isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
         const [rows] = await db.promise().query('SELECT Description FROM utilisateur WHERE ID_utilisateur = ?', [ID_user]);
@@ -435,7 +436,7 @@ app.get('/recup_description', isAuthenticated, async (req, res) => {
 
 
 
-app.post('/edit_description', isAuthenticated, async (req, res) => {
+app.post('/edit_description',isAuthenticated, async (req, res) => {
 
 
     const ID_utilisateur = req.session.user.id;
@@ -455,7 +456,7 @@ app.post('/edit_description', isAuthenticated, async (req, res) => {
 
 
 
-app.post('/edit_wishlist', isAuthenticated, async (req, res) => {
+app.post('/edit_wishlist',isAuthenticated, async (req, res) => {
 
     const ID_utilisateur = req.session.user.id;
     const {place}  = req.body;
@@ -473,7 +474,7 @@ app.post('/edit_wishlist', isAuthenticated, async (req, res) => {
 });
 
 
-app.post('/create_group', async (req, res) => {
+app.post('/create_group',isAuthenticated, async (req, res) => {
     
     const {nom_groupe}  = req.body;
     const editSql = 'INSERT INTO groupe (Nom_Groupe) VALUES (?)';
@@ -490,7 +491,7 @@ app.post('/create_group', async (req, res) => {
 });
 
 
-app.post('/add_member', async (req, res) => {
+app.post('/add_member',isAuthenticated, async (req, res) => {
 
     const ID_utilisateur = req.session.user.id;
     const {nom_groupe}  = req.body;
@@ -518,7 +519,7 @@ app.post('/add_member', async (req, res) => {
 
 
 
-app.get('/recup_group', async (req, res) => {
+app.get('/recup_group',isAuthenticated, async (req, res) => {
 
     try {
         const ID_user = 8;

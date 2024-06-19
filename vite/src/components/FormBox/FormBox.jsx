@@ -55,7 +55,7 @@ const FormBox = () => {
   };
 
 
-  // Fonction pour soumettre le formulaire
+  // Fonction pour soumettre le formulaire de connexion
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form Data:', formData);
@@ -87,7 +87,7 @@ const FormBox = () => {
   };
 
 
-  // Fonction pour soumettre le formulaire
+  // Fonction pour soumettre le formulaire d'inscription
   const handleSubmit2 = (e) => {
     e.preventDefault();
     console.log('Form Data:', formData2);
