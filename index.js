@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 const mysql = require('mysql2');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const session = require("express-session"); // Importe le module express-session
-require('dotenv').config(); // Charge les variables d'environnement à partir du fichier .env
-const MySQLStore = require('express-mysql-session')(session); // Importe le module express-mysql-session
+const session = require("express-session"); 
+require('dotenv').config(); 
+const MySQLStore = require('express-mysql-session')(session); 
 
 // Configuration de la base de données MySQL
 const options = {

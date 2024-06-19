@@ -11,7 +11,7 @@ const FriendsList = () => {
 
 
   const handleDeleteClick = (pseudo) => {
-    // Appelez la fonction de suppression avec le pseudo du friend
+   
     const url = 'http://localhost:3000/delete_ami';
     axios
       .post(url, {pseudo}, { withCredentials: true })
