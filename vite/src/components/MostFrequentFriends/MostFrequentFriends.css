@@ -25,6 +25,14 @@
   text-align: center; /* Center the text */
   background-color: rgba(255, 255, 255, 0.5);
   overflow: hidden; /* Hide overflow */
+  opacity: 0; /* Start hidden */
+  transform: translateY(20px); /* Start slightly below */
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.stats-section li.show {
+  opacity: 1; /* Fade in */
+  transform: translateY(0); /* Move to original position */
 }
 
 .stats-section li img {
