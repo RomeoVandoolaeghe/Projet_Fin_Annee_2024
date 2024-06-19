@@ -484,14 +484,41 @@ app.post('/create_group', async (req, res) => {
 });
 
 
+app.post('/add_member', async (req, res) => {
+
+    const ID_utilisateur = req.session.user.id;
+    const {nom_groupe}  = req.body;
+    console.log(nom_groupe);
+    const bool = 0;
+    const editSql = 'INSERT INTO membre_groupe (ID_Utilisateur, ID_Groupe, IS_ADMIN) VALUES (?, (SELECT ID_Groupe FROM groupe WHERE Nom_Groupe=?), ?)';
+
+    db.query(editSql, [ID_utilisateur, nom_groupe,bool], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        return res.status(200).json({ message: 'Membre ajouté au groupe' });
+    });
+
+
+
+});
+
+
+
+
+
+
 
 
 app.get('/recup_group', async (req, res) => {
 
     try {
         const ID_user = 8;
-        const [rows] = await db.promise().query('SELECT Nom_Groupe FROM `groupe` WHERE ID_Groupe=(SELECT ID_Groupe FROM `membre_groupe` WHERE ID_Utilisateur=?)', [ID_user]);
+        const [rows] = await db.promise().query('SELECT Nom_Groupe FROM `groupe` WHERE ID_Groupe IN (SELECT ID_Groupe FROM `membre_groupe` WHERE ID_Utilisateur = ?);', [ID_user]); 
         res.send(rows);
+        console.log(rows);
     } catch (err) {
         console.error("Erreur lors de la récupération des groupes ", err);
         res.status(500).send('Erreur serveur');

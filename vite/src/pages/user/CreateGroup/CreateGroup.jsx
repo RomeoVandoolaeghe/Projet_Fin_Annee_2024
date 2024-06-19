@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './CreateGroup.css';
 import axios from 'axios';
 
+
+// Composant CreateGroup
 const CreateGroup = () => {
   const [error, setError] = useState(null);
 
@@ -28,7 +30,7 @@ const CreateGroup = () => {
 
 
 
-
+  // Fonction pour soumettre le formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -40,8 +42,23 @@ const CreateGroup = () => {
         console.error('Erreur lors de la requête POST:', error);
         setError('Une erreur est survenue lors de la recherche.');
       });
+      Add_member(); 
     resetForm();
   };
+
+
+  // Fonction pour ajouter un membre
+  const Add_member = async () => {
+    try {
+      const response = await axios.post('http://localhost:3000/add_member',{ nom_groupe: formData.term }, { withCredentials: true });
+      console.log('Réponse du serveur:', response.data);
+    }
+    catch (error) {
+      console.error('Erreur lors de la requête POST:', error);
+      setError('Une erreur est survenue lors de la recherche.');
+    }
+  }
+
 
   return (
     <div className="create-group-form-container">
