@@ -483,6 +483,21 @@ app.post('/create_group', async (req, res) => {
 
 });
 
+
+
+
+app.get('/recup_group', async (req, res) => {
+
+    try {
+        const ID_user = 8;
+        const [rows] = await db.promise().query('SELECT Nom_Groupe FROM `groupe` WHERE ID_Groupe=(SELECT ID_Groupe FROM `membre_groupe` WHERE ID_Utilisateur=?)', [ID_user]);
+        res.send(rows);
+    } catch (err) {
+        console.error("Erreur lors de la récupération des groupes ", err);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
 // Route pour supprimer une disponibilité
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
