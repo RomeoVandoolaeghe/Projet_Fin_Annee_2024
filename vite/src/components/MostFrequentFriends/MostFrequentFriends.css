@@ -28,11 +28,17 @@
   opacity: 0; /* Start hidden */
   transform: translateY(20px); /* Start slightly below */
   transition: opacity 0.5s ease, transform 0.5s ease;
+  cursor: pointer;
 }
 
 .stats-section li.show {
   opacity: 1; /* Fade in */
   transform: translateY(0); /* Move to original position */
+}
+
+.stats-section li:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .stats-section li img {
