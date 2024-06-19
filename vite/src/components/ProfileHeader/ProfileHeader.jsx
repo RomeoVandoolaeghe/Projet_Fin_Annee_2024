@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProfileHeader.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 
@@ -101,7 +102,9 @@ const ProfileHeader = ({ isEditMode }) => {
           </tbody>
         </table>
       </div>
+      <button><Link to="/Parametres">Modifier mon profil</Link></button>
     </div>
+    
   );
 };
 
