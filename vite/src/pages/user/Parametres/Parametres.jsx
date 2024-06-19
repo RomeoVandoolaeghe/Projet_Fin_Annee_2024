@@ -19,7 +19,7 @@ const Parametres = () => {
     e.preventDefault();
     console.log(formData2.description);
 
-
+    
     axios.post('http://localhost:3000/edit_description', { description: formData2.description }, { withCredentials: true })
     .then(response => {
       alert('La description a été modifiée', response.data);
