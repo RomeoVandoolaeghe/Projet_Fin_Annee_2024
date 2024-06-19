@@ -9,6 +9,7 @@ const ProfileHeader = ({ isEditMode }) => {
   const [error, setError] = useState(null);
   const [initialAvailability, setDispo] = useState([]);
   const [user, setInitialUser] = useState([]);
+  const [description, setInitialDescription] = useState([]);
 
   useEffect(() => {
 
@@ -20,7 +21,7 @@ const ProfileHeader = ({ isEditMode }) => {
         const response = await axios.get('http://localhost:3000/recup_description', { withCredentials: true });
         console.log("Réponse reçue description :", response.data.Description);
         if (response.data) {
-          setInitialUser(response.data);
+          setInitialDescription(response.data);
         } else {
           console.error('Les données reçues ne sont pas valides', response.data);
         }
@@ -31,7 +32,23 @@ const ProfileHeader = ({ isEditMode }) => {
     };
     fetchDescription();
 
+       // Récupération des descriptions
+       const fetchPseudo = async () => {
 
+        try {
+          const response = await axios.get('http://localhost:3000/get_pseudo', { withCredentials: true });
+          console.log("Réponse reçue pseudo :", response.data.Pseudo);
+          if (response.data) {
+            setInitialUser(response.data);
+          } else {
+            console.error('Les données reçues ne sont pas valides', response.data);
+          }
+        } catch (error) {
+          console.log("Erreur lors de la requête:", error);
+          setError(error);
+        }
+      };
+      fetchPseudo();
 
 
     // Récupération des disponibilités
@@ -73,10 +90,9 @@ const ProfileHeader = ({ isEditMode }) => {
         <div className="profile-picture">
           <img src="profil.jpg" alt="profile-picture" />
         </div>
-
         <>
-          <h3>Pseudo</h3>
-          <p id='description'><strong>Ma Description : </strong>{user.Description}</p>
+          <h3 id='pseudo'>{user.Pseudo}</h3>
+          <p id='description'><strong>Ma Description : </strong>{description.Description}</p>
         </>
         <h4>Mes Disponibilités</h4>
         {error && ( // Affichage conditionnel du message d'erreur

@@ -23,6 +23,13 @@ const Parametres = () => {
     if(formData2.description != ''){
 
 
+    axios.post('http://localhost:3000/edit_description', { description: formData2.description }, { withCredentials: true })
+    .then(response => {
+      alert('La description a été modifiée', response.data);
+    })
+    .catch(error => {
+      console.error('Erreur lors de l\'insertion de la description', error);
+    });
       axios.post('http://localhost:3000/edit_description', { description: formData2.description }, { withCredentials: true })
       .then(response => {
         alert('La description a été insérer', response.data);
@@ -73,6 +80,7 @@ const Parametres = () => {
             .catch(error => {
               console.error('Erreur lors de la mise de la dispo', error);
             });
+
         }
       })
       .catch(error => {
@@ -106,6 +114,7 @@ const Parametres = () => {
       .catch(error => {
         console.error('Erreur', error);
       });
+
   }
 
   const handleDescriptionChange = (e) => {
@@ -133,7 +142,7 @@ const Parametres = () => {
                 value={formData2.description}
                 onChange={handleDescriptionChange}
               ></textarea>
-              <button type="submit" onClick={handleSubmit2}>Envoyer la description</button>
+              <button type="submit" onClick={handleSubmit2}>Modifier</button>
             </div>
           </section>
 
@@ -143,7 +152,7 @@ const Parametres = () => {
               <label>Modifier vos disponibilités</label>
 
               <label name="jour">Choisissez un jour :</label>
-              <select id="jours" name="jours">
+              <select  id="jours" name="jours">
                 <option value="Lundi">Lundi</option>
                 <option value="Mardi">Mardi</option>
                 <option value="Mercredi">Mercredi</option>
@@ -154,11 +163,11 @@ const Parametres = () => {
               </select>
 
               <label name="time">Choisissez une heure de début :</label>
-              <input type="time" id="time_debut" name="time" required />
+              <input  type="time" id="time_debut" name="time" required />
               <button className='button_1' type="submit" onClick={handleSubmit_supp}>Supprimer </button>
 
               <label name="time">Choisissez une heure de fin :</label>
-              <input type="time" id="time_fin" name="time" required />
+              <input  type="time" id="time_fin" name="time" required />
 
               <button type="submit" onClick={handleSubmit}>Sauvegarder vos disponibilités</button>
             </div>
