@@ -1,6 +1,6 @@
 import React from 'react';
 import UpComingEvents from '../../../components/UpComingEvents/UpComingEvents';
-import NotificationCard from '../../../components/Notification/Notification';
+/* import NotificationCard from '../../../components/Notification/Notification'; */
 import axios from 'axios'
 import './Accueil.css';
 import Navbar from '../../../components/Navbar/Navbar';
@@ -56,7 +56,7 @@ function Home() {
       <div className="home">
         <h2>Centre de notification</h2>
         <UpComingEvents events={events} />
-        <NotificationCard notification={{ title: "Nouveau message", group: "Groupe 1", count: 1 }} />
+      {/* <NotificationCard notification={{ title: "Nouveau message", group: "Groupe 1", count: 1 }} /> */}
       </div>
     </>
 
