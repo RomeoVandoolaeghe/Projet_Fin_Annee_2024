@@ -1,0 +1,47 @@
+.statistique-global {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 20px;
+    border-radius: 10px;
+}
+.carte {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px; /* Decreased padding value */
+    margin: 5px; /* Decreased margin value */
+    width: 200px;
+    text-align: center;
+}
+
+.carte-icone {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.icone-bleue {
+    color: #3b82f6;
+}
+
+.icone-verte {
+    color: #10b981;
+}
+
+.icone-rouge {
+    color: #ef4444;
+}
+
+.carte-titre {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.carte-nombre {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: black;
+}

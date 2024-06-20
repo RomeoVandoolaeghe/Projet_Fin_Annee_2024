@@ -12,6 +12,7 @@ import HallofFame from './pages/user/HallofFame/HallofFame.jsx';
 import AddFriend from './pages/user/AddFriend/AddFriend.jsx';
 import Group from './pages/user/Group/Group.jsx';
 import CreateGroup from './pages/user/CreateGroup/CreateGroup.jsx';
+import AccueilAdmin from './pages/admin/AccueilAdmin/AccueilAdmin.jsx'
 import './App.css';
 
 export const UserContext = createContext(null);
@@ -64,6 +65,7 @@ function App() {
           <Route path="/HallofFame" element={<HallofFame />} />
           <Route path="/AddFriend" element={<AddFriend />} />
           <Route path="/CreateGroup" element={<CreateGroup onCreateGroup={addGroup} />} />
+          <Route path="/AccueilAdmin" element={<AccueilAdmin />} />
         </Routes>
       </Router>
     </UserContext.Provider>
