@@ -9,6 +9,7 @@ const userStats = {
   mostFrequentFriends: [
     { name: 'Hugo', times: 5, img: 'amis1.jpg' },
     { name: 'Robert', times: 4, img: 'amis1.jpg' },
+    { name: 'Yanelle', times: 3, img: 'amis1.jpg' },
   ],
   mostFrequentPlaces: [
     { name: 'Café de Paris', times: 3, img: 'lieu1.jpeg' },

@@ -1,0 +1,61 @@
+.notification-card {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 10px 50px 50px 10px;
+    margin-bottom: 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: bounce-in 1s ease-out;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  
+  .notification-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .notification-title-location {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .notification-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .notification-location {
+    font-size: 16px;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 5px 10px;
+    border-radius: 25px;
+    margin-top: 5px;
+  }
+  
+  .notification-time {
+    font-size: 16px;
+    color: rgb(38, 34, 34);
+  }
+  
+  @keyframes bounce-in {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    60% {
+      transform: translateY(-10%);
+      opacity: 1;
+    }
+    80% {
+      transform: translateY(5%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
