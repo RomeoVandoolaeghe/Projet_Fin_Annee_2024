@@ -1,12 +1,13 @@
+// GroupCard.js
 import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisV, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { createPortal } from 'react-dom';
 import DetailGroup from '../../components/DetailGroup/DetailGroup';
 import { Link } from 'react-router-dom';
 import './GroupCard.css';
 
-const GroupCard = ({ id, name, image, color, onDelete }) => {
+const GroupCard = ({ id, name, image, color, onDelete, onClick }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const dropdownRef = useRef(null);
@@ -39,40 +40,35 @@ const GroupCard = ({ id, name, image, color, onDelete }) => {
   };
 
   return (
-    <div className="group-card">
-    <FontAwesomeIcon
-      icon={faEllipsisV}
-      className="group-options"
-      onClick={(e) => {
-        e.stopPropagation(); // Empêche la propagation du clic
-        toggleDropdown();
-      }}
-    />
-    <Link to="/Chat" className="chat-link">
-
-      <div className="group-info">
-        <h3><strong>{name}</strong></h3>
-        {dropdownVisible && !showModal && (
-          <ul className="dropdown" ref={dropdownRef}>
-            <li><button onClick={handleDelete}>Supprimer</button></li>
-            <li>
-              <button onClick={handleShowModal}>Détails</button>
-            </li>
-          </ul>
-        )}
-      </div>
+    <div className="group-card" onClick={() => onClick(name)}>
+      <FontAwesomeIcon
+        icon={faEllipsisV}
+        className="group-options"
+        onClick={(e) => {
+          e.stopPropagation(); // Empêche la propagation du clic
+          toggleDropdown();
+        }}
+      />
+      <Link to="/Chat" className="chat-link">
+        <div className="group-info">
+          <h3><strong>{name}</strong></h3>
+          {dropdownVisible && !showModal && (
+            <ul className="dropdown" ref={dropdownRef}>
+              <li><button onClick={handleDelete}>Supprimer</button></li>
+              <li>
+                <button onClick={handleShowModal}>Détails</button>
+              </li>
+            </ul>
+          )}
+        </div>
       </Link>
-
-    {showModal &&
-      createPortal(
-        <DetailGroup closeModal={() => setShowModal(false)} />,
-        document.body
-      )
-    }
-  </div>
-
-
-
+      {showModal &&
+        createPortal(
+          <DetailGroup closeModal={() => setShowModal(false)} />,
+          document.body
+        )
+      }
+    </div>
   );
 };
 

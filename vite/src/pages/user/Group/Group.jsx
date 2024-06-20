@@ -5,8 +5,7 @@ import { FaUsers } from 'react-icons/fa';
 import './Group.css';
 import axios from 'axios';
 import Navbar from '../../../components/Navbar/Navbar';
-
-
+import { saveContent } from './export_content'; // Importer la fonction d'exportation
 
 // Composant Group
 const Group = ({ groups = [] }) => {
@@ -18,6 +17,10 @@ const Group = ({ groups = [] }) => {
     setSearchTerm(e.target.value);
   };
 
+  const handleClick = (groupName) => {
+    console.log(groupName);
+    saveContent(groupName); // Exporter le contenu
+  };
 
   // Récupération des groupes
   useEffect(() => {
@@ -34,13 +37,8 @@ const Group = ({ groups = [] }) => {
       }
     };
 
-
-
     fetchGroupe();
   }, []);
-
-
-
 
   // Filtrage des groupes
   const filteredGroups = groupList.filter(group =>
@@ -68,9 +66,12 @@ const Group = ({ groups = [] }) => {
               <p><strong>Nouveau groupe</strong> <br /><FaUsers /></p>
             </Link>
           </div>
+
           {filteredGroups.map((group) => (
-            <GroupCard
+            <GroupCard 
+              key={group.Nom_Groupe}
               name={group.Nom_Groupe}
+              onClick={handleClick}
             />
           ))}
         </div>
