@@ -5,7 +5,7 @@ const Navbar1 = () => {
   return (
     <nav className="nav">
       <div className="nav-logo">
-        <p>HELLO</p>
+        <p>HANGOUT</p>
       </div>
       <div className="nav-button">
         <button className="btn white-btn" id="loginBtn" onClick={() => window.login()}>Se connecter</button>
