@@ -1,4 +1,4 @@
-import React, { useEffect,useState, createContext } from 'react';
+import React, { useEffect, useState, createContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Events from './pages/user/Events/Events.jsx';
@@ -13,6 +13,7 @@ import AddFriend from './pages/user/AddFriend/AddFriend.jsx';
 import Group from './pages/user/Group/Group.jsx';
 import CreateGroup from './pages/user/CreateGroup/CreateGroup.jsx';
 import AccueilAdmin from './pages/admin/AccueilAdmin/AccueilAdmin.jsx'
+import SideBar from './components/Sidebar/Sidebar.jsx';
 import './App.css';
 
 export const UserContext = createContext(null);
@@ -32,8 +33,6 @@ function App() {
   ]);
   // const [error, setError] = useState(null);
 
-
-
   const [user, setUser] = useState(null);
 
   const addGroup = (groupName, users) => {
@@ -50,8 +49,8 @@ function App() {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Router>
-        {window.location.pathname !== '/' && <div className="logo"><img src="logo.png" alt="Logo du site" /></div>}
-        {window.location.pathname !== '/' && <Navbar />}
+        {window.location.pathname !== '/' && window.location.pathname !== '/AccueilAdmin' && <div className="logo"><img src="logo.png" alt="Logo du site" /></div>}
+        {window.location.pathname !== '/' && window.location.pathname !== '/AccueilAdmin' && <Navbar />}
         {/* {window.location.pathname !== '/' && <SideBar />} */}
         <Routes>
           <Route path='/' element={<Login />} />
@@ -73,3 +72,4 @@ function App() {
 }
 
 export default App;
+

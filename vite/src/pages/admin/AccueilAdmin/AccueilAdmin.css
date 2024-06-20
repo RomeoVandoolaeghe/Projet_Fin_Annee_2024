@@ -6,3 +6,25 @@
     height: 100%;
   }
   
+  .contenu-principal {
+    display: flex;
+    justify-content: space-between;
+  
+  }
+  
+  .colonne {
+    padding: 10px;
+    color: black;
+    text-align: center;
+  }
+  
+  .colonne:nth-child(1) {
+    width: 20%;
+  }
+  
+  .colonne:nth-child(2) {
+    width: 80%;
+  }
+  
+  
+  

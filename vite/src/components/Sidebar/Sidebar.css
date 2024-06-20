@@ -1,43 +1,19 @@
-/* Sidebar container */
-.sidebar {
-  position: fixed;
-  top: 0;
-  right: 0; /* Changer left à right pour positionner la sidebar à droite */
-  height: 100%;
-  width: 250px;
-  background: rgba(255, 255, 255, 0.776);
-  color: black;
-  transition: transform 0.3s ease-in-out;
-  transform: translateX(250px); /* Ajuster la transformation initiale pour qu'elle soit hors de la vue à droite */
-  z-index: 1000;
-}
+  .sidebar {
+    position: fixed;
+    top: 50%; 
+    left: 0; 
+    height: 90%;
+    width: 250px;
+    background: rgba(255, 255, 255, 0.776);
+    color: black;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0) translateY(-50%); 
+    z-index: 1000;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-left: 5px;
+  }
 
-.sidebar.open {
-  transform: translateX(0);
-}
-
-/* Sidebar toggle button */
-.sidebar-toggle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  top: 10px;
-  left: -50px; /* Positionner le bouton à gauche de la sidebar */
-  color: white;
-  padding: 10px;
-  border-radius: 5px 0 0 5px; 
-  cursor: pointer;
-}
-
-
-
-
-.sidebar-toggle:hover {
-  background: rgba(0, 229, 255, 0.308);
-}
 
 /* Sidebar navigation */
 .sidebar-nav {
@@ -61,7 +37,8 @@
 }
 
 .sidebar-nav ul li a span {
-  margin-left: 10px;
+  margin-left: 5px;
+  margin-left: 2px;
 }
 
 .sidebar-nav ul li a:hover {
