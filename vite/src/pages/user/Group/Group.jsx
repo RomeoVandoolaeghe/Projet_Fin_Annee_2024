@@ -18,7 +18,6 @@ const Group = ({ groups = [] }) => {
   };
 
   const handleClick = (groupName) => {
-    console.log(groupName);
     saveContent(groupName); // Exporter le contenu
   };
 

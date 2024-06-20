@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ScrollReveal from 'scrollreveal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPaperPlane, faUserPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import './CHAT.css';
 import { FaComments } from 'react-icons/fa';
 import Navbar from '../../../components/Navbar/Navbar';
-
+import axios from 'axios';
 
 const users = [
   { id: 1, name: 'Docteur Strange', status: 'Actif', image: '/profil.jpg' },
@@ -19,7 +19,9 @@ function Chat() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
+
   const dropdownRef = useRef(null);
+  const groupNameRef = useRef(null);
 
   useEffect(() => {
     const sr = ScrollReveal({
@@ -42,6 +44,36 @@ function Chat() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
+  }, []);
+
+
+  const groupID = localStorage.getItem('exportedContent');
+  console.log('NOM DU GROUPE :', groupID);
+
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/recup_message/${groupID}`);
+        setMessages(response.data);
+        console.log('Messages :', response.data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des messages ", error);
+      }
+    };
+
+    fetchMessages();
+  }, [groupID]);
+
+
+
+
+
+  useEffect(() => {
+    const savedGroupName = localStorage.getItem('exportedContent');
+    if (groupNameRef.current) {
+      groupNameRef.current.textContent = savedGroupName;
+    }
   }, []);
 
   const toggleGroupDetails = () => {
@@ -116,15 +148,15 @@ function Chat() {
           <div className="chat-area">
             <div className="chat-header">
               <img src="/profil.jpg" alt="Group Logo" className="group-logo" />
-              JUNIA XP
+              <h3 id='group-name' ref={groupNameRef}></h3>
               <div className="chat-header-icons">
                 <FontAwesomeIcon icon={faUserPlus} className="hover-icon" />
               </div>
             </div>
             <div className="messages">
               {messages.map(message => (
-                <span key={message.id} className={`message ${message.sender}`}>
-                  {message.text}
+                <span>
+                  {message.Contenu}
                 </span>
               ))}
             </div>

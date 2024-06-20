@@ -3,9 +3,10 @@ const bcrypt = require('bcrypt');
 const mysql = require('mysql2');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const session = require("express-session"); 
-require('dotenv').config(); 
-const MySQLStore = require('express-mysql-session')(session); 
+const session = require("express-session");
+require('dotenv').config();
+const MySQLStore = require('express-mysql-session')(session);
+
 
 // Configuration de la base de données MySQL
 const options = {
@@ -167,7 +168,7 @@ function isAuthenticated(req, res, next) {
 
 
 // Route pour les disponibilités
-app.post('/disponibilites',isAuthenticated, async (req, res) => {
+app.post('/disponibilites', isAuthenticated, async (req, res) => {
     const { datetimedebut, datetimefin } = req.body;
     try {
         const ID_user = req.session.user.id;
@@ -185,7 +186,7 @@ app.post('/disponibilites',isAuthenticated, async (req, res) => {
 
 
 // Route pour récupérer les disponibilités
-app.get('/disponibilites',isAuthenticated, async (req, res) => {
+app.get('/disponibilites', isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
         const [rows] = await db.promise().query('SELECT * FROM disponibilite WHERE ID_Utilisateur = ?', [ID_user]);
@@ -199,7 +200,7 @@ app.get('/disponibilites',isAuthenticated, async (req, res) => {
 
 
 
-app.post("/verif_ami",isAuthenticated, (req, res) => {
+app.post("/verif_ami", isAuthenticated, (req, res) => {
     const ID_utilisateur1 = req.session.user.id; // ID de l'utilisateur actuel
     console.log("ID de l'utilisateur actuel:", ID_utilisateur1);
     const { champ } = req.body; // Pseudo de l'utilisateur à rechercher
@@ -227,7 +228,7 @@ app.post("/verif_ami",isAuthenticated, (req, res) => {
 
 
 
-app.get("/friends",isAuthenticated, async (req, res) => {
+app.get("/friends", isAuthenticated, async (req, res) => {
     const ID_utilisateur1 = req.session.user.id;
 
 
@@ -265,14 +266,14 @@ app.get("/friends",isAuthenticated, async (req, res) => {
 
 
 
-app.post('/acces',isAuthenticated, async (req, res) => {
+app.post('/acces', isAuthenticated, async (req, res) => {
     return res.status(200).send('Accès autorisé');
-    
+
 });
 
 
 
-app.post('/create_ami',isAuthenticated, (req, res) => {
+app.post('/create_ami', isAuthenticated, (req, res) => {
 
     const ID_utilisateur1 = req.session.user.id;
     console.log(ID_utilisateur1);
@@ -281,7 +282,7 @@ app.post('/create_ami',isAuthenticated, (req, res) => {
 
     // Insérez une nouvelle ligne dans la table amitie
     const insertSql1 = 'INSERT INTO `amitie` (`ID_utilisateur1`, `ID_utilisateur2`) VALUES (?, (SELECT ID_utilisateur FROM utilisateur WHERE Pseudo=?)) ;';
-    const insertSql2 =  'INSERT INTO `amitie` (`ID_utilisateur2`, `ID_utilisateur1`) VALUES (?, (SELECT ID_utilisateur FROM utilisateur WHERE Pseudo=?));';
+    const insertSql2 = 'INSERT INTO `amitie` (`ID_utilisateur2`, `ID_utilisateur1`) VALUES (?, (SELECT ID_utilisateur FROM utilisateur WHERE Pseudo=?));';
     db.query(insertSql1, [ID_utilisateur1, champ], (err, result) => {
         if (err) {
             console.error('Error executing query', err);
@@ -299,7 +300,7 @@ app.post('/create_ami',isAuthenticated, (req, res) => {
 });
 
 
-app.post('/delete_ami',isAuthenticated, (req, res) => {
+app.post('/delete_ami', isAuthenticated, (req, res) => {
     const ID_utilisateur1 = req.session.user.id;
     console.log(ID_utilisateur1);
     const { pseudo } = req.body;
@@ -322,7 +323,7 @@ app.post('/delete_ami',isAuthenticated, (req, res) => {
 });
 
 
-app.post('/ajout_dispo',isAuthenticated, (req, res) => {
+app.post('/ajout_dispo', isAuthenticated, (req, res) => {
     const ID_utilisateur = req.session.user.id;
     const { jour, heure_debut, heure_fin } = req.body;
     // Mettre à jour la disponibilité de l'utilisateur
@@ -338,7 +339,7 @@ app.post('/ajout_dispo',isAuthenticated, (req, res) => {
 });
 
 
-app.post('/verif_dispo',isAuthenticated, (req, res) => {
+app.post('/verif_dispo', isAuthenticated, (req, res) => {
     const ID_utilisateur = req.session.user.id;
     const { jour } = req.body;
 
@@ -355,7 +356,7 @@ app.post('/verif_dispo',isAuthenticated, (req, res) => {
 });
 
 
-app.post('/modif_dispo',isAuthenticated, (req, res) => {
+app.post('/modif_dispo', isAuthenticated, (req, res) => {
     const ID_utilisateur = req.session.user.id;
     const { jour, heure_debut, heure_fin } = req.body;
 
@@ -373,7 +374,7 @@ app.post('/modif_dispo',isAuthenticated, (req, res) => {
 
 
 
-app.post("/delete_dispo",isAuthenticated, (req, res) => {
+app.post("/delete_dispo", isAuthenticated, (req, res) => {
 
 
     const ID_utilisateur = req.session.user.id;
@@ -397,7 +398,7 @@ app.post("/delete_dispo",isAuthenticated, (req, res) => {
 });
 
 
-app.get('/get_pseudo',isAuthenticated, async (req, res) => {
+app.get('/get_pseudo', isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
         const [rows] = await db.promise().query('SELECT Pseudo FROM utilisateur WHERE ID_utilisateur = ?', [ID_user]);
@@ -409,7 +410,7 @@ app.get('/get_pseudo',isAuthenticated, async (req, res) => {
 });
 
 
-app.get('/recup_dispo',isAuthenticated, async (req, res) => {
+app.get('/recup_dispo', isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
         const [rows] = await db.promise().query("SELECT * FROM disponibilite WHERE ID_Utilisateur = ? ORDER BY CASE Jour WHEN 'Lundi' THEN 1 WHEN 'Mardi' THEN 2 WHEN 'Mercredi' THEN 3 WHEN 'Jeudi' THEN 4 WHEN 'Vendredi' THEN 5 WHEN 'Samedi' THEN 6 WHEN 'Dimanche' THEN 7  END ASC", [ID_user]);
@@ -422,7 +423,7 @@ app.get('/recup_dispo',isAuthenticated, async (req, res) => {
 
 
 
-app.get('/recup_description',isAuthenticated, async (req, res) => {
+app.get('/recup_description', isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
         const [rows] = await db.promise().query('SELECT Description FROM utilisateur WHERE ID_utilisateur = ?', [ID_user]);
@@ -435,11 +436,11 @@ app.get('/recup_description',isAuthenticated, async (req, res) => {
 
 
 
-app.post('/edit_description',isAuthenticated, async (req, res) => {
+app.post('/edit_description', isAuthenticated, async (req, res) => {
 
 
     const ID_utilisateur = req.session.user.id;
-    const {description}  = req.body;
+    const { description } = req.body;
 
     const editSql = 'UPDATE utilisateur SET Description = ? WHERE ID_utilisateur = ?;';
 
@@ -455,10 +456,10 @@ app.post('/edit_description',isAuthenticated, async (req, res) => {
 
 
 
-app.post('/edit_wishlist',isAuthenticated, async (req, res) => {
+app.post('/edit_wishlist', isAuthenticated, async (req, res) => {
 
     const ID_utilisateur = req.session.user.id;
-    const {place}  = req.body;
+    const { place } = req.body;
 
     const editSql = 'UPDATE utilisateur SET Wishlist = ? WHERE ID_utilisateur = ?;';
 
@@ -473,13 +474,13 @@ app.post('/edit_wishlist',isAuthenticated, async (req, res) => {
 });
 
 
-app.post('/create_group',isAuthenticated, async (req, res) => {
-    
-    const {nom_groupe}  = req.body;
+app.post('/create_group', isAuthenticated, async (req, res) => {
+
+    const { nom_groupe } = req.body;
     const ID_user = req.session.user.id;
     const editSql = 'INSERT INTO groupe (Nom_Groupe,ID_Creator) VALUES (?,?)';
 
-    db.query(editSql, [nom_groupe,ID_user], (err, result) => {
+    db.query(editSql, [nom_groupe, ID_user], (err, result) => {
         if (err) {
             console.error('Error executing query', err);
             return res.status(500).json({ error: 'Internal server error' });
@@ -491,15 +492,15 @@ app.post('/create_group',isAuthenticated, async (req, res) => {
 });
 
 
-app.post('/add_member',isAuthenticated, async (req, res) => {
+app.post('/add_member', isAuthenticated, async (req, res) => {
 
     const ID_utilisateur = req.session.user.id;
-    const {nom_groupe}  = req.body;
+    const { nom_groupe } = req.body;
     console.log(nom_groupe);
     const bool = 0;
     const editSql = 'INSERT INTO membre_groupe (ID_Utilisateur, ID_Groupe, IS_ADMIN) VALUES (?, (SELECT ID_Groupe FROM groupe WHERE Nom_Groupe=? AND ID_Creator=?), ?)';
 
-    db.query(editSql, [ID_utilisateur, nom_groupe,ID_utilisateur,bool], (err, result) => {
+    db.query(editSql, [ID_utilisateur, nom_groupe, ID_utilisateur, bool], (err, result) => {
         if (err) {
             console.error('Error executing query', err);
             return res.status(500).json({ error: 'Internal server error' });
@@ -510,24 +511,57 @@ app.post('/add_member',isAuthenticated, async (req, res) => {
 });
 
 
-
-
-
-
-
-
 app.get('/recup_group',isAuthenticated, async (req, res) => {
 
     try {
         const ID_user = req.session.user.id;
         const [rows] = await db.promise().query('SELECT Nom_Groupe FROM `groupe` WHERE ID_Groupe IN (SELECT ID_Groupe FROM `membre_groupe` WHERE ID_Utilisateur = ?);', [ID_user]); 
         res.send(rows);
-        console.log(rows);
+        // console.log(rows);
     } catch (err) {
         console.error("Erreur lors de la récupération des groupes ", err);
         res.status(500).send('Erreur serveur');
     }
 });
+
+
+
+
+
+
+
+
+app.get('/recup_message/:groupID', async (req, res) => {
+    try {
+        const NOM_Groupe = req.params.groupID;
+        console.log(NOM_Groupe);
+        const [rows] = await db.promise().query('SELECT * FROM message_groupe WHERE ID_Groupe = (SELECT ID_Groupe FROM groupe WHERE Nom_Groupe=?) ORDER BY Date_Envoi ASC', [NOM_Groupe]);
+        res.send(rows);
+        console.log(rows);
+    } catch (err) {
+        console.error("Erreur lors de la récupération des messages ", err);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
+
+
+// app.post('/send_messages', (req, res) => {
+//     const { Contenu, ID_Utilisateur, ID_Groupe } = req.body;
+//     const query = 'INSERT INTO messages (Contenu, Date_Envoi, ID_Utilisateur, ID_Groupe) VALUES (?, NOW(), ?, ?)';
+//     connection.query(query, [Contenu, ID_Utilisateur, ID_Groupe], (err, results) => {
+//       if (err) {
+//         console.error('Erreur lors de l\'envoi du message:', err);
+//         res.status(500).send(err);
+//         return;
+//       }
+//       res.send({ message: 'Message envoyé avec succès' });
+//     });
+//   });
+
+
+
+
 
 // Route pour supprimer une disponibilité
 app.listen(PORT, () => {
