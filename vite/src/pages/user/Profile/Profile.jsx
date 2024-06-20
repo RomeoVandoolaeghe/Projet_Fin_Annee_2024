@@ -5,6 +5,8 @@ import FriendsList from '../../../components/FriendsList/FriendsList';
 import './Profile.css';
 import { FaUser } from 'react-icons/fa';
 import axios from 'axios';
+import Navbar from '../../../components/Navbar/Navbar';
+
 
 function ProfilePage() {
 
@@ -28,6 +30,7 @@ function ProfilePage() {
 
   return (
     <>
+      <Navbar />
       <div className='header'>
         <h3>
           Profil <FaUser size={15} />

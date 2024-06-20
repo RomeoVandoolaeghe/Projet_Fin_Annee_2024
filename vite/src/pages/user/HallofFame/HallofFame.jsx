@@ -4,6 +4,8 @@ import MostFrequentPlaces from '../../../components/MostFrequentPlaces/MostFrequ
 import ParticipationStats from '../../../components/ParticipationStats/ParticipationStats';
 import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import './HallofFame.css';
+import Navbar from '../../../components/Navbar/Navbar';
+
 
 const userStats = {
   mostFrequentFriends: [
@@ -24,18 +26,19 @@ const userStats = {
 const HallOfFame = () => {
   return (
     <>
+      <Navbar />
       <div className='header'>
         <h2>Hall of Fame <FaTrophy /></h2>
       </div>
-    <div className="hall-of-fame">
-      <MostFrequentFriends friends={userStats.mostFrequentFriends} />
-      <MostFrequentPlaces places={userStats.mostFrequentPlaces} />
-      <ParticipationStats 
-        totalEvents={userStats.totalEvents} 
-        organizedEvents={userStats.organizedEvents} 
-        participationRate={userStats.participationRate} 
-      />
-    </div>
+      <div className="hall-of-fame">
+        <MostFrequentFriends friends={userStats.mostFrequentFriends} />
+        <MostFrequentPlaces places={userStats.mostFrequentPlaces} />
+        <ParticipationStats
+          totalEvents={userStats.totalEvents}
+          organizedEvents={userStats.organizedEvents}
+          participationRate={userStats.participationRate}
+        />
+      </div>
     </>
   );
 };

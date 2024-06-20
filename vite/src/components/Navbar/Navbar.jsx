@@ -20,13 +20,16 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
+      <div className="logo"><img src="logo.png" alt="Logo du site" /></div>
       <ul className="nav-links">
         <li><Link to="/Accueil">ACCUEIL</Link></li>
         <li><Link to="/Events">EVENEMENT</Link></li>
         <li><Link to="/Group">GROUPE</Link></li>
         <li><Link to="/HallOfFame">HALL OF FAME</Link></li>
         <li><Link to="/Profile">PROFIL</Link></li>
-        <li onClick={handleLogout}><Link to="/"><FaPowerOff></FaPowerOff></Link></li>
+        <li onClick={handleLogout}>
+          <Link to="/"><FaPowerOff /></Link>
+        </li>
       </ul>
     </nav>
   );

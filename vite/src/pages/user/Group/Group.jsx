@@ -4,6 +4,8 @@ import GroupCard from '../../../components/GroupCard/GroupCard';
 import { FaUsers } from 'react-icons/fa';
 import './Group.css';
 import axios from 'axios';
+import Navbar from '../../../components/Navbar/Navbar';
+
 
 
 // Composant Group
@@ -40,13 +42,14 @@ const Group = ({ groups = [] }) => {
 
 
 
-// Filtrage des groupes
+  // Filtrage des groupes
   const filteredGroups = groupList.filter(group =>
     group.Nom_Groupe && group.Nom_Groupe.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <>
+      <Navbar />
       <div className='header'>
         <h2>Groupe <FaUsers /></h2>
       </div>

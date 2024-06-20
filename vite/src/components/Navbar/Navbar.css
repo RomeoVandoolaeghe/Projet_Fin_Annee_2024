@@ -26,3 +26,7 @@
 .nav-links li a:hover {
   color: black;
 }
+.logo{
+  position:relative;
+  left:-20rem;
+}

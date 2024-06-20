@@ -49,8 +49,8 @@ function App() {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Router>
-        {window.location.pathname !== '/' && window.location.pathname !== '/AccueilAdmin' && <div className="logo"><img src="logo.png" alt="Logo du site" /></div>}
-        {window.location.pathname !== '/' && window.location.pathname !== '/AccueilAdmin' && <Navbar />}
+        {/* {window.location.pathname !== '/' && window.location.pathname !== '/AccueilAdmin' && } */}
+        {/* {window.location.pathname !== '/' && window.location.pathname !== '/AccueilAdmin' && <Navbar />} */}
         {/* {window.location.pathname !== '/' && <SideBar />} */}
         <Routes>
           <Route path='/' element={<Login />} />

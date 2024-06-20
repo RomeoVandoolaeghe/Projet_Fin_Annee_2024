@@ -3,6 +3,7 @@ import UpComingEvents from '../../../components/UpComingEvents/UpComingEvents';
 import NotificationCard from '../../../components/Notification/Notification';
 import axios from 'axios'
 import './Accueil.css';
+import Navbar from '../../../components/Navbar/Navbar';
 
 
 function Home() {
@@ -48,11 +49,12 @@ function Home() {
 
   return (
     <>
+      <Navbar />
       <div className='header'>
         <h3 id="pseudo">Hello HUGO !!!</h3>
       </div>
       <div className="home">
-      <h2>Centre de notification</h2>
+        <h2>Centre de notification</h2>
         <UpComingEvents events={events} />
         <NotificationCard notification={{ title: "Nouveau message", group: "Groupe 1", count: 1 }} />
       </div>
