@@ -7,9 +7,6 @@ function AccueilAdmin () {
   
   return ( 
   <>
-    <div className='header'>
-      <h3> Admin </h3>
-    </div>
     <div className="Admin">
       <div className="contenu-principal">
         <div className="colonne">
@@ -27,3 +24,8 @@ function AccueilAdmin () {
 }
 
 export default AccueilAdmin;
+/*
+<div className='header'>
+      <h3> Admin </h3>
+    </div>
+    */
