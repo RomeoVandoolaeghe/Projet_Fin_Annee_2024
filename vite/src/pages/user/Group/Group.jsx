@@ -5,6 +5,8 @@ import { FaUsers } from 'react-icons/fa';
 import './Group.css';
 import axios from 'axios';
 
+
+// Composant Group
 const Group = ({ groups = [] }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [groupList, setGroupList] = useState(groups);
@@ -15,7 +17,30 @@ const Group = ({ groups = [] }) => {
   };
 
 
+  // Récupération des groupes
+  useEffect(() => {
+    const fetchGroupe = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/recup_group', { withCredentials: true });
+        if (response.data && Array.isArray(response.data)) {
+          setGroupList(response.data); // Mise à jour de groupList avec les données de l'API
+        } else {
+          console.error('Les données reçues ne sont pas valides', response.data);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    };
 
+
+
+    fetchGroupe();
+  }, []);
+
+
+
+
+// Filtrage des groupes
   const filteredGroups = groupList.filter(group =>
     group.Nom_Groupe && group.Nom_Groupe.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -42,11 +67,7 @@ const Group = ({ groups = [] }) => {
           </div>
           {filteredGroups.map((group) => (
             <GroupCard
-              key={group.id}
-              id={group.id}
-              name={group.name}
-              image={group.image} // Assurez-vous que cette propriété est correctement définie
-              color={group.color} // Assurez-vous que cette propriété est correctement définie
+              name={group.Nom_Groupe}
             />
           ))}
         </div>

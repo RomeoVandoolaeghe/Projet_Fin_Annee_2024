@@ -46,7 +46,7 @@ header {
   display: flex;
   gap: 0px;
 }
-.input-field {
+#input-field {
   font-size: 15px;
   color: #fff;
   height: 50px;
@@ -58,9 +58,12 @@ header {
   outline: none;
   transition: 0.2s ease;
 }
-.input-field:hover,
-.input-field:focus {
+#input-field:hover,
+#input-field:focus {
   background: rgba(255, 255, 255, 0.25);
+}
+#input-field::placeholder{
+  color:white;
 }
 ::-webkit-input-placeholder {
   color: #fff;

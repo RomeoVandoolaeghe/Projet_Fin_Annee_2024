@@ -55,7 +55,7 @@ const FormBox = () => {
   };
 
 
-  // Fonction pour soumettre le formulaire
+  // Fonction pour soumettre le formulaire de connexion
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form Data:', formData);
@@ -87,7 +87,7 @@ const FormBox = () => {
   };
 
 
-  // Fonction pour soumettre le formulaire
+  // Fonction pour soumettre le formulaire d'inscription
   const handleSubmit2 = (e) => {
     e.preventDefault();
     console.log('Form Data:', formData2);
@@ -120,12 +120,12 @@ const FormBox = () => {
           <header>Se connecter</header>
         </div>
         <div className="input-box">
-          <input type="text" name="pseudo" className="input-field" placeholder="Votre Pseudo" value={formData.pseudo}
-            onChange={handleChange} required/>
+          <input type="text" name="pseudo" id="input-field" placeholder="Votre Pseudo" value={formData.pseudo}
+            onChange={handleChange} required />
           <span className="material-symbols-outlined">mail</span>
         </div>
         <div className="input-box">
-          <input type="password" name="password" className="input-field" placeholder="Votre Mot de passe" value={formData.password}
+          <input type="password" name="password" id="input-field" placeholder="Votre Mot de passe" value={formData.password}
             onChange={handleChange} required />
           <span className="material-symbols-outlined">lock</span>
         </div>
@@ -138,14 +138,14 @@ const FormBox = () => {
           <span>Vous avez un compte ?<a href="#" onClick={() => window.login()}>Se connecter</a></span>
           <header>S'inscrire</header>
         </div>
-          <div className="input-box">
-            <input type="text" className="input-field" placeholder="Pseudo" name="pseudo"
-              value={formData2.pseudo}
-              onChange={handleChange2} required/>
-            <span className="material-symbols-outlined">person</span>
-          </div>
         <div className="input-box">
-          <input type="text" className="input-field" placeholder="Email" name="e_mail"
+          <input type="text" id="input-field" placeholder="Pseudo" name="pseudo"
+            value={formData2.pseudo}
+            onChange={handleChange2} required />
+          <span className="material-symbols-outlined">person</span>
+        </div>
+        <div className="input-box">
+          <input type="text" id="input-field" placeholder="Email" name="e_mail"
             value={formData2.e_mail}
             onChange={handleChange2}
             pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}"
@@ -155,7 +155,7 @@ const FormBox = () => {
         </div>
 
         <div className="input-box">
-          <input type="password" className="input-field" placeholder="Password" name="password"
+          <input type="password" id="input-field" placeholder="Password" name="password"
             value={formData2.password}
             onChange={handleChange2}
             pattern="(?=.*\d)(?=.*[A-Z])(?=.*[@$!%*?&]).*"

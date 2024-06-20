@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';  // S'assurer que le fichier CSS est correctement lié
 import { FaPowerOff } from 'react-icons/fa';
+import axios from 'axios';
 
 const Navbar = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);

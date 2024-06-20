@@ -33,20 +33,25 @@ const GroupCard = ({ id, name, image, color, onDelete }) => {
     };
   }, []);
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    e.preventDefault();
     onDelete(id);
   };
 
   return (
     <div className="group-card">
-      <div className="group-image" style={{ backgroundColor: color }}>
-        {image}
-      </div>
+    <FontAwesomeIcon
+      icon={faEllipsisV}
+      className="group-options"
+      onClick={(e) => {
+        e.stopPropagation(); // Empêche la propagation du clic
+        toggleDropdown();
+      }}
+    />
+    <Link to="/Chat" className="chat-link">
+
       <div className="group-info">
-        <Link to="/Chat" className="chat-link">
-          <h3><strong>{name}</strong></h3>
-        </Link>
-        <FontAwesomeIcon icon={faEllipsisV} className="group-options" onClick={toggleDropdown} />
+        <h3><strong>{name}</strong></h3>
         {dropdownVisible && !showModal && (
           <ul className="dropdown" ref={dropdownRef}>
             <li><button onClick={handleDelete}>Supprimer</button></li>
@@ -56,13 +61,18 @@ const GroupCard = ({ id, name, image, color, onDelete }) => {
           </ul>
         )}
       </div>
-      {showModal && 
-        createPortal(
-          <DetailGroup closeModal={() => setShowModal(false)} />,
-          document.body
-        )
-      }
-    </div>
+      </Link>
+
+    {showModal &&
+      createPortal(
+        <DetailGroup closeModal={() => setShowModal(false)} />,
+        document.body
+      )
+    }
+  </div>
+
+
+
   );
 };
 

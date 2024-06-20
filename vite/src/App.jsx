@@ -31,22 +31,7 @@ function App() {
   ]);
   // const [error, setError] = useState(null);
 
-  // useEffect(() => {
-  //   const fetchGroupe = async () => {
-  //     try {
-  //       const response = await axios.get('http://localhost:3000/recup_group', { withCredentials: true });
-  //       if (response.data && Array.isArray(response.data)) {
-  //         setGroups(response.data); // Mise à jour de groupList avec les données de l'API
-  //       } else {
-  //         console.error('Les données reçues ne sont pas valides', response.data);
-  //       }
-  //     } catch (error) {
-  //       setError(error);
-  //     }
-  //   };
 
-  //   fetchGroupe();
-  // }, []);
 
   const [user, setUser] = useState(null);
 
