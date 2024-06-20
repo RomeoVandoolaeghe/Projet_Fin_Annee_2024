@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import SearchBar from '../../../components/SearchBar/SearchBar';
 import FriendList_AddFriend from '../../../components/FriendList_AddFriend/FriendList_AddFriend';
 import './AddFriend.css';
+import Navbar from '../../../components/Navbar/Navbar';
+
 
 const AddFriend = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,11 +27,14 @@ const AddFriend = () => {
   };
 
   return (
-    <div className='add-friend'>
-      <h3>Ajouter des amis</h3>
-      <SearchBar />
-      <FriendList_AddFriend friends={friends} />
-    </div>
+    <>
+      <Navbar />
+      <div className='add-friend'>
+        <h3>Ajouter des amis</h3>
+        <SearchBar />
+        <FriendList_AddFriend friends={friends} />
+      </div>
+    </>
   );
 };
 

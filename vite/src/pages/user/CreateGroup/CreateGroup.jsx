@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './CreateGroup.css';
 import axios from 'axios';
+import Navbar from '../../../components/Navbar/Navbar';
+
 
 
 // Composant CreateGroup
@@ -42,7 +44,7 @@ const CreateGroup = () => {
         console.error('Erreur lors de la requête POST:', error);
         setError('Une erreur est survenue lors de la recherche.');
       });
-      Add_member(); 
+    Add_member();
     resetForm();
   };
 
@@ -50,7 +52,7 @@ const CreateGroup = () => {
   // Fonction pour ajouter un membre
   const Add_member = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/add_member',{ nom_groupe: formData.term }, { withCredentials: true });
+      const response = await axios.post('http://localhost:3000/add_member', { nom_groupe: formData.term }, { withCredentials: true });
       console.log('Réponse du serveur:', response.data);
     }
     catch (error) {
@@ -61,35 +63,39 @@ const CreateGroup = () => {
 
 
   return (
-    <div className="create-group-form-container">
-      <header>
-        <h5>Créer un groupe</h5>
-      </header>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="group-name">Nom du groupe :</label>
-          <input
-            type="text"
-            id="group-name"
-            name="term"
-            value={formData.term}
-            onChange={handleChange}
+    <>
+      <Navbar />
+      <div className="create-group-form-container">
 
-            // onChange={(e) => setGroupName(e.target.value)}
-            required
-          />
-        </div>
+        <header>
+          <h5>Créer un groupe</h5>
+        </header>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="group-name">Nom du groupe :</label>
+            <input
+              type="text"
+              id="group-name"
+              name="term"
+              value={formData.term}
+              onChange={handleChange}
 
-        <div className="form-group buttons">
-          <button type="button" onClick={() => window.history.back()}>
-            Retour
-          </button>
-          <button type="submit">Créer</button>
+              // onChange={(e) => setGroupName(e.target.value)}
+              required
+            />
+          </div>
 
-        </div>
-        {error && <p className="error">{error}</p>}
-      </form>
-    </div>
+          <div className="form-group buttons">
+            <button type="button" onClick={() => window.history.back()}>
+              Retour
+            </button>
+            <button type="submit">Créer</button>
+
+          </div>
+          {error && <p className="error">{error}</p>}
+        </form>
+      </div>
+    </>
   );
 }
 
