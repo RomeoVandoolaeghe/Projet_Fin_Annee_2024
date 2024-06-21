@@ -502,7 +502,7 @@ app.post('/add_member', isAuthenticated, async (req, res) => {
     const bool = 0;
     const editSql = 'INSERT INTO membre_groupe (ID_Utilisateur, ID_Groupe, IS_ADMIN) VALUES (?,(SELECT ID_Groupe FROM groupe WHERE Nom_Groupe=? AND ID_Creator=?), ?)';
 
-    db.query(editSql, [ID_utilisateur, nomgroupe,ID_utilisateur, bool], (err, result) => {
+    db.query(editSql, [ID_utilisateur, nomgroupe, ID_utilisateur, bool], (err, result) => {
         if (err) {
             console.error('Error executing query', err);
             return res.status(500).json({ error: 'Internal server error' });
@@ -513,11 +513,11 @@ app.post('/add_member', isAuthenticated, async (req, res) => {
 });
 
 
-app.get('/recup_group',isAuthenticated, async (req, res) => {
+app.get('/recup_group', isAuthenticated, async (req, res) => {
 
     try {
         const ID_user = req.session.user.id;
-        const [rows] = await db.promise().query('SELECT Nom_Groupe, ID_Groupe FROM groupe WHERE ID_Groupe IN (SELECT ID_Groupe FROM `membre_groupe` WHERE ID_Utilisateur = ?)', [ID_user]); 
+        const [rows] = await db.promise().query('SELECT Nom_Groupe, ID_Groupe FROM groupe WHERE ID_Groupe IN (SELECT ID_Groupe FROM `membre_groupe` WHERE ID_Utilisateur = ?)', [ID_user]);
         res.send(rows);
         // console.log(rows);
     } catch (err) {
@@ -535,13 +535,32 @@ app.get('/recup_group',isAuthenticated, async (req, res) => {
 
 
 
-app.get('/recup_message/:groupID', async (req, res) => {
+app.get('/recup_message/:groupID', isAuthenticated, async (req, res) => {
     try {
         const ID_Groupe = req.params.groupID;
-        console.log(NOM_Groupe);
-        const [rows] = await db.promise().query('SELECT * FROM message_groupe WHERE ID_Groupe = (SELECT ID_Groupe FROM groupe WHERE Nom_Groupe=?) ORDER BY Date_Envoi ASC', [NOM_Groupe]);
-        res.send(rows);
-        console.log(rows);
+        const ID_Utilisateur = req.session.user.id;
+        console.log(ID_Groupe);
+
+        const sql1 = 'SELECT * FROM message_groupe WHERE ID_Groupe = ? ORDER BY Date_Envoi ASC';
+
+        db.query(sql1, [ID_Groupe], (err, result) => {
+            if (err) {
+                console.error('Error executing query', err);
+                return res.status(500).json({ error: 'Internal server error' });
+            }
+            res.send(result);
+            // console.log(result.ID_Utilisateur);
+
+
+            // let userIds = [];
+
+            // result.forEach(item => {
+            //     // Push the ID_Utilisateur into the userIds array
+            //     userIds.push(item.ID_Utilisateur);
+            // });
+        
+            // console.log(userIds);
+        });
     } catch (err) {
         console.error("Erreur lors de la récupération des messages ", err);
         res.status(500).send('Erreur serveur');
@@ -550,18 +569,21 @@ app.get('/recup_message/:groupID', async (req, res) => {
 
 
 
-// app.post('/send_messages', (req, res) => {
-//     const { Contenu, ID_Utilisateur, ID_Groupe } = req.body;
-//     const query = 'INSERT INTO messages (Contenu, Date_Envoi, ID_Utilisateur, ID_Groupe) VALUES (?, NOW(), ?, ?)';
-//     connection.query(query, [Contenu, ID_Utilisateur, ID_Groupe], (err, results) => {
-//       if (err) {
-//         console.error('Erreur lors de l\'envoi du message:', err);
-//         res.status(500).send(err);
-//         return;
-//       }
-//       res.send({ message: 'Message envoyé avec succès' });
-//     });
-//   });
+app.post('/send_messages', isAuthenticated, (req, res) => {
+    const ID_Utilisateur = req.session.user.id;
+    const { Contenu, ID_Groupe } = req.body;
+    console.log(Contenu);
+    console.log(ID_Groupe);
+    const query = 'INSERT INTO message_groupe (Contenu, Date_Envoi, ID_Utilisateur, ID_Groupe) VALUES (?, NOW(), ?, ?)';
+    db.query(query, [Contenu, ID_Utilisateur, ID_Groupe], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de l\'envoi du message:', err);
+            res.status(500).send(err);
+            return;
+        }
+        res.send({ message: 'Message envoyé avec succès', ID_Utilisateur: ID_Utilisateur });
+    });
+});
 
 
 

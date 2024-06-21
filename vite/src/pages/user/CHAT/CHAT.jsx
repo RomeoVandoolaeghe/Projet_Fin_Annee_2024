@@ -56,15 +56,16 @@ function Chat() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/recup_message/${groupID}`);
-        setMessages(response.data);
+        const response = await axios.get(`http://localhost:3000/recup_message/${groupID}`, { withCredentials: true });
         console.log('Messages :', response.data);
+        setMessages(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des messages ", error);
       }
     };
 
     fetchMessages();
+
   }, [groupID]);
 
 
@@ -96,10 +97,19 @@ function Chat() {
   };
 
   const handleSendMessage = () => {
-    if (newMessage.trim()) {
-      setMessages([...messages, { id: messages.length + 1, text: newMessage, sender: 'user' }]);
-      setNewMessage('');
-    }
+    // if (newMessage.trim()) {
+    //   setMessages([...messages, { id: messages.length + 1, text: newMessage, sender: 'user' }]);
+    //   setNewMessage('');
+    // }
+    axios.post('http://localhost:3000/send_messages', { Contenu: newMessage, ID_Groupe: groupID }, { withCredentials: true })
+      .then((response) => {
+        console.log('Message envoyé avec succès', response);
+
+
+      })
+      .catch((error) => {
+        console.error('Erreur lors de l\'envoi du message', error);
+      });
   };
 
   const handleKeyPress = (event) => {
@@ -156,7 +166,8 @@ function Chat() {
             </div>
             <div className="messages">
               {messages.map(message => (
-                <span>
+                <span className='message'>
+                  {message.ID_Utilisateur + " :"}
                   {message.Contenu}
                 </span>
               ))}
