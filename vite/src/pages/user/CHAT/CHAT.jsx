@@ -47,8 +47,10 @@ function Chat() {
   }, []);
 
 
-  const groupID = localStorage.getItem('exportedContent');
-  console.log('NOM DU GROUPE :', groupID);
+  const groupNAME = localStorage.getItem('nomgroupe');
+  console.log('NOM DU GROUPE :', groupNAME);
+  const groupID = localStorage.getItem('idgroupe');
+  console.log('ID DU GROUPE :', groupID);
 
 
   useEffect(() => {
@@ -70,9 +72,8 @@ function Chat() {
 
 
   useEffect(() => {
-    const savedGroupName = localStorage.getItem('exportedContent');
     if (groupNameRef.current) {
-      groupNameRef.current.textContent = savedGroupName;
+      groupNameRef.current.textContent = groupNAME;
     }
   }, []);
 

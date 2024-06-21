@@ -39,8 +39,10 @@ const GroupCard = ({ id, name, image, color, onDelete, onClick }) => {
     onDelete(id);
   };
 
+  
+
   return (
-    <div className="group-card" onClick={() => onClick(name)}>
+    <div className="group-card" onClick={() => onClick(id,name)}>
       <FontAwesomeIcon
         icon={faEllipsisV}
         className="group-options"

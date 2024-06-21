@@ -32,11 +32,15 @@ const CreateGroup = () => {
 
 
 
+
+
   // Fonction pour soumettre le formulaire
   const handleSubmit = (e) => {
+
+
     e.preventDefault();
     axios
-      .post('http://localhost:3000/create_group', { nom_groupe: formData.term }, { withCredentials: true })
+      .post('http://localhost:3000/create_group', { nom_groupe : formData.term  }, { withCredentials: true })
       .then((response) => {
         console.log('Réponse du serveur:', response.data);
       })
@@ -52,7 +56,7 @@ const CreateGroup = () => {
   // Fonction pour ajouter un membre
   const Add_member = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/add_member', { nom_groupe: formData.term }, { withCredentials: true });
+      const response = await axios.post('http://localhost:3000/add_member', { nomgroupe: formData.term }, { withCredentials: true });
       console.log('Réponse du serveur:', response.data);
     }
     catch (error) {
