@@ -17,8 +17,8 @@ const Group = ({ groups = [] }) => {
     setSearchTerm(e.target.value);
   };
 
-  const handleClick = (groupName) => {
-    saveContent(groupName); // Exporter le contenu
+  const handleClick = (id,name) => {
+    saveContent(id,name); // Exporter le contenu
   };
 
   // Récupération des groupes
@@ -28,6 +28,7 @@ const Group = ({ groups = [] }) => {
         const response = await axios.get('http://localhost:3000/recup_group', { withCredentials: true });
         if (response.data && Array.isArray(response.data)) {
           setGroupList(response.data); // Mise à jour de groupList avec les données de l'API
+          console.log('Groupes :', response.data);
         } else {
           console.error('Les données reçues ne sont pas valides', response.data);
         }
@@ -39,10 +40,10 @@ const Group = ({ groups = [] }) => {
     fetchGroupe();
   }, []);
 
-  // Filtrage des groupes
-  const filteredGroups = groupList.filter(group =>
-    group.Nom_Groupe && group.Nom_Groupe.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // // Filtrage des groupes
+  // const filteredGroups = groupList.filter(group =>
+  //   group.Nom_Groupe && group.Nom_Groupe.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   return (
     <>
@@ -66,10 +67,11 @@ const Group = ({ groups = [] }) => {
             </Link>
           </div>
 
-          {filteredGroups.map((group) => (
+          {groupList.map((group) => (
             <GroupCard 
-              key={group.Nom_Groupe}
+              // key={group.Nom_Groupe}
               name={group.Nom_Groupe}
+              id={group.ID_Groupe}
               onClick={handleClick}
             />
           ))}

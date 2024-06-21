@@ -1,8 +1,10 @@
-export const saveContent = (content) => {
+export const saveContent = (idgroupe,nomgroupe) => {
     // Logic to save content to a file or elsewhere
-    console.log('NOM DU GROUPE :', content);
+
+
 
     // Exemple d'enregistrement du contenu dans le localStorage
-    localStorage.setItem('exportedContent', content);
+    localStorage.setItem('idgroupe', idgroupe);
+    localStorage.setItem('nomgroupe', nomgroupe);
 
 };  

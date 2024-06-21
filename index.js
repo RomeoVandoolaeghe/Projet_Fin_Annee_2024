@@ -477,7 +477,9 @@ app.post('/edit_wishlist', isAuthenticated, async (req, res) => {
 app.post('/create_group', isAuthenticated, async (req, res) => {
 
     const { nom_groupe } = req.body;
+    console.log(nom_groupe);
     const ID_user = req.session.user.id;
+    console.log(ID_user);
     const editSql = 'INSERT INTO groupe (Nom_Groupe,ID_Creator) VALUES (?,?)';
 
     db.query(editSql, [nom_groupe, ID_user], (err, result) => {
@@ -495,12 +497,12 @@ app.post('/create_group', isAuthenticated, async (req, res) => {
 app.post('/add_member', isAuthenticated, async (req, res) => {
 
     const ID_utilisateur = req.session.user.id;
-    const { nom_groupe } = req.body;
-    console.log(nom_groupe);
+    const { nomgroupe } = req.body;
+    console.log(nomgroupe);
     const bool = 0;
-    const editSql = 'INSERT INTO membre_groupe (ID_Utilisateur, ID_Groupe, IS_ADMIN) VALUES (?, (SELECT ID_Groupe FROM groupe WHERE Nom_Groupe=? AND ID_Creator=?), ?)';
+    const editSql = 'INSERT INTO membre_groupe (ID_Utilisateur, ID_Groupe, IS_ADMIN) VALUES (?,(SELECT ID_Groupe FROM groupe WHERE Nom_Groupe=? AND ID_Creator=?), ?)';
 
-    db.query(editSql, [ID_utilisateur, nom_groupe, ID_utilisateur, bool], (err, result) => {
+    db.query(editSql, [ID_utilisateur, nomgroupe,ID_utilisateur, bool], (err, result) => {
         if (err) {
             console.error('Error executing query', err);
             return res.status(500).json({ error: 'Internal server error' });
@@ -515,7 +517,7 @@ app.get('/recup_group',isAuthenticated, async (req, res) => {
 
     try {
         const ID_user = req.session.user.id;
-        const [rows] = await db.promise().query('SELECT Nom_Groupe FROM `groupe` WHERE ID_Groupe IN (SELECT ID_Groupe FROM `membre_groupe` WHERE ID_Utilisateur = ?);', [ID_user]); 
+        const [rows] = await db.promise().query('SELECT Nom_Groupe, ID_Groupe FROM groupe WHERE ID_Groupe IN (SELECT ID_Groupe FROM `membre_groupe` WHERE ID_Utilisateur = ?)', [ID_user]); 
         res.send(rows);
         // console.log(rows);
     } catch (err) {
@@ -531,9 +533,11 @@ app.get('/recup_group',isAuthenticated, async (req, res) => {
 
 
 
+
+
 app.get('/recup_message/:groupID', async (req, res) => {
     try {
-        const NOM_Groupe = req.params.groupID;
+        const ID_Groupe = req.params.groupID;
         console.log(NOM_Groupe);
         const [rows] = await db.promise().query('SELECT * FROM message_groupe WHERE ID_Groupe = (SELECT ID_Groupe FROM groupe WHERE Nom_Groupe=?) ORDER BY Date_Envoi ASC', [NOM_Groupe]);
         res.send(rows);
