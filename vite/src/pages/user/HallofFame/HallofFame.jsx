@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MostFrequentFriends from '../../../components/MostFrequentFriends/MostFrequentFriends';
 import MostFrequentPlaces from '../../../components/MostFrequentPlaces/MostFrequentPlaces';
 import ParticipationStats from '../../../components/ParticipationStats/ParticipationStats';
+import CircularProgressWithLabel from '../../../components/CircularProgressWithLabel/CircularProgressWithLabel';
 import { FaTrophy } from 'react-icons/fa';
 import './HallofFame.css';
 import Navbar from '../../../components/Navbar/Navbar';
@@ -24,6 +25,7 @@ const initialUserStats = {
 
 const HallOfFame = () => {
   const [userStats, setUserStats] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Simuler une requête à la base de données
@@ -31,14 +33,36 @@ const HallOfFame = () => {
       // Simuler un délai de chargement
       setTimeout(() => {
         setUserStats(initialUserStats);
+        setLoading(false);
       }, 1000);
     };
 
     fetchUserStats();
   }, []);
 
-  if (!userStats) {
-    return <div>Chargement...</div>;
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className='header'>
+          <h2>Hall of Fame <FaTrophy /></h2>
+        </div>
+        <div className="hall-of-fame">
+          <div className="loading-section">
+            <CircularProgressWithLabel value={0} />
+            <p>Chargement des amis les plus fréquentés...</p>
+          </div>
+          <div className="loading-section">
+            <CircularProgressWithLabel value={0} />
+            <p>Chargement des lieux les plus fréquentés...</p>
+          </div>
+          <div className="loading-section">
+            <CircularProgressWithLabel value={0} />
+            <p>Chargement des statistiques de participation...</p>
+          </div>
+        </div>
+      </>
+    );
   }
 
   return (
