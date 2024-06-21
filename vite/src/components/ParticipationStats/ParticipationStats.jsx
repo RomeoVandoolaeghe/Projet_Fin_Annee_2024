@@ -14,8 +14,8 @@ const ParticipationStats = ({ totalEvents, organizedEvents, participationRate })
         <p>{organizedEvents}</p>
       </div>
       <div className="stat-item">
-        <p>Taux de participation :</p>
-        <p>{participationRate}%</p>
+        <p>Taux de participation : </p>
+        <p> {participationRate}%</p>
       </div>
     </div>
   </div>

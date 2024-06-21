@@ -9,7 +9,7 @@ const MostFrequentFriends = ({ friends }) => {
         item.classList.add('show');
       }, index * 300); 
     });
-  }, []);
+  }, [friends]);
 
   return (
     <div className="stats-section">

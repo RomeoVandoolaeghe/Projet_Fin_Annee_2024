@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MostFrequentFriends from '../../../components/MostFrequentFriends/MostFrequentFriends';
 import MostFrequentPlaces from '../../../components/MostFrequentPlaces/MostFrequentPlaces';
 import ParticipationStats from '../../../components/ParticipationStats/ParticipationStats';
-import { FaBars, FaUser, FaHome, FaCalendarAlt, FaUsers, FaTrophy, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { FaTrophy } from 'react-icons/fa';
 import './HallofFame.css';
 import Navbar from '../../../components/Navbar/Navbar';
 
-
-const userStats = {
+const initialUserStats = {
   mostFrequentFriends: [
     { name: 'Hugo', times: 5, img: 'amis1.jpg' },
     { name: 'Robert', times: 4, img: 'amis1.jpg' },
@@ -24,6 +23,24 @@ const userStats = {
 };
 
 const HallOfFame = () => {
+  const [userStats, setUserStats] = useState(null);
+
+  useEffect(() => {
+    // Simuler une requête à la base de données
+    const fetchUserStats = async () => {
+      // Simuler un délai de chargement
+      setTimeout(() => {
+        setUserStats(initialUserStats);
+      }, 1000);
+    };
+
+    fetchUserStats();
+  }, []);
+
+  if (!userStats) {
+    return <div>Chargement...</div>;
+  }
+
   return (
     <>
       <Navbar />
