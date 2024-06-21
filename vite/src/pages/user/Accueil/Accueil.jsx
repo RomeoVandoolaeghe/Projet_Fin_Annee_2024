@@ -33,9 +33,9 @@ function Home() {
     });
 
 
-
+    /* Vue que c'est pas connecté a la BDD, j'ai préféré mettre sa en commentaire afin d'afficher "Aucun évenement a venir" */
   const events = [
-    {
+    /*{
       title: "Palais des Beaux - Arts",
       location: "Lille",
       time: "13:30 - 17:30",
@@ -45,7 +45,7 @@ function Home() {
       location: "Paris",
       time: "13:30 - 17:30",
     },
-  ];
+  */ ]; 
 
   return (
     <>
