@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './History.css';
 
+// Simulation les données initiales
 const initialHistory = [
   { date: '2023-05-20', activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
   { date: '2023-06-15', activity: "Aller à la plage", duration: "1 jour", location: "Nice" },
@@ -9,19 +10,44 @@ const initialHistory = [
   { date: '2023-09-10', activity: "Randonnée en montagne", duration: "1 jour", location: "Pyrénées" },
 ];
 
-const locationColors = {
-  "Disneyland Paris": "#ffcccc",
-  "Nice": "#ccffcc",
-  "Louvre, Paris": "#ccccff",
-  "Alpes": "#ffccff",
-  "Pyrénées": "#ccffff"
-};
-
 const History = () => {
-  const [history, setHistory] = useState(initialHistory);
+  const [history, setHistory] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterLocation, setFilterLocation] = useState('');
   const [sortType, setSortType] = useState('');
+  const [locationColors, setLocationColors] = useState({});
+
+  useEffect(() => {
+    // Simuler une requête à la base de données
+    const fetchHistory = async () => {
+      // Ici vous pourriez utiliser fetch ou axios pour récupérer les données de votre API
+      // setHistory(response.data);
+      // Pour l'instant, nous utilisons les données simulées
+      setHistory(initialHistory);
+    };
+
+    fetchHistory();
+  }, []);
+
+  useEffect(() => {
+    // Gestion des couleurs dynamiques pour les lieux
+    const colors = {};
+    history.forEach(item => {
+      if (!colors[item.location]) {
+        colors[item.location] = getRandomColor();
+      }
+    });
+    setLocationColors(colors);
+  }, [history]);
+
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
