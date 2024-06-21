@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
 import History from '../../../components/History/History';
 import FriendsList from '../../../components/FriendsList/FriendsList';
@@ -7,26 +7,24 @@ import { FaUser } from 'react-icons/fa';
 import axios from 'axios';
 import Navbar from '../../../components/Navbar/Navbar';
 
+function ProfilePage({ profileImage }) {
 
-function ProfilePage() {
-
-  axios.post("http://localhost:3000/acces", "", { withCredentials: true })
-    .then(response => {
-      console.log('Réponse de la requête POST:', response);
-      if (response.status === 201) {
-        console.log("Vous n'etes pas connecté");
-        alert('Veuillez vous connecter pour accéder à cette page');
-        window.location.href = 'http://localhost:5173';
-      }
-      else {
-        console.log('Vous êtes connecté');
-
-      }
-
-    })
-    .catch(error => {
-      console.error('Erreur lors de la requête POST:', error);
-    });
+  useEffect(() => {
+    axios.post("http://localhost:3000/acces", "", { withCredentials: true })
+      .then(response => {
+        console.log('Réponse de la requête POST:', response);
+        if (response.status === 201) {
+          console.log("Vous n'êtes pas connecté");
+          alert('Veuillez vous connecter pour accéder à cette page');
+          window.location.href = 'http://localhost:5173';
+        } else {
+          console.log('Vous êtes connecté');
+        }
+      })
+      .catch(error => {
+        console.error('Erreur lors de la requête POST:', error);
+      });
+  }, []);
 
   return (
     <>
@@ -39,7 +37,7 @@ function ProfilePage() {
       <div className="Profile">
         <div className="main-content">
           <div className="column">
-            <ProfileHeader />
+            <ProfileHeader profileImage={profileImage} />
           </div>
           <div className="column">
             <History />
@@ -51,7 +49,6 @@ function ProfilePage() {
       </div>
     </>
   );
-
 }
 
 export default ProfilePage;
