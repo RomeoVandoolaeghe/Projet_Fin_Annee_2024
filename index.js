@@ -549,17 +549,6 @@ app.get('/recup_message/:groupID', isAuthenticated, async (req, res) => {
                 return res.status(500).json({ error: 'Internal server error' });
             }
             res.send(result);
-            // console.log(result.ID_Utilisateur);
-
-
-            // let userIds = [];
-
-            // result.forEach(item => {
-            //     // Push the ID_Utilisateur into the userIds array
-            //     userIds.push(item.ID_Utilisateur);
-            // });
-        
-            // console.log(userIds);
         });
     } catch (err) {
         console.error("Erreur lors de la récupération des messages ", err);
