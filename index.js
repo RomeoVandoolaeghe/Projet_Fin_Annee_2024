@@ -585,6 +585,7 @@ app.listen(PORT, () => {
 
 
 
+// Route pour récupérer les sorties
 app.get('/sorties', (req, res) => {
     const sql = 'SELECT * FROM sortie';
     db.query(sql, (err, result) => {
