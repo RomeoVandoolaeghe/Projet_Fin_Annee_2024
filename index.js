@@ -583,3 +583,15 @@ app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });
 
+
+
+app.get('/sorties', (req, res) => {
+    const sql = 'SELECT * FROM sortie';
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la récupération des sorties:', err);
+            return res.status(500).send(err);
+        }
+        res.json(result);
+    });
+});
