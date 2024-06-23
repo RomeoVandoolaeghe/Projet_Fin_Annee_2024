@@ -59,24 +59,23 @@ function CreateOutput() {
         <div className='start reveal'>
           <h1>Creer une sortie</h1>
           <div className='space'>
-            <input type='text' placeholder='Titre de la sortie' title="Titre de la sortie" name="title" value={formData.title} onChange={handleChange} />
+            <input type='text' placeholder='Titre de la sortie' title="Titre de la sortie" name="title" value={formData.title} onChange={handleChange} required/>
           </div>
           <div>
-            <input placeholder="Description de la sortie" title="Description" name="description" value={formData.description} onChange={handleChange} />
+            <input placeholder="Description de la sortie" title="Description" name="description" value={formData.description} onChange={handleChange} required/>
           </div>
           <div>
-            <input type="text" placeholder='Lieu' name="lieu"  value={formData.lieu} onChange={handleChange}  />
+            <input type="text" placeholder='Lieu' name="lieu" value={formData.lieu} onChange={handleChange} required />
           </div>
           <div className='space'>
-            <input type='text' placeholder="Durée (en minutes)" name="duree" value={formData.duree} onChange={handleChange} />
+            <input type='text' placeholder="Durée (en minutes)" name="duree" value={formData.duree} onChange={handleChange} required />
           </div>
           <div className='linediv reveal'>
-            <input type='datetime-local' title="Date" name="date" value={formData.date} onChange={handleChange} />
+            <input type='datetime-local' title="Date" name="date" value={formData.date} onChange={handleChange} required />
           </div>
           <div className='linebutton reveal'>
-            <button title="Annuler">Retour</button>
+            <button title="Annuler" onclick="window.location.href = 'http://localhost:5173/Chat'">Retour</button>
             <button title="Creer" onClick={handleCreate}>Créer</button>
-
           </div>
         </div>
       </div>
