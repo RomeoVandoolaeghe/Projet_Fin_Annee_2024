@@ -622,6 +622,8 @@ app.get('/sorties', (req, res) => {
     });
 });
 
+
+// Route pour récupérer les sorties passées
 app.get('/sorties', isAuthenticated, (req, res) => {
     const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
     db.query(sql, (err, result) => {
@@ -632,3 +634,4 @@ app.get('/sorties', isAuthenticated, (req, res) => {
         res.json(result);
     });
 });
+

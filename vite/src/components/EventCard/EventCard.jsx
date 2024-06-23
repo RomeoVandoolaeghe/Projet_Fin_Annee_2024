@@ -1,16 +1,14 @@
 import React from 'react';
 import './EventCard.css';
 
-function EventCard({ event }) {
+const EventCard = ({ event }) => {
   return (
     <div className="event-card">
-      <div className="event-title-location">
-        <span className="event-title">{event.Titre}</span>
-        <span className="event-location">{event.Lieu}</span>
-      </div>
-      <div className="event-time">{new Date(event.Date_Sortie).toLocaleString()}</div>
-      <div className="event-description">{event.Description}</div>
-      <div className="event-participants">Participants: {event.Nb_personnes}</div>
+      <h3>{event.Titre_Sortie}</h3>
+      <p>Date: {new Date(event.Date_Sortie).toLocaleDateString()}</p>
+      <p>Durée: {event.Duree} minutes</p>
+      <p>{event.Description_Sortie}</p>
+      <p>Lieu: {event.Lieu}</p>
     </div>
   );
 }

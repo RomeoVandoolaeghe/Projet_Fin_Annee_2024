@@ -66,16 +66,16 @@ const LinePlan = () => {
   // Filtrer et trier les données selon les critères de recherche, filtre et tri
   const filteredData = datas
     .filter(data => 
-      data.Description.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      data.Description_Sortie.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (filterLocation ? data.Lieu === filterLocation : true)
     )
     .sort((a, b) => {
       if (sortType === 'date') {
         return new Date(a.Date_Sortie) - new Date(b.Date_Sortie);
       } else if (sortType === 'titre') {
-        return a.Description.localeCompare(b.Description);
+        return a.Description_Sortie.localeCompare(b.Description_Sortie);
       } else if (sortType === 'heure') {
-        return a.Heure.localeCompare(b.Heure);
+        return new Date(a.Date_Sortie).getTime() - new Date(b.Date_Sortie).getTime(); // Trier par heure
       } else if (sortType === 'lieu') {
         return a.Lieu.localeCompare(b.Lieu);
       }
@@ -114,10 +114,10 @@ const LinePlan = () => {
           <span>Lieu</span>
         </div>
         {filteredData.map((data, index) => (
-          <div key={index} className="item">
+          <div key={index} className="item" onClick={() => handleEventClick(data)}>
             <span>{new Date(data.Date_Sortie).toLocaleDateString()}</span>
             <span>{new Date(data.Date_Sortie).toLocaleTimeString()}</span>
-            <span>{data.Description}</span>
+            <span>{data.Description_Sortie}</span>
             <span>{data.Nb_personnes}</span>
             <span>{data.Lieu}</span>
           </div>

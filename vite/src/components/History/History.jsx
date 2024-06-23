@@ -67,14 +67,14 @@ const History = () => {
   // Filtrer et trier les sorties en fonction des critères de recherche, de filtre et de tri
   const filteredHistory = history
     .filter(item => 
-      item.Description.toLowerCase().includes(searchTerm.toLowerCase()) && // Filtrer par terme de recherche
+      item.Description_Sortie.toLowerCase().includes(searchTerm.toLowerCase()) && // Filtrer par terme de recherche
       (filterLocation ? item.Lieu === filterLocation : true) // Filtrer par lieu si un lieu est sélectionné
     )
     .sort((a, b) => {
       if (sortType === 'date') {
         return new Date(a.Date_Sortie) - new Date(b.Date_Sortie); // Trier par date
       } else if (sortType === 'activity') {
-        return a.Description.localeCompare(b.Description); // Trier par activité
+        return a.Description_Sortie.localeCompare(b.Description_Sortie); // Trier par activité
       } else if (sortType === 'duration') {
         return a.Duree - b.Duree; // Trier par durée
       }
@@ -125,7 +125,7 @@ const History = () => {
           {pastHistory.map((item, index) => (
             <tr key={index}>
               <td>{new Date(item.Date_Sortie).toLocaleDateString()}</td>
-              <td>{item.Description}</td>
+              <td>{item.Description_Sortie}</td>
               <td>{item.Duree}</td>
               <td><span className='location' style={{ backgroundColor: locationColors[item.Lieu] || '#ffffff' }}>{item.Lieu}</span></td>
             </tr>
