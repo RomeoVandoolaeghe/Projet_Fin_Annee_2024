@@ -52,14 +52,7 @@ const FriendsList = () => {
           ))}
         </ul>
         {error && <p className="error">{error.message}</p>}
-        <h4 className='threat'>Mes groupes</h4>
-        <ul>
-          {groups.map((group, index) => (
-            <li key={index}>
-              {group.name}
-            </li>
-          ))}
-        </ul>
+        
       </div>
     </div>
   );
