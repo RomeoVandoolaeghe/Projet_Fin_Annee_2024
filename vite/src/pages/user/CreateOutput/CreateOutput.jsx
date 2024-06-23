@@ -1,14 +1,9 @@
 import React, { useEffect } from 'react';
 import ScrollReveal from 'scrollreveal';
-import './CreateOutput.css'
-import Formline from "../../../components/FormLine/FormLine.jsx";
-import InputHour from "../../../components/InputHour/InputHour.jsx";
-import InputNumber from "../../../components/InputNumber/InputNumber.jsx";
-import InputDate from '../../../components/InputDate/InputDate.jsx'; // Assurez-vous que le chemin est correct
-import Button from '../../../components/Button/Button.jsx';
-import TextArea from '../../../components/TextArea/TextArea.jsx';
+import './CreateOutput.css';
+import { Link } from 'react-router-dom';
 
-function CreateOutput(){
+function CreateOutput() {
   useEffect(() => {
     // Configuration de base de ScrollReveal
     const sr = ScrollReveal({
@@ -27,26 +22,47 @@ function CreateOutput(){
     <>
       <div className="container">
         <div className='button-box'>
-          <Button title="Retour" to="/Chat" />
+          <Link to='/Chat' className='button'>
+            Retour
+          </Link>
         </div>
         <div className='start reveal'>
           <h1>Creer une sortie</h1>
           <div className='space'>
-            <Formline title="Titre de la sortie" />
+            <div className='input-box'>
+              <p className='input-label'>Titre de la sortie :</p>
+              <input type="text" className='input-field' />
+            </div>
           </div>
           <div>
-            <TextArea title="Description"/>
+            <div className='input-box'>
+              <p>Description :</p>
+              <textarea cols={50} rows={5} />
+            </div>
           </div>
           <div className='space'>
-            <InputNumber title="Nombre de participant" />
+            <div className='input-number-box'>
+              <p className='input-number-label'>Nombre de participant :</p>
+              <input type="number" className='input-number-field' min="0" />
+            </div>
           </div>
           <div className='linediv reveal'>
-            <InputDate title="Date" />
-            <InputHour title="Heure" />
+            <div className='input-date-box'>
+              <p className='input-date-label'>Date :</p>
+              <input type="date" className='input-date-field' />
+            </div>
+            <div className='input-hour-box'>
+              <p className='input-hour-label'>Heure :</p>
+              <input type="time" className='input-hour-field' />
+            </div>
           </div>
           <div className='linebutton reveal'>
-            <Button title="Creer" />
-            <Button title="Annuler"/>
+            <Link to='/' className='button'>
+              Creer
+            </Link>
+            <Link to='/' className='button'>
+              Annuler
+            </Link>
           </div>
         </div>
       </div>

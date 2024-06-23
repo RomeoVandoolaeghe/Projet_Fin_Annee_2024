@@ -57,3 +57,113 @@ button:hover {
   top: -15rem;
   left: -15rem;
 }
+.input-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px; /* Réduire le padding */
+  margin: 10px; /* Réduire la marge */
+}
+
+textarea {
+  border-radius: 10px; /* Réduire le rayon de bordure */
+  padding: 10px;
+}
+.input-number-box {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espace entre le label et l'input */
+}
+
+.input-number-label {
+  margin: 0; /* Supprime les marges par défaut */
+  width: 15rem;
+}
+
+.input-number-field {
+  padding: 5px; /* Ajoute un padding à l'input */
+  font-size: 14px; /* Ajuste la taille de la police */
+  border: 1px solid #ccc; /* Ajoute une bordure */
+  border-radius: 20px; /* Ajoute un rayon de bordure */
+  width: 6rem;
+  padding: 10px;
+}
+.input-hour-box {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espace entre le label et l'input */
+  padding: 10px;
+  text-align: center;
+}
+
+.input-hour-label {
+  margin: 0; /* Supprime les marges par défaut */
+}
+
+.input-hour-field {
+  padding: 10px;
+  font-size: 14px; /* Ajuste la taille de la police */
+  border: 1px solid #ccc; /* Ajoute une bordure */
+  border-radius: 20px; /* Ajoute un rayon de bordure */
+  width: 10rem;
+  height: 2rem;
+}
+.input-date-box {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.input-date-label {
+  margin-right: 10px; /* Espace entre le label et l'input */
+  border-radius: 50px;
+}
+
+.input-date-field {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  width: 10.5rem;
+  height: 2rem;
+}
+.input-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  gap: 10px; /* Espace entre le label et l'input */
+  margin-bottom: 15px; /* Réduire la marge */
+}
+
+.input-label {
+  height: 1.8rem;
+  width: 50%;
+}
+
+.input-field {
+  padding: 5px; /* Ajoute un padding à l'input */
+  font-size: 14px; /* Ajuste la taille de la police */
+  border: 1px solid #ccc; /* Ajoute une bordure */
+  border-radius: 4px; /* Ajoute un rayon de bordure */
+  padding: 10px;
+  background-color: white;
+}
+.button {
+  background-color: #ffffff84;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none; /* Supprime la décoration de texte des liens */
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.button:hover {
+  background-color: #45a049;
+  color: white;
+}
+
