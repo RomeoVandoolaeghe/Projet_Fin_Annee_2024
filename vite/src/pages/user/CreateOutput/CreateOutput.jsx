@@ -8,6 +8,7 @@ import './CreateOutput.css';
 // import Button from '../../../components/Button/Button.jsx';
 // import TextArea from '../../../components/TextArea/TextArea.jsx';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CreateOutput() {
   const [formData, setFormData] = useState({
@@ -53,6 +54,11 @@ function CreateOutput() {
       });
   };
 
+  const navigate = useNavigate(); // Utilisation du hook useNavigate
+  const handleCancel = () => {
+    navigate('/group'); // Remplacez '/target-page' par la route vers laquelle vous voulez rediriger
+  };
+
   return (
     <>
       <div className="container">
@@ -74,7 +80,7 @@ function CreateOutput() {
             <input type='datetime-local' title="Date" name="date" value={formData.date} onChange={handleChange} />
           </div>
           <div className='linebutton reveal'>
-            <button title="Annuler">Retour</button>
+            <button title="Annuler" onClick={handleCancel} >Retour</button>
             <button title="Creer" onClick={handleCreate}>Créer</button>
 
           </div>
