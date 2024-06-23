@@ -576,6 +576,31 @@ app.post('/send_messages', isAuthenticated, (req, res) => {
 
 
 
+app.post('/creer_sortie', isAuthenticated, (req, res) => {
+    const ID_Creator = req.session.user.id;
+    const { title,date,duree,description,lieu,ID_Groupe} = req.body;
+    console.log(title);
+    console.log(date);
+    console.log(duree);
+    console.log(description);
+    console.log(lieu);
+    console.log(ID_Groupe);
+
+    const query = 'INSERT INTO sortie (ID_Creator, Titre_Sortie, Date_Sortie, Duree, Description_Sortie, Lieu, ID_Groupe) VALUES (?, ?, ?, ?, ?, ?,?)';
+
+    db.query(query, [ID_Creator, title, date, duree, description, lieu,ID_Groupe], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de la création de la sortie:', err);
+            res.status(500).send(err);
+            return;
+        }
+        res.send({ message: 'Sortie créée avec succès', ID_Creator: ID_Creator });
+    });
+
+
+})
+
+
 
 
 // Route pour supprimer une disponibilité
