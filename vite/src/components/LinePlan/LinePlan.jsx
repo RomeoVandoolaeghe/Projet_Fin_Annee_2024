@@ -80,7 +80,6 @@ const LinePlan = () => {
         <select value={filterLocation} onChange={handleFilterChange}>
           <option value="">Tous les lieux</option>
           <option value="Paris">Paris</option>
-          {/* Ajoutez d'autres options de lieu ici */}
         </select>
         <select value={sortType} onChange={handleSortChange}>
           <option value="">Trier par</option>
