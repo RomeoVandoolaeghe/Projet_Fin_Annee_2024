@@ -45,7 +45,11 @@ const ProfileHeader = ({ profileImage }) => {
         const response = await axios.get('http://localhost:3000/recup_dispo', { withCredentials: true });
         if (response.data && Array.isArray(response.data)) {
           setDispo(response.data);
-        } else {
+        }
+        if(response.data == ''){
+          document.getElementById('Erreur').innerHTML = "Vous n'avez pas encore renseigné vos disponibilités";
+        }
+        else {
           console.error('Les données reçues ne sont pas valides', response.data);
         }
       } catch (error) {
@@ -89,6 +93,7 @@ const ProfileHeader = ({ profileImage }) => {
           </tbody>
         </table>
       </div>
+      <h5 id='Erreur'></h5>
       <Link to="/Parametres"><button>Modifier mon profil</button></Link>
     </div>
   );
