@@ -5,6 +5,7 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { createPortal } from 'react-dom';
 import DetailGroup from '../../components/DetailGroup/DetailGroup';
 import { Link } from 'react-router-dom';
+import { FaUsers } from 'react-icons/fa';
 import './GroupCard.css';
 
 const GroupCard = ({ id, name, image, color, onDelete, onClick }) => {
@@ -53,6 +54,7 @@ const GroupCard = ({ id, name, image, color, onDelete, onClick }) => {
       />
       <Link to="/Chat" className="chat-link">
         <div className="group-info">
+          <p> <FaUsers  size={30}/> </p>
           <h3><strong>{name}</strong></h3>
           {dropdownVisible && !showModal && (
             <ul className="dropdown" ref={dropdownRef}>
