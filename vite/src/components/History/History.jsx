@@ -29,18 +29,22 @@ const History = () => {
     const colors = {};
     history.forEach(item => {
       if (!colors[item.Lieu]) {
-        colors[item.Lieu] = getRandomColor(); // Générer une couleur aléatoire pour chaque lieu unique
+        colors[item.Lieu] = generateColorFromString(item.Lieu); // Générer une couleur déterministe pour chaque lieu unique
       }
     });
     setLocationColors(colors); // Stocker les couleurs des lieux dans l'état locationColors
   }, [history]); // Ce useEffect sera exécuté à chaque fois que l'état history change
 
-  // Fonction pour générer une couleur aléatoire
-  const getRandomColor = () => {
-    const letters = '0123456789ABCDEF';
+  // Fonction pour générer une couleur déterministe à partir d'une chaîne de caractères
+  const generateColorFromString = (str) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
     let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
+    for (let i = 0; i < 3; i++) {
+      const value = (hash >> (i * 8)) & 0xFF;
+      color += ('00' + value.toString(16)).substr(-2);
     }
     return color;
   };
