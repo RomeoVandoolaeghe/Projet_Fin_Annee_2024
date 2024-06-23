@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './History.css';
 
-// Simulation les données initiales
-const initialHistory = [
-  { date: '2023-05-20', activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
-  { date: '2023-06-15', activity: "Aller à la plage", duration: "1 jour", location: "Nice" },
-  { date: '2023-07-01', activity: "Visiter un musée", duration: "1/2 jour", location: "Louvre, Paris" },
-  { date: '2023-08-05', activity: "Faire du ski", duration: "2 jours", location: "Alpes" },
-  { date: '2023-09-10', activity: "Randonnée en montagne", duration: "1 jour", location: "Pyrénées" },
-];
-
 const History = () => {
+  // États pour stocker l'historique des sorties, le terme de recherche, le filtre de lieu, le type de tri et les couleurs des lieux
   const [history, setHistory] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterLocation, setFilterLocation] = useState('');
@@ -18,28 +11,31 @@ const History = () => {
   const [locationColors, setLocationColors] = useState({});
 
   useEffect(() => {
-    // Simuler une requête à la base de données
+    // Requête pour récupérer l'historique des sorties depuis l'API
     const fetchHistory = async () => {
-      // Ici vous pourriez utiliser fetch ou axios pour récupérer les données de votre API
-      // setHistory(response.data);
-      // Pour l'instant, nous utilisons les données simulées
-      setHistory(initialHistory);
+      try {
+        const response = await axios.get('http://localhost:3000/sorties', { withCredentials: true });
+        setHistory(response.data); // Stocker les données récupérées dans l'état history
+      } catch (error) {
+        console.error('Erreur lors de la récupération des sorties:', error);
+      }
     };
 
     fetchHistory();
-  }, []);
+  }, []); // Le tableau vide signifie que ce useEffect sera exécuté une seule fois après le premier rendu
 
   useEffect(() => {
     // Gestion des couleurs dynamiques pour les lieux
     const colors = {};
     history.forEach(item => {
-      if (!colors[item.location]) {
-        colors[item.location] = getRandomColor();
+      if (!colors[item.Lieu]) {
+        colors[item.Lieu] = getRandomColor(); // Générer une couleur aléatoire pour chaque lieu unique
       }
     });
-    setLocationColors(colors);
-  }, [history]);
+    setLocationColors(colors); // Stocker les couleurs des lieux dans l'état locationColors
+  }, [history]); // Ce useEffect sera exécuté à chaque fois que l'état history change
 
+  // Fonction pour générer une couleur aléatoire
   const getRandomColor = () => {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -49,33 +45,43 @@ const History = () => {
     return color;
   };
 
+  // Gestionnaire pour mettre à jour l'état searchTerm lorsque l'utilisateur tape dans le champ de recherche
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
+  // Gestionnaire pour mettre à jour l'état filterLocation lorsque l'utilisateur sélectionne un lieu dans le filtre
   const handleFilterChange = (e) => {
     setFilterLocation(e.target.value);
   };
 
+  // Gestionnaire pour mettre à jour l'état sortType lorsque l'utilisateur sélectionne un type de tri
   const handleSortChange = (e) => {
     setSortType(e.target.value);
   };
 
+  // Filtrer et trier les sorties en fonction des critères de recherche, de filtre et de tri
   const filteredHistory = history
     .filter(item => 
-      item.activity.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (filterLocation ? item.location === filterLocation : true)
+      item.Description.toLowerCase().includes(searchTerm.toLowerCase()) && // Filtrer par terme de recherche
+      (filterLocation ? item.Lieu === filterLocation : true) // Filtrer par lieu si un lieu est sélectionné
     )
     .sort((a, b) => {
       if (sortType === 'date') {
-        return new Date(a.date) - new Date(b.date);
+        return new Date(a.Date_Sortie) - new Date(b.Date_Sortie); // Trier par date
       } else if (sortType === 'activity') {
-        return a.activity.localeCompare(b.activity);
+        return a.Description.localeCompare(b.Description); // Trier par activité
       } else if (sortType === 'duration') {
-        return a.duration.localeCompare(b.duration);
+        return a.Duree - b.Duree; // Trier par durée
       }
-      return 0;
+      return 0; // Pas de tri si aucun type de tri n'est sélectionné
     });
+
+  // Obtenir la date actuelle
+  const currentDate = new Date();
+
+  // Filtrer les sorties passées en comparant la date de sortie à la date actuelle
+  const pastHistory = filteredHistory.filter(item => new Date(item.Date_Sortie) < currentDate);
 
   return (
     <div className="history">
@@ -89,11 +95,10 @@ const History = () => {
         />
         <select value={filterLocation} onChange={handleFilterChange}>
           <option value="">Tous les lieux</option>
-          <option value="Disneyland Paris">Disneyland Paris</option>
-          <option value="Nice">Nice</option>
-          <option value="Louvre, Paris">Louvre, Paris</option>
-          <option value="Alpes">Alpes</option>
-          <option value="Pyrénées">Pyrénées</option>
+          {/* Extraire les lieux uniques de l'historique pour les options de filtre */}
+          {[...new Set(history.map(item => item.Lieu))].map(location => (
+            <option key={location} value={location}>{location}</option>
+          ))}
         </select>
         <select value={sortType} onChange={handleSortChange}>
           <option value="">Trier par</option>
@@ -112,12 +117,13 @@ const History = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredHistory.map((item, index) => (
+          {/* Afficher les sorties passées */}
+          {pastHistory.map((item, index) => (
             <tr key={index}>
-              <td>{item.date}</td>
-              <td>{item.activity}</td>
-              <td>{item.duration}</td>
-              <td><span className='location' style={{ backgroundColor: locationColors[item.location] || '#ffffff' }}>{item.location}</span></td>
+              <td>{new Date(item.Date_Sortie).toLocaleDateString()}</td>
+              <td>{item.Description}</td>
+              <td>{item.Duree}</td>
+              <td><span className='location' style={{ backgroundColor: locationColors[item.Lieu] || '#ffffff' }}>{item.Lieu}</span></td>
             </tr>
           ))}
         </tbody>
