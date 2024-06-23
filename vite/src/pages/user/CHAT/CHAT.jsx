@@ -48,9 +48,8 @@ function Chat() {
 
 
   const groupNAME = localStorage.getItem('nomgroupe');
-  console.log('NOM DU GROUPE :', groupNAME);
   const groupID = localStorage.getItem('idgroupe');
-  console.log('ID DU GROUPE :', groupID);
+
 
 
   useEffect(() => {
@@ -104,7 +103,7 @@ function Chat() {
     axios.post('http://localhost:3000/send_messages', { Contenu: newMessage, ID_Groupe: groupID }, { withCredentials: true })
       .then((response) => {
         console.log('Message envoyé avec succès', response);
-
+        location.reload();
 
       })
       .catch((error) => {

@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import ScrollReveal from 'scrollreveal';
 import './CreateOutput.css';
-import { Link } from 'react-router-dom';
-import './CreateOutput.css';
+// import Formline from "../../../components/FormLine/FormLine.jsx";
+// import InputHour from "../../../components/InputHour/InputHour.jsx";
+// import InputNumber from "../../../components/InputNumber/InputNumber.jsx";
+// import InputDate from '../../../components/InputDate/InputDate.jsx';
+// import Button from '../../../components/Button/Button.jsx';
+// import TextArea from '../../../components/TextArea/TextArea.jsx';
 import axios from 'axios';
 
 function CreateOutput() {
@@ -29,7 +33,7 @@ function CreateOutput() {
   }, []);
 
   const groupID = localStorage.getItem('idgroupe');
-  console.log('ID DU GROUPE :', groupID);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,48 +56,27 @@ function CreateOutput() {
   return (
     <>
       <div className="container">
-        <div className='button-box'>
-          <Link to='/Chat' className='button'>
-            Retour
-          </Link>
-        </div>
         <div className='start reveal'>
           <h1>Creer une sortie</h1>
           <div className='space'>
-            <div className='input-box'>
-              <p className='input-label'>Titre de la sortie :</p>
-              <input type="text" className='input-field' />
-            </div>
+            <input type='text' placeholder='Titre de la sortie' title="Titre de la sortie" name="title" value={formData.title} onChange={handleChange} />
           </div>
           <div>
-            <div className='input-box'>
-              <p>Description :</p>
-              <textarea cols={50} rows={5} />
-            </div>
+            <input placeholder="Description de la sortie" title="Description" name="description" value={formData.description} onChange={handleChange} />
+          </div>
+          <div>
+            <input type="text" placeholder='Lieu' name="lieu" value={formData.lieu} onChange={handleChange} />
           </div>
           <div className='space'>
-            <div className='input-number-box'>
-              <p className='input-number-label'>Nombre de participant :</p>
-              <input type="number" className='input-number-field' min="0" />
-            </div>
+            <input type='text' placeholder="Durée (en minutes)" name="duree" value={formData.duree} onChange={handleChange} />
           </div>
           <div className='linediv reveal'>
-            <div className='input-date-box'>
-              <p className='input-date-label'>Date :</p>
-              <input type="date" className='input-date-field' />
-            </div>
-            <div className='input-hour-box'>
-              <p className='input-hour-label'>Heure :</p>
-              <input type="time" className='input-hour-field' />
-            </div>
+            <input type='datetime-local' title="Date" name="date" value={formData.date} onChange={handleChange} />
           </div>
           <div className='linebutton reveal'>
-            <Link to='/' className='button'>
-              Creer
-            </Link>
-            <Link to='/' className='button'>
-              Annuler
-            </Link>
+            <button title="Annuler">Retour</button>
+            <button title="Creer" onClick={handleCreate}>Créer</button>
+
           </div>
         </div>
       </div>
