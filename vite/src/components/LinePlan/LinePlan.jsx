@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import ScrollReveal from 'scrollreveal';
 import './LinePlan.css';
 
 const LinePlan = () => {
-  const initialData = [
-    {
-      id: 1,
-      date: "30/01/1999",
-      heure: "15",
-      titre: "Visite de la tour Eiffel",
-      nb_participant: "50",
-      lieu: "Paris",
-    },
-    // Ajoutez d'autres données...
-  ];
-
-  const [datas, setDatas] = useState(initialData);
+  const [datas, setDatas] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterLocation, setFilterLocation] = useState('');
   const [sortType, setSortType] = useState('');
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/sorties', { withCredentials: true });
+        setDatas(response.data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des sorties:', error);
+      }
+    };
+
+    fetchData();
+
     const sr = ScrollReveal({
       origin: 'bottom',
       distance: '20px',
@@ -52,24 +52,18 @@ const LinePlan = () => {
     setSelectedEvent(null);
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm("Voulez-vous vraiment supprimer cet événement ?")) {
-      setDatas(datas.filter(data => data.id !== id));
-    }
-  };
-
   const filteredData = datas
     .filter(data => 
-      data.titre.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (filterLocation ? data.lieu === filterLocation : true)
+      data.Description.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (filterLocation ? data.Lieu === filterLocation : true)
     )
     .sort((a, b) => {
       if (sortType === 'date') {
-        return new Date(a.date) - new Date(b.date);
+        return new Date(a.Date_Sortie) - new Date(b.Date_Sortie);
       } else if (sortType === 'titre') {
-        return a.titre.localeCompare(b.titre);
+        return a.Description.localeCompare(b.Description);
       } else if (sortType === 'heure') {
-        return a.heure.localeCompare(b.heure);
+        return a.Heure.localeCompare(b.Heure);
       }
       return 0;
     });
@@ -102,18 +96,14 @@ const LinePlan = () => {
           <span>Titre</span>
           <span>Participant</span>
           <span>Lieu</span>
-          <span>Action</span>
         </div>
         {filteredData.map((data, index) => (
           <div key={index} className="item">
-            <span onClick={() => handleEventClick(data)}>{data.date}</span>
-            <span onClick={() => handleEventClick(data)}>{data.heure}</span>
-            <span onClick={() => handleEventClick(data)}>{data.titre}</span>
-            <span onClick={() => handleEventClick(data)}>{data.nb_participant}</span>
-            <span onClick={() => handleEventClick(data)}>{data.lieu}</span>
-            <span>
-              <span onClick={() => handleDelete(data.id)}>Supprimer</span>
-            </span>
+            <span>{new Date(data.Date_Sortie).toLocaleDateString()}</span>
+            <span>{new Date(data.Date_Sortie).toLocaleTimeString()}</span>
+            <span>{data.Description}</span>
+            <span>{data.Nb_personnes}</span>
+            <span>{data.Lieu}</span>
           </div>
         ))}
       </div>
@@ -129,3 +119,4 @@ const LinePlan = () => {
 }
 
 export default LinePlan;
+

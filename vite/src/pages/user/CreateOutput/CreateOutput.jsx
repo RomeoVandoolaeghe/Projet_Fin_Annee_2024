@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ScrollReveal from 'scrollreveal';
 import './CreateOutput.css';
+import { Link } from 'react-router-dom';
+import './CreateOutput.css';
 import Formline from "../../../components/FormLine/FormLine.jsx";
 import InputHour from "../../../components/InputHour/InputHour.jsx";
 import InputNumber from "../../../components/InputNumber/InputNumber.jsx";
@@ -56,26 +58,48 @@ function CreateOutput() {
   return (
     <>
       <div className="container">
+        <div className='button-box'>
+          <Link to='/Chat' className='button'>
+            Retour
+          </Link>
+        </div>
         <div className='start reveal'>
           <h1>Creer une sortie</h1>
           <div className='space'>
-            <input type='text' placeholder='Titre de la sortie' title="Titre de la sortie" name="title" value={formData.title} onChange={handleChange} required/>
+            <div className='input-box'>
+              <p className='input-label'>Titre de la sortie :</p>
+              <input type="text" className='input-field' />
+            </div>
           </div>
           <div>
-            <input placeholder="Description de la sortie" title="Description" name="description" value={formData.description} onChange={handleChange} required/>
-          </div>
-          <div>
-            <input type="text" placeholder='Lieu' name="lieu" value={formData.lieu} onChange={handleChange} required />
+            <div className='input-box'>
+              <p>Description :</p>
+              <textarea cols={50} rows={5} />
+            </div>
           </div>
           <div className='space'>
-            <input type='text' placeholder="Durée (en minutes)" name="duree" value={formData.duree} onChange={handleChange} required />
+            <div className='input-number-box'>
+              <p className='input-number-label'>Nombre de participant :</p>
+              <input type="number" className='input-number-field' min="0" />
+            </div>
           </div>
           <div className='linediv reveal'>
-            <input type='datetime-local' title="Date" name="date" value={formData.date} onChange={handleChange} required />
+            <div className='input-date-box'>
+              <p className='input-date-label'>Date :</p>
+              <input type="date" className='input-date-field' />
+            </div>
+            <div className='input-hour-box'>
+              <p className='input-hour-label'>Heure :</p>
+              <input type="time" className='input-hour-field' />
+            </div>
           </div>
           <div className='linebutton reveal'>
-            <button title="Annuler" onclick="window.location.href = 'http://localhost:5173/Chat'">Retour</button>
-            <button title="Creer" onClick={handleCreate}>Créer</button>
+            <Link to='/' className='button'>
+              Creer
+            </Link>
+            <Link to='/' className='button'>
+              Annuler
+            </Link>
           </div>
         </div>
       </div>
