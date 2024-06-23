@@ -3,12 +3,6 @@ import ScrollReveal from 'scrollreveal';
 import './CreateOutput.css';
 import { Link } from 'react-router-dom';
 import './CreateOutput.css';
-import Formline from "../../../components/FormLine/FormLine.jsx";
-import InputHour from "../../../components/InputHour/InputHour.jsx";
-import InputNumber from "../../../components/InputNumber/InputNumber.jsx";
-import InputDate from '../../../components/InputDate/InputDate.jsx';
-import Button from '../../../components/Button/Button.jsx';
-import TextArea from '../../../components/TextArea/TextArea.jsx';
 import axios from 'axios';
 
 function CreateOutput() {

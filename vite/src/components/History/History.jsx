@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './History.css';
-
-// Simulation les données initiales
-const initialHistory = [
-  { date: '2023-05-20', activity: "Aller au parc d'attraction", duration: "1 jour", location: "Disneyland Paris" },
-  { date: '2023-06-15', activity: "Aller à la plage", duration: "1 jour", location: "Nice" },
-  { date: '2023-07-01', activity: "Visiter un musée", duration: "1/2 jour", location: "Louvre, Paris" },
-  { date: '2023-08-05', activity: "Faire du ski", duration: "2 jours", location: "Alpes" },
-  { date: '2023-09-10', activity: "Randonnée en montagne", duration: "1 jour", location: "Pyrénées" },
-];
 
 const History = () => {
   const [history, setHistory] = useState([]);
@@ -18,12 +10,14 @@ const History = () => {
   const [locationColors, setLocationColors] = useState({});
 
   useEffect(() => {
-    // Simuler une requête à la base de données
+    // Requête pour récupérer l'historique des sorties depuis l'API
     const fetchHistory = async () => {
-      // Ici vous pourriez utiliser fetch ou axios pour récupérer les données de votre API
-      // setHistory(response.data);
-      // Pour l'instant, nous utilisons les données simulées
-      setHistory(initialHistory);
+      try {
+        const response = await axios.get('http://localhost:3000/sorties', { withCredentials: true });
+        setHistory(response.data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des sorties:', error);
+      }
     };
 
     fetchHistory();
@@ -33,8 +27,8 @@ const History = () => {
     // Gestion des couleurs dynamiques pour les lieux
     const colors = {};
     history.forEach(item => {
-      if (!colors[item.location]) {
-        colors[item.location] = getRandomColor();
+      if (!colors[item.Lieu]) {
+        colors[item.Lieu] = getRandomColor();
       }
     });
     setLocationColors(colors);
@@ -63,19 +57,23 @@ const History = () => {
 
   const filteredHistory = history
     .filter(item => 
-      item.activity.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (filterLocation ? item.location === filterLocation : true)
+      item.Description.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (filterLocation ? item.Lieu === filterLocation : true)
     )
     .sort((a, b) => {
       if (sortType === 'date') {
-        return new Date(a.date) - new Date(b.date);
+        return new Date(a.Date_Sortie) - new Date(b.Date_Sortie);
       } else if (sortType === 'activity') {
-        return a.activity.localeCompare(b.activity);
+        return a.Description.localeCompare(b.Description);
       } else if (sortType === 'duration') {
-        return a.duration.localeCompare(b.duration);
+        return a.Duree - b.Duree;
       }
       return 0;
     });
+
+  const currentDate = new Date();
+
+  const pastHistory = filteredHistory.filter(item => new Date(item.Date_Sortie) < currentDate);
 
   return (
     <div className="history">
@@ -89,11 +87,9 @@ const History = () => {
         />
         <select value={filterLocation} onChange={handleFilterChange}>
           <option value="">Tous les lieux</option>
-          <option value="Disneyland Paris">Disneyland Paris</option>
-          <option value="Nice">Nice</option>
-          <option value="Louvre, Paris">Louvre, Paris</option>
-          <option value="Alpes">Alpes</option>
-          <option value="Pyrénées">Pyrénées</option>
+          {[...new Set(history.map(item => item.Lieu))].map(location => (
+            <option key={location} value={location}>{location}</option>
+          ))}
         </select>
         <select value={sortType} onChange={handleSortChange}>
           <option value="">Trier par</option>
@@ -112,12 +108,12 @@ const History = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredHistory.map((item, index) => (
+          {pastHistory.map((item, index) => (
             <tr key={index}>
-              <td>{item.date}</td>
-              <td>{item.activity}</td>
-              <td>{item.duration}</td>
-              <td><span className='location' style={{ backgroundColor: locationColors[item.location] || '#ffffff' }}>{item.location}</span></td>
+              <td>{new Date(item.Date_Sortie).toLocaleDateString()}</td>
+              <td>{item.Description}</td>
+              <td>{item.Duree}</td>
+              <td><span className='location' style={{ backgroundColor: locationColors[item.Lieu] || '#ffffff' }}>{item.Lieu}</span></td>
             </tr>
           ))}
         </tbody>

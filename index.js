@@ -621,3 +621,14 @@ app.get('/sorties', (req, res) => {
         res.json(result);
     });
 });
+
+app.get('/sorties', isAuthenticated, (req, res) => {
+    const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la récupération des sorties:', err);
+            return res.status(500).send(err);
+        }
+        res.json(result);
+    });
+});
