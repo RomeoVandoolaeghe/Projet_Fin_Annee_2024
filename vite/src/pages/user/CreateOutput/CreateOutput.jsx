@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ScrollReveal from 'scrollreveal';
 import './CreateOutput.css';
-// import Formline from "../../../components/FormLine/FormLine.jsx";
-// import InputHour from "../../../components/InputHour/InputHour.jsx";
-// import InputNumber from "../../../components/InputNumber/InputNumber.jsx";
-// import InputDate from '../../../components/InputDate/InputDate.jsx';
-// import Button from '../../../components/Button/Button.jsx';
-// import TextArea from '../../../components/TextArea/TextArea.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../../../components/Navbar/Navbar';
 
 function CreateOutput() {
   const [formData, setFormData] = useState({
@@ -18,6 +13,8 @@ function CreateOutput() {
     description: '',
     lieu: '',
   });
+
+  const [notification, setNotification] = useState({ type: '', message: '', visible: false });
 
   useEffect(() => {
     // Configuration de base de ScrollReveal
@@ -35,7 +32,6 @@ function CreateOutput() {
 
   const groupID = localStorage.getItem('idgroupe');
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -48,19 +44,33 @@ function CreateOutput() {
     axios.post('http://localhost:3000/creer_sortie', { ...formData, ID_Groupe: groupID }, { withCredentials: true })
       .then((response) => {
         console.log('Sortie créée :', response.data);
+        setNotification({ type: 'success', message: 'Sortie créée avec succès!', visible: true });
       })
       .catch((error) => {
         console.error("Erreur lors de la création de la sortie ", error);
+        setNotification({ type: 'error', message: 'Erreur lors de la création de la sortie', visible: true });
       });
+
+    // Masquer la notification après 5 secondes
+    setTimeout(() => {
+      setNotification({ ...notification, visible: false });
+    }, 5000);
   };
 
   const navigate = useNavigate(); // Utilisation du hook useNavigate
   const handleCancel = () => {
-    navigate('/group'); // Remplacez '/target-page' par la route vers laquelle vous voulez rediriger
+    navigate('/group'); // Remplacez '/group' par la route vers laquelle vous voulez rediriger
   };
 
   return (
     <>
+      <Navbar />
+      {notification.visible && (
+        <div className={`notification ${notification.type}-msg`}>
+          <i className={`fa fa-${notification.type === 'success' ? 'check' : 'times-circle'}`}></i>
+          {notification.message}
+        </div>
+      )}
       <div className="container">
         <div className='start reveal'>
           <h1>Creer une sortie</h1>
@@ -82,7 +92,6 @@ function CreateOutput() {
           <div className='linebutton reveal'>
             <button title="Annuler" onClick={handleCancel} >Retour</button>
             <button title="Creer" onClick={handleCreate}>Créer</button>
-
           </div>
         </div>
       </div>

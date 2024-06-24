@@ -3,11 +3,10 @@ import './CreateGroup.css';
 import axios from 'axios';
 import Navbar from '../../../components/Navbar/Navbar';
 
-
-
 // Composant CreateGroup
 const CreateGroup = () => {
   const [error, setError] = useState(null);
+  const [notification, setNotification] = useState({ type: '', message: '', visible: false });
 
   // Déclaration de l'état pour les données du formulaire
   const [formData, setFormData] = useState({
@@ -30,47 +29,49 @@ const CreateGroup = () => {
     });
   };
 
-
-
-
-
-  // Fonction pour soumettre le formulaire
-  const handleSubmit = (e) => {
-
-
-    e.preventDefault();
-    axios
-      .post('http://localhost:3000/create_group', { nom_groupe : formData.term  }, { withCredentials: true })
-      .then((response) => {
-        console.log('Réponse du serveur:', response.data);
-      })
-      .catch((error) => {
-        console.error('Erreur lors de la requête POST:', error);
-        setError('Une erreur est survenue lors de la recherche.');
-      });
-    Add_member();
-    resetForm();
-  };
-
-
   // Fonction pour ajouter un membre
   const Add_member = async () => {
     try {
       const response = await axios.post('http://localhost:3000/add_member', { nomgroupe: formData.term }, { withCredentials: true });
       console.log('Réponse du serveur:', response.data);
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Erreur lors de la requête POST:', error);
-      setError('Une erreur est survenue lors de la recherche.');
+      setNotification({ type: 'error', message: 'Une erreur est survenue lors de l\'ajout du membre.', visible: true });
     }
-  }
+  };
 
+  // Fonction pour soumettre le formulaire
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post('http://localhost:3000/create_group', { nom_groupe: formData.term }, { withCredentials: true })
+      .then((response) => {
+        console.log('Réponse du serveur:', response.data);
+        setNotification({ type: 'success', message: 'Groupe créé avec succès!', visible: true });
+        Add_member();
+        resetForm();
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la requête POST:', error);
+        setNotification({ type: 'error', message: 'Une erreur est survenue lors de la création du groupe.', visible: true });
+      });
+
+    // Masquer la notification après 5 secondes
+    setTimeout(() => {
+      setNotification({ ...notification, visible: false });
+    }, 5000);
+  };
 
   return (
     <>
       <Navbar />
+      {notification.visible && (
+        <div className={`notification ${notification.type}-msg`}>
+          <i className={`fa fa-${notification.type === 'success' ? 'check' : 'times-circle'}`}></i>
+          {notification.message}
+        </div>
+      )}
       <div className="create-group-form-container">
-
         <header>
           <h5>Créer un groupe</h5>
         </header>
@@ -83,24 +84,20 @@ const CreateGroup = () => {
               name="term"
               value={formData.term}
               onChange={handleChange}
-
-              // onChange={(e) => setGroupName(e.target.value)}
               required
             />
           </div>
-
           <div className="form-group buttons">
             <button type="button" onClick={() => window.history.back()}>
               Retour
             </button>
             <button type="submit">Créer</button>
-
           </div>
           {error && <p className="error">{error}</p>}
         </form>
       </div>
     </>
   );
-}
+};
 
 export default CreateGroup;
