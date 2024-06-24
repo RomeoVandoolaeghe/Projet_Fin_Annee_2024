@@ -65,13 +65,14 @@ function CreateOutput() {
   return (
     <>
       <Navbar />
-      {notification.visible && (
-        <div className={`notification ${notification.type}-msg`}>
-          <i className={`fa fa-${notification.type === 'success' ? 'check' : 'times-circle'}`}></i>
-          {notification.message}
-        </div>
-      )}
+
       <div className="container">
+        {notification.visible && (
+          <div className={`notification ${notification.type}-msg`}>
+            <i className={`fa fa-${notification.type === 'success' ? 'check' : 'times-circle'}`}></i>
+            {notification.message}
+          </div>
+        )}
         <div className='start reveal'>
           <h1>Creer une sortie</h1>
           <div className='space'>
