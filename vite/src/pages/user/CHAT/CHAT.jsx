@@ -8,21 +8,24 @@ import { FaComments } from 'react-icons/fa';
 import Navbar from '../../../components/Navbar/Navbar';
 import axios from 'axios';
 
+// Utilisateurs fictifs pour l'exemple
 const users = [
   { id: 1, name: 'Docteur Strange', status: 'Actif', image: '/profil.jpg' },
 ];
 
 function Chat() {
+  // États pour gérer les détails du groupe, la recherche, les résultats de recherche, les messages et le nouveau message
   const [showGroupDetails, setShowGroupDetails] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState(users);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
-
+  // Références pour les éléments DOM
   const dropdownRef = useRef(null);
   const groupNameRef = useRef(null);
 
+  // Effet pour initialiser ScrollReveal et gérer les clics en dehors du dropdown
   useEffect(() => {
     const sr = ScrollReveal({
       origin: 'bottom',
@@ -46,12 +49,11 @@ function Chat() {
     };
   }, []);
 
-
+  // Récupération du nom et de l'ID du groupe depuis le localStorage
   const groupNAME = localStorage.getItem('nomgroupe');
   const groupID = localStorage.getItem('idgroupe');
 
-
-
+  // Effet pour récupérer les messages du groupe depuis le serveur
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -64,23 +66,21 @@ function Chat() {
     };
 
     fetchMessages();
-
   }, [groupID]);
 
-
-
-
-
+  // Effet pour mettre à jour le nom du groupe dans l'interface
   useEffect(() => {
     if (groupNameRef.current) {
       groupNameRef.current.textContent = groupNAME;
     }
   }, []);
 
+  // Fonction pour basculer l'affichage des détails du groupe
   const toggleGroupDetails = () => {
     setShowGroupDetails(!showGroupDetails);
   };
 
+  // Fonction de gestion de la recherche de membres
   const handleSearch = (event) => {
     const term = event.target.value.toLowerCase();
     setSearchTerm(term);
@@ -95,22 +95,19 @@ function Chat() {
     }
   };
 
+  // Fonction pour envoyer un message
   const handleSendMessage = () => {
-    // if (newMessage.trim()) {
-    //   setMessages([...messages, { id: messages.length + 1, text: newMessage, sender: 'user' }]);
-    //   setNewMessage('');
-    // }
     axios.post('http://localhost:3000/send_messages', { Contenu: newMessage, ID_Groupe: groupID }, { withCredentials: true })
       .then((response) => {
         console.log('Message envoyé avec succès', response);
-        location.reload();
-
+        location.reload(); // Recharger la page après l'envoi du message
       })
       .catch((error) => {
         console.error('Erreur lors de l\'envoi du message', error);
       });
   };
 
+  // Fonction pour détecter la touche "Enter" et envoyer le message
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       handleSendMessage();
@@ -165,7 +162,7 @@ function Chat() {
             </div>
             <div className="messages">
               {messages.map(message => (
-                <span className='message'>
+                <span className='message' key={message.ID_Utilisateur + message.Contenu}>
                   {message.ID_Utilisateur + " :"}
                   {message.Contenu}
                 </span>
