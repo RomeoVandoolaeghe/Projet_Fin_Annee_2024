@@ -1,3 +1,42 @@
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+
+.notification {
+  position: relative;
+  top: 90px;;
+  left:20%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: 80%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+.info-msg {
+  color: #059;
+  background-color: #BEF;
+}
+.success-msg {
+  color: #270;
+  background-color: #DFF2BF;
+}
+.warning-msg {
+  color: #9F6000;
+  background-color: #FEEFB3;
+}
+.error-msg {
+  color: #D8000C;
+  background-color: #FFBABA;
+}
+.fa {
+  margin-right: 10px;
+}
+
+/* Styles existants */
 html,
 body {
   margin: 0;
@@ -143,27 +182,5 @@ textarea {
 
 .input-field {
   padding: 5px; /* Ajoute un padding à l'input */
-  font-size: 14px; /* Ajuste la taille de la police */
-  border: 1px solid #ccc; /* Ajoute une bordure */
-  border-radius: 4px; /* Ajoute un rayon de bordure */
-  padding: 10px;
-  background-color: white;
+  font-size: 14px;
 }
-.button {
-  background-color: #ffffff84;
-  border: none;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none; /* Supprime la décoration de texte des liens */
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 20px;
-}
-
-.button:hover {
-  background-color: #45a049;
-  color: white;
-}
-
