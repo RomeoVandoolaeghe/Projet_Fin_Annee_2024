@@ -655,3 +655,24 @@ app.get('/amis', (req, res) => {
         res.send(results);
     });
 });
+
+  // Route pour supprimer un groupe
+app.post('/delete_group', isAuthenticated, async (req, res) => {
+    const { id } = req.body;
+    try {
+        const sql = 'DELETE FROM groupe WHERE ID_Groupe = ?';
+        db.query(sql, [id], (err, result) => {
+            if (err) {
+                console.error('Erreur lors de la suppression du groupe:', err);
+                return res.status(500).send('Erreur serveur');
+            }
+            if (result.affectedRows === 0) {
+                return res.status(404).send('Groupe non trouvé');
+            }
+            res.status(200).send('Groupe supprimé avec succès');
+        });
+    } catch (error) {
+        console.error('Erreur serveur:', error);
+        res.status(500).send('Erreur serveur');
+    }
+});

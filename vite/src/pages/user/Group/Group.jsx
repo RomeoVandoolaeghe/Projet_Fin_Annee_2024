@@ -7,7 +7,6 @@ import axios from 'axios';
 import Navbar from '../../../components/Navbar/Navbar';
 import { saveContent } from './export_content'; // Importer la fonction d'exportation
 
-// Composant Group
 const Group = ({ groups = [] }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [groupList, setGroupList] = useState(groups);
@@ -17,17 +16,20 @@ const Group = ({ groups = [] }) => {
     setSearchTerm(e.target.value);
   };
 
-  const handleClick = (id,name) => {
-    saveContent(id,name); // Exporter le contenu
+  const handleClick = (id, name) => {
+    saveContent(id, name); // Exporter le contenu
   };
 
-  // Récupération des groupes
+  const handleDelete = (id) => {
+    setGroupList((prevGroups) => prevGroups.filter((group) => group.ID_Groupe !== id));
+  };
+
   useEffect(() => {
-    const fetchGroupe = async () => {
+    const fetchGroups = async () => {
       try {
         const response = await axios.get('http://localhost:3000/recup_group', { withCredentials: true });
         if (response.data && Array.isArray(response.data)) {
-          setGroupList(response.data); // Mise à jour de groupList avec les données de l'API
+          setGroupList(response.data);
           console.log('Groupes :', response.data);
         } else {
           console.error('Les données reçues ne sont pas valides', response.data);
@@ -37,13 +39,8 @@ const Group = ({ groups = [] }) => {
       }
     };
 
-    fetchGroupe();
+    fetchGroups();
   }, []);
-
-  // // Filtrage des groupes
-  // const filteredGroups = groupList.filter(group =>
-  //   group.Nom_Groupe && group.Nom_Groupe.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
 
   return (
     <>
@@ -69,10 +66,11 @@ const Group = ({ groups = [] }) => {
 
           {groupList.map((group) => (
             <GroupCard 
-              // key={group.Nom_Groupe}
+              key={group.ID_Groupe}
               name={group.Nom_Groupe}
               id={group.ID_Groupe}
               onClick={handleClick}
+              onDelete={handleDelete} // Passer la fonction de suppression en tant que prop
             />
           ))}
         </div>
