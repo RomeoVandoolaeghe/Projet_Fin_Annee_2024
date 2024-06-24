@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ScrollReveal from 'scrollreveal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPaperPlane, faUserPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +24,7 @@ function Chat() {
   // Références pour les éléments DOM
   const dropdownRef = useRef(null);
   const groupNameRef = useRef(null);
+  const navigate = useNavigate(); // Ajout du hook useNavigate
 
   // Effet pour initialiser ScrollReveal et gérer les clics en dehors du dropdown
   useEffect(() => {
@@ -114,6 +115,11 @@ function Chat() {
     }
   };
 
+  // Fonction pour rediriger vers la page AddMember
+  const handleAddMember = () => {
+    navigate('/AddMember');
+  };
+
   return (
     <>
       <Navbar />
@@ -157,7 +163,7 @@ function Chat() {
               <img src="/profil.jpg" alt="Group Logo" className="group-logo" />
               <h3 id='group-name' ref={groupNameRef}></h3>
               <div className="chat-header-icons">
-                <FontAwesomeIcon icon={faUserPlus} className="hover-icon" />
+                <FontAwesomeIcon icon={faUserPlus} className="hover-icon" onClick={handleAddMember} />
               </div>
             </div>
             <div className="messages">

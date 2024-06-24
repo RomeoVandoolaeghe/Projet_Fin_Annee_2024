@@ -114,7 +114,7 @@ const LinePlan = () => {
           <span>Lieu</span>
         </div>
         {filteredData.map((data, index) => (
-          <div key={index} className="item" onClick={() => handleEventClick(data)}>
+          <div key={index} className="item">
             <span>{new Date(data.Date_Sortie).toLocaleDateString()}</span>
             <span>{new Date(data.Date_Sortie).toLocaleTimeString()}</span>
             <span>{data.Description_Sortie}</span>

@@ -14,6 +14,7 @@ import Group from './pages/user/Group/Group.jsx';
 import CreateGroup from './pages/user/CreateGroup/CreateGroup.jsx';
 import AccueilAdmin from './pages/admin/AccueilAdmin/AccueilAdmin.jsx';
 import SideBar from './components/Sidebar/Sidebar.jsx';
+import AddMember from './pages/user/AddMember/AddMember.jsx'
 import './App.css';
 
 export const UserContext = createContext(null);
@@ -65,6 +66,7 @@ function App() {
           <Route path="/AddFriend" element={<AddFriend />} />
           <Route path="/CreateGroup" element={<CreateGroup onCreateGroup={addGroup} />} />
           <Route path="/AccueilAdmin" element={<AccueilAdmin />} />
+          <Route path="/AddMember" element={<AddMember />} />
         </Routes>
       </Router>
     </UserContext.Provider>
