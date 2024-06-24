@@ -62,17 +62,26 @@ function CreateOutput() {
     navigate('/group'); // Remplacez '/group' par la route vers laquelle vous voulez rediriger
   };
 
+  const getMinDateTime = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
   return (
     <>
       <Navbar />
-
+      {notification.visible && (
+        <div className={`notification reveal ${notification.type}-msg`}>
+          <i className={`fa fa-${notification.type === 'success' ? 'check' : 'times-circle'}`}></i>
+          {notification.message}
+        </div>
+      )}
       <div className="container">
-        {notification.visible && (
-          <div className={`notification ${notification.type}-msg`}>
-            <i className={`fa fa-${notification.type === 'success' ? 'check' : 'times-circle'}`}></i>
-            {notification.message}
-          </div>
-        )}
         <div className='start reveal'>
           <h3>Creer une sortie</h3>
           <div className='space'>
@@ -88,7 +97,7 @@ function CreateOutput() {
             <input type='text' placeholder="Durée (en minutes)" name="duree" value={formData.duree} onChange={handleChange} />
           </div>
           <div className='linediv reveal'>
-            <input type='datetime-local' title="Date" name="date" value={formData.date} onChange={handleChange} />
+            <input type='datetime-local' title="Date" name="date" value={formData.date} onChange={handleChange} min={getMinDateTime()} />
           </div>
           <div className='linebutton reveal'>
             <button title="Annuler" onClick={handleCancel} >Retour</button>
