@@ -17,8 +17,8 @@ const Group = ({ groups = [] }) => {
     setSearchTerm(e.target.value);
   };
 
-  const handleClick = (id,name) => {
-    saveContent(id,name); // Exporter le contenu
+  const handleClick = (id, name) => {
+    saveContent(id, name); // Exporter le contenu
   };
 
   // Récupération des groupes
@@ -40,10 +40,10 @@ const Group = ({ groups = [] }) => {
     fetchGroupe();
   }, []);
 
-  // // Filtrage des groupes
-  // const filteredGroups = groupList.filter(group =>
-  //   group.Nom_Groupe && group.Nom_Groupe.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
+  // Filtrage des groupes
+  const filteredGroups = groupList.filter(group =>
+    group.Nom_Groupe && group.Nom_Groupe.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
@@ -67,9 +67,9 @@ const Group = ({ groups = [] }) => {
             </Link>
           </div>
 
-          {groupList.map((group) => (
-            <GroupCard 
-              // key={group.Nom_Groupe}
+          {filteredGroups.map((group) => (
+            <GroupCard
+              key={group.ID_Groupe}
               name={group.Nom_Groupe}
               id={group.ID_Groupe}
               onClick={handleClick}
