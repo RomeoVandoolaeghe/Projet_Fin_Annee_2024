@@ -33,7 +33,7 @@ function Home() {
     });
 
 
-    /* Vue que c'est pas connecté a la BDD, j'ai préféré mettre sa en commentaire afin d'afficher "Aucun évenement a venir" */
+  /* Vue que c'est pas connecté a la BDD, j'ai préféré mettre sa en commentaire afin d'afficher "Aucun évenement a venir" */
   const events = [
     /*{
       title: "Palais des Beaux - Arts",
@@ -45,7 +45,7 @@ function Home() {
       location: "Paris",
       time: "13:30 - 17:30",
     },
-  */ ]; 
+  */ ];
 
   return (
     <>
@@ -56,7 +56,7 @@ function Home() {
       <div className="home">
         <h2>Centre de notification</h2>
         <UpComingEvents events={events} />
-      {/* <NotificationCard notification={{ title: "Nouveau message", group: "Groupe 1", count: 1 }} /> */}
+        {/* <NotificationCard notification={{ title: "Nouveau message", group: "Groupe 1", count: 1 }} /> */}
       </div>
     </>
 

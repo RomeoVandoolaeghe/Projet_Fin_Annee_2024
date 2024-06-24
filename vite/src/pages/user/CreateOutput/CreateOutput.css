@@ -2,13 +2,13 @@
 
 .notification {
   position: relative;
-  bottom: 90px;
+  bottom: 0px;
   left:20%;
   transform: translateX(-50%);
   z-index: 9999;
   width: 80%;
   max-width: 500px;
-  margin: 40px 0;
+  margin: 10px 0;
   padding: 5px;
   border-radius: 10px;
   display: flex;

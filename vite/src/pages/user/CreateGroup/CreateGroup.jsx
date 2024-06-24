@@ -3,6 +3,7 @@ import './CreateGroup.css';
 import axios from 'axios';
 import Navbar from '../../../components/Navbar/Navbar';
 
+
 // Composant CreateGroup
 const CreateGroup = () => {
   const [error, setError] = useState(null);
@@ -66,7 +67,7 @@ const CreateGroup = () => {
     <>
       <Navbar />
       {notification.visible && (
-        <div className={`notification ${notification.type}-msg`}>
+        <div className={`notification reveal ${notification.type}-msg`}>
           <i className={`fa fa-${notification.type === 'success' ? 'check' : 'times-circle'}`}></i>
           {notification.message}
         </div>
