@@ -7,6 +7,8 @@ Pour lancer le projet l'utilisateur doit inscrire "npm start" dans son terminal.
 Toutefois, si l'utilisateur lance le projet pour la première fois.
 Alors celui-ci devra lancer les commandes suivantes dans son terminal avant d'effectuer un npm start:
 
+La base de donnée devra par ailleurs être lancer avant l'execution du serveur.
+
 "npm install express"
 "npm install bcrypt"
 "npm install mysql2"
