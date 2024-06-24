@@ -112,7 +112,12 @@ function Chat() {
   };
 
   const handleAddMember = () => {
-    navigate('/AddMember');
+    navigate('/AddMember', { state: { addMemberToGroup } });
+  };
+
+  const addMemberToGroup = (newMember) => {
+    setGroupMembers((prevMembers) => [...prevMembers, newMember]);
+    setSearchResults((prevResults) => [...prevResults, newMember]);
   };
 
   return (

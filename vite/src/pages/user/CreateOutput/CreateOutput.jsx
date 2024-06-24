@@ -74,7 +74,7 @@ function CreateOutput() {
           </div>
         )}
         <div className='start reveal'>
-          <h1>Creer une sortie</h1>
+          <h3>Creer une sortie</h3>
           <div className='space'>
             <input type='text' placeholder='Titre de la sortie' title="Titre de la sortie" name="title" value={formData.title} onChange={handleChange} />
           </div>
