@@ -4,7 +4,9 @@ Toutefois, si l'utilisateur lance le projet pour la première fois.
 Alors celui-ci devra lancer les commandes suivantes dans son terminal avant d'effectuer un npm start:
 
   "npm install express"
+  
   "npm install bcrypt"
+  
   "npm install mysql2"
   "npm install cors"
   "npm install cookie-parser"
