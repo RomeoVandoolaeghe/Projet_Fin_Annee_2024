@@ -40,8 +40,8 @@ const GroupCard = ({ id, name, onDelete, onClick }) => {
     try {
       // Faire une requête POST à l'API pour supprimer le groupe
       const url = 'http://localhost:3000/delete_group';
-      await axios.post(url, { id }, { withCredentials: true });
-      console.log('Groupe supprimé avec succès');
+      const response = await axios.post(url, { id }, { withCredentials: true });
+      console.log('Réponse de suppression:', response.data);
       onDelete(id); // Appeler onDelete pour mettre à jour l'état dans le composant parent
     } catch (error) {
       console.error('Erreur lors de la suppression du groupe:', error);

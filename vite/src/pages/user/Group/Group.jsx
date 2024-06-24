@@ -64,8 +64,8 @@ const Group = ({ groups = [] }) => {
             </Link>
           </div>
 
-          {filteredGroups.map((group) => (
-            <GroupCard
+          {groupList.map((group) => (
+            <GroupCard 
               key={group.ID_Groupe}
               name={group.Nom_Groupe}
               id={group.ID_Groupe}
