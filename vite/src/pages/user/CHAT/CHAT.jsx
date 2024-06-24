@@ -8,25 +8,18 @@ import { FaComments } from 'react-icons/fa';
 import Navbar from '../../../components/Navbar/Navbar';
 import axios from 'axios';
 
-// Utilisateurs fictifs pour l'exemple
-const users = [
-  { id: 1, name: 'Docteur Strange', status: 'Actif', image: '/profil.jpg' },
-];
-
 function Chat() {
-  // États pour gérer les détails du groupe, la recherche, les résultats de recherche, les messages et le nouveau message
   const [showGroupDetails, setShowGroupDetails] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState(users);
+  const [searchResults, setSearchResults] = useState([]);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [groupMembers, setGroupMembers] = useState([]);
 
-  // Références pour les éléments DOM
   const dropdownRef = useRef(null);
   const groupNameRef = useRef(null);
-  const navigate = useNavigate(); // Ajout du hook useNavigate
+  const navigate = useNavigate();
 
-  // Effet pour initialiser ScrollReveal et gérer les clics en dehors du dropdown
   useEffect(() => {
     const sr = ScrollReveal({
       origin: 'bottom',
@@ -50,16 +43,13 @@ function Chat() {
     };
   }, []);
 
-  // Récupération du nom et de l'ID du groupe depuis le localStorage
   const groupNAME = localStorage.getItem('nomgroupe');
   const groupID = localStorage.getItem('idgroupe');
 
-  // Effet pour récupérer les messages du groupe depuis le serveur
   useEffect(() => {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/recup_message/${groupID}`, { withCredentials: true });
-        console.log('Messages :', response.data);
         setMessages(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des messages ", error);
@@ -67,36 +57,43 @@ function Chat() {
     };
 
     fetchMessages();
+    fetchGroupMembers();
   }, [groupID]);
 
-  // Effet pour mettre à jour le nom du groupe dans l'interface
   useEffect(() => {
     if (groupNameRef.current) {
       groupNameRef.current.textContent = groupNAME;
     }
-  }, []);
+  }, [groupNAME]);
 
-  // Fonction pour basculer l'affichage des détails du groupe
+  const fetchGroupMembers = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/group_members/${groupID}`, { withCredentials: true });
+      setGroupMembers(response.data);
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des membres du groupe ", error);
+    }
+  };
+
   const toggleGroupDetails = () => {
     setShowGroupDetails(!showGroupDetails);
   };
 
-  // Fonction de gestion de la recherche de membres
   const handleSearch = (event) => {
     const term = event.target.value.toLowerCase();
     setSearchTerm(term);
 
     if (term) {
-      const results = users.filter(user =>
-        user.name.toLowerCase().includes(term)
+      const results = groupMembers.filter(member =>
+        member.Pseudo.toLowerCase().includes(term)
       );
       setSearchResults(results);
     } else {
-      setSearchResults(users);
+      setSearchResults(groupMembers);
     }
   };
 
-  // Fonction pour envoyer un message
   const handleSendMessage = () => {
     axios.post('http://localhost:3000/send_messages', { Contenu: newMessage, ID_Groupe: groupID }, { withCredentials: true })
       .then((response) => {
@@ -108,14 +105,12 @@ function Chat() {
       });
   };
 
-  // Fonction pour détecter la touche "Enter" et envoyer le message
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       handleSendMessage();
     }
   };
 
-  // Fonction pour rediriger vers la page AddMember
   const handleAddMember = () => {
     navigate('/AddMember');
   };
@@ -146,12 +141,12 @@ function Chat() {
             <div className="group-members">
               <h3>Membres du groupe</h3>
               <ul>
-                {searchResults.map(user => (
-                  <li key={user.id}>
-                    <img src={user.image} alt={user.name} className="member-avatar" />
+                {searchResults.map(member => (
+                  <li key={member.ID_utilisateur}>
+                    <img src={member.Image} alt={member.Pseudo} className="member-avatar" />
                     <div className="member-info">
-                      <span>{user.name}</span>
-                      <span className="status">{user.status}</span>
+                      <span>{member.Pseudo}</span>
+                      <span className="status">{member.Status}</span>
                     </div>
                   </li>
                 ))}

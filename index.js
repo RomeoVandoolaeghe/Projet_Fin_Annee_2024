@@ -635,3 +635,23 @@ app.get('/sorties', isAuthenticated, (req, res) => {
     });
 });
 
+
+// Exemple de route pour récupérer les amis
+app.get('/amis', (req, res) => {
+    const userId = req.session.user.id; // Récupérer l'ID de l'utilisateur actuel depuis la session
+
+    const query = `
+        SELECT u.ID_utilisateur, u.Pseudo 
+        FROM utilisateur u 
+        JOIN amitie a ON (u.ID_utilisateur = a.ID_utilisateur1 OR u.ID_utilisateur = a.ID_utilisateur2)
+        WHERE (a.ID_utilisateur1 = ? OR a.ID_utilisateur2 = ?) AND u.ID_utilisateur != ?
+    `;
+
+    db.query(query, [userId, userId, userId], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de la récupération des amis :', err);
+            return res.status(500).send('Erreur serveur');
+        }
+        res.send(results);
+    });
+});
