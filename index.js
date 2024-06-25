@@ -606,7 +606,7 @@ app.listen(PORT, () => {
 
 
 // Route pour récupérer les sorties
-app.get('/sorties', (req, res) => {
+app.get('/sorties',isAuthenticated, (req, res) => {
     const sql = 'SELECT * FROM sortie';
     db.query(sql, (err, result) => {
         if (err) {
@@ -618,7 +618,7 @@ app.get('/sorties', (req, res) => {
 });
 
 
-// Route pour récupérer les sorties passées
+// // Route pour récupérer les sorties passées
 // app.get('/sorties', isAuthenticated, (req, res) => {
 //     const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
 //     db.query(sql, (err, result) => {
