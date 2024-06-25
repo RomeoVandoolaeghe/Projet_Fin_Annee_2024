@@ -66,8 +66,14 @@ function Chat() {
     }
   }, [groupNAME]);
 
-  const toggleGroupDetails = () => {
-    setShowGroupDetails(!showGroupDetails);
+  const fetchGroupMembers = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/group_members/${groupID}`, { withCredentials: true });
+      setGroupMembers(response.data);
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des membres du groupe ", error);
+    }
   };
 
   const handleSearch = (event) => {
