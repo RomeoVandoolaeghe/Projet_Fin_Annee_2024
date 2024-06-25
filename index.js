@@ -593,6 +593,7 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
             return;
         }
         res.send({ message: 'Sortie créée avec succès', ID_Creator: ID_Creator });
+
     });
 
 
@@ -606,7 +607,7 @@ app.listen(PORT, () => {
 
 
 // Route pour récupérer les sorties
-app.get('/sorties', (req, res) => {
+app.get('/sorties', isAuthenticated, (req, res) => {
     const sql = 'SELECT * FROM sortie';
     db.query(sql, (err, result) => {
         if (err) {
@@ -718,3 +719,34 @@ app.get('/group_members/:groupID', isAuthenticated, async (req, res) => {
         res.status(500).send('Erreur serveur');
     }
 });
+
+
+
+app.post('/add_member_sortie', isAuthenticated, (req, res) => {
+    const ID_Creator = req.session.user.id;
+    const { nom_sortie } = req.body;
+    console.log(nom_sortie);
+
+    const query = 'INSERT INTO participation (ID_Utilisateur, ID_Sortie) VALUES (?, (SELECT ID_Sortie FROM sortie WHERE Titre_Sortie=? AND ID_Creator=?))';
+
+    db.query(query, [ID_Creator, nom_sortie, ID_Creator], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de l\'ajout du membre à la sortie:', err);
+            res.status(500).send({ error: 'Erreur lors de l\'ajout du membre à la sortie' });
+            return;
+        }
+
+        const updateQuery = 'UPDATE sortie SET nb_personnes = nb_personnes + 1 WHERE Titre_Sortie = ? AND ID_Creator = ?';
+        db.query(updateQuery, [nom_sortie, ID_Creator], (err, results) => {
+            if (err) {
+                console.error('Erreur lors de la mise à jour du nombre de participants:', err);
+                res.status(500).send({ error: 'Erreur lors de la mise à jour du nombre de participants' });
+                return;
+            }
+            res.send({ message: 'Membre ajouté avec succès', ID_Creator: ID_Creator });
+        });
+    });
+});
+
+
+
