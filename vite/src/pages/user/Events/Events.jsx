@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import ScrollReveal from 'scrollreveal';
-import LineHead from '../../../components/LineHead/LineHead';
 import LinePlan from '../../../components/LinePlan/LinePlan';
 import './Events.css';
 import Navbar from '../../../components/Navbar/Navbar';
