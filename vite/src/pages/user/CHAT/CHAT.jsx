@@ -69,19 +69,8 @@ function Chat() {
     }
   }, [groupNAME]);
 
-<<<<<<< HEAD
   const toggleGroupDetails = () => {
     setShowGroupDetails(!showGroupDetails);
-=======
-  const fetchGroupMembers = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3000/group_members/${groupID}`, { withCredentials: true });
-      setGroupMembers(response.data);
-      setSearchResults(response.data);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des membres du groupe ", error);
-    }
->>>>>>> 0f005a2d624d3806205f0da7c80c78d182dd0d74
   };
 
   const handleSearch = (event) => {
@@ -167,14 +156,8 @@ function Chat() {
             </div>
             <div className="messages">
               {messages.map(message => (
-<<<<<<< HEAD
-                <span className='message'>
-                  {message.ID_Utilisateur + " :"}
-                  {message.Contenu}
-=======
                 <span className='message' key={message.ID_Message}>
                   <strong>{message.Pseudo}:</strong> {message.Contenu}
->>>>>>> 0f005a2d624d3806205f0da7c80c78d182dd0d74
                 </span>
               ))}
             </div>
