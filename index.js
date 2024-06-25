@@ -8,6 +8,7 @@ require('dotenv').config();
 const MySQLStore = require('express-mysql-session')(session);
 
 
+
 // Configuration de la base de données MySQL
 const options = {
     host: 'localhost',
@@ -67,12 +68,14 @@ db.connect((err) => {
 });
 
 
+
 // Middleware pour gérer les erreurs
 function errorHandler(err, req, res, next) {
     console.error(err.stack);
     res.status(500).send('Erreur serveur');
 }
 app.use(errorHandler);
+
 
 
 
@@ -573,7 +576,7 @@ app.post('/send_messages', isAuthenticated, (req, res) => {
 
 app.post('/creer_sortie', isAuthenticated, (req, res) => {
     const ID_Creator = req.session.user.id;
-    const { title,date,duree,description,lieu,ID_Groupe} = req.body;
+    const { title, date, duree, description, lieu, ID_Groupe } = req.body;
     console.log(title);
     console.log(date);
     console.log(duree);
@@ -583,7 +586,7 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
 
     const query = 'INSERT INTO sortie (ID_Creator, Titre_Sortie, Date_Sortie, Duree, Description_Sortie, Lieu, ID_Groupe) VALUES (?, ?, ?, ?, ?, ?,?)';
 
-    db.query(query, [ID_Creator, title, date, duree, description, lieu,ID_Groupe], (err, results) => {
+    db.query(query, [ID_Creator, title, date, duree, description, lieu, ID_Groupe], (err, results) => {
         if (err) {
             console.error('Erreur lors de la création de la sortie:', err);
             res.status(500).send(err);
@@ -616,16 +619,16 @@ app.get('/sorties', (req, res) => {
 
 
 // Route pour récupérer les sorties passées
-app.get('/sorties', isAuthenticated, (req, res) => {
-    const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
-    db.query(sql, (err, result) => {
-        if (err) {
-            console.error('Erreur lors de la récupération des sorties:', err);
-            return res.status(500).send(err);
-        }
-        res.json(result);
-    });
-});
+// app.get('/sorties', isAuthenticated, (req, res) => {
+//     const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
+//     db.query(sql, (err, result) => {
+//         if (err) {
+//             console.error('Erreur lors de la récupération des sorties:', err);
+//             return res.status(500).send(err);
+//         }
+//         res.json(result);
+//     });
+// });
 
 
 // Exemple de route pour récupérer les amis
