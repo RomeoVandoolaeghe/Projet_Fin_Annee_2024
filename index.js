@@ -438,7 +438,6 @@ app.get('/recup_description', isAuthenticated, async (req, res) => {
 
 app.post('/edit_description', isAuthenticated, async (req, res) => {
 
-
     const ID_utilisateur = req.session.user.id;
     const { description } = req.body;
 
@@ -527,14 +526,6 @@ app.get('/recup_group', isAuthenticated, async (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
 app.get('/recup_message/:groupID', isAuthenticated, async (req, res) => {
     try {
         const ID_Groupe = req.params.groupID;
@@ -599,9 +590,6 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
 
 
 })
-
-
-
 
 // Route pour supprimer une disponibilité
 app.listen(PORT, () => {
@@ -699,4 +687,31 @@ app.post('/delete_group', isAuthenticated, async (req, res) => {
         res.status(500).send('Erreur serveur');
     }
 });
+
+
+app.get('/group_members/:groupID', isAuthenticated, async (req, res) => {
+    const { groupID } = req.params;
+
+    try {
+        const sql = `
+            SELECT utilisateur.ID_utilisateur, utilisateur.Pseudo 
+            FROM utilisateur 
+            INNER JOIN membre_groupe ON utilisateur.ID_utilisateur = membre_groupe.ID_Utilisateur 
+            WHERE membre_groupe.ID_Groupe = ?
+        `;
+        db.query(sql, [groupID], (err, results) => {
+            if (err) {
+                console.error('Erreur lors de la récupération des membres du groupe:', err);
+                return res.status(500).send('Erreur serveur');
+            }
+            res.status(200).json(results);
+        });
+    } catch (error) {
+        console.error('Erreur serveur:', error);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
+
+
 

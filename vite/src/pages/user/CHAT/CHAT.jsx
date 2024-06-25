@@ -76,10 +76,6 @@ function Chat() {
     }
   };
 
-  const toggleGroupDetails = () => {
-    setShowGroupDetails(!showGroupDetails);
-  };
-
   const handleSearch = (event) => {
     const term = event.target.value.toLowerCase();
     setSearchTerm(term);
@@ -148,10 +144,8 @@ function Chat() {
               <ul>
                 {searchResults.map(member => (
                   <li key={member.ID_utilisateur}>
-                    <img src={member.Image} alt={member.Pseudo} className="member-avatar" />
                     <div className="member-info">
                       <span>{member.Pseudo}</span>
-                      <span className="status">{member.Status}</span>
                     </div>
                   </li>
                 ))}
@@ -160,7 +154,6 @@ function Chat() {
           </div>
           <div className="chat-area">
             <div className="chat-header">
-              <img src="/profil.jpg" alt="Group Logo" className="group-logo" />
               <h3 id='group-name' ref={groupNameRef}></h3>
               <div className="chat-header-icons">
                 <FontAwesomeIcon icon={faUserPlus} className="hover-icon" onClick={handleAddMember} />
