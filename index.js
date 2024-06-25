@@ -495,7 +495,6 @@ app.get('/recup_group', isAuthenticated, async (req, res) => {
 });
 
 
-<<<<<<< HEAD
 
 
 
@@ -503,8 +502,6 @@ app.get('/recup_group', isAuthenticated, async (req, res) => {
 
 
 
-=======
->>>>>>> 0f005a2d624d3806205f0da7c80c78d182dd0d74
 app.get('/recup_message/:groupID', isAuthenticated, async (req, res) => {
     const { groupID } = req.params;
 
@@ -530,11 +527,6 @@ app.get('/recup_message/:groupID', isAuthenticated, async (req, res) => {
 });
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 0f005a2d624d3806205f0da7c80c78d182dd0d74
 app.post('/send_messages', isAuthenticated, (req, res) => {
     const ID_Utilisateur = req.session.user.id;
     const { Contenu, ID_Groupe } = req.body;
@@ -575,11 +567,8 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
 
 })
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 0f005a2d624d3806205f0da7c80c78d182dd0d74
 // Route pour supprimer une disponibilité
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);

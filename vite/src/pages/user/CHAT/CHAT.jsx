@@ -145,19 +145,12 @@ function Chat() {
             <div className="group-members">
               <h3>Membres du groupe</h3>
               <ul>
-<<<<<<< HEAD
                 {searchResults.map(user => (
                   <li key={user.id}>
                     <img src={user.image} alt={user.name} className="member-avatar" />
                     <div className="member-info">
                       <span>{user.name}</span>
                       <span className="status">{user.status}</span>
-=======
-                {searchResults.map(member => (
-                  <li key={member.ID_utilisateur}>
-                    <div className="member-info">
-                      <span>{member.Pseudo}</span>
->>>>>>> 0f005a2d624d3806205f0da7c80c78d182dd0d74
                     </div>
                   </li>
                 ))}
