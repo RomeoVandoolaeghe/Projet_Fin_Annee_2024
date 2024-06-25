@@ -8,19 +8,17 @@ import { FaComments } from 'react-icons/fa';
 import Navbar from '../../../components/Navbar/Navbar';
 import axios from 'axios';
 
-const users = [
-  { id: 1, name: 'Docteur Strange', status: 'Actif', image: '/profil.jpg' },
-];
-
 function Chat() {
   const [showGroupDetails, setShowGroupDetails] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState(users);
+  const [searchResults, setSearchResults] = useState([]);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [groupMembers, setGroupMembers] = useState([]);
+
   const dropdownRef = useRef(null);
   const groupNameRef = useRef(null);
-  const navigate = useNavigate(); // Utilisation du hook useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const sr = ScrollReveal({
@@ -52,15 +50,14 @@ function Chat() {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/recup_message/${groupID}`, { withCredentials: true });
-        console.log('Messages :', response.data);
         setMessages(response.data);
-        console.log('Messages récupérés avec succès', response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des messages ", error);
       }
     };
 
     fetchMessages();
+    fetchGroupMembers();
   }, [groupID]);
 
   useEffect(() => {
@@ -69,10 +66,6 @@ function Chat() {
     }
   }, [groupNAME]);
 
-<<<<<<< HEAD
-  const toggleGroupDetails = () => {
-    setShowGroupDetails(!showGroupDetails);
-=======
   const fetchGroupMembers = async () => {
     try {
       const response = await axios.get(`http://localhost:3000/group_members/${groupID}`, { withCredentials: true });
@@ -81,7 +74,6 @@ function Chat() {
     } catch (error) {
       console.error("Erreur lors de la récupération des membres du groupe ", error);
     }
->>>>>>> 0f005a2d624d3806205f0da7c80c78d182dd0d74
   };
 
   const handleSearch = (event) => {
@@ -89,12 +81,12 @@ function Chat() {
     setSearchTerm(term);
 
     if (term) {
-      const results = users.filter(user =>
-        user.name.toLowerCase().includes(term)
+      const results = groupMembers.filter(member =>
+        member.Pseudo.toLowerCase().includes(term)
       );
       setSearchResults(results);
     } else {
-      setSearchResults(users);
+      setSearchResults(groupMembers);
     }
   };
 
@@ -102,7 +94,7 @@ function Chat() {
     axios.post('http://localhost:3000/send_messages', { Contenu: newMessage, ID_Groupe: groupID }, { withCredentials: true })
       .then((response) => {
         console.log('Message envoyé avec succès', response);
-        // location.reload(); // Recharger la page après l'envoi du message
+        location.reload(); // Recharger la page après l'envoi du message
       })
       .catch((error) => {
         console.error('Erreur lors de l\'envoi du message', error);
@@ -116,7 +108,12 @@ function Chat() {
   };
 
   const handleAddMember = () => {
-    navigate('/AddMember');
+    navigate('/AddMember', { state: { addMemberToGroup } });
+  };
+
+  const addMemberToGroup = (newMember) => {
+    setGroupMembers((prevMembers) => [...prevMembers, newMember]);
+    setSearchResults((prevResults) => [...prevResults, newMember]);
   };
 
   return (
@@ -145,19 +142,10 @@ function Chat() {
             <div className="group-members">
               <h3>Membres du groupe</h3>
               <ul>
-<<<<<<< HEAD
-                {searchResults.map(user => (
-                  <li key={user.id}>
-                    <img src={user.image} alt={user.name} className="member-avatar" />
-                    <div className="member-info">
-                      <span>{user.name}</span>
-                      <span className="status">{user.status}</span>
-=======
                 {searchResults.map(member => (
                   <li key={member.ID_utilisateur}>
                     <div className="member-info">
                       <span>{member.Pseudo}</span>
->>>>>>> 0f005a2d624d3806205f0da7c80c78d182dd0d74
                     </div>
                   </li>
                 ))}
@@ -174,14 +162,8 @@ function Chat() {
             </div>
             <div className="messages">
               {messages.map(message => (
-<<<<<<< HEAD
-                <span className='message'>
-                  {message.ID_Utilisateur + " :"}
-                  {message.Contenu}
-=======
                 <span className='message' key={message.ID_Message}>
                   <strong>{message.Pseudo}:</strong> {message.Contenu}
->>>>>>> 0f005a2d624d3806205f0da7c80c78d182dd0d74
                 </span>
               ))}
             </div>
