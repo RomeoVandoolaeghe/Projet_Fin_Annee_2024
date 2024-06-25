@@ -16,8 +16,7 @@ const Navbar = () => {
       .catch(error => {
         console.error('Erreur lors de la requête POST:', error);
       });
-  };
-
+  }
   return (
     <nav className="navbar">
       <div className="logo"><img src="logo.png" alt="Logo du site" /></div>
