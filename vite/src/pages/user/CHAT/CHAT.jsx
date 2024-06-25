@@ -51,6 +51,7 @@ function Chat() {
       try {
         const response = await axios.get(`http://localhost:3000/recup_message/${groupID}`, { withCredentials: true });
         setMessages(response.data);
+        console.log('Messages récupérés avec succès', response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des messages ", error);
       }
@@ -94,7 +95,7 @@ function Chat() {
     axios.post('http://localhost:3000/send_messages', { Contenu: newMessage, ID_Groupe: groupID }, { withCredentials: true })
       .then((response) => {
         console.log('Message envoyé avec succès', response);
-        location.reload(); // Recharger la page après l'envoi du message
+        // location.reload(); // Recharger la page après l'envoi du message
       })
       .catch((error) => {
         console.error('Erreur lors de l\'envoi du message', error);
@@ -161,7 +162,7 @@ function Chat() {
             </div>
             <div className="messages">
               {messages.map(message => (
-                <span className='message' key={message.ID_Utilisateur + message.Contenu}>
+                <span className='message'>
                   {message.ID_Utilisateur + " :"}
                   {message.Contenu}
                 </span>
