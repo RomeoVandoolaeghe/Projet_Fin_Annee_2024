@@ -94,7 +94,7 @@ app.post('/inscription', async (req, res) => {
             return res.send("L'adresse mail existe déjà");
         }
         await db.promise().query('INSERT INTO utilisateur (Pseudo, Mail, Password) VALUES (?, ?, ?)', [pseudo, e_mail, hashedPassword]);
-        res.send('Utilisateur enregistré avec succès');
+        res.status(301).send('Utilisateur enregistré avec succès');
     } catch (err) {
         console.error("Erreur lors de l'insertion dans la base de données : ", err);
         res.status(500).send('Erreur serveur');
@@ -593,9 +593,8 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
             return;
         }
         res.send({ message: 'Sortie créée avec succès', ID_Creator: ID_Creator });
+        
     });
-
-
 })
 
 // Route pour supprimer une disponibilité
@@ -718,3 +717,26 @@ app.get('/group_members/:groupID', isAuthenticated, async (req, res) => {
         res.status(500).send('Erreur serveur');
     }
 });
+
+
+
+app.post('/add_member_sortie',isAuthenticated, (req, res) => {
+    const ID_Creator = req.session.user.id;
+    const { nom_sortie } = req.body;
+    console.log(nom_sortie);
+    
+    const query = 'INSERT INTO participation (ID_Utilisateur, ID_Sortie) VALUES (?, (SELECT ID_Sortie FROM sortie WHERE Titre_Sortie=? AND ID_Creator=?))';
+
+    db.query(query, [ID_Creator, nom_sortie, ID_Creator], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de l\'ajout du membre à la sortie:', err);
+            res.status(500).send(err);
+            return;
+        }
+        res.send({ message: 'Membre ajouté avec succès', ID_Creator: ID_Creator });
+        db.query()
+    });
+});
+
+
+
