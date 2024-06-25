@@ -8,6 +8,7 @@ require('dotenv').config();
 const MySQLStore = require('express-mysql-session')(session);
 
 
+
 // Configuration de la base de données MySQL
 const options = {
     host: 'localhost',
@@ -67,12 +68,14 @@ db.connect((err) => {
 });
 
 
+
 // Middleware pour gérer les erreurs
 function errorHandler(err, req, res, next) {
     console.error(err.stack);
     res.status(500).send('Erreur serveur');
 }
 app.use(errorHandler);
+
 
 
 
@@ -715,6 +718,3 @@ app.get('/group_members/:groupID', isAuthenticated, async (req, res) => {
         res.status(500).send('Erreur serveur');
     }
 });
-
-
-
