@@ -527,25 +527,29 @@ app.get('/recup_group', isAuthenticated, async (req, res) => {
 
 
 app.get('/recup_message/:groupID', isAuthenticated, async (req, res) => {
+    const { groupID } = req.params;
+
     try {
-        const ID_Groupe = req.params.groupID;
-        const ID_Utilisateur = req.session.user.id;
-        console.log(ID_Groupe);
-
-        const sql1 = 'SELECT * FROM message_groupe WHERE ID_Groupe = ? ORDER BY Date_Envoi ASC';
-
-        db.query(sql1, [ID_Groupe], (err, result) => {
+        const sql = `
+            SELECT message_groupe.ID_Message, message_groupe.Contenu, utilisateur.Pseudo
+            FROM message_groupe
+            INNER JOIN utilisateur ON message_groupe.ID_Utilisateur = utilisateur.ID_utilisateur
+            WHERE message_groupe.ID_Groupe = ?
+            ORDER BY message_groupe.ID_Message ASC
+        `;
+        db.query(sql, [groupID], (err, results) => {
             if (err) {
-                console.error('Error executing query', err);
-                return res.status(500).json({ error: 'Internal server error' });
+                console.error('Erreur lors de la récupération des messages:', err);
+                return res.status(500).send('Erreur serveur');
             }
-            res.send(result);
+            res.status(200).json(results);
         });
-    } catch (err) {
-        console.error("Erreur lors de la récupération des messages ", err);
+    } catch (error) {
+        console.error('Erreur serveur:', error);
         res.status(500).send('Erreur serveur');
     }
 });
+
 
 
 

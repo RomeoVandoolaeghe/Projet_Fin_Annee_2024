@@ -155,6 +155,7 @@ function Chat() {
           </div>
           <div className="chat-area">
             <div className="chat-header">
+              <img src="/profil.jpg" alt="Group Logo" className="group-logo" />
               <h3 id='group-name' ref={groupNameRef}></h3>
               <div className="chat-header-icons">
                 <FontAwesomeIcon icon={faUserPlus} className="hover-icon" onClick={handleAddMember} />
@@ -162,9 +163,8 @@ function Chat() {
             </div>
             <div className="messages">
               {messages.map(message => (
-                <span className='message'>
-                  {message.ID_Utilisateur + " :"}
-                  {message.Contenu}
+                <span className='message' key={message.ID_Message}>
+                  <strong>{message.Pseudo}:</strong> {message.Contenu}
                 </span>
               ))}
             </div>

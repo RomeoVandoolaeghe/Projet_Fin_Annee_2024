@@ -49,14 +49,6 @@ const Group = ({ groups = [] }) => {
         <h2>Groupe <FaUsers /></h2>
       </div>
       <div className="group-page">
-        <div className="header-actions">
-          <input
-            type="text"
-            placeholder="Rechercher"
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
-        </div>
         <div className="group-grid">
           <div className="group-card">
             <Link to="/CreateGroup" className='nouveaugroupe'>
