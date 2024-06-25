@@ -28,6 +28,10 @@
   background-color: #6495ed;
 }
 
+button{
+  margin: 5px;
+}
+
 .item button {
   padding: 5px 10px;
   border: none;

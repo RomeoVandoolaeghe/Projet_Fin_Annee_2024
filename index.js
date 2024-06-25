@@ -606,7 +606,7 @@ app.listen(PORT, () => {
 
 
 // Route pour récupérer les sorties
-app.get('/sorties', (req, res) => {
+app.get('/sorties',isAuthenticated, (req, res) => {
     const sql = 'SELECT * FROM sortie';
     db.query(sql, (err, result) => {
         if (err) {
@@ -618,17 +618,17 @@ app.get('/sorties', (req, res) => {
 });
 
 
-// Route pour récupérer les sorties passées
-app.get('/sorties', isAuthenticated, (req, res) => {
-    const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
-    db.query(sql, (err, result) => {
-        if (err) {
-            console.error('Erreur lors de la récupération des sorties:', err);
-            return res.status(500).send(err);
-        }
-        res.json(result);
-    });
-});
+// // Route pour récupérer les sorties passées
+// app.get('/sorties', isAuthenticated, (req, res) => {
+//     const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
+//     db.query(sql, (err, result) => {
+//         if (err) {
+//             console.error('Erreur lors de la récupération des sorties:', err);
+//             return res.status(500).send(err);
+//         }
+//         res.json(result);
+//     });
+// });
 
 
 // Exemple de route pour récupérer les amis
