@@ -1,6 +1,21 @@
 # Projet_Fin_Annee_2024
 
+Note utilisateur importante:
 
-ok les gars du coup : 
+Pour lancer le projet l'utilisateur doit inscrire "npm start" dans son terminal.
 
-normalement tout est dans les fichiers, la branche s'appelle "lecode" , pour lancer les deux serveurs -> npm start
+Toutefois, si l'utilisateur lance le projet pour la première fois.
+Alors celui-ci devra lancer les commandes suivantes dans son terminal avant d'effectuer un npm start:
+
+La base de donnée devra par ailleurs être lancer avant l'execution du serveur.
+
+"npm install express"
+"npm install bcrypt"
+"npm install mysql2"
+"npm install cors"
+"npm install cookie-parser"
+"npm install express-session"
+"npm install dotenv"
+"npm install express-mysql-session" 
+"npm install concurrently"
+

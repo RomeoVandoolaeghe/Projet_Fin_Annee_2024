@@ -17,11 +17,6 @@ const GroupCard = ({ id, name, onDelete, onClick }) => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const handleShowModal = () => {
-    setShowModal(true);
-    setDropdownVisible(false);
-  };
-
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setDropdownVisible(false);
@@ -66,9 +61,6 @@ const GroupCard = ({ id, name, onDelete, onClick }) => {
             <ul className="dropdown" ref={dropdownRef}>
               <li>
                 <button onClick={handleDelete}>Supprimer</button>
-              </li>
-              <li>
-                <button onClick={handleShowModal}>Détails</button>
               </li>
             </ul>
           )}

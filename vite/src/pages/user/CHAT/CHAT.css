@@ -93,6 +93,7 @@
   padding: 3px 0;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
+  flex-direction: column;
 }
 
 .group-members li:hover {
@@ -107,7 +108,7 @@
 }
 
 .member-info {
-  flex-grow: 1;
+  flex-grow: 3;
 }
 
 .member-info span {

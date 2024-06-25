@@ -495,6 +495,7 @@ app.get('/recup_group', isAuthenticated, async (req, res) => {
 });
 
 
+<<<<<<< HEAD
 
 
 
@@ -502,28 +503,38 @@ app.get('/recup_group', isAuthenticated, async (req, res) => {
 
 
 
+=======
+>>>>>>> 0f005a2d624d3806205f0da7c80c78d182dd0d74
 app.get('/recup_message/:groupID', isAuthenticated, async (req, res) => {
+    const { groupID } = req.params;
+
     try {
-        const ID_Groupe = req.params.groupID;
-        const ID_Utilisateur = req.session.user.id;
-        console.log(ID_Groupe);
-
-        const sql1 = 'SELECT * FROM message_groupe WHERE ID_Groupe = ? ORDER BY Date_Envoi ASC';
-
-        db.query(sql1, [ID_Groupe], (err, result) => {
+        const sql = `
+            SELECT message_groupe.ID_Message, message_groupe.Contenu, utilisateur.Pseudo
+            FROM message_groupe
+            INNER JOIN utilisateur ON message_groupe.ID_Utilisateur = utilisateur.ID_utilisateur
+            WHERE message_groupe.ID_Groupe = ?
+            ORDER BY message_groupe.ID_Message ASC
+        `;
+        db.query(sql, [groupID], (err, results) => {
             if (err) {
-                console.error('Error executing query', err);
-                return res.status(500).json({ error: 'Internal server error' });
+                console.error('Erreur lors de la récupération des messages:', err);
+                return res.status(500).send('Erreur serveur');
             }
-            res.send(result);
+            res.status(200).json(results);
         });
-    } catch (err) {
-        console.error("Erreur lors de la récupération des messages ", err);
+    } catch (error) {
+        console.error('Erreur serveur:', error);
         res.status(500).send('Erreur serveur');
     }
 });
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 0f005a2d624d3806205f0da7c80c78d182dd0d74
 app.post('/send_messages', isAuthenticated, (req, res) => {
     const ID_Utilisateur = req.session.user.id;
     const { Contenu, ID_Groupe } = req.body;
@@ -564,8 +575,11 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
 
 })
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 0f005a2d624d3806205f0da7c80c78d182dd0d74
 // Route pour supprimer une disponibilité
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
@@ -616,20 +630,43 @@ app.get('/amis', (req, res) => {
     });
 });
 
-  // Route pour supprimer un groupe
 app.post('/delete_group', isAuthenticated, async (req, res) => {
     const { id } = req.body;
+
+    if (!id) {
+        return res.status(400).send('ID du groupe non fourni');
+    }
+
     try {
-        const sql = 'DELETE FROM groupe WHERE ID_Groupe = ?';
-        db.query(sql, [id], (err, result) => {
+        // Supprimer les messages du groupe
+        const deleteMessagesSql = 'DELETE FROM message_groupe WHERE ID_Groupe = ?';
+        db.query(deleteMessagesSql, [id], (err, result) => {
             if (err) {
-                console.error('Erreur lors de la suppression du groupe:', err);
+                console.error('Erreur lors de la suppression des messages du groupe:', err);
                 return res.status(500).send('Erreur serveur');
             }
-            if (result.affectedRows === 0) {
-                return res.status(404).send('Groupe non trouvé');
-            }
-            res.status(200).send('Groupe supprimé avec succès');
+
+            // Supprimer les membres du groupe
+            const deleteMembersSql = 'DELETE FROM membre_groupe WHERE ID_Groupe = ?';
+            db.query(deleteMembersSql, [id], (err, result) => {
+                if (err) {
+                    console.error('Erreur lors de la suppression des membres du groupe:', err);
+                    return res.status(500).send('Erreur serveur');
+                }
+
+                // Supprimer le groupe
+                const deleteGroupSql = 'DELETE FROM groupe WHERE ID_Groupe = ?';
+                db.query(deleteGroupSql, [id], (err, result) => {
+                    if (err) {
+                        console.error('Erreur lors de la suppression du groupe:', err);
+                        return res.status(500).send('Erreur serveur');
+                    }
+                    if (result.affectedRows === 0) {
+                        return res.status(404).send('Groupe non trouvé');
+                    }
+                    res.status(200).send('Groupe supprimé avec succès');
+                });
+            });
         });
     } catch (error) {
         console.error('Erreur serveur:', error);

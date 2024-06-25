@@ -51,6 +51,7 @@ const CreateGroup = () => {
         setNotification({ type: 'success', message: 'Groupe créé avec succès!', visible: true });
         Add_member();
         resetForm();
+        window.location.href = 'http://localhost:5173/Group';
       })
       .catch((error) => {
         console.error('Erreur lors de la requête POST:', error);
