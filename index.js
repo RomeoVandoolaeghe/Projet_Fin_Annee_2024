@@ -7,7 +7,6 @@ const session = require("express-session");
 require('dotenv').config();
 const MySQLStore = require('express-mysql-session')(session);
 
-
 // Configuration de la base de données MySQL
 const options = {
     host: 'localhost',
@@ -20,9 +19,7 @@ const options = {
 // Création du store de sessions MySQL
 const sessionStore = new MySQLStore(options);
 
-
 const app = express(); // Crée une instance de l'application Express
-
 
 // Middleware pour gérer les requêtes CORS
 app.use(cors({
@@ -66,14 +63,12 @@ db.connect((err) => {
     console.log('Connecté à la base de données 2');
 });
 
-
 // Middleware pour gérer les erreurs
 function errorHandler(err, req, res, next) {
     console.error(err.stack);
     res.status(500).send('Erreur serveur');
 }
 app.use(errorHandler);
-
 
 
 // Routes
@@ -114,7 +109,6 @@ app.post('/connexion', async (req, res) => {
         }
 
 
-
         // Définissez la session utilisateur
         req.session.user = {
             id: user.ID_utilisateur,
@@ -126,7 +120,6 @@ app.post('/connexion', async (req, res) => {
         res.status(500).send('Erreur serveur');
     }
 });
-
 
 
 
@@ -153,7 +146,6 @@ app.post('/logout', (req, res) => {
 });
 
 
-
 // Middleware pour vérifier si l'utilisateur est authentifié
 function isAuthenticated(req, res, next) {
     if (req.session.user) {
@@ -163,9 +155,7 @@ function isAuthenticated(req, res, next) {
         return res.status(201).send('Non authentifié');
     }
 
-
 }
-
 
 // Route pour les disponibilités
 app.post('/disponibilites', isAuthenticated, async (req, res) => {
@@ -184,7 +174,6 @@ app.post('/disponibilites', isAuthenticated, async (req, res) => {
     }
 });
 
-
 // Route pour récupérer les disponibilités
 app.get('/disponibilites', isAuthenticated, async (req, res) => {
     try {
@@ -196,7 +185,6 @@ app.get('/disponibilites', isAuthenticated, async (req, res) => {
         res.status(500).send('Erreur serveur');
     }
 });
-
 
 
 
@@ -217,7 +205,6 @@ app.post("/verif_ami", isAuthenticated, (req, res) => {
             return res.status(500).json({ error: 'Internal server error' });
         }
 
-
         if (result.length > 0) {
             return res.json({ message: 'La relation d\'amitié existe déjà entre les utilisateurs' });
         }
@@ -227,10 +214,8 @@ app.post("/verif_ami", isAuthenticated, (req, res) => {
 });
 
 
-
 app.get("/friends", isAuthenticated, async (req, res) => {
     const ID_utilisateur1 = req.session.user.id;
-
 
     // Vérifiez d'abord si la relation existe déjà dans les deux sens
     const checkSql = 'SELECT ID_utilisateur2 FROM amitie WHERE ID_utilisateur1 = ?';
@@ -265,12 +250,10 @@ app.get("/friends", isAuthenticated, async (req, res) => {
 
 
 
-
 app.post('/acces', isAuthenticated, async (req, res) => {
     return res.status(200).send('Accès autorisé');
 
 });
-
 
 
 app.post('/create_ami', isAuthenticated, (req, res) => {
@@ -299,7 +282,6 @@ app.post('/create_ami', isAuthenticated, (req, res) => {
     });
 });
 
-
 app.post('/delete_ami', isAuthenticated, (req, res) => {
     const ID_utilisateur1 = req.session.user.id;
     console.log(ID_utilisateur1);
@@ -322,7 +304,6 @@ app.post('/delete_ami', isAuthenticated, (req, res) => {
     });
 });
 
-
 app.post('/ajout_dispo', isAuthenticated, (req, res) => {
     const ID_utilisateur = req.session.user.id;
     const { jour, heure_debut, heure_fin } = req.body;
@@ -337,7 +318,6 @@ app.post('/ajout_dispo', isAuthenticated, (req, res) => {
         return res.status(200).json({ message: 'Disponibilité modifiée avec succès' });
     });
 });
-
 
 app.post('/verif_dispo', isAuthenticated, (req, res) => {
     const ID_utilisateur = req.session.user.id;
@@ -354,7 +334,6 @@ app.post('/verif_dispo', isAuthenticated, (req, res) => {
         return res.status(200).send(result[0]);
     });
 });
-
 
 app.post('/modif_dispo', isAuthenticated, (req, res) => {
     const ID_utilisateur = req.session.user.id;
@@ -373,9 +352,7 @@ app.post('/modif_dispo', isAuthenticated, (req, res) => {
 
 
 
-
 app.post("/delete_dispo", isAuthenticated, (req, res) => {
-
 
     const ID_utilisateur = req.session.user.id;
     const { jour } = req.body;
@@ -397,7 +374,6 @@ app.post("/delete_dispo", isAuthenticated, (req, res) => {
 
 });
 
-
 app.get('/get_pseudo', isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
@@ -409,7 +385,6 @@ app.get('/get_pseudo', isAuthenticated, async (req, res) => {
     }
 });
 
-
 app.get('/recup_dispo', isAuthenticated, async (req, res) => {
     try {
         const ID_user = req.session.user.id;
@@ -420,7 +395,6 @@ app.get('/recup_dispo', isAuthenticated, async (req, res) => {
         res.status(500).send('Erreur serveur');
     }
 });
-
 
 
 app.get('/recup_description', isAuthenticated, async (req, res) => {
@@ -435,9 +409,7 @@ app.get('/recup_description', isAuthenticated, async (req, res) => {
 });
 
 
-
 app.post('/edit_description', isAuthenticated, async (req, res) => {
-
 
     const ID_utilisateur = req.session.user.id;
     const { description } = req.body;
@@ -453,7 +425,6 @@ app.post('/edit_description', isAuthenticated, async (req, res) => {
         return res.status(200).json({ message: 'Description a bien été inséré' });
     });
 });
-
 
 
 app.post('/edit_wishlist', isAuthenticated, async (req, res) => {
@@ -472,7 +443,6 @@ app.post('/edit_wishlist', isAuthenticated, async (req, res) => {
         return res.status(200).json({ message: 'Wishlist a bien été updater' });
     });
 });
-
 
 app.post('/create_group', isAuthenticated, async (req, res) => {
 
@@ -493,7 +463,6 @@ app.post('/create_group', isAuthenticated, async (req, res) => {
 
 });
 
-
 app.post('/add_member', isAuthenticated, async (req, res) => {
 
     const ID_utilisateur = req.session.user.id;
@@ -512,7 +481,6 @@ app.post('/add_member', isAuthenticated, async (req, res) => {
     });
 });
 
-
 app.get('/recup_group', isAuthenticated, async (req, res) => {
 
     try {
@@ -525,7 +493,6 @@ app.get('/recup_group', isAuthenticated, async (req, res) => {
         res.status(500).send('Erreur serveur');
     }
 });
-
 
 
 
@@ -557,7 +524,6 @@ app.get('/recup_message/:groupID', isAuthenticated, async (req, res) => {
 });
 
 
-
 app.post('/send_messages', isAuthenticated, (req, res) => {
     const ID_Utilisateur = req.session.user.id;
     const { Contenu, ID_Groupe } = req.body;
@@ -573,7 +539,6 @@ app.post('/send_messages', isAuthenticated, (req, res) => {
         res.send({ message: 'Message envoyé avec succès', ID_Utilisateur: ID_Utilisateur });
     });
 });
-
 
 
 app.post('/creer_sortie', isAuthenticated, (req, res) => {
@@ -597,9 +562,7 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
         res.send({ message: 'Sortie créée avec succès', ID_Creator: ID_Creator });
     });
 
-
 })
-
 
 
 
@@ -607,7 +570,6 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });
-
 
 
 // Route pour récupérer les sorties
@@ -622,7 +584,6 @@ app.get('/sorties', (req, res) => {
     });
 });
 
-
 // Route pour récupérer les sorties passées
 app.get('/sorties', isAuthenticated, (req, res) => {
     const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
@@ -634,7 +595,6 @@ app.get('/sorties', isAuthenticated, (req, res) => {
         res.json(result);
     });
 });
-
 
 // Exemple de route pour récupérer les amis
 app.get('/amis', (req, res) => {
@@ -676,3 +636,45 @@ app.post('/delete_group', isAuthenticated, async (req, res) => {
         res.status(500).send('Erreur serveur');
     }
 });
+
+// Route pour récupérer les images disponibles
+app.get('/get_images', isAuthenticated, async (req, res) => {
+    try {
+      const [rows] = await db.promise().query('SELECT * FROM images');
+      res.send(rows);
+    } catch (err) {
+      console.error("Erreur lors de la récupération des images : ", err);
+      res.status(500).send('Erreur serveur');
+    }
+  });
+  
+  // Route pour mettre à jour l'image de profil de l'utilisateur
+  app.post('/update_profile_image', isAuthenticated, async (req, res) => {
+    const ID_utilisateur = req.session.user.id;
+    const { image } = req.body;
+  
+    const updateSql = 'UPDATE utilisateur SET image = ? WHERE ID_utilisateur = ?';
+  
+    db.query(updateSql, [image, ID_utilisateur], (err, result) => {
+      if (err) {
+        console.error('Error executing query', err);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+  
+      return res.status(200).json({ message: 'Image de profil mise à jour avec succès' });
+    });
+  });
+  
+  // Route pour récupérer l'image de profil de l'utilisateur
+  app.get('/get_profile_image', isAuthenticated, async (req, res) => {
+    const ID_user = req.session.user.id;
+  
+    const [rows] = await db.promise().query('SELECT image FROM utilisateur WHERE ID_utilisateur = ?', [ID_user]);
+  
+    if (rows.length > 0) {
+      res.send(rows[0]);
+    } else {
+      res.status(404).send('Image de profil non trouvée');
+    }
+  });
+  
