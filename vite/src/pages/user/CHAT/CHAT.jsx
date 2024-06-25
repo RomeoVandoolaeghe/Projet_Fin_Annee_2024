@@ -157,7 +157,9 @@ function Chat() {
               <img src="/profil.jpg" alt="Group Logo" className="group-logo" />
               <h3 id='group-name' ref={groupNameRef}></h3>
               <div className="chat-header-icons">
-                <FontAwesomeIcon icon={faUserPlus} className="hover-icon" onClick={handleAddMember} />
+                <Link to="/AddMember">
+                  <FontAwesomeIcon icon={faUserPlus} className="hover-icon" onClick={handleAddMember} />
+                </Link>
               </div>
             </div>
             <div className="messages">
