@@ -113,7 +113,7 @@ const LinePlan = () => {
             <span>{new Date(data.Date_Sortie).toLocaleDateString()}</span>
             <span>{new Date(data.Date_Sortie).toLocaleTimeString()}</span>
             <span>{data.Titre_Sortie}</span>
-            <span>lol</span>
+            <span>{data.nb_personnes}</span>
             <span>{data.ID_Creator}</span>
             <span>{data.Lieu}</span>
             <span>
