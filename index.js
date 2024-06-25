@@ -94,7 +94,7 @@ app.post('/inscription', async (req, res) => {
             return res.send("L'adresse mail existe déjà");
         }
         await db.promise().query('INSERT INTO utilisateur (Pseudo, Mail, Password) VALUES (?, ?, ?)', [pseudo, e_mail, hashedPassword]);
-        res.status(301).send('Utilisateur enregistré avec succès');
+        res.send('Utilisateur enregistré avec succès');
     } catch (err) {
         console.error("Erreur lors de l'insertion dans la base de données : ", err);
         res.status(500).send('Erreur serveur');
@@ -595,6 +595,8 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
         res.send({ message: 'Sortie créée avec succès', ID_Creator: ID_Creator });
 
     });
+
+
 })
 
 // Route pour supprimer une disponibilité
@@ -617,7 +619,7 @@ app.get('/sorties', isAuthenticated, (req, res) => {
 });
 
 
-// // Route pour récupérer les sorties passées
+// Route pour récupérer les sorties passées
 // app.get('/sorties', isAuthenticated, (req, res) => {
 //     const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
 //     db.query(sql, (err, result) => {
