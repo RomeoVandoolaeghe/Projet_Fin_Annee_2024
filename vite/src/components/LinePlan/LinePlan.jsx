@@ -52,16 +52,7 @@ const LinePlan = () => {
   const handleSortChange = (e) => {
     setSortType(e.target.value);
   };
-
-  // Fonction pour gérer la sélection d'un événement
-  const handleEventClick = (event) => {
-    setSelectedEvent(event);
-  };
-
-  // Fonction pour fermer la modal de l'événement sélectionné
-  const closeModal = () => {
-    setSelectedEvent(null);
-  };
+  
 
   // Filtrer et trier les données selon les critères de recherche, filtre et tri
   const filteredData = datas
@@ -114,22 +105,22 @@ const LinePlan = () => {
           <span>Lieu</span>
         </div>
         {filteredData.map((data, index) => (
-          <div key={index} className="item">
+          <div key={index} className="val" id="events">
             <span>{new Date(data.Date_Sortie).toLocaleDateString()}</span>
             <span>{new Date(data.Date_Sortie).toLocaleTimeString()}</span>
             <span>{data.Description_Sortie}</span>
-            <span>{data.Nb_personnes}</span>
+            <span>lol</span>
             <span>{data.Lieu}</span>
           </div>
         ))}
       </div>
-      {selectedEvent && (
+      {/* {selectedEvent && (
         <EventDetails 
           event={selectedEvent} 
           isOpen={!!selectedEvent} 
           onRequestClose={closeModal} 
         />
-      )}
+      )} */}
     </div>
   );
 }
