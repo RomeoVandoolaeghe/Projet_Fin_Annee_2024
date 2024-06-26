@@ -10,8 +10,8 @@ function UpComingEvents() {
     const fetchEvents = async () => {
       try {
         const response = await axios.get('http://localhost:3000/sorties', { withCredentials: true });
-        const upcomingEvents = filterUpcomingEvents(response.data);
-        setEvents(upcomingEvents);
+        setEvents(response.data);
+        console.log('sorties caca', response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des sorties:', error);
       }
@@ -20,10 +20,8 @@ function UpComingEvents() {
     fetchEvents();
   }, []);
 
-  const filterUpcomingEvents = (events) => {
-    const currentDate = new Date();
-    return events.filter(event => new Date(event.Date_Sortie) >= currentDate);
-  };
+
+
 
   return (
     <div className="upcoming-events">
