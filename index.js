@@ -696,6 +696,51 @@ app.get('/group_members/:groupID', isAuthenticated, async (req, res) => {
     }
 });
 
+
+app.post('/delete_group', isAuthenticated, async (req, res) => {
+    const { id } = req.body;
+
+    if (!id) {
+        return res.status(400).send('ID du groupe non fourni');
+    }
+
+    try {
+        // Supprimer les messages du groupe
+        const deleteMessagesSql = 'DELETE FROM message_groupe WHERE ID_Groupe = ?';
+        db.query(deleteMessagesSql, [id], (err, result) => {
+            if (err) {
+                console.error('Erreur lors de la suppression des messages du groupe:', err);
+                return res.status(500).send('Erreur serveur');
+            }
+
+            // Supprimer les membres du groupe
+            const deleteMembersSql = 'DELETE FROM membre_groupe WHERE ID_Groupe = ?';
+            db.query(deleteMembersSql, [id], (err, result) => {
+                if (err) {
+                    console.error('Erreur lors de la suppression des membres du groupe:', err);
+                    return res.status(500).send('Erreur serveur');
+                }
+
+                // Supprimer le groupe
+                const deleteGroupSql = 'DELETE FROM groupe WHERE ID_Groupe = ?';
+                db.query(deleteGroupSql, [id], (err, result) => {
+                    if (err) {
+                        console.error('Erreur lors de la suppression du groupe:', err);
+                        return res.status(500).send('Erreur serveur');
+                    }
+                    if (result.affectedRows === 0) {
+                        return res.status(404).send('Groupe non trouvé');
+                    }
+                    res.status(200).send('Groupe supprimé avec succès');
+                });
+            });
+        });
+    } catch (error) {
+        console.error('Erreur serveur:', error);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
 app.post('/add_membergroupe', (req, res) => {
     const { ID_Groupe, ID_Utilisateur } = req.body;
 
