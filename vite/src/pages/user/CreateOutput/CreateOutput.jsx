@@ -55,7 +55,19 @@ function CreateOutput() {
     setTimeout(() => {
       setNotification({ ...notification, visible: false });
     }, 5000);
+    handleAdd_Member_Sortie();
   };
+
+  const handleAdd_Member_Sortie = () => {
+    axios.post('http://localhost:3000/add_member_sortie_creator', { nom_sortie: formData.title }, { withCredentials: true })
+      .then((response) => {
+        console.log('Réponse du serveur:', response.data);
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la requête POST:', error);
+      });
+  };
+
 
   const navigate = useNavigate(); // Utilisation du hook useNavigate
   const handleCancel = () => {

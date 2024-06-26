@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import ScrollReveal from 'scrollreveal';
-import LineHead from '../../../components/LineHead/LineHead';
 import LinePlan from '../../../components/LinePlan/LinePlan';
 import './Events.css';
 import Navbar from '../../../components/Navbar/Navbar';
@@ -23,11 +22,13 @@ function Events() {
     <>
       <Navbar />
       <div className='header'>
-        <h2>Planning</h2>
+        <h2>Mes sorties</h2>
       </div>
       <div className='box'>
         <LinePlan />
       </div>
+
+
     </>
   );
 }
