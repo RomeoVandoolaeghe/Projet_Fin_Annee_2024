@@ -847,8 +847,8 @@ app.get('/sorties', isAuthenticated, (req, res) => {
 
 app.get('/invitations', isAuthenticated, (req, res) => {
     const session_id = req.session.user.id;
-    const sql = 'SELECT * FROM sortie WHERE ID_Sortie NOT IN (SELECT ID_Sortie FROM participation WHERE ID_Utilisateur = 2) AND ID_Groupe IN (SELECT ID_Groupe FROM membre_groupe WHERE ID_Utilisateur = 2)';
-    db.query(sql, [session_id], (err, result) => {
+    const sql = 'SELECT * FROM sortie WHERE ID_Sortie NOT IN (SELECT ID_Sortie FROM participation WHERE ID_Utilisateur = ?) AND ID_Groupe IN (SELECT ID_Groupe FROM membre_groupe WHERE ID_Utilisateur = ?)';
+    db.query(sql, [session_id,session_id], (err, result) => {
         if (err) {
             console.error('Erreur lors de la récupération des invitations:', err);
             return res.status(500).send(err);
