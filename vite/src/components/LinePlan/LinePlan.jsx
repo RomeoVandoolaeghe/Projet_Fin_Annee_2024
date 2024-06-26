@@ -19,10 +19,6 @@ const LinePlan = () => {
         const response = await axios.get('http://localhost:3000/sorties', { withCredentials: true });
         setDatas(response.data);
         console.log("sorties", response.data)
-        
-        // Récupérer les lieux uniques pour les options de filtre
-        const uniqueLocations = [...new Set(response.data.map(data => data.Lieu))];
-        setLocations(uniqueLocations);
       } catch (error) {
         console.error('Erreur lors de la récupération des sorties:', error);
       }
@@ -30,74 +26,22 @@ const LinePlan = () => {
 
     fetchData();
 
-    const sr = ScrollReveal({
-      origin: 'bottom',
-      distance: '20px',
-      duration: 500,
-      delay: 100,
-      reset: true,
-    });
-    sr.reveal('.reveal');
+    // const sr = ScrollReveal({
+    //   origin: 'bottom',
+    //   distance: '20px',
+    //   duration: 500,
+    //   delay: 100,
+    //   reset: true,
+    // });
+    // sr.reveal('.reveal');
   }, []);
 
-  // Fonction pour gérer les changements du champ de recherche
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  // Fonction pour gérer les changements du filtre de lieu
-  const handleFilterChange = (e) => {
-    setFilterLocation(e.target.value);
-  };
-
-  // Fonction pour gérer les changements du type de tri
-  const handleSortChange = (e) => {
-    setSortType(e.target.value);
-  };
-  
 
   // Filtrer et trier les données selon les critères de recherche, filtre et tri
-  const filteredData = datas
-    .filter(data => 
-      data.Description_Sortie.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (filterLocation ? data.Lieu === filterLocation : true)
-    )
-    .sort((a, b) => {
-      if (sortType === 'date') {
-        return new Date(a.Date_Sortie) - new Date(b.Date_Sortie);
-      } else if (sortType === 'titre') {
-        return a.Description_Sortie.localeCompare(b.Description_Sortie);
-      } else if (sortType === 'heure') {
-        return new Date(a.Date_Sortie).getTime() - new Date(b.Date_Sortie).getTime(); // Trier par heure
-      } else if (sortType === 'lieu') {
-        return a.Lieu.localeCompare(b.Lieu);
-      }
-      return 0;
-    });
-
+  
   return (
     <div>
-      <div className="filters">
-        <input 
-          type="text" 
-          placeholder="Rechercher une activité..." 
-          value={searchTerm} 
-          onChange={handleSearchChange} 
-        />
-        <select value={filterLocation} onChange={handleFilterChange}>
-          <option value="">Tous les lieux</option>
-          {locations.map((location, index) => (
-            <option key={index} value={location}>{location}</option>
-          ))}
-        </select>
-        <select value={sortType} onChange={handleSortChange}>
-          <option value="">Trier par</option>
-          <option value="date">Date</option>
-          <option value="titre">Titre</option>
-          <option value="heure">Heure</option>
-          <option value="lieu">Lieu</option>
-        </select>
-      </div>
+
       <div className="reveal">
         <div className="val">
           <span>Date</span>
@@ -108,7 +52,7 @@ const LinePlan = () => {
           <span>Lieu</span>
           <span>Invitation</span>
         </div>
-        {filteredData.map((data, index) => (
+        {datas.map((data, index) => (
           <div key={index} className="val" id="events">
             <span>{new Date(data.Date_Sortie).toLocaleDateString()}</span>
             <span>{new Date(data.Date_Sortie).toLocaleTimeString()}</span>
@@ -123,13 +67,6 @@ const LinePlan = () => {
           </div>
         ))}
       </div>
-      {/* {selectedEvent && (
-        <EventDetails 
-          event={selectedEvent} 
-          isOpen={!!selectedEvent} 
-          onRequestClose={closeModal} 
-        />
-      )} */}
     </div>
   );
 }

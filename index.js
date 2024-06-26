@@ -595,8 +595,6 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
         res.send({ message: 'Sortie créée avec succès', ID_Creator: ID_Creator });
 
     });
-
-
 })
 
 // Route pour supprimer une disponibilité
@@ -722,7 +720,7 @@ app.get('/group_members/:groupID', isAuthenticated, async (req, res) => {
 
 
 
-app.post('/add_member_sortie', isAuthenticated, (req, res) => {
+app.post('/add_member_sortie_creator', isAuthenticated, (req, res) => {
     const ID_Creator = req.session.user.id;
     const { nom_sortie } = req.body;
     console.log(nom_sortie);

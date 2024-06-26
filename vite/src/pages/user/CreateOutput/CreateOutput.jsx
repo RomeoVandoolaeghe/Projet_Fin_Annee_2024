@@ -59,7 +59,7 @@ function CreateOutput() {
   };
 
   const handleAdd_Member_Sortie = () => {
-    axios.post('http://localhost:3000/add_member_sortie', { nom_sortie: formData.title }, { withCredentials: true })
+    axios.post('http://localhost:3000/add_member_sortie_creator', { nom_sortie: formData.title }, { withCredentials: true })
       .then((response) => {
         console.log('Réponse du serveur:', response.data);
       })
