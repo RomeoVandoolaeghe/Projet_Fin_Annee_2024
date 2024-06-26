@@ -414,8 +414,6 @@ app.get('/get_pseudo', isAuthenticated, async (req, res) => {
 
 app.get('/get_pseudo/:id', isAuthenticated, async (req, res) => {
     const { id } = req.params;
-    console.log(id);
-
     try {
         const [rows] = await db.promise().query('SELECT Pseudo FROM utilisateur WHERE ID_utilisateur = ?', [id]);
         res.send(rows[0]);
@@ -861,7 +859,7 @@ app.get('/sorties', isAuthenticated, (req, res) => {
 app.get('/invitations', isAuthenticated, (req, res) => {
     const session_id = req.session.user.id;
     const sql = 'SELECT * FROM sortie WHERE ID_Sortie NOT IN (SELECT ID_Sortie FROM participation WHERE ID_Utilisateur = ?) AND ID_Groupe IN (SELECT ID_Groupe FROM membre_groupe WHERE ID_Utilisateur = ?)';
-    db.query(sql, [session_id,session_id], (err, result) => {
+    db.query(sql, [session_id, session_id], (err, result) => {
         if (err) {
             console.error('Erreur lors de la récupération des invitations:', err);
             return res.status(500).send(err);
@@ -880,7 +878,16 @@ app.post('/accepter_invitation', isAuthenticated, (req, res) => {
             console.error('Erreur lors de l\'acceptation de l\'invitation:', err);
             return res.status(500).send(err);
         }
-        res.send('Invitation acceptée avec succès');
+        db.query('UPDATE sortie SET nb_personnes = nb_personnes + 1 WHERE ID_Sortie = ?', [ID_Sortie], (err, result) => {
+            if (err) {
+                console.error('Erreur lors de la mise à jour du nombre de participants:', err);
+                return res.status(500).send(err);
+            }
+            res.send('Invitation acceptée avec succès');
+
+        });
+
+
     });
 });
 
