@@ -824,8 +824,9 @@ app.post('/accepter_invitation', isAuthenticated, (req, res) => {
         }
         res.send('Invitation acceptée avec succès');
     });
-
 });
+
+
 
 app.post('/refuser_invitation', isAuthenticated, (req, res) => {
     const session_id = req.session.user.id;
