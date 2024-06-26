@@ -412,6 +412,19 @@ app.get('/get_pseudo', isAuthenticated, async (req, res) => {
     }
 });
 
+app.get('/get_pseudo/:id', isAuthenticated, async (req, res) => {
+    const { id } = req.params;
+    console.log(id);
+
+    try {
+        const [rows] = await db.promise().query('SELECT Pseudo FROM utilisateur WHERE ID_utilisateur = ?', [id]);
+        res.send(rows[0]);
+    } catch (err) {
+        console.error("Erreur lors de la récupération du pseudo : ", err);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
 
 app.get('/recup_dispo', isAuthenticated, async (req, res) => {
     try {
