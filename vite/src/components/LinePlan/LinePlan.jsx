@@ -76,6 +76,7 @@ const LinePlan = () => {
           <span>Participants</span>
           <span>Créateur</span>
           <span>Lieu</span>
+          <span>Durée en minutes</span>
         </div>
         {data_sorties.map((data, index) => (
           <div key={index} className="val" id="events">
@@ -85,6 +86,7 @@ const LinePlan = () => {
             <span>{data.nb_personnes}</span>
             <span>{data.ID_Creator}</span>
             <span>{data.Lieu}</span>
+            <span>{data.Duree}</span>
           </div>
         ))}
       </div>
@@ -103,7 +105,9 @@ const LinePlan = () => {
           <span>Participants</span>
           <span>Créateur</span>
           <span>Lieu</span>
+          <span>Durée en minutes</span>
           <span>Invitation</span>
+
         </div>
         {data_invitations.map((data, index) => (
           <div key={index} className="val" id="events">
@@ -113,6 +117,7 @@ const LinePlan = () => {
             <span>{data.nb_personnes}</span>
             <span>{data.ID_Creator}</span>
             <span>{data.Lieu}</span>
+            <span>{data.Duree}</span>
             <span>
               <button title="Accepter" onClick={() => handleAccept(data.ID_Sortie)}>YES</button>
               <button title="Refuser" onClick={() => handleRefuse(data.ID_Sortie)}>NO</button>

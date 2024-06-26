@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ScrollReveal from 'scrollreveal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPaperPlane, faUserPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faPaperPlane, faUserPlus, faPlusCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 import './CHAT.css';
 import { FaComments } from 'react-icons/fa';
 import Navbar from '../../../components/Navbar/Navbar';
@@ -158,7 +158,7 @@ function Chat() {
               <h3 id='group-name' ref={groupNameRef}></h3>
               <div className="chat-header-icons">
                 <Link to="/AddMember">
-                  <FontAwesomeIcon icon={faUserPlus} className="hover-icon" onClick={handleAddMember} />
+                  <FontAwesomeIcon icon={faUser} className="hover-icon" onClick={handleAddMember} />
                 </Link>
               </div>
             </div>

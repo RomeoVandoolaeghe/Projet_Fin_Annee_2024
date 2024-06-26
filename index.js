@@ -847,7 +847,7 @@ app.get('/sorties', isAuthenticated, (req, res) => {
 
 app.get('/invitations', isAuthenticated, (req, res) => {
     const session_id = req.session.user.id;
-    const sql = 'SELECT * FROM sortie WHERE ID_Sortie NOT IN (SELECT ID_Sortie FROM participation WHERE ID_Utilisateur = ?);';
+    const sql = 'SELECT * FROM sortie WHERE ID_Sortie NOT IN (SELECT ID_Sortie FROM participation WHERE ID_Utilisateur = ?) INNER JOIN   ;';
     db.query(sql, [session_id], (err, result) => {
         if (err) {
             console.error('Erreur lors de la récupération des invitations:', err);
@@ -932,7 +932,7 @@ app.post('/leave_group', isAuthenticated, (req, res) => {
 });
 
 app.post('/leave_group', isAuthenticated, (req, res) => {
-    const {group_ID} = req.body;
+    const { group_ID } = req.body;
     const userID = req.session.user.id
 
     // Supprimer les messages de l'utilisateur dans le groupe
