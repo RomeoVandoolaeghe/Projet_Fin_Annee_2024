@@ -112,6 +112,20 @@ function AddMember() {
             });
     };
 
+
+    const handleLeaveGroup = (e) => {
+        e.preventDefault();
+        axios.post('http://localhost:3000/leave_group', { ID_Groupe: groupID }, { withCredentials: true })
+            .then(response => {
+                alert('Vous avez quitté le groupe !');
+                navigate('/Group');
+            })
+            .catch(error => {
+                alert('Erreur lors de la tentative de quitter le groupe.');
+                console.error('Erreur lors du départ du groupe :', error);
+            });
+    };
+
     return (
         <>
             <Navbar />
@@ -126,7 +140,7 @@ function AddMember() {
                             value={memberName}
                             onChange={(e) => setMemberName(e.target.value)}
                         >
-                            <option value="">Sélectionnez un membre</option>
+                            <option value="">Sélectionnez un ami</option>
                             {friends.map(friend => (
                                 <option key={friend.amiID} value={friend.amiPseudo}>
                                     {friend.amiPseudo}
@@ -156,9 +170,15 @@ function AddMember() {
                             ))}
                         </select>
                     </label>
-                    <br />
+                    <br/>
                     <button type="submit">Supprimer</button>
                 </form>
+                <br></br>
+                <h3>Je quitte le groupe</h3>
+                <form onSubmit={handleLeaveGroup}>
+                    <button type="submit">Quitter le groupe</button>
+                </form>
+
             </div>
         </>
     );

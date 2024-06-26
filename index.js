@@ -915,6 +915,64 @@ app.post('/add_member_sortie_creator', isAuthenticated, (req, res) => {
 
 
 
+app.post('/leave_group', isAuthenticated, (req, res) => {
+    const userID = req.session.user.id
+    const groupID = req.body.ID_Groupe; // ID du groupe à quitter
+
+    const query = 'DELETE FROM membre_groupe WHERE ID_Utilisateur = ? AND ID_Groupe = ?';
+
+    db.query(query, [userID, groupID], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de la suppression du membre du groupe:', err);
+            res.status(500).send({ error: 'Erreur lors de la suppression du membre du groupe' });
+            return;
+        }
+        res.send({ message: 'Vous avez quitté le groupe avec succès' });
+    });
+});
+
+app.post('/leave_group', isAuthenticated, (req, res) => {
+    const {group_ID} = req.body;
+    const userID = req.session.user.id
+
+    // Supprimer les messages de l'utilisateur dans le groupe
+    const deleteMessagesQuery = 'DELETE FROM message_groupe WHERE ID_Utilisateur = ? AND ID_Groupe = ?';
+
+    db.query(deleteMessagesQuery, [userID, group_ID], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de la suppression des messages de l\'utilisateur dans le groupe:', err);
+            res.status(500).send({ error: 'Erreur lors de la suppression des messages de l\'utilisateur dans le groupe' });
+            return;
+        }
+
+        // Supprimer l'utilisateur du groupe
+        const deleteMemberQuery = 'DELETE FROM membre_groupe WHERE ID_Utilisateur = ? AND ID_Groupe = ?';
+
+        db.query(deleteMemberQuery, [userID, group_ID], (err, results) => {
+            if (err) {
+                console.error('Erreur lors de la suppression de l\'utilisateur du groupe:', err);
+                res.status(500).send({ error: 'Erreur lors de la suppression de l\'utilisateur du groupe' });
+                return;
+            }
+
+            // Suppression de l'utilisateur du groupe dans la table principale
+            const deleteGroupUserQuery = 'DELETE FROM groupe WHERE ID_Groupe = ? AND ID_Creator = ?';
+
+            db.query(deleteGroupUserQuery, [group_ID, userID], (err, results) => {
+                if (err) {
+                    console.error('Erreur lors de la suppression de l\'utilisateur de la table groupe:', err);
+                    res.status(500).send({ error: 'Erreur lors de la suppression de l\'utilisateur de la table groupe' });
+                    return;
+                }
+
+                res.send({ message: 'Vous avez quitté le groupe avec succès' });
+            });
+        });
+    });
+});
+
+
+
 
 
 
