@@ -738,66 +738,66 @@ app.post('/add_membergroupe', (req, res) => {
     });
 });
 
-    app.get('/get_user_id', (req, res) => {
-        const { pseudo } = req.query;
-    
-        db.query('SELECT ID_utilisateur FROM utilisateur WHERE Pseudo = ?', [pseudo], (err, result) => {
-            if (err) {
-                console.error('Erreur lors de la récupération de l\'ID utilisateur :', err);
-                return res.status(500).send('Erreur lors de la récupération de l\'ID utilisateur');
-            }
-            if (result.length > 0) {
-                res.send({ id: result[0].ID_utilisateur });
-            } else {
-                res.status(404).send('Utilisateur non trouvé');
-            }
-        });
-    });
+app.get('/get_user_id', (req, res) => {
+    const { pseudo } = req.query;
 
-
-    app.post('/delete_group_member', (req, res) => {
-        const { ID_Utilisateur, ID_Groupe } = req.body;
-    
-        if (!ID_Utilisateur || !ID_Groupe) {
-            return res.status(400).send('ID_Utilisateur et ID_Groupe sont requis');
+    db.query('SELECT ID_utilisateur FROM utilisateur WHERE Pseudo = ?', [pseudo], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la récupération de l\'ID utilisateur :', err);
+            return res.status(500).send('Erreur lors de la récupération de l\'ID utilisateur');
         }
-    
-        const query = 'DELETE FROM membre_groupe WHERE ID_Utilisateur = ? AND ID_Groupe = ?';
-        db.query(query, [ID_Utilisateur, ID_Groupe], (err, result) => {
-            if (err) {
-                console.error('Erreur lors de la suppression du membre du groupe :', err);
-                return res.status(500).send('Erreur lors de la suppression du membre du groupe');
-            }
-            res.send({ message: 'Membre supprimé du groupe avec succès' });
-        });
-    });
-
-    app.get('/group_members', (req, res) => {
-        const { groupId } = req.query;
-        const ID_user = req.session.user.id;
-
-        if (!groupId) {
-            return res.status(400).send('groupId est requis');
+        if (result.length > 0) {
+            res.send({ id: result[0].ID_utilisateur });
+        } else {
+            res.status(404).send('Utilisateur non trouvé');
         }
-    
-        const query = `
+    });
+});
+
+
+app.post('/delete_group_member', (req, res) => {
+    const { ID_Utilisateur, ID_Groupe } = req.body;
+
+    if (!ID_Utilisateur || !ID_Groupe) {
+        return res.status(400).send('ID_Utilisateur et ID_Groupe sont requis');
+    }
+
+    const query = 'DELETE FROM membre_groupe WHERE ID_Utilisateur = ? AND ID_Groupe = ?';
+    db.query(query, [ID_Utilisateur, ID_Groupe], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la suppression du membre du groupe :', err);
+            return res.status(500).send('Erreur lors de la suppression du membre du groupe');
+        }
+        res.send({ message: 'Membre supprimé du groupe avec succès' });
+    });
+});
+
+app.get('/group_members', (req, res) => {
+    const { groupId } = req.query;
+    const ID_user = req.session.user.id;
+
+    if (!groupId) {
+        return res.status(400).send('groupId est requis');
+    }
+
+    const query = `
             SELECT mg.ID_Utilisateur, mg.ID_Groupe, u.Pseudo
             FROM membre_groupe mg
             JOIN utilisateur u ON mg.ID_Utilisateur = u.ID_utilisateur
             WHERE mg.ID_Groupe = ? AND mg.ID_Utilisateur != ?
         `;
-        db.query(query, [groupId,ID_user], (err, results) => {
+    db.query(query, [groupId, ID_user], (err, results) => {
 
-            if (err) {
-                console.error('Erreur lors de la récupération des membres du groupe :', err);
-                return res.status(500).send('Erreur lors de la récupération des membres du groupe');
-            }
-            res.send(results);
-        });
+        if (err) {
+            console.error('Erreur lors de la récupération des membres du groupe :', err);
+            return res.status(500).send('Erreur lors de la récupération des membres du groupe');
+        }
+        res.send(results);
     });
-    
+});
 
-  
+
+
 
 
 
