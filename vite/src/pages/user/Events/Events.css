@@ -53,14 +53,19 @@ h1 {
 
 /* LineHead styles */
 .val {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ; /* Diviser en deux colonnes */
   border: 1px solid black; /* Réduire la bordure */
   background-color: #4682b4;
   padding: 5px; /* Réduire le padding */
   margin: 5px; /* Réduire la marge */
   font-size: 0.9rem; /* Réduire la taille de la police */
 }
+
+#events{
+  background-color: #60afef ;
+}
+
 
 /* LinePlan styles */
 .item {
