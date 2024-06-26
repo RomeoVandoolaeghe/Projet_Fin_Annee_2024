@@ -605,18 +605,6 @@ app.listen(PORT, () => {
 
 
 
-// Route pour récupérer les sorties
-app.get('/sorties', isAuthenticated, (req, res) => {
-    const session_id = req.session.user.id;
-    const sql = 'SELECT * FROM sortie JOIN participation ON sortie.ID_Sortie = participation.ID_Sortie WHERE participation.ID_Utilisateur = ?;';
-    db.query(sql, [session_id], (err, result) => {
-        if (err) {
-            console.error('Erreur lors de la récupération des sorties:', err);
-            return res.status(500).send(err);
-        }
-        res.json(result);
-    });
-});
 
 // Route pour récupérer les sorties passées
 // app.get('/sorties', isAuthenticated, (req, res) => {
@@ -797,6 +785,21 @@ app.get('/group_members', (req, res) => {
 });
 
 
+// Route pour récupérer les sorties
+app.get('/sorties', isAuthenticated, (req, res) => {
+    const session_id = req.session.user.id;
+    const sql = 'SELECT * FROM sortie JOIN participation ON sortie.ID_Sortie = participation.ID_Sortie WHERE participation.ID_Utilisateur = ? AND participation.PARTICIPATE = 1;';
+    db.query(sql, [session_id], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la récupération des sorties:', err);
+            return res.status(500).send(err);
+        }
+        res.json(result);
+    });
+});
+
+
+
 app.get('/invitations', isAuthenticated, (req, res) => {
     const session_id = req.session.user.id;
     const sql = 'SELECT * FROM sortie WHERE ID_Sortie NOT IN (SELECT ID_Sortie FROM participation WHERE ID_Utilisateur = ?);';
@@ -813,7 +816,7 @@ app.get('/invitations', isAuthenticated, (req, res) => {
 app.post('/accepter_invitation', isAuthenticated, (req, res) => {
     const session_id = req.session.user.id;
     const { ID_Sortie } = req.body;
-    const sql = 'INSERT INTO participation (ID_Utilisateur, ID_Sortie) VALUES (?, ?);';
+    const sql = 'INSERT INTO participation (ID_Utilisateur, ID_Sortie, PARTICIPATE) VALUES (?,?,1);';
     db.query(sql, [session_id, ID_Sortie], (err, result) => {
         if (err) {
             console.error('Erreur lors de l\'acceptation de l\'invitation:', err);
@@ -824,12 +827,26 @@ app.post('/accepter_invitation', isAuthenticated, (req, res) => {
 
 });
 
+app.post('/refuser_invitation', isAuthenticated, (req, res) => {
+    const session_id = req.session.user.id;
+    const { ID_Sortie } = req.body;
+    const sql = 'INSERT INTO participation (ID_Utilisateur, ID_Sortie, PARTICIPATE) VALUES (?, ?,0);';
+    db.query(sql, [session_id, ID_Sortie], (err, result) => {
+        if (err) {
+            console.error('Erreur lors du refus de l\'invitation:', err);
+            return res.status(500).send(err);
+        }
+        res.send('Invitation refusée avec succès');
+    });
+});
+
+
 app.post('/add_member_sortie_creator', isAuthenticated, (req, res) => {
     const ID_Creator = req.session.user.id;
     const { nom_sortie } = req.body;
     console.log(nom_sortie);
 
-    const query = 'INSERT INTO participation (ID_Utilisateur, ID_Sortie) VALUES (?, (SELECT ID_Sortie FROM sortie WHERE Titre_Sortie=? AND ID_Creator=?))';
+    const query = 'INSERT INTO participation (ID_Utilisateur, ID_Sortie,PARTICIPATE) VALUES (?, (SELECT ID_Sortie FROM sortie WHERE Titre_Sortie=? AND ID_Creator=?),1)';
 
     db.query(query, [ID_Creator, nom_sortie, ID_Creator], (err, results) => {
         if (err) {

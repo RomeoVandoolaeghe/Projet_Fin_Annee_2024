@@ -39,7 +39,7 @@ const LinePlan = () => {
 
   const handleAccept = async (id) => {
     try {
-      await axios.post('http://localhost:3000/accepter_invitation', { ID_Sortie: data_invitations[0].ID_Sortie }, { withCredentials: true });
+      await axios.post('http://localhost:3000/accepter_invitation', { ID_Sortie: id }, { withCredentials: true });
       console.log('Invitation acceptée');
       alert('Invitation acceptée');
       location.reload();
@@ -49,7 +49,21 @@ const LinePlan = () => {
   };
 
 
-console.log("les invitations: ",data_invitations)
+  const handleRefuse = async (id) => {
+    try {
+      await axios.post('http://localhost:3000/refuser_invitation', { ID_Sortie: id }, { withCredentials: true });
+      console.log('Invitation refusée');
+      alert('Invitation refusée');
+      location.reload();
+    }
+    catch (error) {
+      console.error('Erreur lors du refus de l\'invitation:', error);
+    }
+  };
+
+
+
+  console.log("les invitations: ", data_invitations)
 
   return (
     <div>
