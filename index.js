@@ -606,9 +606,10 @@ app.listen(PORT, () => {
 
 
 // Route pour récupérer les sorties
-app.get('/sorties', (req, res) => {
-    const sql = 'SELECT * FROM sortie';
-    db.query(sql, (err, result) => {
+app.get('/sorties', isAuthenticated, (req, res) => {
+    const session_id = req.session.user.id;
+    const sql = 'SELECT * FROM sortie JOIN participation ON sortie.ID_Sortie = participation.ID_Sortie WHERE participation.ID_Utilisateur = ?;';
+    db.query(sql, [session_id], (err, result) => {
         if (err) {
             console.error('Erreur lors de la récupération des sorties:', err);
             return res.status(500).send(err);
@@ -616,19 +617,18 @@ app.get('/sorties', (req, res) => {
         res.json(result);
     });
 });
-
 
 // Route pour récupérer les sorties passées
-app.get('/sorties', isAuthenticated, (req, res) => {
-    const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
-    db.query(sql, (err, result) => {
-        if (err) {
-            console.error('Erreur lors de la récupération des sorties:', err);
-            return res.status(500).send(err);
-        }
-        res.json(result);
-    });
-});
+// app.get('/sorties', isAuthenticated, (req, res) => {
+//     const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
+//     db.query(sql, (err, result) => {
+//         if (err) {
+//             console.error('Erreur lors de la récupération des sorties:', err);
+//             return res.status(500).send(err);
+//         }
+//         res.json(result);
+//     });
+// });
 
 
 
@@ -796,6 +796,59 @@ app.get('/group_members', (req, res) => {
     });
 });
 
+
+app.get('/invitations', isAuthenticated, (req, res) => {
+    const session_id = req.session.user.id;
+    const sql = 'SELECT * FROM sortie WHERE ID_Sortie NOT IN (SELECT ID_Sortie FROM participation WHERE ID_Utilisateur = ?);';
+    db.query(sql, [session_id], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la récupération des invitations:', err);
+            return res.status(500).send(err);
+        }
+        res.json(result);
+    });
+});
+
+
+app.post('/accepter_invitation', isAuthenticated, (req, res) => {
+    const session_id = req.session.user.id;
+    const { ID_Sortie } = req.body;
+    const sql = 'INSERT INTO participation (ID_Utilisateur, ID_Sortie) VALUES (?, ?);';
+    db.query(sql, [session_id, ID_Sortie], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de l\'acceptation de l\'invitation:', err);
+            return res.status(500).send(err);
+        }
+        res.send('Invitation acceptée avec succès');
+    });
+
+});
+
+app.post('/add_member_sortie_creator', isAuthenticated, (req, res) => {
+    const ID_Creator = req.session.user.id;
+    const { nom_sortie } = req.body;
+    console.log(nom_sortie);
+
+    const query = 'INSERT INTO participation (ID_Utilisateur, ID_Sortie) VALUES (?, (SELECT ID_Sortie FROM sortie WHERE Titre_Sortie=? AND ID_Creator=?))';
+
+    db.query(query, [ID_Creator, nom_sortie, ID_Creator], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de l\'ajout du membre à la sortie:', err);
+            res.status(500).send({ error: 'Erreur lors de l\'ajout du membre à la sortie' });
+            return;
+        }
+
+        const updateQuery = 'UPDATE sortie SET nb_personnes = nb_personnes + 1 WHERE Titre_Sortie = ? AND ID_Creator = ?';
+        db.query(updateQuery, [nom_sortie, ID_Creator], (err, results) => {
+            if (err) {
+                console.error('Erreur lors de la mise à jour du nombre de participants:', err);
+                res.status(500).send({ error: 'Erreur lors de la mise à jour du nombre de participants' });
+                return;
+            }
+            res.send({ message: 'Membre ajouté avec succès', ID_Creator: ID_Creator });
+        });
+    });
+});
 
 
 
