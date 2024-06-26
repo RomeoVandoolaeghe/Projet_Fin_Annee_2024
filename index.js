@@ -606,8 +606,9 @@ app.listen(PORT, () => {
 
 // Route pour récupérer les sorties
 app.get('/sorties', isAuthenticated, (req, res) => {
-    const sql = 'SELECT * FROM sortie';
-    db.query(sql, (err, result) => {
+    const session_id = req.session.user.id;
+    const sql = 'SELECT * FROM sortie JOIN participation ON sortie.ID_Sortie = participation.ID_Sortie WHERE participation.ID_Utilisateur = ?;';
+    db.query(sql, [session_id], (err, result) => {
         if (err) {
             console.error('Erreur lors de la récupération des sorties:', err);
             return res.status(500).send(err);
@@ -617,134 +618,164 @@ app.get('/sorties', isAuthenticated, (req, res) => {
 });
 
 
-// Route pour récupérer les sorties passées
-// app.get('/sorties', isAuthenticated, (req, res) => {
-//     const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
-//     db.query(sql, (err, result) => {
-//         if (err) {
-//             console.error('Erreur lors de la récupération des sorties:', err);
-//             return res.status(500).send(err);
-//         }
-//         res.json(result);
-//     });
-// });
+
+app.get('/invitations', isAuthenticated, (req, res) => {
+    const session_id = req.session.user.id;
+    const sql = 'SELECT * FROM sortie WHERE ID_Sortie NOT IN (SELECT ID_Sortie FROM participation WHERE ID_Utilisateur = ?);';
+    db.query(sql, [session_id], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la récupération des invitations:', err);
+            return res.status(500).send(err);
+        }
+        res.json(result);
+    });
+});
 
 
-// Exemple de route pour récupérer les amis
-app.get('/amis', (req, res) => {
-    const userId = req.session.user.id; // Récupérer l'ID de l'utilisateur actuel depuis la session
+app.post('/accepter_invitation', isAuthenticated, (req, res) => {
+    const session_id = req.session.user.id;
+    const { ID_Sortie } = req.body;
+    const sql = 'INSERT INTO participation (ID_Utilisateur, ID_Sortie) VALUES (?, ?);';
+    db.query(sql, [session_id, ID_Sortie], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de l\'acceptation de l\'invitation:', err);
+            return res.status(500).send(err);
+        }
+        res.send('Invitation acceptée avec succès');
+    });
 
-    const query = `
+});
+
+
+
+    // Route pour récupérer les sorties passées
+    // app.get('/sorties', isAuthenticated, (req, res) => {
+    //     const sql = 'SELECT * FROM sortie WHERE Date_Sortie < NOW()';
+    //     db.query(sql, (err, result) => {
+    //         if (err) {
+    //             console.error('Erreur lors de la récupération des sorties:', err);
+    //             return res.status(500).send(err);
+    //         }
+    //         res.json(result);
+    //     });
+    // });
+
+
+    // Exemple de route pour récupérer les amis
+    app.get('/amis', (req, res) => {
+        const userId = req.session.user.id; // Récupérer l'ID de l'utilisateur actuel depuis la session
+
+        const query = `
         SELECT u.ID_utilisateur, u.Pseudo 
         FROM utilisateur u 
         JOIN amitie a ON (u.ID_utilisateur = a.ID_utilisateur1 OR u.ID_utilisateur = a.ID_utilisateur2)
         WHERE (a.ID_utilisateur1 = ? OR a.ID_utilisateur2 = ?) AND u.ID_utilisateur != ?
     `;
 
-    db.query(query, [userId, userId, userId], (err, results) => {
-        if (err) {
-            console.error('Erreur lors de la récupération des amis :', err);
-            return res.status(500).send('Erreur serveur');
-        }
-        res.send(results);
-    });
-});
-
-app.post('/delete_group', isAuthenticated, async (req, res) => {
-    const { id } = req.body;
-
-    if (!id) {
-        return res.status(400).send('ID du groupe non fourni');
-    }
-
-    try {
-        // Supprimer les messages du groupe
-        const deleteMessagesSql = 'DELETE FROM message_groupe WHERE ID_Groupe = ?';
-        db.query(deleteMessagesSql, [id], (err, result) => {
+        db.query(query, [userId, userId, userId], (err, results) => {
             if (err) {
-                console.error('Erreur lors de la suppression des messages du groupe:', err);
+                console.error('Erreur lors de la récupération des amis :', err);
                 return res.status(500).send('Erreur serveur');
             }
+            res.send(results);
+        });
+    });
 
-            // Supprimer les membres du groupe
-            const deleteMembersSql = 'DELETE FROM membre_groupe WHERE ID_Groupe = ?';
-            db.query(deleteMembersSql, [id], (err, result) => {
+    app.post('/delete_group', isAuthenticated, async (req, res) => {
+        const { id } = req.body;
+
+        if (!id) {
+            return res.status(400).send('ID du groupe non fourni');
+        }
+
+        try {
+            // Supprimer les messages du groupe
+            const deleteMessagesSql = 'DELETE FROM message_groupe WHERE ID_Groupe = ?';
+            db.query(deleteMessagesSql, [id], (err, result) => {
                 if (err) {
-                    console.error('Erreur lors de la suppression des membres du groupe:', err);
+                    console.error('Erreur lors de la suppression des messages du groupe:', err);
                     return res.status(500).send('Erreur serveur');
                 }
 
-                // Supprimer le groupe
-                const deleteGroupSql = 'DELETE FROM groupe WHERE ID_Groupe = ?';
-                db.query(deleteGroupSql, [id], (err, result) => {
+                // Supprimer les membres du groupe
+                const deleteMembersSql = 'DELETE FROM membre_groupe WHERE ID_Groupe = ?';
+                db.query(deleteMembersSql, [id], (err, result) => {
                     if (err) {
-                        console.error('Erreur lors de la suppression du groupe:', err);
+                        console.error('Erreur lors de la suppression des membres du groupe:', err);
                         return res.status(500).send('Erreur serveur');
                     }
-                    if (result.affectedRows === 0) {
-                        return res.status(404).send('Groupe non trouvé');
-                    }
-                    res.status(200).send('Groupe supprimé avec succès');
+
+                    // Supprimer le groupe
+                    const deleteGroupSql = 'DELETE FROM groupe WHERE ID_Groupe = ?';
+                    db.query(deleteGroupSql, [id], (err, result) => {
+                        if (err) {
+                            console.error('Erreur lors de la suppression du groupe:', err);
+                            return res.status(500).send('Erreur serveur');
+                        }
+                        if (result.affectedRows === 0) {
+                            return res.status(404).send('Groupe non trouvé');
+                        }
+                        res.status(200).send('Groupe supprimé avec succès');
+                    });
                 });
             });
-        });
-    } catch (error) {
-        console.error('Erreur serveur:', error);
-        res.status(500).send('Erreur serveur');
-    }
-});
+        } catch (error) {
+            console.error('Erreur serveur:', error);
+            res.status(500).send('Erreur serveur');
+        }
+    });
 
 
-app.get('/group_members/:groupID', isAuthenticated, async (req, res) => {
-    const { groupID } = req.params;
+    app.get('/group_members/:groupID', isAuthenticated, async (req, res) => {
+        const { groupID } = req.params;
 
-    try {
-        const sql = `
+        try {
+            const sql = `
             SELECT utilisateur.ID_utilisateur, utilisateur.Pseudo 
             FROM utilisateur 
             INNER JOIN membre_groupe ON utilisateur.ID_utilisateur = membre_groupe.ID_Utilisateur 
             WHERE membre_groupe.ID_Groupe = ?
         `;
-        db.query(sql, [groupID], (err, results) => {
-            if (err) {
-                console.error('Erreur lors de la récupération des membres du groupe:', err);
-                return res.status(500).send('Erreur serveur');
-            }
-            res.status(200).json(results);
-        });
-    } catch (error) {
-        console.error('Erreur serveur:', error);
-        res.status(500).send('Erreur serveur');
-    }
-});
-
-
-
-app.post('/add_member_sortie_creator', isAuthenticated, (req, res) => {
-    const ID_Creator = req.session.user.id;
-    const { nom_sortie } = req.body;
-    console.log(nom_sortie);
-
-    const query = 'INSERT INTO participation (ID_Utilisateur, ID_Sortie) VALUES (?, (SELECT ID_Sortie FROM sortie WHERE Titre_Sortie=? AND ID_Creator=?))';
-
-    db.query(query, [ID_Creator, nom_sortie, ID_Creator], (err, results) => {
-        if (err) {
-            console.error('Erreur lors de l\'ajout du membre à la sortie:', err);
-            res.status(500).send({ error: 'Erreur lors de l\'ajout du membre à la sortie' });
-            return;
+            db.query(sql, [groupID], (err, results) => {
+                if (err) {
+                    console.error('Erreur lors de la récupération des membres du groupe:', err);
+                    return res.status(500).send('Erreur serveur');
+                }
+                res.status(200).json(results);
+            });
+        } catch (error) {
+            console.error('Erreur serveur:', error);
+            res.status(500).send('Erreur serveur');
         }
+    });
 
-        const updateQuery = 'UPDATE sortie SET nb_personnes = nb_personnes + 1 WHERE Titre_Sortie = ? AND ID_Creator = ?';
-        db.query(updateQuery, [nom_sortie, ID_Creator], (err, results) => {
+
+
+    app.post('/add_member_sortie_creator', isAuthenticated, (req, res) => {
+        const ID_Creator = req.session.user.id;
+        const { nom_sortie } = req.body;
+        console.log(nom_sortie);
+
+        const query = 'INSERT INTO participation (ID_Utilisateur, ID_Sortie) VALUES (?, (SELECT ID_Sortie FROM sortie WHERE Titre_Sortie=? AND ID_Creator=?))';
+
+        db.query(query, [ID_Creator, nom_sortie, ID_Creator], (err, results) => {
             if (err) {
-                console.error('Erreur lors de la mise à jour du nombre de participants:', err);
-                res.status(500).send({ error: 'Erreur lors de la mise à jour du nombre de participants' });
+                console.error('Erreur lors de l\'ajout du membre à la sortie:', err);
+                res.status(500).send({ error: 'Erreur lors de l\'ajout du membre à la sortie' });
                 return;
             }
-            res.send({ message: 'Membre ajouté avec succès', ID_Creator: ID_Creator });
+
+            const updateQuery = 'UPDATE sortie SET nb_personnes = nb_personnes + 1 WHERE Titre_Sortie = ? AND ID_Creator = ?';
+            db.query(updateQuery, [nom_sortie, ID_Creator], (err, results) => {
+                if (err) {
+                    console.error('Erreur lors de la mise à jour du nombre de participants:', err);
+                    res.status(500).send({ error: 'Erreur lors de la mise à jour du nombre de participants' });
+                    return;
+                }
+                res.send({ message: 'Membre ajouté avec succès', ID_Creator: ID_Creator });
+            });
         });
     });
-});
 
 
 

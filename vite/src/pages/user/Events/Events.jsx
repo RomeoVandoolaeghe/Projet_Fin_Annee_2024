@@ -22,11 +22,13 @@ function Events() {
     <>
       <Navbar />
       <div className='header'>
-        <h2>Planning</h2>
+        <h2>Mes sorties</h2>
       </div>
       <div className='box'>
         <LinePlan />
       </div>
+
+
     </>
   );
 }

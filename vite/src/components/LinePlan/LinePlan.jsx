@@ -1,44 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ScrollReveal from 'scrollreveal';
 import './LinePlan.css';
-import { FaTicketAlt } from 'react-icons/fa';
+
 
 const LinePlan = () => {
-  const [datas, setDatas] = useState([]); // État pour stocker les données des sorties
-  const [searchTerm, setSearchTerm] = useState(''); // État pour le terme de recherche
-  const [filterLocation, setFilterLocation] = useState(''); // État pour le filtre de lieu
-  const [sortType, setSortType] = useState(''); // État pour le type de tri
-  const [selectedEvent, setSelectedEvent] = useState(null); // État pour l'événement sélectionné
-  const [locations, setLocations] = useState([]); // État pour stocker les lieux uniques
-
+  const [data_sorties, setData_sorties] = useState([]); // État pour stocker les données des sorties
+  const [data_invitations, setData_invit] = useState([]); // État pour stocker les données des invitations
   // useEffect pour récupérer les données des sorties et initialiser ScrollReveal
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchSorties = async () => {
       try {
         const response = await axios.get('http://localhost:3000/sorties', { withCredentials: true });
-        setDatas(response.data);
-        console.log("sorties", response.data)
+        setData_sorties(response.data);
+
+        console.log("sorties", response.data);
+
       } catch (error) {
         console.error('Erreur lors de la récupération des sorties:', error);
       }
     };
 
-    fetchData();
+    fetchSorties();
 
-    // const sr = ScrollReveal({
-    //   origin: 'bottom',
-    //   distance: '20px',
-    //   duration: 500,
-    //   delay: 100,
-    //   reset: true,
-    // });
-    // sr.reveal('.reveal');
+    const fetchInvitations = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/invitations', { withCredentials: true });
+        setData_invit(response.data);
+        console.log("invitations", response.data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des invitations:', error);
+      }
+    };
+
+    fetchInvitations();
+
   }, []);
 
 
-  // Filtrer et trier les données selon les critères de recherche, filtre et tri
-  
+  const handleAccept = async (id) => {
+    try {
+      await axios.post('http://localhost:3000/accepter_invitation', { ID_Sortie: data_invitations[0].ID_Sortie }, { withCredentials: true });
+      console.log('Invitation acceptée');
+      alert('Invitation acceptée');
+      location.reload();
+    } catch (error) {
+      console.error('Erreur lors de l\'acceptation de l\'invitation:', error);
+    }
+  };
+
+
+console.log("les invitations: ",data_invitations)
+
   return (
     <div>
 
@@ -50,9 +62,36 @@ const LinePlan = () => {
           <span>Participants</span>
           <span>Créateur</span>
           <span>Lieu</span>
+        </div>
+        {data_sorties.map((data, index) => (
+          <div key={index} className="val" id="events">
+            <span>{new Date(data.Date_Sortie).toLocaleDateString()}</span>
+            <span>{new Date(data.Date_Sortie).toLocaleTimeString()}</span>
+            <span>{data.Titre_Sortie}</span>
+            <span>{data.nb_personnes}</span>
+            <span>{data.ID_Creator}</span>
+            <span>{data.Lieu}</span>
+          </div>
+        ))}
+      </div>
+
+
+
+      <div className='header'>
+        <h2>Invitations</h2>
+      </div>
+
+      <div className="reveal">
+        <div className="val">
+          <span>Date</span>
+          <span>Heure</span>
+          <span>Titre</span>
+          <span>Participants</span>
+          <span>Créateur</span>
+          <span>Lieu</span>
           <span>Invitation</span>
         </div>
-        {datas.map((data, index) => (
+        {data_invitations.map((data, index) => (
           <div key={index} className="val" id="events">
             <span>{new Date(data.Date_Sortie).toLocaleDateString()}</span>
             <span>{new Date(data.Date_Sortie).toLocaleTimeString()}</span>
@@ -61,12 +100,14 @@ const LinePlan = () => {
             <span>{data.ID_Creator}</span>
             <span>{data.Lieu}</span>
             <span>
-              <button id='yes'>YES</button>
-              <button id='no'>NO</button>
+              <button title="Accepter" onClick={() => handleAccept(data.ID_Sortie)}>YES</button>
+              <button title="Refuser" onClick={() => handleRefuse(data.ID_Sortie)}>NO</button>
             </span>
           </div>
         ))}
       </div>
+
+
     </div>
   );
 }
