@@ -11,7 +11,6 @@ function UpComingEvents() {
       try {
         const response = await axios.get('http://localhost:3000/sorties', { withCredentials: true });
         setEvents(response.data);
-        console.log('sorties caca', response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des sorties:', error);
       }
