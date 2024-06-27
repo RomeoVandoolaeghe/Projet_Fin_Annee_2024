@@ -600,9 +600,13 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
     const dateSortie = new Date(date);
     const dateActuelle = new Date();
 
+    console.log('date sortie',dateSortie);
+    console.log('date actuelle', dateActuelle);
+
     // Vérifier que la date de la sortie est dans le futur
     if (dateSortie <= dateActuelle) {
-        res.status(200).send({ message: 'La date de la sortie doit être supérieure à la date actuelle.' });
+        res.status(201).send('La sortie doit être dans le futur!');
+        console.log('La date de la sortie doit être supérieure à la date actuelle.');
         return;
     }
 
@@ -614,7 +618,7 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
             res.status(500).send(err);
             return;
         }
-        res.send({ message: 'Sortie créée avec succès', ID_Creator: ID_Creator });
+        res.status(200).send({ message: 'Sortie créée avec succès', ID_Creator: ID_Creator });
     });
 })
 

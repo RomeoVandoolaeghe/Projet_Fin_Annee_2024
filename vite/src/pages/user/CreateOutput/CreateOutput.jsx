@@ -43,7 +43,9 @@ function CreateOutput() {
   const handleCreate = () => {
     axios.post('http://localhost:3000/creer_sortie', { ...formData, ID_Groupe: groupID }, { withCredentials: true })
       .then((response) => {
-        if(response.status === 200) {
+        console.log(response.status);
+        console.log(response.data);
+        if(response.status === 201) {
           return alert('La sortie doit être dans le futur!');
         }
         else{
