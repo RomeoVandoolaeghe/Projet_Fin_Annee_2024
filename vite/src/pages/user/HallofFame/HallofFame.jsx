@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MostFrequentFriends from '../../../components/MostFrequentFriends/MostFrequentFriends';
 import MostFrequentPlaces from '../../../components/MostFrequentPlaces/MostFrequentPlaces';
 import ParticipationStats from '../../../components/ParticipationStats/ParticipationStats';
+import CircularProgressWithLabel from '../../../components/CircularProgressWithLabel/CircularProgressWithLabel';
 import { FaTrophy } from 'react-icons/fa';
 import './HallofFame.css';
 import Navbar from '../../../components/Navbar/Navbar';
@@ -13,15 +14,23 @@ const initialUserStats = {
   totalEvents: 0,
   organizedEvents: 0,
   participationRate: 0,
+  badges: ['Organisateur expert', 'Amateur de cafés'],
 };
 
 const HallOfFame = () => {
   const [userStats, setUserStats] = useState(initialUserStats);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const fetchUserStats = async () => {
       try {
+        const userInfoResponse = await axios.get('http://localhost:3000/get_user_info', { withCredentials: true });
+        const isAdmin = userInfoResponse.data.isAdmin === 1;
+        setIsAdmin(isAdmin);
+
+        console.log('User isAdmin:', isAdmin);
+
         const [statsResponse, friendsResponse, placesResponse] = await Promise.all([
           axios.get('http://localhost:3000/get_statistics', { withCredentials: true }),
           axios.get('http://localhost:3000/get_top_friends', { withCredentials: true }),
@@ -63,6 +72,23 @@ const HallOfFame = () => {
     fetchUserStats();
   }, []);
 
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className='header'>
+          <h2>Hall of Fame <FaTrophy /></h2>
+        </div>
+        <div className="hall-of-fame">
+          <div className="loading-section">
+            <CircularProgressWithLabel value={0} />
+            <p>Chargement des informations...</p>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -72,11 +98,13 @@ const HallOfFame = () => {
       <div className="hall-of-fame">
         <MostFrequentFriends friends={userStats.mostFrequentFriends} />
         <MostFrequentPlaces places={userStats.mostFrequentPlaces} />
-        <ParticipationStats
-          totalEvents={userStats.totalEvents}
-          organizedEvents={userStats.organizedEvents}
-          participationRate={userStats.participationRate}
-        />
+        {isAdmin && (
+          <ParticipationStats
+            totalEvents={userStats.totalEvents}
+            organizedEvents={userStats.organizedEvents}
+            participationRate={userStats.participationRate}
+          />
+        )}
       </div>
     </>
   );
