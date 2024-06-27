@@ -110,8 +110,8 @@ function CreateOutput() {
               value={formData.description}
               onChange={handleChange}
               className='input1'
-              rows="30  "
-              cols="39"
+              rows="20"
+              cols="42"
             />
           </div>
           <div className='space'>

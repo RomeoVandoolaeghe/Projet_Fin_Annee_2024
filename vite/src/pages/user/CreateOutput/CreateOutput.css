@@ -190,6 +190,8 @@ textarea {
   height:40px;
   border-radius: 20px;
   padding-left:10px;
+  overflow:hidden;
+  margin:1rem;
 }
 .input1::placeholder{
   color: black;
