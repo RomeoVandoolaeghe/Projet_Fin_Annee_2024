@@ -595,6 +595,17 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
     console.log(lieu);
     console.log(ID_Groupe);
 
+
+    // Convertir la date de la sortie en objet Date
+    const dateSortie = new Date(date);
+    const dateActuelle = new Date();
+
+    // Vérifier que la date de la sortie est dans le futur
+    if (dateSortie <= dateActuelle) {
+        res.status(200).send({ message: 'La date de la sortie doit être supérieure à la date actuelle.' });
+        return;
+    }
+
     const query = 'INSERT INTO sortie (ID_Creator, Titre_Sortie, Date_Sortie, Duree, Description_Sortie, Lieu, ID_Groupe) VALUES (?, ?, ?, ?, ?, ?,?)';
 
     db.query(query, [ID_Creator, title, date, duree, description, lieu, ID_Groupe], (err, results) => {
@@ -605,8 +616,6 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
         }
         res.send({ message: 'Sortie créée avec succès', ID_Creator: ID_Creator });
     });
-
-
 })
 
 // Route pour supprimer une disponibilité
@@ -739,10 +748,17 @@ app.post('/delete_group', isAuthenticated, async (req, res) => {
                         console.error('Erreur lors de la suppression du groupe:', err);
                         return res.status(500).send('Erreur serveur');
                     }
-                    if (result.affectedRows === 0) {
-                        return res.status(404).send('Groupe non trouvé');
-                    }
-                    res.status(200).send('Groupe supprimé avec succès');
+                    db.query('DELETE FROM sortie WHERE ID_Groupe = ?', [id], (err, result) => {
+                        if (err) {
+                            console.error('Erreur lors de la suppression des sorties du groupe:', err);
+                            return res.status(500).send('Erreur serveur');
+                        }
+                        res.status(200).send('Groupe supprimé avec succès');
+                        if (result.affectedRows === 0) {
+                            return res.status(404).send('Groupe non trouvé');
+                        }
+                        res.status(200).send('Groupe supprimé avec succès');
+                    });
                 });
             });
         });
@@ -992,7 +1008,7 @@ app.post('/leave_group', isAuthenticated, (req, res) => {
 });
 
 
-app.get('/get_statistics',(req, res) => {
+app.get('/get_statistics', (req, res) => {
     const query = `
         SELECT 
             (SELECT COUNT(*) FROM participation) AS totalSorties,
@@ -1009,12 +1025,12 @@ app.get('/get_statistics',(req, res) => {
             return;
         }
 
-           res.json(results[0]);
+        res.json(results[0]);
     });
 });
 
 
-app.get('/get_top_friends',(req, res) => {
+app.get('/get_top_friends', (req, res) => {
     const userID = req.session.user.id;
 
     const query = `
