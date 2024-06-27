@@ -412,6 +412,17 @@ app.get('/get_pseudo', isAuthenticated, async (req, res) => {
     }
 });
 
+app.get('/get_pseudo/:id', isAuthenticated, async (req, res) => {
+    const { id } = req.params;
+    try {
+        const [rows] = await db.promise().query('SELECT Pseudo FROM utilisateur WHERE ID_utilisateur = ?', [id]);
+        res.send(rows[0]);
+    } catch (err) {
+        console.error("Erreur lors de la récupération du pseudo : ", err);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
 
 app.get('/recup_dispo', isAuthenticated, async (req, res) => {
     try {
@@ -696,6 +707,51 @@ app.get('/group_members/:groupID', isAuthenticated, async (req, res) => {
     }
 });
 
+
+app.post('/delete_group', isAuthenticated, async (req, res) => {
+    const { id } = req.body;
+
+    if (!id) {
+        return res.status(400).send('ID du groupe non fourni');
+    }
+
+    try {
+        // Supprimer les messages du groupe
+        const deleteMessagesSql = 'DELETE FROM message_groupe WHERE ID_Groupe = ?';
+        db.query(deleteMessagesSql, [id], (err, result) => {
+            if (err) {
+                console.error('Erreur lors de la suppression des messages du groupe:', err);
+                return res.status(500).send('Erreur serveur');
+            }
+
+            // Supprimer les membres du groupe
+            const deleteMembersSql = 'DELETE FROM membre_groupe WHERE ID_Groupe = ?';
+            db.query(deleteMembersSql, [id], (err, result) => {
+                if (err) {
+                    console.error('Erreur lors de la suppression des membres du groupe:', err);
+                    return res.status(500).send('Erreur serveur');
+                }
+
+                // Supprimer le groupe
+                const deleteGroupSql = 'DELETE FROM groupe WHERE ID_Groupe = ?';
+                db.query(deleteGroupSql, [id], (err, result) => {
+                    if (err) {
+                        console.error('Erreur lors de la suppression du groupe:', err);
+                        return res.status(500).send('Erreur serveur');
+                    }
+                    if (result.affectedRows === 0) {
+                        return res.status(404).send('Groupe non trouvé');
+                    }
+                    res.status(200).send('Groupe supprimé avec succès');
+                });
+            });
+        });
+    } catch (error) {
+        console.error('Erreur serveur:', error);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
 app.post('/add_membergroupe', (req, res) => {
     const { ID_Groupe, ID_Utilisateur } = req.body;
 
@@ -802,8 +858,8 @@ app.get('/sorties', isAuthenticated, (req, res) => {
 
 app.get('/invitations', isAuthenticated, (req, res) => {
     const session_id = req.session.user.id;
-    const sql = 'SELECT * FROM sortie WHERE ID_Sortie NOT IN (SELECT ID_Sortie FROM participation WHERE ID_Utilisateur = ?);';
-    db.query(sql, [session_id], (err, result) => {
+    const sql = 'SELECT * FROM sortie WHERE ID_Sortie NOT IN (SELECT ID_Sortie FROM participation WHERE ID_Utilisateur = ?) AND ID_Groupe IN (SELECT ID_Groupe FROM membre_groupe WHERE ID_Utilisateur = ?)';
+    db.query(sql, [session_id, session_id], (err, result) => {
         if (err) {
             console.error('Erreur lors de la récupération des invitations:', err);
             return res.status(500).send(err);
@@ -822,7 +878,16 @@ app.post('/accepter_invitation', isAuthenticated, (req, res) => {
             console.error('Erreur lors de l\'acceptation de l\'invitation:', err);
             return res.status(500).send(err);
         }
-        res.send('Invitation acceptée avec succès');
+        db.query('UPDATE sortie SET nb_personnes = nb_personnes + 1 WHERE ID_Sortie = ?', [ID_Sortie], (err, result) => {
+            if (err) {
+                console.error('Erreur lors de la mise à jour du nombre de participants:', err);
+                return res.status(500).send(err);
+            }
+            res.send('Invitation acceptée avec succès');
+
+        });
+
+
     });
 });
 
@@ -887,7 +952,7 @@ app.post('/leave_group', isAuthenticated, (req, res) => {
 });
 
 app.post('/leave_group', isAuthenticated, (req, res) => {
-    const {group_ID} = req.body;
+    const { group_ID } = req.body;
     const userID = req.session.user.id
 
     // Supprimer les messages de l'utilisateur dans le groupe
