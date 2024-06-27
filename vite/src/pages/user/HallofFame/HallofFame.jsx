@@ -54,13 +54,19 @@ const HallOfFame = () => {
           img: index === 0 ? 'hall_of_fame_1.jpg' : index === 1 ? 'hall_of_fame_2.jpg' : 'hall_of_fame_3.jpg'
         }));
 
+        // Vérifiez si une des requêtes renvoie une liste vide
+        const hasData = statsResponse.data.totalSorties > 0 
+                        && friendsResponse.data.length > 0 
+                        && placesResponse.data.length > 0;
+
         setUserStats(prevStats => ({
           ...prevStats,
           totalEvents: totalSorties,
           organizedEvents: evenementsOrganises,
           participationRate: Math.round(tauxParticipation), // Arrondir le taux de participation à un entier
           mostFrequentFriends: mostFrequentFriends,
-          mostFrequentPlaces: mostFrequentPlaces
+          mostFrequentPlaces: mostFrequentPlaces,
+          hasData: hasData
         }));
         setLoading(false);
       } catch (error) {
@@ -89,6 +95,11 @@ const HallOfFame = () => {
     );
   }
 
+  const hasNoActivities = 
+    userStats.totalEvents === 0 && 
+    userStats.mostFrequentFriends.length === 0 && 
+    userStats.mostFrequentPlaces.length === 0;
+
   return (
     <>
       <Navbar />
@@ -96,14 +107,20 @@ const HallOfFame = () => {
         <h2>Hall of Fame <FaTrophy /></h2>
       </div>
       <div className="hall-of-fame">
-        <MostFrequentFriends friends={userStats.mostFrequentFriends} />
-        <MostFrequentPlaces places={userStats.mostFrequentPlaces} />
-        {isAdmin && (
-          <ParticipationStats
-            totalEvents={userStats.totalEvents}
-            organizedEvents={userStats.organizedEvents}
-            participationRate={userStats.participationRate}
-          />
+        {hasNoActivities ? (
+          <p>Vous n'avez pas fait de sortie sur le site</p>
+        ) : (
+          <>
+            <MostFrequentFriends friends={userStats.mostFrequentFriends} />
+            <MostFrequentPlaces places={userStats.mostFrequentPlaces} />
+            {isAdmin && userStats.hasData && (
+              <ParticipationStats
+                totalEvents={userStats.totalEvents}
+                organizedEvents={userStats.organizedEvents}
+                participationRate={userStats.participationRate}
+              />
+            )}
+          </>
         )}
       </div>
     </>
@@ -111,3 +128,4 @@ const HallOfFame = () => {
 };
 
 export default HallOfFame;
+
