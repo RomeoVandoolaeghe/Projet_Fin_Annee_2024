@@ -18,18 +18,18 @@ const Parametres = ({ onImageSelect }) => {
   const [selectedImage, setSelectedImage] = useState('');
   const [images, setImages] = useState([]);
 
-  useEffect(() => {
-    // Récupérer les images disponibles
-    const fetchImages = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/get_images', { withCredentials: true });
-        setImages(response.data);
-      } catch (error) {
-        console.error('Erreur lors de la récupération des images', error);
-      }
-    };
-    fetchImages();
-  }, []);
+  // useEffect(() => {
+  //   // Récupérer les images disponibles
+  //   const fetchImages = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:3000/get_images', { withCredentials: true });
+  //       setImages(response.data);
+  //     } catch (error) {
+  //       console.error('Erreur lors de la récupération des images', error);
+  //     }
+  //   };
+  //   fetchImages();
+  // }, []);
 
   const handleSubmit2 = (e) => {
     e.preventDefault();

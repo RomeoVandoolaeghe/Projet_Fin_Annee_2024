@@ -49,9 +49,9 @@ const ProfileHeader = ({ profileImage }) => {
         if(response.data == ''){
           document.getElementById('Erreur').innerHTML = "Vous n'avez pas encore renseigné vos disponibilités";
         }
-        else {
-          console.error('Les données reçues ne sont pas valides', response.data);
-        }
+        // else {
+        //   console.error('Les données reçues ne sont pas valides', response.data);
+        // }
       } catch (error) {
         console.log("Erreur lors de la requête:", error);
         setError(error);

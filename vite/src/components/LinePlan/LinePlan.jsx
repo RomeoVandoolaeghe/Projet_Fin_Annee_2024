@@ -6,6 +6,7 @@ const LinePlan = () => {
   const [data_sorties, setData_sorties] = useState([]); // État pour stocker les données des sorties
   const [data_invitations, setData_invit] = useState([]); // État pour stocker les données des invitations
   const [pseudos, setPseudos] = useState({}); // État pour stocker les pseudos des créateurs
+  const [dispo, setDispo] = useState([]); // État pour stocker les disponibilités
 
   useEffect(() => {
     const fetchSorties = async () => {
@@ -52,9 +53,29 @@ const LinePlan = () => {
       }
     };
 
+    const fetchDispo = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/recup_dispo', { withCredentials: true });
+        // Supposons que response.data est un tableau d'objets avec day, start_time, end_time
+        const structuredDispo = response.data.map(dispo => ({
+          day: dispo.Jour,
+          startTime: dispo.Heure_debut,
+          endTime: dispo.Heure_fin,
+        }));
+        setDispo(structuredDispo);
+      } catch (error) {
+        console.log("Erreur lors de la requête:", error);
+      }
+    };
+
+
     fetchSorties();
     fetchInvitations();
+    fetchDispo();
+
+
   }, []);
+
 
   const handlePseudo = async (id) => {
     try {
@@ -67,15 +88,55 @@ const LinePlan = () => {
     }
   };
 
-  const handleAccept = async (id) => {
-    try {
-      await axios.post('http://localhost:3000/accepter_invitation', { ID_Sortie: id }, { withCredentials: true });
-      console.log('Invitation acceptée');
-      alert('Invitation acceptée');
-      location.reload();
-    } catch (error) {
-      console.error('Erreur lors de l\'acceptation de l\'invitation:', error);
+  const handleAccept = async (id, date) => {
+    // Fonction pour convertir la date jj/mm/aaaa en objet Date
+    function getDayAndTimeInFrench(dateString) {
+      const joursDeLaSemaine = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+      const date = new Date(dateString);
+      const dayIndex = date.getDay(); // Utilisation de getDay pour obtenir le jour de la semaine en local
+
+      // Récupérer les heures et les minutes en utilisant toLocaleTimeString avec le fuseau horaire français
+      const options = { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit', hour12: false };
+      const heureDebut = date.toLocaleTimeString('fr-FR', options);
+
+      const jourDeLaSemaine = joursDeLaSemaine[dayIndex];
+
+      return {
+        jourDeLaSemaine,
+        heureDebut
+      };
     }
+    // Exemple d'utilisation
+    const TIME = getDayAndTimeInFrench(date);
+    console.log("jour et heure est :", TIME); // Affiche "mercredi" et l'heure en fuseau horaire français
+
+    console.log("dispo", dispo);
+
+    // Vérifier si le jour et l'heure de début sont dans les disponibilités
+    const isAvailable = dispo.some(d => {
+      return d.day === TIME.jourDeLaSemaine && TIME.heureDebut >= d.startTime && TIME.heureDebut <= d.endTime;
+    });
+
+    
+
+
+
+    if (!isAvailable) {
+      alert('Vous n\'êtes pas disponible pour cette sortie');
+      return;
+    }
+    else {
+      try {
+        await axios.post('http://localhost:3000/accepter_invitation', { ID_Sortie: id }, { withCredentials: true });
+        console.log('Invitation acceptée');
+        alert('Invitation acceptée');
+        location.reload();
+      } catch (error) {
+        console.error('Erreur lors de l\'acceptation de l\'invitation:', error);
+      }
+    }
+
+
   };
 
   const handleRefuse = async (id) => {
@@ -139,7 +200,7 @@ const LinePlan = () => {
             <span>{data.Lieu}</span>
             <span>{data.Duree}</span>
             <span>
-              <button title="Accepter" onClick={() => handleAccept(data.ID_Sortie)}>YES</button>
+              <button title="Accepter" onClick={() => handleAccept(data.ID_Sortie, data.Date_Sortie)}>YES</button>
               <button title="Refuser" onClick={() => handleRefuse(data.ID_Sortie)}>NO</button>
             </span>
           </div>
