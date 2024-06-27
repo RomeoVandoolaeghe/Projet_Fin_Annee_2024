@@ -88,7 +88,7 @@ const LinePlan = () => {
     }
   };
 
-  const handleAccept = async (id, date) => {
+  const handleAccept = async (id, date, Duree) => {
     // Fonction pour convertir la date jj/mm/aaaa en objet Date
     function getDayAndTimeInFrench(dateString) {
       const joursDeLaSemaine = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
@@ -99,25 +99,36 @@ const LinePlan = () => {
       const options = { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit', hour12: false };
       const heureDebut = date.toLocaleTimeString('fr-FR', options);
 
+      // Calculer heureFin en ajoutant Duree (en minutes) à heureDebut
+      const heureDebutObj = new Date(date); // Créer une copie de l'objet Date initial
+      heureDebutObj.setMinutes(heureDebutObj.getMinutes() + Duree); // Ajouter la durée en minutes
+      const heureFin = heureDebutObj.toLocaleTimeString('fr-FR', options);
+
       const jourDeLaSemaine = joursDeLaSemaine[dayIndex];
 
       return {
         jourDeLaSemaine,
-        heureDebut
+        heureDebut,
+        heureFin
       };
     }
+
     // Exemple d'utilisation
     const TIME = getDayAndTimeInFrench(date);
-    console.log("jour et heure est :", TIME); // Affiche "mercredi" et l'heure en fuseau horaire français
+    console.log("jour et heures de la sortie est :", TIME); // Affiche "jourDeLaSemaine", "heureDebut" et "heureFin" en fuseau horaire français
 
     console.log("dispo", dispo);
 
-    // Vérifier si le jour et l'heure de début sont dans les disponibilités
+    // Vérifier si le jour, l'heure de début et l'heure de fin sont dans les disponibilités
     const isAvailable = dispo.some(d => {
-      return d.day === TIME.jourDeLaSemaine && TIME.heureDebut >= d.startTime && TIME.heureDebut <= d.endTime;
+      return (
+        d.day === TIME.jourDeLaSemaine &&
+        TIME.heureDebut >= d.startTime &&
+        TIME.heureFin <= d.endTime
+      );
     });
 
-    
+
 
 
 
@@ -200,7 +211,7 @@ const LinePlan = () => {
             <span>{data.Lieu}</span>
             <span>{data.Duree}</span>
             <span>
-              <button title="Accepter" onClick={() => handleAccept(data.ID_Sortie, data.Date_Sortie)}>YES</button>
+              <button title="Accepter" onClick={() => handleAccept(data.ID_Sortie, data.Date_Sortie, data.Duree)}>YES</button>
               <button title="Refuser" onClick={() => handleRefuse(data.ID_Sortie)}>NO</button>
             </span>
           </div>
