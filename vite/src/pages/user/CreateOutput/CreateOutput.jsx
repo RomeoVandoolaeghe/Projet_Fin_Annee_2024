@@ -43,12 +43,19 @@ function CreateOutput() {
   const handleCreate = () => {
     axios.post('http://localhost:3000/creer_sortie', { ...formData, ID_Groupe: groupID }, { withCredentials: true })
       .then((response) => {
-        console.log('Sortie créée :', response.data);
-        setNotification({ type: 'success', message: 'Sortie créée avec succès!', visible: true });
-        // Masquer la notification après 5 secondes
-        setTimeout(() => {
-          setNotification({ ...notification, visible: false });
-        }, 5000);
+        if(response.status === 200) {
+          return alert('La sortie doit être dans le futur!');
+        }
+        else{
+          console.log('Sortie créée :', response.data);
+          setNotification({ type: 'success', message: 'Sortie créée avec succès!', visible: true });
+          // Masquer la notification après 5 secondes
+          setTimeout(() => {
+            setNotification({ ...notification, visible: false });
+          }, 5000);
+          handleAdd_Member_Sortie();
+        }
+
       })
       .catch((error) => {
         console.error("Erreur lors de la création de la sortie ", error);
@@ -59,7 +66,7 @@ function CreateOutput() {
         }, 5000);
       });
 
-    handleAdd_Member_Sortie();
+
   };
 
   const handleAdd_Member_Sortie = () => {
@@ -103,15 +110,15 @@ function CreateOutput() {
             <input type='text' placeholder='Titre de la sortie' title="Titre de la sortie" name="title" value={formData.title} onChange={handleChange} className='input1' />
           </div>
           <div className='space one'>
-            <textarea
+            <input type='text'
               placeholder="Description de la sortie"
               title="Description"
               name="description"
               value={formData.description}
               onChange={handleChange}
               className='input1'
-              rows="30  "
-              cols="39"
+              rows="20"
+              cols="42" 
             />
           </div>
           <div className='space'>
