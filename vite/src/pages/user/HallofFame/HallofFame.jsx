@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import MostFrequentFriends from '../../../components/MostFrequentFriends/MostFrequentFriends';
 import MostFrequentPlaces from '../../../components/MostFrequentPlaces/MostFrequentPlaces';
 import ParticipationStats from '../../../components/ParticipationStats/ParticipationStats';
-import CircularProgressWithLabel from '../../../components/CircularProgressWithLabel/CircularProgressWithLabel';
 import { FaTrophy } from 'react-icons/fa';
 import './HallofFame.css';
 import Navbar from '../../../components/Navbar/Navbar';
@@ -14,7 +13,6 @@ const initialUserStats = {
   totalEvents: 0,
   organizedEvents: 0,
   participationRate: 0,
-  badges: ['Organisateur expert', 'Amateur de cafés'],
 };
 
 const HallOfFame = () => {
@@ -44,7 +42,7 @@ const HallOfFame = () => {
         const mostFrequentPlaces = placesResponse.data.map((place, index) => ({
           name: place.place,
           times: place.visit_count,
-          img: index === 0 ? 'hall_of_fame_1.jpg' : index === 1 ? 'hall_of_fame_2.jpg' : 'hall_of_fame_2.jpg'
+          img: index === 0 ? 'hall_of_fame_1.jpg' : index === 1 ? 'hall_of_fame_2.jpg' : 'hall_of_fame_3.jpg'
         }));
 
         setUserStats(prevStats => ({
@@ -64,23 +62,6 @@ const HallOfFame = () => {
 
     fetchUserStats();
   }, []);
-
-  if (loading) {
-    return (
-      <>
-        <Navbar />
-        <div className='header'>
-          <h2>Hall of Fame <FaTrophy /></h2>
-        </div>
-        <div className="hall-of-fame">
-          <div className="loading-section">
-            <CircularProgressWithLabel value={0} />
-            <p>Chargement des informations...</p>
-          </div>
-        </div>
-      </>
-    );
-  }
 
   return (
     <>
