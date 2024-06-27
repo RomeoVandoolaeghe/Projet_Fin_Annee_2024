@@ -927,6 +927,54 @@ app.post('/leave_group', isAuthenticated, (req, res) => {
 });
 
 
+app.get('/get_statistics',(req, res) => {
+    const query = `
+        SELECT 
+            (SELECT COUNT(*) FROM participation) AS totalSorties,
+            (SELECT COUNT(*) FROM participation WHERE PARTICIPATE = 1) AS evenementsOrganises,
+            (SELECT 
+                (SELECT COUNT(*) FROM participation WHERE PARTICIPATE = 1) / 
+                (SELECT COUNT(*) FROM participation) * 100) AS tauxParticipation
+    `;
+
+    db.query(query, [], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de la récupération des statistiques:', err);
+            res.status(500).send({ error: 'Erreur lors de la récupération des statistiques' });
+            return;
+        }
+
+           res.json(results[0]);
+    });
+});
+
+
+
+app.get('/get_top_friends',(req, res) => {
+    const userID = 8;
+
+    const query = `
+        SELECT u.ID_utilisateur AS ID, u.Pseudo AS name, COUNT(*) as participation_count
+        FROM participation p
+        JOIN utilisateur u ON p.ID_Utilisateur = u.ID_utilisateur
+        WHERE p.PARTICIPATE = 1 AND p.ID_Utilisateur != ?
+        GROUP BY u.ID_utilisateur
+        ORDER BY participation_count DESC
+        LIMIT 3
+    `;
+
+    db.query(query, [userID], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de la récupération des amis les plus fréquentés:', err);
+            res.status(500).send({ error: 'Erreur lors de la récupération des amis les plus fréquentés' });
+            return;
+        }
+
+        res.json(results);
+    });
+});
+
+
 
 
 

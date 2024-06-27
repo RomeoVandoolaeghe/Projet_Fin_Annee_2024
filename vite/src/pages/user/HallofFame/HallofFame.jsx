@@ -6,6 +6,7 @@ import CircularProgressWithLabel from '../../../components/CircularProgressWithL
 import { FaTrophy } from 'react-icons/fa';
 import './HallofFame.css';
 import Navbar from '../../../components/Navbar/Navbar';
+import axios from 'axios';
 
 const initialUserStats = {
   mostFrequentFriends: [
@@ -17,53 +18,37 @@ const initialUserStats = {
     { name: 'Café de Paris', times: 3, img: 'lieu1.jpeg' },
     { name: 'Parc Central', times: 2, img: 'lieu2.jpg' },
   ],
-  totalEvents: 10,
-  organizedEvents: 4,
-  participationRate: 80,
+  totalEvents: 0,
+  organizedEvents: 0,
+  participationRate: 0,
   badges: ['Organisateur expert', 'Amateur de cafés'],
 };
 
 const HallOfFame = () => {
-  const [userStats, setUserStats] = useState(null);
+  const [userStats, setUserStats] = useState(initialUserStats);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simuler une requête à la base de données
     const fetchUserStats = async () => {
-      // Simuler un délai de chargement
-      setTimeout(() => {
-        setUserStats(initialUserStats);
+      try {
+        const response = await axios.get('http://localhost:3000/get_statistics', { withCredentials: true });
+        const { totalSorties, evenementsOrganises, tauxParticipation } = response.data;
+        setUserStats(prevStats => ({
+          ...prevStats,
+          totalEvents: totalSorties,
+          organizedEvents: evenementsOrganises,
+          participationRate: Math.round(tauxParticipation), // Arrondir le taux de participation à un entier
+        }));
         setLoading(false);
-      }, 1000);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des statistiques:', error);
+        setLoading(false);
+      }
     };
 
     fetchUserStats();
   }, []);
 
-  if (loading) {
-    return (
-      <>
-        <Navbar />
-        <div className='header'>
-          <h2>Hall of Fame <FaTrophy /></h2>
-        </div>
-        <div className="hall-of-fame">
-          <div className="loading-section">
-            <CircularProgressWithLabel value={0} />
-            <p>Chargement des amis les plus fréquentés...</p>
-          </div>
-          <div className="loading-section">
-            <CircularProgressWithLabel value={0} />
-            <p>Chargement des lieux les plus fréquentés...</p>
-          </div>
-          <div className="loading-section">
-            <CircularProgressWithLabel value={0} />
-            <p>Chargement des statistiques de participation...</p>
-          </div>
-        </div>
-      </>
-    );
-  }
 
   return (
     <>
