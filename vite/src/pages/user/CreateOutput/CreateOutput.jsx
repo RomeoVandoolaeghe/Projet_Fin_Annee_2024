@@ -45,16 +45,20 @@ function CreateOutput() {
       .then((response) => {
         console.log('Sortie créée :', response.data);
         setNotification({ type: 'success', message: 'Sortie créée avec succès!', visible: true });
+        // Masquer la notification après 5 secondes
+        setTimeout(() => {
+          setNotification({ ...notification, visible: false });
+        }, 5000);
       })
       .catch((error) => {
         console.error("Erreur lors de la création de la sortie ", error);
         setNotification({ type: 'error', message: 'Erreur lors de la création de la sortie', visible: true });
+        // Masquer la notification après 5 secondes
+        setTimeout(() => {
+          setNotification({ ...notification, visible: false });
+        }, 5000);
       });
 
-    // Masquer la notification après 5 secondes
-    setTimeout(() => {
-      setNotification({ ...notification, visible: false });
-    }, 5000);
     handleAdd_Member_Sortie();
   };
 
@@ -67,7 +71,6 @@ function CreateOutput() {
         console.error('Erreur lors de la requête POST:', error);
       });
   };
-
 
   const navigate = useNavigate(); // Utilisation du hook useNavigate
   const handleCancel = () => {
@@ -97,22 +100,31 @@ function CreateOutput() {
         <div className='start reveal'>
           <h3>Creer une sortie</h3>
           <div className='space'>
-            <input type='text' placeholder='Titre de la sortie' title="Titre de la sortie" name="title" value={formData.title} onChange={handleChange} />
+            <input type='text' placeholder='Titre de la sortie' title="Titre de la sortie" name="title" value={formData.title} onChange={handleChange} className='input1' />
           </div>
-          <div>
-            <input placeholder="Description de la sortie" title="Description" name="description" value={formData.description} onChange={handleChange} />
-          </div>
-          <div>
-            <input type="text" placeholder='Lieu' name="lieu" value={formData.lieu} onChange={handleChange} />
+          <div className='space one'>
+            <textarea
+              placeholder="Description de la sortie"
+              title="Description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              className='input1'
+              rows="30  "
+              cols="39"
+            />
           </div>
           <div className='space'>
-            <input type='text' placeholder="Durée (en minutes)" name="duree" value={formData.duree} onChange={handleChange} />
+            <input type="text" placeholder='Lieu' name="lieu" value={formData.lieu} onChange={handleChange} className='input1' />
+          </div>
+          <div className='space'>
+            <input type='text' placeholder="Durée (en minutes)" name="duree" value={formData.duree} onChange={handleChange} className='input1' />
           </div>
           <div className='linediv reveal'>
-            <input type='datetime-local' title="Date" name="date" value={formData.date} onChange={handleChange} min={getMinDateTime()} />
+            <input type='datetime-local' title="Date" name="date" value={formData.date} onChange={handleChange} min={getMinDateTime()} className='input1' />
           </div>
           <div className='linebutton reveal'>
-            <button title="Annuler" onClick={handleCancel} >Retour</button>
+            <button title="Annuler" onClick={handleCancel}>Retour</button>
             <button title="Creer" onClick={handleCreate}>Créer</button>
           </div>
         </div>
