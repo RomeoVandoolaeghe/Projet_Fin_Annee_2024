@@ -600,7 +600,7 @@ app.post('/creer_sortie', isAuthenticated, (req, res) => {
     const dateSortie = new Date(date);
     const dateActuelle = new Date();
 
-    console.log('date sortie',dateSortie);
+    console.log('date sortie', dateSortie);
     console.log('date actuelle', dateActuelle);
 
     // Vérifier que la date de la sortie est dans le futur
@@ -744,24 +744,21 @@ app.post('/delete_group', isAuthenticated, async (req, res) => {
                     console.error('Erreur lors de la suppression des membres du groupe:', err);
                     return res.status(500).send('Erreur serveur');
                 }
-
-                // Supprimer le groupe
-                const deleteGroupSql = 'DELETE FROM groupe WHERE ID_Groupe = ?';
-                db.query(deleteGroupSql, [id], (err, result) => {
+                db.query('DELETE FROM sortie WHERE ID_Groupe = ?', [id], (err, result) => {
                     if (err) {
-                        console.error('Erreur lors de la suppression du groupe:', err);
+                        console.error('Erreur lors de la suppression des sorties du groupe:', err);
                         return res.status(500).send('Erreur serveur');
                     }
-                    db.query('DELETE FROM sortie WHERE ID_Groupe = ?', [id], (err, result) => {
+                    const deleteGroupSql = 'DELETE FROM groupe WHERE ID_Groupe = ?';
+                    db.query(deleteGroupSql, [id], (err, result) => {
                         if (err) {
-                            console.error('Erreur lors de la suppression des sorties du groupe:', err);
+                            console.error('Erreur lors de la suppression du groupe:', err);
                             return res.status(500).send('Erreur serveur');
                         }
                         res.status(200).send('Groupe supprimé avec succès');
                         if (result.affectedRows === 0) {
                             return res.status(404).send('Groupe non trouvé');
                         }
-                        res.status(200).send('Groupe supprimé avec succès');
                     });
                 });
             });
