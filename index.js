@@ -992,7 +992,7 @@ app.post('/leave_group', isAuthenticated, (req, res) => {
 });
 
 
-app.get('/get_statistics',(req, res) => {
+app.get('/get_statistics', (req, res) => {
     const query = `
         SELECT 
             (SELECT COUNT(*) FROM participation) AS totalSorties,
@@ -1009,12 +1009,12 @@ app.get('/get_statistics',(req, res) => {
             return;
         }
 
-           res.json(results[0]);
+        res.json(results[0]);
     });
 });
 
 
-app.get('/get_top_friends',(req, res) => {
+app.get('/get_top_friends', (req, res) => {
     const userID = req.session.user.id;
 
     const query = `
