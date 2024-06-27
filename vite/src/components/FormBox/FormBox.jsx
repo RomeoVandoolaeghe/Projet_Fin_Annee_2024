@@ -98,7 +98,7 @@ const FormBox = () => {
     axios.post(url, formData2, { withCredentials: true })
       .then(response => {
         console.log('Réponse du serveur:', response.data);
-        if(response.status === 301){
+        if(response.status === 200){
           alert('Inscription réussie');
         }
       })

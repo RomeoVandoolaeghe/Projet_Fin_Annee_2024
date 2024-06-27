@@ -15,21 +15,22 @@ const Parametres = ({ onImageSelect }) => {
     description: '',
   });
 
-  const [selectedImage, setSelectedImage] = useState('');
-  const [images, setImages] = useState([]);
+  axios.post("http://localhost:3000/acces", "", { withCredentials: true })
+    .then(response => {
+      console.log('Réponse de la requête POST:', response);
+      if (response.status === 201) {
+        window.location.href = 'http://localhost:5173';
+        alert('Veuillez vous connecter pour accéder à cette page')
+      }
 
-  // useEffect(() => {
-  //   // Récupérer les images disponibles
-  //   const fetchImages = async () => {
-  //     try {
-  //       const response = await axios.get('http://localhost:3000/get_images', { withCredentials: true });
-  //       setImages(response.data);
-  //     } catch (error) {
-  //       console.error('Erreur lors de la récupération des images', error);
-  //     }
-  //   };
-  //   fetchImages();
-  // }, []);
+
+    })
+    .catch(error => {
+      console.error('Erreur lors de la requête POST:', error);
+    });
+
+
+
 
   const handleSubmit2 = (e) => {
     e.preventDefault();
@@ -109,20 +110,8 @@ const Parametres = ({ onImageSelect }) => {
     setFormData2({ ...formData2, description: e.target.value });
   };
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-  };
 
-  const handleSaveImage = () => {
-    axios.post('http://localhost:3000/update_profile_image', { image: selectedImage }, { withCredentials: true })
-      .then(response => {
-        onImageSelect(selectedImage);
-        alert('Image de profil mise à jour');
-      })
-      .catch(error => {
-        console.error('Erreur lors de la mise à jour de l\'image de profil', error);
-      });
-  };
+
 
   return (
     <>
@@ -135,27 +124,6 @@ const Parametres = ({ onImageSelect }) => {
           <section>
             <h2>Informations Personnelles</h2>
             <div>
-              <label>Photo de profil :</label>
-              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {images.map((image, index) => (
-                  <img
-                    key={index}
-                    src={`/public/image/${image.image_name}`}
-                    alt={`suggestion-${index}`}
-                    style={{
-                      width: '100px',
-                      height: '100px',
-                      margin: '10px',
-                      border: selectedImage === image.image_name ? '3px solid blue' : '1px solid gray',
-                      cursor: 'pointer',
-                    }}
-                    onClick={() => handleImageClick(image.image_name)}
-                  />
-                ))}
-              </div>
-              <button type="button" onClick={handleSaveImage}>Enregistrer l'image</button>
-            </div>
-            <div>
               <label id="description">Description :</label>
               <textarea
                 placeholder="Modifier la description"
@@ -166,7 +134,6 @@ const Parametres = ({ onImageSelect }) => {
               <button type="submit" onClick={handleSubmit2}>Modifier</button>
             </div>
           </section>
-
           <section>
             <h2>Disponibilités</h2>
             <div>

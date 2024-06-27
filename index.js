@@ -94,7 +94,7 @@ app.post('/inscription', async (req, res) => {
             return res.send("L'adresse mail existe déjà");
         }
         await db.promise().query('INSERT INTO utilisateur (Pseudo, Mail, Password) VALUES (?, ?, ?)', [pseudo, e_mail, hashedPassword]);
-        res.send('Utilisateur enregistré avec succès');
+        res.status(200).send('Utilisateur enregistré avec succès');
     } catch (err) {
         console.error("Erreur lors de l'insertion dans la base de données : ", err);
         res.status(500).send('Erreur serveur');

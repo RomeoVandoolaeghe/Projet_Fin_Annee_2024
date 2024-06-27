@@ -14,7 +14,25 @@ function CreateOutput() {
     lieu: '',
   });
 
+
+
   const [notification, setNotification] = useState({ type: '', message: '', visible: false });
+
+
+  axios.post("http://localhost:3000/acces", "", { withCredentials: true })
+    .then(response => {
+      console.log('Réponse de la requête POST:', response);
+      if (response.status === 201) {
+        window.location.href = 'http://localhost:5173';
+        alert('Veuillez vous connecter pour accéder à cette page')
+      }
+
+
+    })
+    .catch(error => {
+      console.error('Erreur lors de la requête POST:', error);
+    });
+
 
   useEffect(() => {
     // Configuration de base de ScrollReveal
@@ -45,10 +63,10 @@ function CreateOutput() {
       .then((response) => {
         console.log(response.status);
         console.log(response.data);
-        if(response.status === 201) {
+        if (response.status === 201) {
           return alert('La sortie doit être dans le futur!');
         }
-        else{
+        else {
           console.log('Sortie créée :', response.data);
           setNotification({ type: 'success', message: 'Sortie créée avec succès!', visible: true });
           // Masquer la notification après 5 secondes
@@ -120,7 +138,7 @@ function CreateOutput() {
               onChange={handleChange}
               className='input1'
               rows="20"
-              cols="42" 
+              cols="42"
             />
           </div>
           <div className='space'>

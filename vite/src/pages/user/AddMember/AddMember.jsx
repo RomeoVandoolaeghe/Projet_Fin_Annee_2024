@@ -14,6 +14,21 @@ function AddMember() {
     const groupName = localStorage.getItem('nomgroupe');
     const navigate = useNavigate();
 
+    axios.post("http://localhost:3000/acces", "", { withCredentials: true })
+    .then(response => {
+      console.log('Réponse de la requête POST:', response);
+      if (response.status === 201) {
+        window.location.href = 'http://localhost:5173';
+        alert('Veuillez vous connecter pour accéder à cette page')
+      }
+
+
+    })
+    .catch(error => {
+      console.error('Erreur lors de la requête POST:', error);
+    });
+
+
 
     useEffect(() => {
         if (memberName) {
