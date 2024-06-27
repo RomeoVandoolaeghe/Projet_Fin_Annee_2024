@@ -9,15 +9,8 @@ import Navbar from '../../../components/Navbar/Navbar';
 import axios from 'axios';
 
 const initialUserStats = {
-  mostFrequentFriends: [
-    { name: 'Hugo', times: 5, img: 'amis1.jpg' },
-    { name: 'Robert', times: 4, img: 'amis1.jpg' },
-    { name: 'Yanelle', times: 3, img: 'amis1.jpg' },
-  ],
-  mostFrequentPlaces: [
-    { name: 'Café de Paris', times: 3, img: 'lieu1.jpeg' },
-    { name: 'Parc Central', times: 2, img: 'lieu2.jpg' },
-  ],
+  mostFrequentFriends: [],
+  mostFrequentPlaces: [],
   totalEvents: 0,
   organizedEvents: 0,
   participationRate: 0,
@@ -31,13 +24,36 @@ const HallOfFame = () => {
   useEffect(() => {
     const fetchUserStats = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/get_statistics', { withCredentials: true });
-        const { totalSorties, evenementsOrganises, tauxParticipation } = response.data;
+        const [statsResponse, friendsResponse, placesResponse] = await Promise.all([
+          axios.get('http://localhost:3000/get_statistics', { withCredentials: true }),
+          axios.get('http://localhost:3000/get_top_friends', { withCredentials: true }),
+          axios.get('http://localhost:3000/get_top_places', { withCredentials: true })
+        ]);
+
+        console.log('Stats Response:', statsResponse.data);
+        console.log('Friends Response:', friendsResponse.data);
+        console.log('Places Response:', placesResponse.data);
+
+        const { totalSorties, evenementsOrganises, tauxParticipation } = statsResponse.data;
+        const mostFrequentFriends = friendsResponse.data.map((friend, index) => ({
+          name: friend.name,
+          times: friend.participation_count,
+          img: index === 0 ? 'hall_of_fame_1.jpg' : index === 1 ? 'hall_of_fame_2.jpg' : 'hall_of_fame_3.jpg'
+        }));
+
+        const mostFrequentPlaces = placesResponse.data.map((place, index) => ({
+          name: place.place,
+          times: place.visit_count,
+          img: index === 0 ? 'hall_of_fame_1.jpg' : index === 1 ? 'hall_of_fame_2.jpg' : 'hall_of_fame_2.jpg'
+        }));
+
         setUserStats(prevStats => ({
           ...prevStats,
           totalEvents: totalSorties,
           organizedEvents: evenementsOrganises,
           participationRate: Math.round(tauxParticipation), // Arrondir le taux de participation à un entier
+          mostFrequentFriends: mostFrequentFriends,
+          mostFrequentPlaces: mostFrequentPlaces
         }));
         setLoading(false);
       } catch (error) {
@@ -49,6 +65,22 @@ const HallOfFame = () => {
     fetchUserStats();
   }, []);
 
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className='header'>
+          <h2>Hall of Fame <FaTrophy /></h2>
+        </div>
+        <div className="hall-of-fame">
+          <div className="loading-section">
+            <CircularProgressWithLabel value={0} />
+            <p>Chargement des informations...</p>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

@@ -1014,9 +1014,8 @@ app.get('/get_statistics',(req, res) => {
 });
 
 
-
 app.get('/get_top_friends',(req, res) => {
-    const userID = 8;
+    const userID = req.session.user.id;
 
     const query = `
         SELECT u.ID_utilisateur AS ID, u.Pseudo AS name, COUNT(*) as participation_count
@@ -1038,6 +1037,60 @@ app.get('/get_top_friends',(req, res) => {
         res.json(results);
     });
 });
+
+
+app.get('/get_top_places', isAuthenticated, (req, res) => {
+    const userID = req.session.user.id;
+
+    const query = `
+        SELECT s.Lieu AS place, COUNT(*) as visit_count
+        FROM participation p
+        JOIN sortie s ON p.ID_Sortie = s.ID_Sortie
+        WHERE p.PARTICIPATE = 1 AND p.ID_Utilisateur = ?
+        GROUP BY s.Lieu
+        ORDER BY visit_count DESC
+        LIMIT 3
+    `;
+
+    db.query(query, [userID], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de la récupération des lieux les plus fréquentés:', err);
+            res.status(500).send({ error: 'Erreur lors de la récupération des lieux les plus fréquentés' });
+            return;
+        }
+
+        console.log('Résultats de la requête /get_top_places:', results);
+        res.json(results);
+    });
+});
+
+
+app.get('/get_user_info', isAuthenticated, (req, res) => {
+    const userID = req.session.user.id;
+
+    const query = `
+        SELECT IS_ADMIN
+        FROM utilisateur
+        WHERE ID_utilisateur = ?
+    `;
+
+    db.query(query, [userID], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de la récupération des informations utilisateur:', err);
+            res.status(500).send({ error: 'Erreur lors de la récupération des informations utilisateur' });
+            return;
+        }
+
+        if (results.length > 0) {
+            res.json({ isAdmin: results[0].IS_ADMIN });
+        } else {
+            res.status(404).send({ error: 'Utilisateur non trouvé' });
+        }
+    });
+});
+
+
+
 
 
 
